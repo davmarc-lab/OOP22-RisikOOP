@@ -9,10 +9,12 @@ public class TerritoryImpl implements Territory {
 
     private String name;
     private Set<Territory> adjTerritories;
+    private int numArmy;
 
     public TerritoryImpl(final String name) {
         this.name = name;
         this.adjTerritories = new HashSet<>();
+        this.numArmy = 0;
     }
 
     @Override
@@ -31,14 +33,21 @@ public class TerritoryImpl implements Territory {
     }
 
     @Override
-    public String toString() {
-        StringBuilder sBuilder = new StringBuilder();
-        for (final Territory t: this.getAdjTerritories()) {
-            sBuilder.append(t.getName()).append(", ");
-        }
-        sBuilder.delete(sBuilder.length() - 2, sBuilder.length() - 1);
-        String s = new String(new StringBuilder("NAME = ").append(this.getName()).append(", ADJ = [").append(sBuilder.toString()).append("]"));
+    public int getArmy() {
+        return this.numArmy;
+    }
 
-        return s;
+    @Override
+    public void addArmy(final int n) {
+        this.numArmy += n;
+    }
+
+    @Override
+    public String toString() {
+        return new String(new StringBuilder("NAME = ").append(this.getName()).append("NUM_ARMY = ").append(this.getArmy())
+                .append(", ADJ = [").append(
+                this.getAdjTerritories().stream()
+                .map(t -> t.getName())
+                .reduce((s1, s2) -> s1 + ", " + s2).get()).append("]"));
     }
 }

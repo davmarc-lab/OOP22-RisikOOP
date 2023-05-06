@@ -3,6 +3,7 @@ package it.unibo.model.territory.impl;
 import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -23,25 +24,25 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
         JSONParser parser = new JSONParser();
         JSONObject obj = new JSONObject();
         try {
-            JSONArray array = (JSONArray)parser.parse(new FileReader("src/main/resources/config/territory/Territories.json"));
+            JSONArray array = (JSONArray)parser.parse(new FileReader("resources/Territories.json"));
             for (final Object elem: array) {
                 obj = (JSONObject)elem;
-                this.territories.add(new TerritoryImpl(obj.get("name").toString()));
-            }
-            for (final Object elem: array) {
-                obj = (JSONObject)elem;
-                this.createAdjTerritories(obj);
+                String name = obj.get("name").toString();
+                JSONArray adjArray = (JSONArray)obj.get("adj");
+                if (!this.getNameSet().contains(name)) {
+                    this.territories.add(new TerritoryImpl(name));
+                }
+                Territory t = this.getTerritory(name);
+                for (final Object array_elem: adjArray) {
+                    if (!this.getNameSet().contains(array_elem.toString())) {
+                        this.territories.add(new TerritoryImpl(array_elem.toString()));
+                    }
+                    t.addAdjTerritory(this.getTerritory(array_elem.toString()));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void createAdjTerritories(final JSONObject obj) {
-        Territory t = this.getTerritory(obj.get("name").toString());
-        JSONArray adjArray = (JSONArray)obj.get("adj");
-
-        adjArray.stream().forEach((e -> t.addAdjTerritory(this.getTerritory(e.toString()))));
     }
 
     @Override
@@ -51,25 +52,26 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
 
     @Override
     public Set<String> getNameSet() {
-        Set<String> nameSet = new HashSet<>();
-        this.territories.forEach(t -> nameSet.add(t.getName()));
-        return nameSet;
+        return this.territories.stream()
+                .map(t -> t.getName())
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Territory getTerritory(final String name) {
-        return this.territories.stream().filter(t -> t.getName().compareToIgnoreCase(name) == 0).findFirst().get();
+        return this.territories.stream()
+                .filter(t -> t.getName().compareToIgnoreCase(name) == 0)
+                .findFirst()
+                .get();
     }
 
     @Override
     public String toString() {
-        StringBuilder sBuilder = new StringBuilder();
-
-        sBuilder.append("{");
-        this.getTerritories().forEach(t -> sBuilder.append(t).append("; "));
-        sBuilder.deleteCharAt(sBuilder.length() - 2);
-        sBuilder.append("}");
-
-        return sBuilder.toString();
+        return new String(new StringBuilder("{")
+                .append(this.getTerritories().stream()
+                        .map(t -> t.toString())
+                        .reduce((s1, s2) -> s1 + "; " + s2)
+                        .get())
+                .append("}"));
     }
 }

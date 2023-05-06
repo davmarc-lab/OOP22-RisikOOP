@@ -9,4 +9,8 @@ public interface Territory {
     Set<Territory> getAdjTerritories();
 
     void addAdjTerritory(Territory t);
+
+    int getArmy();
+
+    void addArmy(int n);
 }
