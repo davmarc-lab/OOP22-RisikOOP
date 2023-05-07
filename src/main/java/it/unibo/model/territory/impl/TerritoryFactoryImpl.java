@@ -13,6 +13,10 @@ import it.unibo.model.territory.api.TerritoryFactory;
 
 public class TerritoryFactoryImpl implements TerritoryFactory {
 
+    private static final String PATH_SEPARATOR = System.getProperty("file.separator");
+    private static final String PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
+            + "config" + PATH_SEPARATOR + "territory" + PATH_SEPARATOR + "Territories.json";
+
     private Set<Territory> territories;
 
     public TerritoryFactoryImpl() {
@@ -24,7 +28,7 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
         JSONParser parser = new JSONParser();
         JSONObject obj = new JSONObject();
         try {
-            JSONArray array = (JSONArray)parser.parse(new FileReader("resources/Territories.json"));
+            JSONArray array = (JSONArray)parser.parse(new FileReader(PATH));
             for (final Object elem: array) {
                 obj = (JSONObject)elem;
                 String name = obj.get("name").toString();
