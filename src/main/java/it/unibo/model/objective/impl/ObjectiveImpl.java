@@ -1,4 +1,4 @@
-package it.unibo.model.objective;
+package it.unibo.model.objective.impl;
 
 import it.unibo.model.objective.api.Objective;
 

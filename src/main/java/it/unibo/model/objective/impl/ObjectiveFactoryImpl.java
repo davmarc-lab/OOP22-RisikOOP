@@ -1,4 +1,4 @@
-package it.unibo.model.objective;
+package it.unibo.model.objective.impl;
 
 import java.io.FileReader;
 import java.util.HashSet;
@@ -22,7 +22,7 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory{
         JSONParser parser = new JSONParser();
         JSONObject obj = new JSONObject();
         try {
-            JSONArray array = (JSONArray)parser.parse(new FileReader("resources/Objectives.json"));
+            JSONArray array = (JSONArray)parser.parse(new FileReader("src/main/resources/config/objective/Objectives.json"));
             for (final Object elem: array) {
                 obj = (JSONObject)elem;
                 JSONArray destroyArray = (JSONArray)obj.get("destroyObj");
