@@ -39,11 +39,7 @@ public class CombatImpl implements Combat {
         while(!(strikers.isEmpty() || defenders.isEmpty())) {
             var s = strikers.get(0);
             var d = defenders.get(0);
-            if (s > d) {
-                r.add(Results.WIN);
-            } else {
-                r.add(Results.LOSE);
-            }
+            r.add((s > d ? Results.WIN : Results.LOSE));
             strikers.remove(0);
             defenders.remove(0);
         }
@@ -57,6 +53,15 @@ public class CombatImpl implements Combat {
         System.out.println(strikers + "\n" + defenders);
         var r = computeAttack(strikers, defenders);
         System.out.println(r);
+        
+        // removing armies from the territories
+        for (var x: r) {
+            if (x.equals(Combat.Results.WIN)) {
+                tDefender.addArmy(-1);
+            } else if (x.equals(Combat.Results.LOSE)) {
+                tStriker.addArmy(-1);
+            }
+        }
         return r;
     }
 
