@@ -5,13 +5,17 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.json.simple.*;
-import org.json.simple.parser.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.api.TerritoryFactory;
 
-public class TerritoryFactoryImpl implements TerritoryFactory {
+/**
+ * Implementation of the territory factory.
+ */
+public final class TerritoryFactoryImpl implements TerritoryFactory {
 
     private static final String PATH_SEPARATOR = System.getProperty("file.separator");
     private static final String PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
@@ -19,6 +23,9 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
 
     private Set<Territory> territories;
 
+    /**
+     * Initializes a set of territories.
+     */
     public TerritoryFactoryImpl() {
         this.territories = new HashSet<>();
     }
@@ -28,20 +35,20 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
         JSONParser parser = new JSONParser();
         JSONObject obj = new JSONObject();
         try {
-            JSONArray array = (JSONArray)parser.parse(new FileReader(PATH));
+            JSONArray array = (JSONArray) parser.parse(new FileReader(PATH));
             for (final Object elem: array) {
-                obj = (JSONObject)elem;
+                obj = (JSONObject) elem;
                 String name = obj.get("name").toString();
-                JSONArray adjArray = (JSONArray)obj.get("adj");
+                JSONArray adjArray = (JSONArray) obj.get("adj");
                 if (!this.getNameSet().contains(name)) {
                     this.territories.add(new TerritoryImpl(name));
                 }
                 Territory t = this.getTerritory(name);
-                for (final Object array_elem: adjArray) {
-                    if (!this.getNameSet().contains(array_elem.toString())) {
-                        this.territories.add(new TerritoryImpl(array_elem.toString()));
+                for (final Object arrayElem: adjArray) {
+                    if (!this.getNameSet().contains(arrayElem.toString())) {
+                        this.territories.add(new TerritoryImpl(arrayElem.toString()));
                     }
-                    t.addAdjTerritory(this.getTerritory(array_elem.toString()));
+                    t.addAdjTerritory(this.getTerritory(arrayElem.toString()));
                 }
             }
         } catch (Exception e) {

@@ -5,12 +5,21 @@ import java.util.Set;
 
 import it.unibo.model.territory.api.Territory;
 
-public class TerritoryImpl implements Territory {
+/**
+ * Implementation of Territory.
+ */
+public final class TerritoryImpl implements Territory {
 
     private String name;
     private Set<Territory> adjTerritories;
     private int numArmy;
 
+    /**
+     * Creates a new territory with the name given.
+     * 
+     * @param name
+     *          the territory name
+     */
     public TerritoryImpl(final String name) {
         this.name = name;
         this.adjTerritories = new HashSet<>();

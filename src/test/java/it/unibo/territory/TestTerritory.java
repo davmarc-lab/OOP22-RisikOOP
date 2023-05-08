@@ -19,6 +19,9 @@ import it.unibo.model.territory.api.TerritoryFactory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 import it.unibo.model.territory.impl.TerritoryImpl;
 
+/**
+ * Test the creation and the contents of territories.
+ */
 public class TestTerritory {
 
     private static final String PATH_SEPARATOR = System.getProperty("file.separator");
@@ -28,13 +31,18 @@ public class TestTerritory {
     private TerritoryFactory factory;
     private JSONParser parser = new JSONParser();
 
+    /**
+     * Creates all the territories using the factory.
+     */
     @BeforeEach
     public void initTerritoryFactory() {
-        System.out.println(PATH);
         this.factory = new TerritoryFactoryImpl();
         this.factory.createTerritorySet();
     }
 
+    /**
+     * Test the creation of the territories.
+     */
     @Test
     public void testCreationTerritories() {
         assertEquals(this.factory.getTerritory("Alaska").getName(), "Alaska");
@@ -46,10 +54,10 @@ public class TestTerritory {
     private Set<String> nameSetCreationToTest() {
         Set<String> set = new HashSet<>();
         try {
-            JSONArray array = (JSONArray)this.parser.parse(new FileReader(PATH));
+            JSONArray array = (JSONArray) this.parser.parse(new FileReader(PATH));
             JSONObject obj = new JSONObject();
             for (final Object elem: array) {
-                obj = (JSONObject)elem;
+                obj = (JSONObject) elem;
                 set.add(obj.get("name").toString());
             }
         } catch (Exception e) {
@@ -58,6 +66,9 @@ public class TestTerritory {
         return set;
     }
 
+    /**
+     * Test the adjacency of the territories.
+     */
     @Test
     public void testAdjTerritories() {
         Set<String> set = new HashSet<>();
