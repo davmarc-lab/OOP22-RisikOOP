@@ -9,16 +9,41 @@ import it.unibo.model.territory.api.Territory;
 
 public class CombatImpl implements Combat {
 
+    private static final int MAX_ATTACK_DEFEND_ARMY = 3;
+    private static final int MIN_ATTACK_DEFEND_ARMY = 1;
+
+    private final List<Integer> strikers = new ArrayList<>();       // used for testing purpose
+    private final List<Integer> defenders = new ArrayList<>();      // used for testing purpose
     private final Territory tStriker;
     private final Territory tDefender;
-    private final int numberStriker;        //cannot be <= 0
-    private final int numberDefender;       //cannot be <= 0
+    private final int numberStriker;
+    private final int numberDefender;
 
-    public CombatImpl(final Territory tStriker, final int numberStriker, final Territory tDefender, final int numberDefender) {
+    private boolean isNumberArmiesValid() {
+        return numberDefender <= MAX_ATTACK_DEFEND_ARMY && numberDefender >= MIN_ATTACK_DEFEND_ARMY ||
+            numberStriker <= MAX_ATTACK_DEFEND_ARMY || numberStriker >= MIN_ATTACK_DEFEND_ARMY;
+    }
+
+    public CombatImpl(final Territory tStriker, final int numberStriker,
+        final Territory tDefender, final int numberDefender) {
         this.tStriker  = tStriker;
         this.tDefender = tDefender;
+        if (!isNumberArmiesValid()) {
+            throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more then 3");
+        }
         this.numberStriker = numberStriker;
         this.numberDefender = numberDefender;
+    }
+
+    public CombatImpl(final Territory tStriker, final Territory tDefender) {
+        this(tStriker, 0, tDefender, 0);
+    }
+
+    public CombatImpl(final Territory tStriker, final int numberStriker, final Territory tDefender,
+        final int numberDefender, final List<Integer> strikers, final List<Integer> defenders) {
+        this(tStriker, numberStriker, tDefender, numberDefender);
+        this.strikers.addAll(strikers);
+        this.defenders.addAll(defenders);
     }
 
     private int rollDice() {
@@ -53,7 +78,7 @@ public class CombatImpl implements Combat {
         System.out.println(strikers + "\n" + defenders);
         var r = computeAttack(strikers, defenders);
         System.out.println(r);
-        
+
         // removing armies from the territories
         for (var x: r) {
             if (x.equals(Combat.Results.WIN)) {
