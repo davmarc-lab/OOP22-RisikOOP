@@ -20,8 +20,8 @@ public final class CombatImpl implements Combat {
     private final List<Integer> defenders = new ArrayList<>();      // used for testing purpose
     private final Territory tStriker;
     private final Territory tDefender;
-    private final int numberStriker;
-    private final int numberDefender;
+    private int numberStriker = 0;
+    private int numberDefender = 0;
 
     /**
      * This constructor create a standard Combat object.
@@ -30,16 +30,18 @@ public final class CombatImpl implements Combat {
      * @param numberStriker striker's armies
      * @param tDefender defender's territory
      * @param numberDefender defender's armies
+     * 
+     * {@throws IllegalArgumentException} if the number of armies doesn't respect the rules (must be between 1 and 3)
      */
     public CombatImpl(final Territory tStriker, final int numberStriker,
         final Territory tDefender, final int numberDefender) {
         this.tStriker  = tStriker;
         this.tDefender = tDefender;
+        this.numberStriker = numberStriker;
+        this.numberDefender = numberDefender;
         if (!isNumberArmiesValid()) {
             throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more then 3");
         }
-        this.numberStriker = numberStriker;
-        this.numberDefender = numberDefender;
     }
 
     /**
@@ -76,8 +78,8 @@ public final class CombatImpl implements Combat {
      * @return a {@code boolean} value indicating if the numbers of defenders and strikers are correct
      */
     private boolean isNumberArmiesValid() {
-        return numberDefender <= MAX_ATTACK_DEFEND_ARMY && numberDefender >= MIN_ATTACK_DEFEND_ARMY
-            || numberStriker <= MAX_ATTACK_DEFEND_ARMY || numberStriker >= MIN_ATTACK_DEFEND_ARMY;
+        return this.numberDefender <= MAX_ATTACK_DEFEND_ARMY && this.numberDefender >= MIN_ATTACK_DEFEND_ARMY
+            && this.numberStriker <= MAX_ATTACK_DEFEND_ARMY && this.numberStriker >= MIN_ATTACK_DEFEND_ARMY;
     }
 
     /**
@@ -125,6 +127,12 @@ public final class CombatImpl implements Combat {
 
     @Override
     public List<Results> attack() {
+        // only for test purpose
+        if (this.numberStriker != 0 && this.numberDefender != 0) {
+            var r = this.computeAttack(strikers, defenders);
+            return r;
+        }
+
         var strikers = declarePower(numberStriker);
         var defenders = declarePower(numberDefender);
         System.out.println(strikers + "\n" + defenders);

@@ -1,6 +1,7 @@
 package it.unibo.combat;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.combat.api.Combat;
@@ -73,9 +74,17 @@ class TestCombat {
         assignDefaultTerritories();
         var s = factory.getTerritory("Southern Europe");
         var d = factory.getTerritory("Ukraine");
-        s.addArmy(2);
-        d.addArmy(3);
         Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(List.of(6, 4)), new ArrayList<>(List.of(5, 2, 1)));
         assertEquals(List.of(Combat.Results.WIN, Combat.Results.WIN), c1.attack());
+    }
+
+    @Test
+    public void throwingExceptionForNumberStrikerNotValid() {
+        assignDefaultTerritories();
+        var s = factory.getTerritory("Southern Europe");
+        var d = factory.getTerritory("Ukraine");
+        assertThrows(IllegalArgumentException.class, () -> {
+            new CombatImpl(s, 0, d, 3).attack();
+        });
     }
 }
