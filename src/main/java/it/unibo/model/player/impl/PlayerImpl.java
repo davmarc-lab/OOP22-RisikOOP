@@ -7,20 +7,39 @@ import java.util.stream.Stream;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
-public class PlayerImpl implements Player {
+/**
+ * Implementation of Player interface.
+ */
+public final class PlayerImpl implements Player {
 
     private int id;
     private Set<Territory> territories = new HashSet<>();
 
+    /**
+     * Create a player from an specified id.
+     * 
+     * @param id player's id
+     */
     public PlayerImpl(final int id) {
         this.id = id;
     }
 
+    /**
+     * Create a player form an id and Set of territories.
+     * 
+     * @param id player's id
+     * @param territories set of territories
+     */
     public PlayerImpl(final int id, final Set<Territory> territories) {
         this(id);
         this.territories = territories;
     }
 
+    /**
+     * This method returns player's id.
+     * 
+     * @return player's id
+     */
     @Override
     public int getId() {
         return this.id;
@@ -32,12 +51,12 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public void addTerritory(Stream<Territory> territory) {
+    public void addTerritory(final Stream<Territory> territory) {
         this.territories.addAll(territory.toList());
     }
 
     @Override
-    public void removeTerritory(Stream<Territory> territory) {
+    public void removeTerritory(final Stream<Territory> territory) {
         this.territories.removeAll(territory.toList());
     }
 
@@ -51,5 +70,4 @@ public class PlayerImpl implements Player {
         return new String("ID -> " + this.getId() + "\nNumTerritory -> " + this.getTerritories().size()
             + "\nTerritories -> " + this.getTerritories());
     }
-    
 }
