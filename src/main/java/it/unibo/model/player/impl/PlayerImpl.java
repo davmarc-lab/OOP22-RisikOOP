@@ -10,7 +10,7 @@ import it.unibo.model.territory.api.Territory;
 /**
  * Implementation of Player interface.
  */
-public final class PlayerImpl implements Player {
+public class PlayerImpl implements Player {
 
     private int id;
     private Set<Territory> territories = new HashSet<>();
@@ -36,35 +36,48 @@ public final class PlayerImpl implements Player {
     }
 
     /**
-     * This method returns player's id.
-     * 
-     * @return player's id
+     * {@inheritDoc}
      */
     @Override
     public int getId() {
         return this.id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getArmy(final Territory t) {
         return this.territories.stream().filter(x -> x.equals(t)).findFirst().get().getArmy();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addTerritory(final Stream<Territory> territory) {
         this.territories.addAll(territory.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeTerritory(final Stream<Territory> territory) {
         this.territories.removeAll(territory.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Territory> getTerritories() {
         return this.territories;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return new String("ID -> " + this.getId() + "\nNumTerritory -> " + this.getTerritories().size()

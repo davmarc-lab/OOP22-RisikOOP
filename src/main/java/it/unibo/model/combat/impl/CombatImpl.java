@@ -10,7 +10,7 @@ import it.unibo.model.territory.api.Territory;
 /**
  * Implementation of Combat interface.
  */
-public final class CombatImpl implements Combat {
+public class CombatImpl implements Combat {
 
     private static final int MAX_DICE_NUMBER = 6;
     private static final int MAX_ATTACK_DEFEND_ARMY = 3;
@@ -125,6 +125,9 @@ public final class CombatImpl implements Combat {
         return r;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Results> attack() {
         // only for test purpose
