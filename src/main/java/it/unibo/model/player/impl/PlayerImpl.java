@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import it.unibo.model.player.api.ColorPlayer;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
@@ -14,6 +15,7 @@ public class PlayerImpl implements Player {
 
     private int id;
     private Set<Territory> territories = new HashSet<>();
+    private ColorPlayer color = new ColorPlayerImpl();
 
     /**
      * Create a player from an specified id.
@@ -22,6 +24,17 @@ public class PlayerImpl implements Player {
      */
     public PlayerImpl(final int id) {
         this.id = id;
+    }
+
+    /**
+     * This constructor creates a player giving an id and {@code ColorPlayer}.
+     * 
+     * @param id player's id
+     * @param color player's color
+     */
+    public PlayerImpl(final int id, final ColorPlayer color) {
+        this(id);
+        this.color = color;
     }
 
     /**
@@ -73,6 +86,14 @@ public class PlayerImpl implements Player {
     @Override
     public Set<Territory> getTerritories() {
         return this.territories;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ColorPlayer getColorPlayer() {
+        return new ColorPlayerImpl(this.color);
     }
 
     /**

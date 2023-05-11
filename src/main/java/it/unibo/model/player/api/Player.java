@@ -45,4 +45,11 @@ public interface Player {
      * @return set of territories owned by player
      */
     Set<Territory> getTerritories();
+
+    /**
+     * This method gets player's color.
+     * 
+     * @return player's color
+     */
+    ColorPlayer getColorPlayer();
 }

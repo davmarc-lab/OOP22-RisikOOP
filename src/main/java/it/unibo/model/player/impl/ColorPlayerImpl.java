@@ -14,7 +14,7 @@ public class ColorPlayerImpl implements ColorPlayer {
     private int b;
 
     /**
-     * This constructor create a {@code ColorPlayer} giving RGB int values.
+     * This constructor creates a {@code ColorPlayer} giving RGB int values.
      * 
      * @param r red value
      * @param g green value
@@ -28,6 +28,15 @@ public class ColorPlayerImpl implements ColorPlayer {
         this.r = r;
         this.g = g;
         this.b = b;
+    }
+
+    /**
+     * This constructor creates a {@code ColorPlayer} giving a {@code ColorPlayer}.
+     * 
+     * @param color new {@code ColorPlayer} object
+     */
+    public ColorPlayerImpl(final ColorPlayer color) {
+        this(color.getRedValue(), color.getGreenValue(), color.getBlueValue());
     }
 
     /**
