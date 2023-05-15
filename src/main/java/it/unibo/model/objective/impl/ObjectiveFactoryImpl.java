@@ -1,53 +1,83 @@
 package it.unibo.model.objective.impl;
 
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.json.simple.*;
-import org.json.simple.parser.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.api.ObjectiveFactory;
 
-public class ObjectiveFactoryImpl implements ObjectiveFactory{
+/**
+ * Implementation of the ObjectiveFactory interface that creates objectives from
+ * a JSON file.
+ */
+public class ObjectiveFactoryImpl implements ObjectiveFactory {
 
-    private Set<Objective> objectives;
+    private final Set<Objective> objectives;
 
+    private final String pathSeparator = System.getProperty("file.separator");
+
+    private final Logger logger = Logger.getLogger(ObjectiveFactoryImpl.class.getName());
+
+    /**
+     * Constructs a new ObjectiveFactoryImpl.
+     */
     public ObjectiveFactoryImpl() {
         this.objectives = new HashSet<>();
     }
+
+    /**
+     * Creates a set of objectives from a JSON file.
+     */
     @Override
     public void createObjectiveSet() {
-        JSONParser parser = new JSONParser();
-        JSONObject obj = new JSONObject();
+        final JSONParser parser = new JSONParser();
         try {
-            JSONArray array = (JSONArray)parser.parse(new FileReader("src/main/resources/config/objective/Objectives.json"));
-            for (final Object elem: array) {
-                obj = (JSONObject)elem;
-                JSONArray destroyArray = (JSONArray)obj.get("destroyObj");
-                JSONArray conquerArray = (JSONArray)obj.get("conquerObj");
+            final String filePath = "src" + pathSeparator + "main" + pathSeparator + "resources" + pathSeparator
+                    + "Objectives.json";
+            final FileInputStream fileInputStream = new FileInputStream(filePath);
+            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+            final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
+            for (final Object elem : array) {
+                final JSONObject obj = (JSONObject) elem;
+                final JSONArray destroyArray = (JSONArray) obj.get("destroyObj");
+                final JSONArray conquerArray = (JSONArray) obj.get("conquerObj");
                 for (final Object destroyElem : destroyArray) {
-                    ObjectiveImpl objective = new ObjectiveImpl(destroyElem.toString(), Objective.ObjectiveType.DESTROY);
+                    final ObjectiveImpl objective = new ObjectiveImpl(destroyElem.toString(),
+                            Objective.ObjectiveType.DESTROY);
                     this.objectives.add(objective);
                 }
                 for (final Object conquerElem : conquerArray) {
-                    ObjectiveImpl objective = new ObjectiveImpl(conquerElem.toString(), Objective.ObjectiveType.CONQUER);
+                    final ObjectiveImpl objective = new ObjectiveImpl(conquerElem.toString(),
+                            Objective.ObjectiveType.CONQUER);
                     this.objectives.add(objective);
                 }
-                
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            inputStreamReader.close();
+            fileInputStream.close();
+        } catch (ParseException | IOException e) {
+            logger.log(Level.SEVERE, "Error parsing Objectives.json", e);
         }
     }
-    public static void main(String[] args) {
-        ObjectiveFactoryImpl ofi = new ObjectiveFactoryImpl();
-        ofi.createObjectiveSet();
-        System.out.println(ofi.objectives);
-    }
+
+    /**
+     * Returns an unmodifiable set of objectives created by this factory.
+     *
+     * @return an unmodifiable set of objectives
+     */
     @Override
     public Set<Objective> getSetObjectives() {
-        return this.objectives;
+        return Collections.unmodifiableSet(this.objectives);
     }
 }
