@@ -1,376 +1,406 @@
 [
-    {
-      "name": "Southern Europe",
-      "adj": [
-            "Western Europe",
-            "Northern Europe",
-            "Ukraine",
-            "North Africa",
-            "Egypt",
-            "Middle East"
+  {
+      "continent": "Europe",
+      "territories":[
+          {
+              "name": "Southern Europe",
+              "adj": [
+                  "Western Europe",
+                  "Northern Europe",
+                  "Ukraine",
+                  "North Africa",
+                  "Egypt",
+                  "Middle East"
+              ]
+          },
+          {
+              "name": "Western Europe",
+              "adj": [
+                  "Southern Europe",
+                  "Northern Europe",
+                  "Great Britain",
+                  "North Africa"
+              ]
+          },
+          {
+              "name": "Northern Europe",
+              "adj": [
+                  "Southern Europe",
+                  "Western Europe",
+                  "Ukraine",
+                  "Great Britain",
+                  "Scandinavia"
+              ]
+          },
+          {
+              "name": "Ukraine",
+              "adj": [
+                  "Southern Europe",
+                  "Northern Europe",
+                  "Scandinavia",
+                  "Urals",
+                  "Afghanistan",
+                  "Middle East"
+              ]
+          },
+          {
+              "name": "Scandinavia",
+              "adj": [
+                  "Northern Europe",
+                  "Ukraine",
+                  "Great Britain",
+                  "Iceland"
+              ]
+          },
+          {
+              "name": "Great Britain",
+              "adj": [
+                  "Northern Europe",
+                  "Western Europe",
+                  "Iceland",
+                  "Scandinavia"
+              ]
+          },
+          {
+              "name": "Iceland",
+              "adj": [
+                  "Great Britain",
+                  "Scandinavia",
+                  "Greenland"
+              ]
+          }
       ]
-    },
-    {
-      "name": "Western Europe",
-      "adj": [
-            "Southern Europe",
-            "Northern Europe",
-            "Great Britain",
-            "North Africa"
+  },
+  {
+      "continent": "Africa",
+      "territories":[
+          {
+              "name": "North Africa",
+              "adj": [
+                  "Brazil",
+                  "Egypt",
+                  "Congo",
+                  "East Africa",
+                  "Western Europe",
+                  "Southern Europe"
+              ]
+          },
+          {
+              "name": "Egypt",
+              "adj": [
+                  "North Africa",
+                  "East Africa",
+                  "Middle East",
+                  "Southern Europe"
+              ]
+          },
+          {
+              "name": "East Africa",
+              "adj": [
+                  "Egypt",
+                  "North Africa",
+                  "Congo",
+                  "Madagascar",
+                  "South Africa"
+              ]
+          },
+          {
+              "name": "Congo",
+              "adj": [
+                  "North Africa",
+                  "South Africa",
+                  "East Africa"
+              ]
+          },
+          {
+              "name": "South Africa",
+              "adj": [
+                  "Congo",
+                  "East Africa",
+                  "Madagascar"
+              ]
+          },
+          {
+              "name": "Madagascar",
+              "adj": [
+                  "South Africa",
+                  "East Africa"
+              ]
+          }
       ]
-    },
-    {
-      "name": "Northern Europe",
-      "adj": [
-            "Southern Europe",
-            "Western Europe",
-            "Ukraine",
-            "Great Britain",
-            "Scandinavia"
+  },
+  {
+      "continent": "North America",
+      "territories":[
+          {
+              "name": "Greenland",
+              "adj": [
+                  "Iceland",
+                  "Quebec",
+                  "Ontario",
+                  "Northwest Territories"
+              ]
+          },
+          {
+              "name": "Northwest Territories",
+              "adj": [
+                  "Alaska",
+                  "Alberta",
+                  "Ontario",
+                  "Greenland"
+              ]
+          },
+          {
+              "name": "Alaska",
+              "adj": [
+                  "Alberta",
+                  "Kamchatka",
+                  "Northwest Territories"
+              ]
+          },
+          {
+              "name": "Alberta",
+              "adj": [
+                  "Alaska",
+                  "Western United States",
+                  "Ontario",
+                  "Northwest Territories"
+              ]
+          },
+          {
+              "name": "Ontario",
+              "adj": [
+                  "Alberta",
+                  "Quebec",
+                  "Western United States",
+                  "Eastern United States",
+                  "Northwest Territories",
+                  "Greenland"
+              ]
+          },
+          {
+              "name": "Quebec",
+              "adj": [
+                  "Greenland",
+                  "Eastern United States",
+                  "Ontario"
+              ]
+          },
+          {
+              "name": "Western United States",
+              "adj": [
+                  "Alberta",
+                  "Eastern United States",
+                  "Ontario",
+                  "Central America"
+              ]
+          },
+          {
+              "name": "Eastern United States",
+              "adj": [
+                  "Central America",
+                  "Western United States",
+                  "Ontario",
+                  "Quebec"
+              ]
+          },
+          {
+              "name": "Central America",
+              "adj": [
+                  "Western United States",
+                  "Eastern United States",
+                  "Venezuela"
+              ]
+          }
       ]
-    },
-    {
-      "name": "Ukraine",
-      "adj": [
-            "Southern Europe",
-            "Northern Europe",
-            "Scandinavia",
-            "Urals",
-            "Afghanistan",
-            "Middle East"
+  },
+  {
+      "continent": "South America",
+      "territories":[
+          {
+              "name": "Venezuela",
+              "adj": [
+                  "Central America",
+                  "Brazil",
+                  "Peru'"
+              ]
+          },
+          {
+              "name": "Brazil",
+              "adj": [
+                  "Venezuela",
+                  "Peru'",
+                  "Argentina",
+                  "North Africa"
+              ]
+          },
+          {
+              "name": "Peru'",
+              "adj": [
+                  "Venezuela",
+                  "Brazil",
+                  "Argentina"
+              ]
+          },
+          {
+              "name": "Argentina",
+              "adj": [
+                  "Peru'",
+                  "Brazil"
+              ]
+          }
       ]
-    },
-    {
-      "name": "Scandinavia",
-      "adj": [
-            "Northern Europe",
-            "Ukraine",
-            "Great Britain",
-            "Iceland"
+  },
+  {
+      "continent": "Asia",
+      "territories":[
+          {
+              "name": "Middle East",
+              "adj": [
+                  "Egypt",
+                  "Southern Europe",
+                  "Ukraine",
+                  "India",
+                  "Afghanistan",
+                  "China"
+              ]
+          },
+          {
+              "name": "India",
+              "adj": [
+                  "Middle East",
+                  "China",
+                  "Siam"
+              ]
+          },
+          {
+              "name": "Siam",
+              "adj": [
+                  "India",
+                  "China",
+                  "Indonesia"
+              ]
+          },
+          {
+              "name": "China",
+              "adj": [
+                  "Siam",
+                  "India",
+                  "Middle East",
+                  "Afghanistan",
+                  "Urals",
+                  "Siberia",
+                  "Mongolia"
+              ]
+          },
+          {
+              "name": "Afghanistan",
+              "adj": [
+                  "China",
+                  "Middle East",
+                  "Urals",
+                  "Ukraine"
+              ]
+          },
+          {
+              "name": "Urals",
+              "adj": [
+                  "China",
+                  "Afghanistan",
+                  "Ukraine",
+                  "Siberia"
+              ]
+          },
+          {
+              "name": "Siberia",
+              "adj": [
+                  "China",
+                  "Urals",
+                  "Jacuzia",
+                  "Cita",
+                  "Mongolia"
+              ]
+          },
+          {
+              "name": "Jacuzia",
+              "adj": [
+                  "Cita",
+                  "Siberia",
+                  "Kamchatka"
+              ]
+          },
+          {
+              "name": "Cita",
+              "adj": [
+                  "Mongolia",
+                  "Siberia",
+                  "Jacuzia",
+                  "Kamchatka"
+              ]
+          },
+          {
+              "name": "Kamchatka",
+              "adj": [
+                  "Jacuzia",
+                  "Cita",
+                  "Mongolia",
+                  "Japan",
+                  "Alaska"
+              ]
+          },
+          {
+              "name": "Mongolia",
+              "adj": [
+                  "Cita",
+                  "Kamchatka",
+                  "Japan",
+                  "China",
+                  "Siberia"
+              ]
+          },
+          {
+              "name": "Japan",
+              "adj": [
+                  "Mongolia",
+                  "Kamchatka"
+              ]
+          }
       ]
-    },
-    {
-      "name": "Great Britain",
-      "adj": [
-            "Northern Europe",
-            "Western Europe",
-            "Iceland",
-            "Scandinavia"
+  },
+  {
+      "continent": "Oceania",
+      "territories":[
+          {
+              "name": "Indonesia",
+              "adj": [
+                  "Siam",
+                  "New Guinea",
+                  "Western Australia"
+              ]
+          },
+          {
+              "name": "New Guinea",
+              "adj": [
+                  "Indonesia",
+                  "Western Australia",
+                  "Eastern Australia"
+              ]
+          },
+          {
+              "name": "Western Australia",
+              "adj": [
+                  "Eastern Australia",
+                  "Indonesia",
+                  "New Guinea"
+              ]
+          },
+          {
+              "name": "Eastern Australia",
+              "adj": [
+                  "Western Australia",
+                  "New Guinea"
+              ]
+          }
       ]
-    },
-    {
-      "name": "Iceland",
-      "adj": [
-            "Great Britain",
-            "Scandinavia",
-            "Greenland"
-      ]
-    },
-    {
-      "name": "Greenland",
-      "adj": [
-            "Iceland",
-            "Quebec",
-            "Ontario",
-            "Northwest Territories"
-      ]
-    },
-    {
-      "name": "Northwest Territories",
-      "adj": [
-            "Alaska",
-            "Alberta",
-            "Ontario",
-            "Greenland"
-      ]
-    },
-    {
-      "name": "Alaska",
-      "adj": [
-            "Alberta",
-            "Kamchatka",
-            "Northwest Territories"
-      ]
-    },
-    {
-      "name": "Alberta",
-      "adj": [
-            "Alaska",
-            "Western United States",
-            "Ontario",
-            "Northwest Territories"
-      ]
-    },
-    {
-      "name": "Ontario",
-      "adj": [
-            "Alberta",
-            "Quebec",
-            "Western United States",
-            "Eastern United States",
-            "Northwest Territories",
-            "Greenland"
-      ]
-    },
-    {
-      "name": "Quebec",
-      "adj": [
-            "Greenland",
-            "Eastern United States",
-            "Ontario"
-      ]
-    },
-    {
-      "name": "Western United States",
-      "adj": [
-            "Alberta",
-            "Eastern United States",
-            "Ontario",
-            "Central America"
-      ]
-    },
-    {
-      "name": "Eastern United States",
-      "adj": [
-            "Central America",
-            "Western United States",
-            "Ontario",
-            "Quebec"
-      ]
-    },
-    {
-      "name": "Central America",
-      "adj": [
-            "Western United States",
-            "Eastern United States",
-            "Venezuela"
-      ]
-    },
-    {
-      "name": "Venezuela",
-      "adj": [
-            "Central America",
-            "Brazil",
-            "Peru'"
-      ]
-    },
-    {
-      "name": "Brazil",
-      "adj": [
-            "Venezuela",
-            "Peru'",
-            "Argentina",
-            "North Africa"
-      ]
-    },
-    {
-      "name": "Peru'",
-      "adj": [
-            "Venezuela",
-            "Brazil",
-            "Argentina"
-      ]
-    },
-    {
-      "name": "Argentina",
-      "adj": [
-            "Peru'",
-            "Brazil"
-      ]
-    },
-    {
-      "name": "North Africa",
-      "adj": [
-            "Brazil",
-            "Egypt",
-            "Congo",
-            "East Africa",
-            "Western Europe",
-            "Southern Europe"
-      ]
-    },
-    {
-      "name": "Egypt",
-      "adj": [
-            "North Africa",
-            "East Africa",
-            "Middle East",
-            "Southern Europe"
-      ]
-    },
-    {
-      "name": "East Africa",
-      "adj": [
-            "Egypt",
-            "North Africa",
-            "Congo",
-            "Madagascar",
-            "South Africa"
-      ]
-    },
-    {
-      "name": "Congo",
-      "adj": [
-            "North Africa",
-            "South Africa",
-            "East Africa"
-      ]
-    },
-    {
-      "name": "South Africa",
-      "adj": [
-            "Congo",
-            "East Africa",
-            "Madagascar"
-      ]
-    },
-    {
-      "name": "Madagascar",
-      "adj": [
-            "South Africa",
-            "East Africa"
-      ]
-    },
-    {
-      "name": "Middle East",
-      "adj": [
-            "Egypt",
-            "Southern Europe",
-            "Ukraine",
-            "India",
-            "Afghanistan",
-            "China"
-      ]
-    },
-    {
-      "name": "India",
-      "adj": [
-            "Middle East",
-            "China",
-            "Siam"
-      ]
-    },
-    {
-      "name": "Siam",
-      "adj": [
-            "India",
-            "China",
-            "Indonesia"
-      ]
-    },
-    {
-      "name": "China",
-      "adj": [
-            "Siam",
-            "India",
-            "Middle East",
-            "Afghanistan",
-            "Urals",
-            "Siberia",
-            "Mongolia"
-      ]
-    },
-    {
-      "name": "Afghanistan",
-      "adj": [
-            "China",
-            "Middle East",
-            "Urals",
-            "Ukraine"
-      ]
-    },
-    {
-      "name": "Urals",
-      "adj": [
-            "China",
-            "Afghanistan",
-            "Ukraine",
-            "Siberia"
-      ]
-    },
-    {
-      "name": "Siberia",
-      "adj": [
-            "China",
-            "Urals",
-            "Jacuzia",
-            "Cita",
-            "Mongolia"
-      ]
-    },
-    {
-      "name": "Jacuzia",
-      "adj": [
-            "Cita",
-            "Siberia",
-            "Kamchatka"
-      ]
-    },
-    {
-      "name": "Cita",
-      "adj": [
-            "Mongolia",
-            "Siberia",
-            "Jacuzia",
-            "Kamchatka"
-      ]
-    },
-    {
-      "name": "Kamchatka",
-      "adj": [
-            "Jacuzia",
-            "Cita",
-            "Mongolia",
-            "Japan",
-            "Alaska"
-      ]
-    },
-    {
-      "name": "Mongolia",
-      "adj": [
-            "Cita",
-            "Kamchatka",
-            "Japan",
-            "China",
-            "Siberia"
-      ]
-    },
-    {
-      "name": "Japan",
-      "adj": [
-            "Mongolia",
-            "Kamchatka"
-      ]
-    },
-    {
-      "name": "Indonesia",
-      "adj": [
-            "Siam",
-            "New Guinea",
-            "Western Australia"
-      ]
-    },
-    {
-      "name": "New Guinea",
-      "adj": [
-            "Indonesia",
-            "Western Australia",
-            "Eastern Australia"
-      ]
-    },
-    {
-      "name": "Western Australia",
-      "adj": [
-            "Eastern Australia",
-            "Indonesia",
-            "New Guinea"
-      ]
-    },
-    {
-      "name": "Eastern Australia",
-      "adj": [
-            "Western Australia",
-            "New Guinea"
-      ]
-    }
-  ]
+  }
+]

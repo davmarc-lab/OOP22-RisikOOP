@@ -1,13 +1,23 @@
 package it.unibo.model.territory.impl;
 
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.api.TerritoryFactory;
@@ -21,68 +31,100 @@ public final class TerritoryFactoryImpl implements TerritoryFactory {
     private static final String PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
             + "config" + PATH_SEPARATOR + "territory" + PATH_SEPARATOR + "Territories.json";
 
-    private Set<Territory> territories;
+    private Map<String, Set<Territory>> territories;
+    private final String path;
 
     /**
-     * Initializes a set of territories.
+     * Creates the map of all territories from the default file.
      */
     public TerritoryFactoryImpl() {
-        this.territories = new HashSet<>();
+        this(PATH);
+    }
+
+    /**
+     * Creates the map of all territories from the file in the path given.
+     * 
+     * @param p
+     *          path of the file
+     */
+    public TerritoryFactoryImpl(final String p) {
+        this.path = p;
+        this.territories = new HashMap<>();
     }
 
     @Override
-    public void createTerritorySet() {
+    public void createTerritories() throws FileNotFoundException {
         JSONParser parser = new JSONParser();
         JSONObject obj = new JSONObject();
+
         try {
-            JSONArray array = (JSONArray) parser.parse(new FileReader(PATH));
+            final FileInputStream fileInputStream = new FileInputStream(this.path);
+            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+            final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
             for (final Object elem: array) {
                 obj = (JSONObject) elem;
-                String name = obj.get("name").toString();
-                JSONArray adjArray = (JSONArray) obj.get("adj");
-                if (!this.getNameSet().contains(name)) {
-                    this.territories.add(new TerritoryImpl(name));
-                }
-                Territory t = this.getTerritory(name);
-                for (final Object arrayElem: adjArray) {
-                    if (!this.getNameSet().contains(arrayElem.toString())) {
-                        this.territories.add(new TerritoryImpl(arrayElem.toString()));
-                    }
-                    t.addAdjTerritory(this.getTerritory(arrayElem.toString()));
+                String continentName = obj.get("continent").toString();
+                JSONArray terrArray = (JSONArray) obj.get("territories");
+                this.territories.put(continentName, new HashSet<>());
+                for (final var t: terrArray) {
+                    JSONObject tObj = (JSONObject) t;
+                    String tName = tObj.get("name").toString();
+                    this.territories.get(continentName).add(new TerritoryImpl(tName));
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            for (final var elem: array) {
+                obj = (JSONObject) elem;
+                JSONArray terrArray = (JSONArray) obj.get("territories");
+                for (final var t: terrArray) {
+                    JSONObject tObj = (JSONObject) t;
+                    String tName = tObj.get("name").toString();
+                    JSONArray adjArray = (JSONArray) tObj.get("adj");
+                    for (final var adjT: adjArray) {
+                        this.getTerritory(tName).addAdjTerritory(this.getTerritory(adjT.toString()));
+                    }
+                }
+            }
+        } catch (IOException | ParseException e) {
+            if (Files.notExists(Path.of(this.path), LinkOption.NOFOLLOW_LINKS)) {
+                throw new FileNotFoundException();
+            }
         }
     }
 
     @Override
-    public Set<Territory> getTerritories() {
-        return this.territories;
+    public String getContinentNameFromTerritory(final Territory t) {
+        return this.territories.entrySet().stream().filter(x -> x.getValue().contains(t)).findFirst().get().getKey();
     }
 
     @Override
-    public Set<String> getNameSet() {
-        return this.territories.stream()
-                .map(t -> t.getName())
-                .collect(Collectors.toSet());
+    public Map<String, Set<Territory>> getTerritoryMap() {
+        return Map.copyOf(this.territories);
+    }
+
+    @Override
+    public Set<String> getTerritoryNameSet() {
+        return this.getTerritories().stream().map(t -> t.getName()).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Territory> getTerritories() {
+        Set<Territory> set = new HashSet<>();
+        this.territories.values().stream().forEach(s -> set.addAll(s));
+        return set;
     }
 
     @Override
     public Territory getTerritory(final String name) {
-        return this.territories.stream()
-                .filter(t -> t.getName().compareToIgnoreCase(name) == 0)
-                .findFirst()
-                .get();
+        return this.getTerritories().stream().filter(t -> t.getName().equalsIgnoreCase(name)).findAny().get();
+    }
+
+    @Override
+    public Set<Territory> getTerritoryByContinent(final String name) {
+        return this.getTerritoryMap().get(name);
     }
 
     @Override
     public String toString() {
-        return new String(new StringBuilder("{")
-                .append(this.getTerritories().stream()
-                        .map(t -> t.toString())
-                        .reduce((s1, s2) -> s1 + "; " + s2)
-                        .get())
-                .append("}"));
+        return this.getTerritories().toString();
     }
 }

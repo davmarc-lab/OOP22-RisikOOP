@@ -18,7 +18,7 @@ public final class TerritoryImpl implements Territory {
      * Creates a new territory with the name given.
      * 
      * @param name
-     *          the territory name
+     *          the territory's name
      */
     public TerritoryImpl(final String name) {
         this.name = name;
@@ -50,11 +50,9 @@ public final class TerritoryImpl implements Territory {
     public void addArmy(final int n) {
         this.numArmy += n;
     }
-
     @Override
     public String toString() {
-        return new String(new StringBuilder("NAME = ").append(this.getName()).append("NUM_ARMY = ").append(this.getArmy())
-                .append(", ADJ = [").append(
+        return new String(new StringBuilder("NAME = ").append(this.getName()).append(", ADJ = [").append(
                 this.getAdjTerritories().stream()
                 .map(t -> t.getName())
                 .reduce((s1, s2) -> s1 + ", " + s2).get()).append("]"));
