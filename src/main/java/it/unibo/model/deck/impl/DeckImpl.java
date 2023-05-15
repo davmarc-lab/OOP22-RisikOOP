@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import it.unibo.model.deck.api.Deck;
+
 /**
  * Represents a generic deck of cards.
  *
@@ -14,6 +15,7 @@ import it.unibo.model.deck.api.Deck;
 public class DeckImpl<T> implements Deck<T> {
 
     private final List<T> deck = new ArrayList<>();
+
     /**
      * Creates a deck of cards.
      *
@@ -22,6 +24,7 @@ public class DeckImpl<T> implements Deck<T> {
     public DeckImpl(final Collection<T> cards) {
         this.deck.addAll(cards);
     }
+
     /**
      * Adds a card to the deck.
      *
@@ -31,6 +34,7 @@ public class DeckImpl<T> implements Deck<T> {
     public void addCard(final T card) {
         this.deck.add(card);
     }
+
     /**
      * Draws a card from the deck.
      *
@@ -43,6 +47,7 @@ public class DeckImpl<T> implements Deck<T> {
         }
         return this.deck.remove(0);
     }
+
     /**
      * Shuffles the deck.
      */
@@ -50,6 +55,7 @@ public class DeckImpl<T> implements Deck<T> {
     public void shuffle() {
         Collections.shuffle(this.deck);
     }
+
     /**
      * Gets the deck.
      *

@@ -1,4 +1,5 @@
 package it.unibo.model.deck.api;
+
 /**
  * Represents an Army card.
  */
@@ -20,12 +21,14 @@ public interface Army {
          */
         ARTILLERY
     }
+
     /**
      * Gets the type of the Army card.
      * 
      * @return the type of the Army card.
      */
     ArmyType getArmyType();
+
     /**
      * Gets the string representation of the Army card.
      * 

@@ -1,12 +1,14 @@
 package it.unibo.model.deck.impl;
 
 import it.unibo.model.deck.api.Army;
+
 /**
  * Represents an Army card.
  */
 public class ArmyImpl implements Army {
 
     private final ArmyType armyType;
+
     /**
      * Creates an Army card.
      * 
@@ -15,6 +17,7 @@ public class ArmyImpl implements Army {
     public ArmyImpl(final ArmyType armyType) {
         this.armyType = armyType;
     }
+
     /**
      * Gets the type of the Army card.
      * 
@@ -24,6 +27,7 @@ public class ArmyImpl implements Army {
     public ArmyType getArmyType() {
         return armyType;
     }
+
     /**
      * Gets the string representation of the Army card.
      * 
