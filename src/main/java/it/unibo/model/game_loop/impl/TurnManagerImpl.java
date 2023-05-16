@@ -16,6 +16,7 @@ import it.unibo.model.player.api.Player;
  */
 public final class TurnManagerImpl implements TurnManager {
 
+    private static final int DICE_FACES = 6;
     private final List<Player> players;
 
     private Iterator<Player> playerIterator;
@@ -23,6 +24,7 @@ public final class TurnManagerImpl implements TurnManager {
 
     /**
      * Creates an iterator to cycle through the player list and sets the turn order.
+     * @param players a list of players.
      */
     public TurnManagerImpl(final List<Player> players) {
         this.players = new LinkedList<>(players);
@@ -34,7 +36,7 @@ public final class TurnManagerImpl implements TurnManager {
      * Randomizes the order of players based on the dice throw.
      */
     private void setRandomOrder() {
-        Dice d6 = new DiceImpl(6);
+        Dice d6 = new DiceImpl(DICE_FACES);
         List<Pair<Player, Integer>> list = new ArrayList<>();
         for (int i = 0; i < players.size(); i++) {
             list.add(new PairImpl<>(players.get(i), d6.roll()));

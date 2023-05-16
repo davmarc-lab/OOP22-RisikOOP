@@ -2,8 +2,10 @@ package it.unibo.model.game_loop.api;
 
 /**
  * This class is used to save a couple of 2 different values.
+ * @param <X> first value
+ * @param <Y> second value
  */
-public interface Pair<X,Y> {
+public interface Pair<X, Y> {
 
     /**
      * @return the first value
@@ -26,5 +28,5 @@ public interface Pair<X,Y> {
      * @param val
      */
     void set2(Y val);
-    
+
 }

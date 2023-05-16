@@ -3,9 +3,11 @@ package it.unibo.model.game_loop.impl;
 import it.unibo.model.game_loop.api.Pair;
 
 /**
- * Basic implementation of Pair.
+ * Implementation of Pair.
+ * @param <X> first value
+ * @param <Y> second value
  */
-public class PairImpl<X,Y> implements Pair<X,Y> {
+public final class PairImpl<X, Y> implements Pair<X, Y> {
 
     private X val1;
     private Y val2;

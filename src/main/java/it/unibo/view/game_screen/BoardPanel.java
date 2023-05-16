@@ -49,7 +49,6 @@ public class BoardPanel extends JPanel {
 
     /**
      * Panel that contains the map and the buttons over the names of the territories.
-     * @param mapPath relative path to map.png
      */
     public BoardPanel() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
