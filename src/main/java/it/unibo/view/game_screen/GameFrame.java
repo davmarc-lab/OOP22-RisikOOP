@@ -14,7 +14,7 @@ public class GameFrame extends JFrame {
      */
     public GameFrame() {
         this.setLayout(new BorderLayout());
-        //this.getContentPane().add(new BoardPanel(), BorderLayout.CENTER);
+        this.getContentPane().add(new BoardPanel(), BorderLayout.CENTER);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
