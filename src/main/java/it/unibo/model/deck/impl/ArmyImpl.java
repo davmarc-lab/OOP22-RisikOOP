@@ -5,7 +5,7 @@ import it.unibo.model.deck.api.Army;
 /**
  * Represents an Army card.
  */
-public class ArmyImpl implements Army {
+public final class ArmyImpl implements Army {
 
     private final ArmyType armyType;
 
@@ -18,24 +18,13 @@ public class ArmyImpl implements Army {
         this.armyType = armyType;
     }
 
-    /**
-     * Gets the type of the Army card.
-     * 
-     * @return the type of the Army card.
-     */
     @Override
     public ArmyType getArmyType() {
         return armyType;
     }
 
-    /**
-     * Gets the string representation of the Army card.
-     * 
-     * @return the string representation of the Army card.
-     */
     @Override
     public String toString() {
         return this.armyType.toString();
     }
-
 }
