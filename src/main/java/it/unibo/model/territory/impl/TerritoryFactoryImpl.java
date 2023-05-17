@@ -1,13 +1,9 @@
 package it.unibo.model.territory.impl;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,49 +26,26 @@ import it.unibo.model.territory.api.TerritoryFactory;
 public final class TerritoryFactoryImpl implements TerritoryFactory {
 
     private static final String PATH_SEPARATOR = System.getProperty("file.separator");
-    private static final String DEFAULT_PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
+    private static final String PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
             + "config" + PATH_SEPARATOR + "territory" + PATH_SEPARATOR + "Territories.json";
 
     private Map<String, Set<Territory>> territories;
-    private final String path;
     private final Logger logger = Logger.getLogger(TerritoryFactoryImpl.class.getName());
 
     /**
      * Creates the map of all territories from the default file.
      */
     public TerritoryFactoryImpl() {
-        this(DEFAULT_PATH);
-    }
-
-    /**
-     * Creates the map of all territories from the file in the path given.
-     * 
-     * @param p
-     *          path of the file
-     */
-    public TerritoryFactoryImpl(final String p) {
-        this.path = p;
         this.territories = new HashMap<>();
     }
 
-    /**
-     * Creates a new territory factory from the territory factory given.
-     * 
-     * @param tFactory
-     *              the territory factory
-     */
-    public TerritoryFactoryImpl(final TerritoryFactory tFactory) {
-        this();
-        this.territories = tFactory.getTerritoryMap();
-    }
-
     @Override
-    public void createTerritories() throws FileNotFoundException {
+    public void createTerritories() {
         final JSONParser parser = new JSONParser();
         JSONObject obj;
 
         try {
-            final FileInputStream fileInputStream = new FileInputStream(this.path);
+            final FileInputStream fileInputStream = new FileInputStream(PATH);
             final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
             for (final Object elem: array) {
@@ -100,11 +73,10 @@ public final class TerritoryFactoryImpl implements TerritoryFactory {
             }
             fileInputStream.close();
             inputStreamReader.close();
-        } catch (IOException | ParseException e) {
-            if (Files.notExists(Path.of(this.path), LinkOption.NOFOLLOW_LINKS)) {
-                logger.log(Level.SEVERE, "File not found in the path given", e);
-                throw (FileNotFoundException) new FileNotFoundException().initCause(e);
-            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "File not found in the path", e);
+        } catch (ParseException e1) {
+            logger.log(Level.SEVERE, "Excpetion in parsing the file", e1);
         }
     }
 

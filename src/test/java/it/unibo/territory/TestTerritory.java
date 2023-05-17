@@ -44,12 +44,7 @@ class TestTerritory {
      */
     @Test
     void testCreationTerritories() {
-        assertDoesNotThrow(() -> {
-            factory.createTerritories();
-        });
-        assertThrows(FileNotFoundException.class, () -> {
-            new TerritoryFactoryImpl("fakePath.json").createTerritories();
-        });
+        assertDoesNotThrow(() -> factory.createTerritories());
         final Territory t = this.factory.getTerritory("Argentina");
         assertEquals(t.getName(), "Argentina");
         assertEquals(t.getAdjTerritories().stream().map(e -> e.getName()).sorted().collect(Collectors.toSet()),
