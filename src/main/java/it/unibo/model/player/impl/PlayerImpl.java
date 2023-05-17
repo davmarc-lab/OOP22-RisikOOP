@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
+import it.unibo.model.objective.api.Objective;
+import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.ColorPlayer;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
@@ -16,10 +18,11 @@ import it.unibo.model.territory.api.Territory;
  */
 public class PlayerImpl implements Player {
 
-    private int id;
-    private Set<Territory> territories = new HashSet<>();
-    private Deck<Army> playerHandDeck = new DeckImpl<>();
-    private ColorPlayer color = new ColorPlayerImpl();
+    private final int id;
+    private final Set<Territory> territories;
+    private final Deck<Army> playerHandDeck;
+    private final Objective objective;
+    private final ColorPlayer color;
 
     /**
      * Create a player from an specified id.
@@ -27,7 +30,7 @@ public class PlayerImpl implements Player {
      * @param id player's id
      */
     public PlayerImpl(final int id) {
-        this.id = id;
+        this(id, new HashSet<>(), new DeckImpl<>(), new ObjectiveImpl(), new ColorPlayerImpl());
     }
 
     /**
@@ -37,8 +40,7 @@ public class PlayerImpl implements Player {
      * @param color player's color
      */
     public PlayerImpl(final int id, final ColorPlayer color) {
-        this(id);
-        this.color = new ColorPlayerImpl(color);
+        this(id, new HashSet<>(), new DeckImpl<>(), new ObjectiveImpl(), color);
     }
 
     /**
@@ -48,8 +50,7 @@ public class PlayerImpl implements Player {
      * @param territories set of territories
      */
     public PlayerImpl(final int id, final Set<Territory> territories) {
-        this(id);
-        this.territories = Set.copyOf(territories);
+        this(id, territories, new DeckImpl<>(), new ObjectiveImpl(), new ColorPlayerImpl());
     }
 
     /**
@@ -59,9 +60,26 @@ public class PlayerImpl implements Player {
      * @param deck player's cards in a {@code Deck}
      */
     public PlayerImpl(final int id, final Deck<Army> deck) {
-        this(id);
-        this.playerHandDeck = new DeckImpl<>(deck.getDeck());
+        this(id, new HashSet<>(), deck, new ObjectiveImpl(), new ColorPlayerImpl());
     }
+
+    /**
+     * Full constructor of {@code Player}.
+     * 
+     * @param id player's id
+     * @param territories player's territories
+     * @param playerHandDeck player's personal deck
+     * @param objective player's objective
+     * @param color player's color
+     */
+    public PlayerImpl(final int id, final Set<Territory> territories, 
+       final Deck<Army> playerHandDeck, final Objective objective, final ColorPlayer color) {
+        this.id = id;
+        this.territories = new HashSet<>(territories);
+        this.playerHandDeck = new DeckImpl<>(playerHandDeck.getDeck());
+        this.objective = new ObjectiveImpl(objective.getDescription(), objective.getObjectiveType());
+        this.color = new ColorPlayerImpl(color);
+}
 
     /**
      * {@inheritDoc}
@@ -123,8 +141,16 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
+    public Objective getObjective() {
+        return new ObjectiveImpl(this.objective.getDescription(), this.objective.getObjectiveType());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString() {
-        return new String(new StringBuilder("ID -> " + this.getId() + "\nNumTerritory -> " + this.getTerritories().size()
-        + "\nTerritories -> " + this.getTerritories()));
+        return new String(new StringBuilder("ID -> ").append(this.getId()).append("\nNumTerritory -> ")
+            .append(this.getTerritories().size()).append("\nTerritories -> ").append(this.getTerritories()));
     }
 }

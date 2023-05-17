@@ -22,8 +22,8 @@ public class CombatImpl implements Combat {
     private final List<Integer> defenders = new ArrayList<>();      // used for testing purpose
     private final Territory tStriker;
     private final Territory tDefender;
-    private int numberStriker = 0;
-    private int numberDefender = 0;
+    private int numberStriker;
+    private int numberDefender;
     private final Dice dice = new DiceImpl(MAX_DICE_NUMBER);
 
     /**
@@ -106,11 +106,11 @@ public class CombatImpl implements Combat {
      * @return a {@code List<Results>} containing the result of each fight between armies
      */
     private List<Results> computeAttack(final List<Integer> strikers, final List<Integer> defenders) {
-        List<Results> r = new ArrayList<>();
+        final List<Results> r = new ArrayList<>();
         while (!(strikers.isEmpty() || defenders.isEmpty())) {
-            var s = strikers.get(0);
-            var d = defenders.get(0);
-            r.add((s > d ? Results.WIN : Results.LOSE));
+            final var s = strikers.get(0);
+            final var d = defenders.get(0);
+            r.add(s > d ? Results.WIN : Results.LOSE);
             strikers.remove(0);
             defenders.remove(0);
         }
@@ -124,18 +124,15 @@ public class CombatImpl implements Combat {
     public List<Results> attack() {
         // only for test purpose
         if (this.numberStriker != 0 && this.numberDefender != 0) {
-            var r = this.computeAttack(strikers, defenders);
-            return r;
+            return this.computeAttack(strikers, defenders);
         }
 
-        var strikers = declarePower(numberStriker);
-        var defenders = declarePower(numberDefender);
-        System.out.println(strikers + "\n" + defenders);
-        var r = computeAttack(strikers, defenders);
-        System.out.println(r);
+        final var strikers = declarePower(numberStriker);
+        final var defenders = declarePower(numberDefender);
+        final var r = computeAttack(strikers, defenders);
 
         // removing armies from the territories
-        for (var x: r) {
+        for (final var x: r) {
             if (x.equals(Combat.Results.WIN)) {
                 tDefender.addArmy(-1);
             } else if (x.equals(Combat.Results.LOSE)) {

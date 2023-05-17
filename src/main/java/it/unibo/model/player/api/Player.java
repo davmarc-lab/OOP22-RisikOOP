@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
+import it.unibo.model.objective.api.Objective;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -61,4 +62,11 @@ public interface Player {
      * @return player's deck
      */
     Deck<Army> getHandCards();
+
+    /**
+     * This method gets player's current objective.
+     * 
+     * @return player's objective
+     */
+    Objective getObjective();
 }
