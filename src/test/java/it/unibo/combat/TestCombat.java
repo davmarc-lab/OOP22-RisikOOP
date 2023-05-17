@@ -1,9 +1,10 @@
 package it.unibo.combat;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.impl.CombatImpl;
@@ -13,6 +14,7 @@ import it.unibo.model.territory.api.TerritoryFactory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 import java.util.List;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -20,8 +22,11 @@ import java.util.stream.Stream;
 
 class TestCombat {
 
-    final Player p1 = new PlayerImpl(1);
-    final Player p2 = new PlayerImpl(2);
+    private static final List<Integer> ATTACKERS_INTEGERS = new ArrayList<>(List.of(6, 5));
+    private static final List<Integer> DEFENDERS_INTEGERS = new ArrayList<>(List.of(5, 2, 1));
+
+    private final Player p1 = new PlayerImpl(1);
+    private final Player p2 = new PlayerImpl(2);
 
     private TerritoryFactory factory;
 
@@ -56,7 +61,8 @@ class TestCombat {
         p2.removeTerritory(Stream.of(factory.getTerritory("Ukraine")));
         assertEquals(Set.of(factory.getTerritory("Brazil")), p2.getTerritories());
         p2.addTerritory(Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Ukraine")));
-        assertEquals(Set.of(factory.getTerritory("Brazil"), factory.getTerritory("Egypt"), factory.getTerritory("Ukraine")), p2.getTerritories());
+        assertEquals(Set.of(factory.getTerritory("Brazil"), factory.getTerritory("Egypt"),
+            factory.getTerritory("Ukraine")), p2.getTerritories());
 
     }
 
@@ -64,7 +70,7 @@ class TestCombat {
     public void combatTestWithForcedResults() {
         var s = factory.getTerritory("Southern Europe");
         var d = factory.getTerritory("Ukraine");
-        Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(List.of(6, 4)), new ArrayList<>(List.of(5, 2, 1)));
+        Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS));
         assertEquals(List.of(Combat.Results.WIN, Combat.Results.WIN), c1.attack());
     }
 
