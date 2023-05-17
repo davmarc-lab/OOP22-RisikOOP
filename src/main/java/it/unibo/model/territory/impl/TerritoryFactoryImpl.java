@@ -55,6 +55,17 @@ public final class TerritoryFactoryImpl implements TerritoryFactory {
         this.territories = new HashMap<>();
     }
 
+    /**
+     * Creates a new territory factory from the territory factory given.
+     * 
+     * @param tFactory
+     *              the territory factory
+     */
+    public TerritoryFactoryImpl(final TerritoryFactory tFactory) {
+        this();
+        this.territories = tFactory.getTerritoryMap();
+    }
+
     @Override
     public void createTerritories() throws FileNotFoundException {
         final JSONParser parser = new JSONParser();
