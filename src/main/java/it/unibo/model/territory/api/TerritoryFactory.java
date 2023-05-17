@@ -13,7 +13,7 @@ public interface TerritoryFactory {
      * Creates the map of all territories.
      * @throws FileNotFoundException
      */
-    void createTerritories() throws FileNotFoundException;
+    void createTerritories();
 
     /**
      * Gets the name of the continent of the given territory.
