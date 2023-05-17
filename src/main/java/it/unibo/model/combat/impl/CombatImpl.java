@@ -2,10 +2,12 @@ package it.unibo.model.combat.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import it.unibo.model.combat.api.Combat;
+import it.unibo.model.dice.api.Dice;
+import it.unibo.model.dice.impl.DiceImpl;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
  * Implementation of Combat interface.
@@ -22,6 +24,7 @@ public class CombatImpl implements Combat {
     private final Territory tDefender;
     private int numberStriker = 0;
     private int numberDefender = 0;
+    private final Dice dice = new DiceImpl(MAX_DICE_NUMBER);
 
     /**
      * This constructor create a standard Combat object.
@@ -35,8 +38,8 @@ public class CombatImpl implements Combat {
      */
     public CombatImpl(final Territory tStriker, final int numberStriker,
         final Territory tDefender, final int numberDefender) {
-        this.tStriker  = tStriker;
-        this.tDefender = tDefender;
+        this.tStriker  = new TerritoryImpl(tStriker);
+        this.tDefender = new TerritoryImpl(tDefender);
         this.numberStriker = numberStriker;
         this.numberDefender = numberDefender;
         if (!isNumberArmiesValid()) {
@@ -83,15 +86,6 @@ public class CombatImpl implements Combat {
     }
 
     /**
-     * Simulate the behavior of a dice, giving a random number between 1 and 6.
-     * 
-     * @return a random dice number
-     */
-    private int rollDice() {
-        return new Random().nextInt(MAX_DICE_NUMBER) + 1;
-    }
-
-    /**
      * Calculate the values of each army throwing a dice.
      * 
      * @param numberOfDice number of armies used in combat
@@ -99,9 +93,7 @@ public class CombatImpl implements Combat {
      */
     private List<Integer> declarePower(final int numberOfDice) {
         final List<Integer> l = new ArrayList<>();
-        for (int i = 0; i < numberOfDice; i++) {
-            l.add(rollDice());
-        }
+        l.addAll(dice.rollMultiple(numberOfDice));
         l.sort((x, y) ->  y - x);
         return l;
     }

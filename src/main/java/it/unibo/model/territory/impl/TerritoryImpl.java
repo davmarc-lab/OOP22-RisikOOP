@@ -11,7 +11,7 @@ import it.unibo.model.territory.api.Territory;
 public final class TerritoryImpl implements Territory {
 
     private String name;
-    private Set<Territory> adjTerritories;
+    private final Set<Territory> adjTerritories;
     private int numArmy;
 
     /**
@@ -26,6 +26,18 @@ public final class TerritoryImpl implements Territory {
         this.numArmy = 0;
     }
 
+    /**
+     * Creates a new territory as a copy of an existing one.
+     * 
+     * @param t
+     *          the territory to copy
+     */
+    public TerritoryImpl(final Territory t) {
+        this(t.getName());
+        this.adjTerritories.addAll(t.getAdjTerritories());
+        this.numArmy = t.getArmy();
+    }
+
     @Override
     public String getName() {
         return this.name;
@@ -33,7 +45,7 @@ public final class TerritoryImpl implements Territory {
 
     @Override
     public Set<Territory> getAdjTerritories() {
-        return this.adjTerritories;
+        return Set.copyOf(this.adjTerritories);
     }
 
     @Override
@@ -50,11 +62,17 @@ public final class TerritoryImpl implements Territory {
     public void addArmy(final int n) {
         this.numArmy += n;
     }
+
+    @Override
+    public Territory getCopyOfTerritory(final Territory t) {
+        return new TerritoryImpl(t);
+    }
+
     @Override
     public String toString() {
         return new String(new StringBuilder("NAME = ").append(this.getName()).append(", ADJ = [").append(
                 this.getAdjTerritories().stream()
                 .map(t -> t.getName())
-                .reduce((s1, s2) -> s1 + ", " + s2).get()).append("]"));
+                .reduce((s1, s2) -> s1 + ", " + s2).get()).append(']'));
     }
 }

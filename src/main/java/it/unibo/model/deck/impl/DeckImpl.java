@@ -25,6 +25,10 @@ public final class DeckImpl<T> implements Deck<T> {
         this.deck.addAll(cards);
     }
 
+    public DeckImpl() {
+        
+    }
+
     @Override
     public void addCard(final T card) {
         this.deck.add(card);

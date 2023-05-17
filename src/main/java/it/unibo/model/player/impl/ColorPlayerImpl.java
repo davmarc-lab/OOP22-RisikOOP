@@ -93,7 +93,7 @@ public class ColorPlayerImpl implements ColorPlayer {
      */
     @Override
     public String toString() {
-        return new String("Red -> " + this.getRedValue() + ", Green -> "
-            + this.getGreenValue() + ", Blue -> " + this.getBlueValue());
+        return new String(new StringBuilder("Red -> ").append(this.getRedValue()).append(", Green -> ")
+        .append(this.getGreenValue()).append(", Blue -> ").append(this.getBlueValue()));
     }
 }

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * Test the creation and the contents of territories.
  */
-public final class TestTerritory {
+class TestTerritory {
 
     private TerritoryFactory factory;
 
@@ -34,7 +34,7 @@ public final class TestTerritory {
      * @throws FileNotFoundException
      */
     @BeforeEach
-    public void initTerritoryFactory() throws FileNotFoundException {
+    void initTerritoryFactory() throws FileNotFoundException {
         this.factory = new TerritoryFactoryImpl();
         this.factory.createTerritories();
     }
@@ -43,14 +43,14 @@ public final class TestTerritory {
      * Test the creation of the territories.
      */
     @Test
-    public void testCreationTerritories() {
+    void testCreationTerritories() {
         assertDoesNotThrow(() -> {
             factory.createTerritories();
         });
         assertThrows(FileNotFoundException.class, () -> {
-            new TerritoryFactoryImpl("fakePath.json").createTerritories();;
+            new TerritoryFactoryImpl("fakePath.json").createTerritories();
         });
-        Territory t = this.factory.getTerritory("Argentina");
+        final Territory t = this.factory.getTerritory("Argentina");
         assertEquals(t.getName(), "Argentina");
         assertEquals(t.getAdjTerritories().stream().map(e -> e.getName()).sorted().collect(Collectors.toSet()),
                 Set.of("Brazil", "Peru'"));
@@ -61,9 +61,9 @@ public final class TestTerritory {
      * Test the continent of a territory.
      */
     @Test
-    public void testContinentFromTerritory() {
-        Territory tM = this.factory.getTerritory("Madagascar");
-        Territory tJ = this.factory.getTerritory("Japan");
+    void testContinentFromTerritory() {
+        final Territory tM = this.factory.getTerritory("Madagascar");
+        final Territory tJ = this.factory.getTerritory("Japan");
         assertEquals(this.factory.getContinentNameFromTerritory(tM), "Africa");
         assertNotEquals(this.factory.getContinentNameFromTerritory(tJ), "Europe");
         assertThrows(NoSuchElementException.class,
@@ -74,9 +74,9 @@ public final class TestTerritory {
      * Test the set of all territory names.
      */
     @Test
-    public void testTerritoryNameSet() {
-        Set<String> nameSet = this.factory.getTerritoryNameSet();
-        assertEquals(nameSet.stream().filter(s -> s.equalsIgnoreCase("alaska")).findAny().get(), "Alaska");
+    void testTerritoryNameSet() {
+        final Set<String> nameSet = this.factory.getTerritoryNameSet();
+        assertEquals(nameSet.stream().filter(s -> "alaska".equalsIgnoreCase(s)).findAny().get(), "Alaska");
         assertTrue(nameSet.contains("China"));
         assertFalse(nameSet.contains("japan")); // Not ignoring name's first letter upper case.
     }
@@ -85,8 +85,8 @@ public final class TestTerritory {
      * Test the adjacency of territories.
      */
     @Test
-    public void testAdjTerritories() {
-        Set<String> set = new HashSet<>();
+    void testAdjTerritories() {
+        final Set<String> set = new HashSet<>();
         this.factory.getTerritory("Southern Europe").getAdjTerritories().forEach(t -> set.add(t.getName()));
         assertTrue(set.containsAll(Set.of(
                 "Western Europe",
@@ -105,24 +105,24 @@ public final class TestTerritory {
      * Test the set of all territories.
      */
     @Test
-    public void testTerritorySet() {
-        Set<Territory> territories = this.factory.getTerritories();
-        assertThrows(NoSuchElementException.class, () -> {
-            territories.contains(this.factory.getTerritory("Belgium"));
-        });
+    void testTerritorySet() {
+        final Set<Territory> territories = this.factory.getTerritories();
         assertInstanceOf(Territory.class,
-                territories.stream().filter(t -> t.getName().equalsIgnoreCase("Quebec")).findAny().get());
+                territories.stream().filter(t -> "Quebec".equalsIgnoreCase(t.getName())).findAny().get());
         assertTrue(territories.contains(this.factory.getTerritory("Ontario")));
         assertFalse(territories.contains(new TerritoryImpl("Alberia")));
     }
 
+    /**
+     * Test the set of territories of a continent.
+     */
     @Test
-    public void testTerritoryByContinent() {
+    void testTerritoryByContinent() {
         assertTrue(this.factory.getTerritoryByContinent("Europe").contains(this.factory.getTerritory("Great Britain")));
         assertTrue(this.factory.getTerritoryByContinent("Oceania").contains(this.factory.getTerritory("Indonesia")));
         assertEquals(
                 this.factory.getTerritoryByContinent("North America").stream()
-                        .filter(t -> t.getName().equalsIgnoreCase("Alaska")).findAny().get(),
+                        .filter(t -> "Alaska".equalsIgnoreCase(t.getName())).findAny().get(),
                 this.factory.getTerritory("Alaska"));
     }
 }

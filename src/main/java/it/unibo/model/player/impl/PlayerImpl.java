@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import it.unibo.model.deck.api.Army;
+import it.unibo.model.deck.api.Deck;
+import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.player.api.ColorPlayer;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
@@ -15,6 +18,7 @@ public class PlayerImpl implements Player {
 
     private int id;
     private Set<Territory> territories = new HashSet<>();
+    private Deck<Army> playerHandDeck = new DeckImpl<>();
     private ColorPlayer color = new ColorPlayerImpl();
 
     /**
@@ -34,7 +38,7 @@ public class PlayerImpl implements Player {
      */
     public PlayerImpl(final int id, final ColorPlayer color) {
         this(id);
-        this.color = color;
+        this.color = new ColorPlayerImpl(color);
     }
 
     /**
@@ -45,7 +49,18 @@ public class PlayerImpl implements Player {
      */
     public PlayerImpl(final int id, final Set<Territory> territories) {
         this(id);
-        this.territories = territories;
+        this.territories = Set.copyOf(territories);
+    }
+
+    /**
+     * Create a player form an id and deck.
+     * 
+     * @param id player's id
+     * @param deck player's cards in a {@code Deck}
+     */
+    public PlayerImpl(final int id, final Deck<Army> deck) {
+        this(id);
+        this.playerHandDeck = new DeckImpl<>(deck.getDeck());
     }
 
     /**
@@ -85,7 +100,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public Set<Territory> getTerritories() {
-        return this.territories;
+        return Set.copyOf(this.territories);
     }
 
     /**
@@ -100,8 +115,16 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
+    public Deck<Army> getHandCards() {
+        return new DeckImpl<>(this.playerHandDeck.getDeck());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString() {
-        return new String("ID -> " + this.getId() + "\nNumTerritory -> " + this.getTerritories().size()
-            + "\nTerritories -> " + this.getTerritories());
+        return new String(new StringBuilder("ID -> " + this.getId() + "\nNumTerritory -> " + this.getTerritories().size()
+        + "\nTerritories -> " + this.getTerritories()));
     }
 }

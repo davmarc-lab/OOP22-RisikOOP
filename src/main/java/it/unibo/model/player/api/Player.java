@@ -3,6 +3,8 @@ package it.unibo.model.player.api;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import it.unibo.model.deck.api.Army;
+import it.unibo.model.deck.api.Deck;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -52,4 +54,11 @@ public interface Player {
      * @return player's color
      */
     ColorPlayer getColorPlayer();
+
+    /**
+     * This method gets player's current hand of cards.
+     * 
+     * @return player's deck
+     */
+    Deck<Army> getHandCards();
 }
