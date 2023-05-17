@@ -15,7 +15,6 @@ import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 import java.util.List;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -30,7 +29,7 @@ class TestCombat {
 
     private TerritoryFactory factory;
 
-    @BeforeEach void startSetUp() throws FileNotFoundException {
+    @BeforeEach void startSetUp() {
         this.factory = new TerritoryFactoryImpl();
         this.factory.createTerritories();
         p1.removeTerritory(p1.getTerritories().stream());
