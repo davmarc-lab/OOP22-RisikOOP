@@ -1,4 +1,4 @@
-package it.unibo.model.deck.api;
+package it.unibo.model.army.api;
 
 /**
  * Represents an Army card.

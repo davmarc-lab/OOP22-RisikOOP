@@ -26,7 +26,7 @@ public final class DeckImpl<T> implements Deck<T> {
     }
 
     public DeckImpl() {
-        
+
     }
 
     @Override
@@ -48,7 +48,7 @@ public final class DeckImpl<T> implements Deck<T> {
     }
 
     @Override
-    public List<T> getDeck() {
+    public Collection<T> getDeck() {
         return Collections.unmodifiableList(this.deck);
     }
 }

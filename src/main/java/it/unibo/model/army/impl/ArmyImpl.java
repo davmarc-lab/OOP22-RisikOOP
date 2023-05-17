@@ -1,6 +1,6 @@
-package it.unibo.model.deck.impl;
+package it.unibo.model.army.impl;
 
-import it.unibo.model.deck.api.Army;
+import it.unibo.model.army.api.Army;
 
 /**
  * Represents an Army card.
