@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -28,17 +30,18 @@ import it.unibo.model.territory.api.TerritoryFactory;
 public final class TerritoryFactoryImpl implements TerritoryFactory {
 
     private static final String PATH_SEPARATOR = System.getProperty("file.separator");
-    private static final String PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
+    private static final String DEFAULT_PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
             + "config" + PATH_SEPARATOR + "territory" + PATH_SEPARATOR + "Territories.json";
 
     private Map<String, Set<Territory>> territories;
     private final String path;
+    private final Logger logger = Logger.getLogger(TerritoryFactoryImpl.class.getName());
 
     /**
      * Creates the map of all territories from the default file.
      */
     public TerritoryFactoryImpl() {
-        this(PATH);
+        this(DEFAULT_PATH);
     }
 
     /**
@@ -54,8 +57,8 @@ public final class TerritoryFactoryImpl implements TerritoryFactory {
 
     @Override
     public void createTerritories() throws FileNotFoundException {
-        JSONParser parser = new JSONParser();
-        JSONObject obj = new JSONObject();
+        final JSONParser parser = new JSONParser();
+        JSONObject obj;
 
         try {
             final FileInputStream fileInputStream = new FileInputStream(this.path);
@@ -63,30 +66,33 @@ public final class TerritoryFactoryImpl implements TerritoryFactory {
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
             for (final Object elem: array) {
                 obj = (JSONObject) elem;
-                String continentName = obj.get("continent").toString();
-                JSONArray terrArray = (JSONArray) obj.get("territories");
+                final String continentName = obj.get("continent").toString();
+                final JSONArray terrArray = (JSONArray) obj.get("territories");
                 this.territories.put(continentName, new HashSet<>());
                 for (final var t: terrArray) {
-                    JSONObject tObj = (JSONObject) t;
-                    String tName = tObj.get("name").toString();
+                    final JSONObject tObj = (JSONObject) t;
+                    final String tName = tObj.get("name").toString();
                     this.territories.get(continentName).add(new TerritoryImpl(tName));
                 }
             }
             for (final var elem: array) {
                 obj = (JSONObject) elem;
-                JSONArray terrArray = (JSONArray) obj.get("territories");
+                final JSONArray terrArray = (JSONArray) obj.get("territories");
                 for (final var t: terrArray) {
-                    JSONObject tObj = (JSONObject) t;
-                    String tName = tObj.get("name").toString();
-                    JSONArray adjArray = (JSONArray) tObj.get("adj");
+                    final JSONObject tObj = (JSONObject) t;
+                    final String tName = tObj.get("name").toString();
+                    final JSONArray adjArray = (JSONArray) tObj.get("adj");
                     for (final var adjT: adjArray) {
                         this.getTerritory(tName).addAdjTerritory(this.getTerritory(adjT.toString()));
                     }
                 }
             }
+            fileInputStream.close();
+            inputStreamReader.close();
         } catch (IOException | ParseException e) {
             if (Files.notExists(Path.of(this.path), LinkOption.NOFOLLOW_LINKS)) {
-                throw new FileNotFoundException();
+                logger.log(Level.SEVERE, "File not found in the path given", e);
+                throw (FileNotFoundException) new FileNotFoundException().initCause(e);
             }
         }
     }
@@ -108,7 +114,7 @@ public final class TerritoryFactoryImpl implements TerritoryFactory {
 
     @Override
     public Set<Territory> getTerritories() {
-        Set<Territory> set = new HashSet<>();
+        final Set<Territory> set = new HashSet<>();
         this.territories.values().stream().forEach(s -> set.addAll(s));
         return set;
     }

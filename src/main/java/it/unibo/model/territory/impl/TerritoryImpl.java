@@ -11,7 +11,7 @@ import it.unibo.model.territory.api.Territory;
 public final class TerritoryImpl implements Territory {
 
     private String name;
-    private Set<Territory> adjTerritories;
+    private final Set<Territory> adjTerritories;
     private int numArmy;
 
     /**
@@ -34,7 +34,7 @@ public final class TerritoryImpl implements Territory {
      */
     public TerritoryImpl(final Territory t) {
         this(t.getName());
-        this.adjTerritories = t.getAdjTerritories();
+        this.adjTerritories.addAll(t.getAdjTerritories());
         this.numArmy = t.getArmy();
     }
 
@@ -73,6 +73,6 @@ public final class TerritoryImpl implements Territory {
         return new String(new StringBuilder("NAME = ").append(this.getName()).append(", ADJ = [").append(
                 this.getAdjTerritories().stream()
                 .map(t -> t.getName())
-                .reduce((s1, s2) -> s1 + ", " + s2).get()).append("]"));
+                .reduce((s1, s2) -> s1 + ", " + s2).get()).append(']'));
     }
 }
