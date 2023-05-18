@@ -7,7 +7,6 @@ import it.unibo.model.combat.api.Combat;
 import it.unibo.model.dice.api.Dice;
 import it.unibo.model.dice.impl.DiceImpl;
 import it.unibo.model.territory.api.Territory;
-import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
  * Implementation of Combat interface.
@@ -38,8 +37,8 @@ public class CombatImpl implements Combat {
      */
     public CombatImpl(final Territory tStriker, final int numberStriker,
         final Territory tDefender, final int numberDefender) {
-        this.tStriker  = new TerritoryImpl(tStriker);
-        this.tDefender = new TerritoryImpl(tDefender);
+        this.tStriker  = tStriker;
+        this.tDefender = tDefender;
         this.numberStriker = numberStriker;
         this.numberDefender = numberDefender;
         if (!isNumberArmiesValid()) {
@@ -118,27 +117,56 @@ public class CombatImpl implements Combat {
     }
 
     /**
+     * This method updates the territories values.
+     * 
+     * @param list list of combat result
+     */
+    private void applyCombatResult(final List<Results> list) {
+        list.stream().forEach(r -> {
+            if (r.equals(Results.WIN)) {
+                this.tDefender.addArmy(-1);
+            } else if (r.equals(Results.LOSE)) {
+                this.tStriker.addArmy(-1);
+            } else {
+                throw new IllegalCallerException("Invalid combat resutl, aborted operation");
+            }
+        });
+    }
+
+    /**
+     * This method checks the validity of the combat.
+     * 
+     * @return {@code true} if the combat is valid
+     */
+    private boolean checkAttackValidity() {
+        return this.tStriker.getAdjTerritories().contains(this.tDefender) &&
+            this.tStriker.getArmy() > 1 && this.tStriker.getArmy() <= 3 &&
+            this.tDefender.getArmy() > 1 && this.tDefender.getArmy() <= 3;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public List<Results> attack() {
         // only for test purpose
+        if (!checkAttackValidity()) {
+            return List.of(Results.NONE);
+        }
+
         if (this.numberStriker != 0 && this.numberDefender != 0) {
-            return this.computeAttack(strikers, defenders);
+            var res = this.computeAttack(strikers, defenders);
+            applyCombatResult(res);
+            return res;
         }
 
         final var strikers = declarePower(numberStriker);
         final var defenders = declarePower(numberDefender);
-        final var r = computeAttack(strikers, defenders);
+        final var results = computeAttack(strikers, defenders);
 
         // removing armies from the territories
-        for (final var x: r) {
-            if (x.equals(Combat.Results.WIN)) {
-                tDefender.addArmy(-1);
-            } else if (x.equals(Combat.Results.LOSE)) {
-                tStriker.addArmy(-1);
-            }
-        }
-        return r;
+        applyCombatResult(results);
+        
+        return results;
     }
 }

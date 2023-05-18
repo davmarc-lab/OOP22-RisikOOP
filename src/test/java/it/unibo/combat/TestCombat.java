@@ -68,9 +68,12 @@ class TestCombat {
     @Test
     public void combatTestWithForcedResults() {
         var s = factory.getTerritory("Southern Europe");
+        s.addArmy(2);
         var d = factory.getTerritory("Ukraine");
+        d.addArmy(3);
         Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS));
         assertEquals(List.of(Combat.Results.WIN, Combat.Results.WIN), c1.attack());
+        assertEquals(List.of(2, 1), List.of(s.getArmy(), d.getArmy()));
     }
 
     @Test
