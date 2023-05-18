@@ -71,8 +71,8 @@ class TestCombat {
         s.addArmy(2);
         var d = factory.getTerritory("Ukraine");
         d.addArmy(3);
-        Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS));
-        assertEquals(List.of(Combat.Results.WIN, Combat.Results.WIN), c1.attack());
+        Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS), true);
+        assertEquals(List.of(Combat.Results.WIN, Combat.Results.WIN), c1.attack(2, 3));
         assertEquals(List.of(2, 1), List.of(s.getArmy(), d.getArmy()));
     }
 
@@ -81,7 +81,7 @@ class TestCombat {
         var s = factory.getTerritory("Southern Europe");
         var d = factory.getTerritory("Ukraine");
         assertThrows(IllegalArgumentException.class, () -> {
-            new CombatImpl(s, 0, d, 3).attack();
+            new CombatImpl(s, 0, d, 3).attack(0, 3);
         });
     }
 }

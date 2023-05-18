@@ -89,6 +89,19 @@ public class ColorPlayerImpl implements ColorPlayer {
     }
 
     /**
+     * {@inheridDoc}
+     */
+    @Override
+    protected ColorPlayer clone() {
+        try {
+            return (ColorPlayer) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * Simple toString of the color values.
      */
     @Override

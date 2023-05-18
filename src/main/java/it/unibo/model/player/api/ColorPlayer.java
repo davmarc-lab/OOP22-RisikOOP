@@ -47,21 +47,21 @@ public interface ColorPlayer {
     void setColor(ColorPlayer c);
 
     /**
-     * This methods return the R value of the color.
+     * This methods returns the R value of the color.
      * 
      * @return red value
      */
     int getRedValue();
 
     /**
-     * This methods return the G value of the color.
+     * This methods returns the G value of the color.
      * 
      * @return green value
      */
     int getGreenValue();
 
     /**
-     * This methods return the B value of the color.
+     * This methods returns the B value of the color.
      * 
      * @return blue value
      */

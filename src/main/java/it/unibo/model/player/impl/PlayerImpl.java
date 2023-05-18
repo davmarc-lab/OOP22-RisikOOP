@@ -25,6 +25,13 @@ public class PlayerImpl implements Player {
     private final ColorPlayer color;
 
     /**
+     * Empty constructor to create an empty {@code Player}.
+     */
+    public PlayerImpl() {
+        this(0);
+    }
+
+    /**
      * Create a player from an specified id.
      * 
      * @param id player's id
@@ -54,16 +61,6 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Create a player form an id and deck.
-     * 
-     * @param id player's id
-     * @param deck player's cards in a {@code Deck}
-     */
-    public PlayerImpl(final int id, final Deck<Army> deck) {
-        this(id, new HashSet<>(), deck, new ObjectiveImpl(), new ColorPlayerImpl());
-    }
-
-    /**
      * Full constructor of {@code Player}.
      * 
      * @param id player's id
@@ -75,10 +72,10 @@ public class PlayerImpl implements Player {
     public PlayerImpl(final int id, final Set<Territory> territories, 
        final Deck<Army> playerHandDeck, final Objective objective, final ColorPlayer color) {
         this.id = id;
-        this.territories = new HashSet<>(territories);
+        this.territories = territories;
         this.playerHandDeck = new DeckImpl<>(playerHandDeck.getDeck());
         this.objective = new ObjectiveImpl(objective.getDescription(), objective.getObjectiveType());
-        this.color = new ColorPlayerImpl(color);
+        this.color = color;
 }
 
     /**
@@ -143,6 +140,16 @@ public class PlayerImpl implements Player {
     @Override
     public Objective getObjective() {
         return new ObjectiveImpl(this.objective.getDescription(), this.objective.getObjectiveType());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Player clone() {
+        Player p = new PlayerImpl();
+        p = this;
+        return p;
     }
 
     /**

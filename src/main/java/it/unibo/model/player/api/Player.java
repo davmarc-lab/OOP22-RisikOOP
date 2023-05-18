@@ -69,4 +69,11 @@ public interface Player {
      * @return player's objective
      */
     Objective getObjective();
+
+    /**
+     * This methods returns a {@code Player} shallow copy.
+     * 
+     * @return player's  object shallow copy
+     */
+    Player clone();
 }

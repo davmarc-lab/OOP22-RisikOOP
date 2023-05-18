@@ -36,5 +36,5 @@ public interface Combat {
      * 
      * @return a list of Combat.Results indicating the combat results 
      */
-    List<Results> attack();
+    List<Results> attack(final int numStriker, final int numDefender);
 }

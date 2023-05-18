@@ -17,13 +17,15 @@ public class CombatImpl implements Combat {
     private static final int MAX_ATTACK_DEFEND_ARMY = 3;
     private static final int MIN_ATTACK_DEFEND_ARMY = 1;
 
-    private final List<Integer> strikers = new ArrayList<>();       // used for testing purpose
-    private final List<Integer> defenders = new ArrayList<>();      // used for testing purpose
+    private final List<Integer> strikers = new ArrayList<>();
+    private final List<Integer> defenders = new ArrayList<>();
     private final Territory tStriker;
     private final Territory tDefender;
+    private final Dice dice = new DiceImpl(MAX_DICE_NUMBER);
+    // fields used for test purpose
     private int numberStriker;
     private int numberDefender;
-    private final Dice dice = new DiceImpl(MAX_DICE_NUMBER);
+    private boolean testFlag = false;
 
     /**
      * This constructor create a standard Combat object.
@@ -37,13 +39,9 @@ public class CombatImpl implements Combat {
      */
     public CombatImpl(final Territory tStriker, final int numberStriker,
         final Territory tDefender, final int numberDefender) {
-        this.tStriker  = tStriker;
-        this.tDefender = tDefender;
+        this(tStriker, tDefender);
         this.numberStriker = numberStriker;
         this.numberDefender = numberDefender;
-        if (!isNumberArmiesValid()) {
-            throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more then 3");
-        }
     }
 
     /**
@@ -53,7 +51,8 @@ public class CombatImpl implements Combat {
      * @param tDefender defender's territories
      */
     public CombatImpl(final Territory tStriker, final Territory tDefender) {
-        this(tStriker, 0, tDefender, 0);
+        this.tStriker = tStriker.getCopyOfTerritory();
+        this.tDefender = tDefender;
     }
 
     /**
@@ -68,10 +67,11 @@ public class CombatImpl implements Combat {
      * @param defenders results of the dice for defender's armies
      */
     public CombatImpl(final Territory tStriker, final int numberStriker, final Territory tDefender,
-        final int numberDefender, final List<Integer> strikers, final List<Integer> defenders) {
+        final int numberDefender, final List<Integer> strikers, final List<Integer> defenders, final boolean testFlag) {
         this(tStriker, numberStriker, tDefender, numberDefender);
         this.strikers.addAll(strikers);
         this.defenders.addAll(defenders);
+        this.testFlag = true;
     }
 
     /**
@@ -140,32 +140,40 @@ public class CombatImpl implements Combat {
      */
     private boolean checkAttackValidity() {
         return this.tStriker.getAdjTerritories().contains(this.tDefender) &&
-            this.tStriker.getArmy() > 1 && this.tStriker.getArmy() <= 3 &&
-            this.tDefender.getArmy() > 1 && this.tDefender.getArmy() <= 3;
+            this.tStriker.getArmy() > 1;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Results> attack() {
+    public List<Results> attack(final int numStriker, final int numDefender) {
+        this.numberStriker = numStriker;
+        this.numberDefender = numDefender;
+
+        if (!isNumberArmiesValid()) {
+            throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more than 3");
+        }
+
         // only for test purpose
         if (!checkAttackValidity()) {
             return List.of(Results.NONE);
         }
 
-        if (this.numberStriker != 0 && this.numberDefender != 0) {
+        // only for test purpose
+        if (testFlag) {
             var res = this.computeAttack(strikers, defenders);
             applyCombatResult(res);
             return res;
         }
 
-        final var strikers = declarePower(numberStriker);
-        final var defenders = declarePower(numberDefender);
+        final var strikers = declarePower(this.numberStriker);
+        final var defenders = declarePower(this.numberDefender);
         final var results = computeAttack(strikers, defenders);
 
         // removing armies from the territories
         applyCombatResult(results);
+        System.out.println(tStriker.getArmy() + " " + tDefender.getArmy());
         
         return results;
     }
