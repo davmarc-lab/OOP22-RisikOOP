@@ -48,7 +48,7 @@ public final class DeckImpl<T> implements Deck<T> {
     }
 
     @Override
-    public Collection<T> getDeck() {
-        return Collections.unmodifiableList(this.deck);
+    public List<T> getDeck() {
+        return new ArrayList<T>(this.deck);
     }
 }

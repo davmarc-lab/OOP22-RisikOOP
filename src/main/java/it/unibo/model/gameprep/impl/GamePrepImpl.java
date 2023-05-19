@@ -1,6 +1,8 @@
 package it.unibo.model.gameprep.impl;
 
-import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
@@ -37,11 +39,7 @@ public class GamePrepImpl implements GamePrep {
 
     @Override
     public void createTerritoryDeck() {
-        try {
-            this.territoryFactory.createTerritories();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.territoryFactory.createTerritories();
         this.territoryDeck = new DeckImpl<>(this.territoryFactory.getTerritories());
         this.territoryDeck.shuffle();
     }
@@ -64,6 +62,11 @@ public class GamePrepImpl implements GamePrep {
     @Override
     public Deck<Territory> getTerritoryDeck() {
         return this.territoryDeck;
+    }
+
+    @Override
+    public Map<String, Set<Territory>> getTerritoryMap() {
+        return new HashMap<>(this.territoryFactory.getTerritoryMap());
     }
 
     @Override

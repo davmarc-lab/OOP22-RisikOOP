@@ -41,7 +41,7 @@ public class GameBoardImpl implements GameBoard  {
      */
     public GameBoardImpl() {
         final GamePrep gamePrep = new GamePrepImpl();
-        this.territoriesMap = gamePrep.getTerritoriesMap();
+        this.territoriesMap = gamePrep.getTerritoryMap();
         this.armyDeck = gamePrep.getArmyDeck();
         this.territoryDeck = gamePrep.getTerritoryDeck();
         this.objectiveDeck = gamePrep.getObjectiveDeck();

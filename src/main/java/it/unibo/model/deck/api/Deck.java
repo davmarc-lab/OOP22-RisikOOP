@@ -1,6 +1,6 @@
 package it.unibo.model.deck.api;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Represents a generic deck of cards.
@@ -32,5 +32,5 @@ public interface Deck<T> {
      * 
      * @return the deck
      */
-    Collection<T> getDeck();
+    List<T> getDeck();
 }
