@@ -89,16 +89,13 @@ public class ColorPlayerImpl implements ColorPlayer {
     }
 
     /**
-     * {@inheridDoc}
+     * {@inheritDoc}
      */
     @Override
-    protected ColorPlayer clone() {
-        try {
-            return (ColorPlayer) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public ColorPlayer clone() {
+        ColorPlayer c = new ColorPlayerImpl();
+        c = this;
+        return c;
     }
 
     /**

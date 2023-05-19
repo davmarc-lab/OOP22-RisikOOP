@@ -66,4 +66,11 @@ public interface ColorPlayer {
      * @return blue value
      */
     int getBlueValue();
+
+    /**
+     * This methods returns a {@code ColorPlayer} shallow copy.
+     * 
+     * @return color's object shallow copy
+     */
+    ColorPlayer clone();
 }

@@ -16,6 +16,12 @@ import it.unibo.model.territory.api.Territory;
  */
 public interface GameBoard {
 
+    /**
+     * This method starts a combat between two players.
+     * 
+     * @param tStriker striker territory
+     * @param tDefender defender territory
+     */
     void instaceCombat(Territory tStriker, Territory tDefender);
 
     /**
@@ -46,6 +52,11 @@ public interface GameBoard {
      */
     Deck<Territory> getTerritoryDeck();
 
+    /**
+     * This methods returns all players in the game.
+     * 
+     * @return players that are playing
+     */
     List<Player> getAllPlayers();
 
     /**

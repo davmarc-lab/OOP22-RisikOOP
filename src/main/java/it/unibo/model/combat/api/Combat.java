@@ -34,7 +34,9 @@ public interface Combat {
     /**
      * This method start and compute the attack between two territories.
      * 
-     * @return a list of Combat.Results indicating the combat results 
+     * @param numStriker numer of striker's armies
+     * @param numDefender numer of defender's armies
+     * @return a list of {@code Combat.Results} indicating the combat results 
      */
-    List<Results> attack(final int numStriker, final int numDefender);
+    List<Results> attack(int numStriker, int numDefender);
 }

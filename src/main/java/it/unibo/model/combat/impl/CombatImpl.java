@@ -57,7 +57,7 @@ public class CombatImpl implements Combat {
 
     /**
      * This constructor is used for test classes, it creates a situation with default number of armies.
-     * and default results of each dice
+     * and default results of each dice.
      * 
      * @param tStriker striker's territory
      * @param numberStriker striker's armies
@@ -65,6 +65,7 @@ public class CombatImpl implements Combat {
      * @param numberDefender defender's armies
      * @param strikers results of the dice for striker's armies
      * @param defenders results of the dice for defender's armies
+     * @param testFlag flag used in test classes
      */
     public CombatImpl(final Territory tStriker, final int numberStriker, final Territory tDefender,
         final int numberDefender, final List<Integer> strikers, final List<Integer> defenders, final boolean testFlag) {
@@ -139,8 +140,8 @@ public class CombatImpl implements Combat {
      * @return {@code true} if the combat is valid
      */
     private boolean checkAttackValidity() {
-        return this.tStriker.getAdjTerritories().contains(this.tDefender) &&
-            this.tStriker.getArmy() > 1;
+        return this.tStriker.getAdjTerritories().contains(this.tDefender)
+            && this.tStriker.getArmy() > 1;
     }
 
     /**
@@ -170,11 +171,8 @@ public class CombatImpl implements Combat {
         final var strikers = declarePower(this.numberStriker);
         final var defenders = declarePower(this.numberDefender);
         final var results = computeAttack(strikers, defenders);
-
         // removing armies from the territories
         applyCombatResult(results);
-        System.out.println(tStriker.getArmy() + " " + tDefender.getArmy());
-        
         return results;
     }
 }
