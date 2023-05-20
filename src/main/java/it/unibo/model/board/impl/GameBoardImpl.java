@@ -19,7 +19,6 @@ import it.unibo.model.gameprep.api.GamePrep;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
-import it.unibo.model.player.impl.ColorPlayerImpl;
 import it.unibo.model.player.impl.PlayerImpl;
 import it.unibo.model.territory.api.Territory;
 
@@ -28,6 +27,9 @@ import it.unibo.model.territory.api.Territory;
  */
 public class GameBoardImpl implements GameBoard {
 
+    /**
+     * Maximum number of player in the game.
+     */
     private static final int MAX_PLAYER = 3;
 
     private final Map<String, Set<Territory>> territoriesMap;
@@ -47,7 +49,7 @@ public class GameBoardImpl implements GameBoard {
         this.territoryDeck = gamePrep.getTerritoryDeck();
         this.objectiveDeck = gamePrep.getObjectiveDeck();
         IntStream.range(0, MAX_PLAYER).forEach(i -> players.add(new PlayerImpl(i + 1, new DeckImpl<Territory>(),
-                new DeckImpl<Army>(), gamePrep.getObjectiveDeck().drawCard(), new ColorPlayerImpl())));
+                new DeckImpl<Army>(), gamePrep.getObjectiveDeck().drawCard(), Player.Color.BLACK)));
         this.turnManager = new TurnManagerImpl(new ArrayList<>(this.players));
     }
 
@@ -64,6 +66,14 @@ public class GameBoardImpl implements GameBoard {
 
         final Combat combat = new CombatImpl(tStriker, tDefender);
         // chiama le gui
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void instanceMovement(Territory oldTerritory, Territory newTerritory) {
+
     }
 
     /**
@@ -128,7 +138,7 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public GameBoard clone() {
+    public GameBoard getCopy() {
         GameBoard gb = new GameBoardImpl();
         gb = this;
         return gb;

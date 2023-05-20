@@ -89,27 +89,49 @@ public interface Player {
     /**
      * This method gets player's color.
      * 
-     * @return player's color
+     * @return player color
      */
     Color getColorPlayer();
 
     /**
      * This method gets player's current hand of cards.
      * 
-     * @return player's deck
+     * @return player deck
      */
     Deck<Army> getHandCards();
 
     /**
      * This method gets player's current objective.
      * 
-     * @return player's objective
+     * @return player objective
      */
     Objective getObjective();
 
-    Deck<Territory> getPlayerHand();
+    /**
+     * This method returns player's army deck.
+     * 
+     * @return player hand
+     */
+    Deck<Army> getPlayerHand();
 
+    /**
+     * This method returns player's territory deck.
+     * 
+     * @return player's territory deck
+     */
+    Deck<Territory> getTerritoryDeck();
+
+    /**
+     * This method sets player's id.
+     * 
+     * @param id player id
+     */
     void setId(int id);
 
+    /**
+     * This method sets player's objective.
+     * 
+     * @param objective player objective
+     */
     void setObjective(Objective objective);
 }

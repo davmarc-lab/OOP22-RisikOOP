@@ -25,6 +25,14 @@ public interface GameBoard {
     void instaceCombat(Territory tStriker, Territory tDefender);
 
     /**
+     * This method starts moving armies from a territory to another one.
+     * 
+     * @param oldTerritory departure territory
+     * @param newTerritory arrival territory
+     */
+    void instanceMovement(Territory oldTerritory, Territory newTerritory);
+
+    /**
      * Get the data structure that manage all territories.
      * 
      * @return the territories' data structure
@@ -78,4 +86,5 @@ public interface GameBoard {
      * 
      * @return object's shallow copy
      */
+    GameBoard getCopy();
 }

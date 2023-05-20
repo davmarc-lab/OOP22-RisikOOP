@@ -35,7 +35,8 @@ public class PlayerImpl implements Player {
      * @param id player's id
      */
     public PlayerImpl(final int id) {
-        this(id, new DeckImpl<>(), new DeckImpl<>(), new ObjectiveImpl("", Objective.ObjectiveType.NONE), Player.Color.BLACK);
+        this(id, new DeckImpl<>(), new DeckImpl<>(), new ObjectiveImpl("", Objective.ObjectiveType.NONE),
+                Player.Color.BLACK);
     }
 
     /**
@@ -45,7 +46,7 @@ public class PlayerImpl implements Player {
      * @param color player's color
      */
     public PlayerImpl(final int id, final Color color) {
-        this(id, new DeckImpl<>(), new DeckImpl<>(), null, color);
+        this(id, new DeckImpl<>(), new DeckImpl<>(), new ObjectiveImpl("None", Objective.ObjectiveType.NONE), color);
     }
 
     /**
@@ -55,11 +56,11 @@ public class PlayerImpl implements Player {
      * @param territories set of territories
      */
     public PlayerImpl(final int id, final Deck<Territory> territories) {
-        this(id, territories, new DeckImpl<>(), null, Color.BLACK);
+        this(id, territories, new DeckImpl<>(), new ObjectiveImpl("None", Objective.ObjectiveType.NONE), Color.BLACK);
     }
 
     public PlayerImpl(final Player p) {
-        this(p.getId(), p.getPlayerHand(), p.getHandCards(), p.getObjective(), p.getColorPlayer());
+        this(p.getId(), p.getTerritoryDeck(), p.getHandCards(), p.getObjective(), p.getColorPlayer());
     }
 
     /**
@@ -144,8 +145,21 @@ public class PlayerImpl implements Player {
         return new ObjectiveImpl(this.objective.getDescription(), this.objective.getObjectiveType());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Deck<Territory> getPlayerHand() {
+    public Deck<Army> getPlayerHand() {
+        Deck<Army> x = new DeckImpl<>();
+        x = this.playerHandDeck;
+        return x;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Deck<Territory> getTerritoryDeck() {
         Deck<Territory> t = new DeckImpl<>();
         t = this.territories;
         return t;
@@ -155,18 +169,24 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public String toString() {
-        return new String(
-                new StringBuilder("ID -> ").append(this.getId()).append(", TERR -> ").append(this.getTerritories()));
-    }
-
-    @Override
     public void setId(final int id) {
         this.id = id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setObjective(Objective objective) {
         this.objective = objective;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return new String(
+                new StringBuilder("ID -> ").append(this.getId()).append(", TERR -> ").append(this.getTerritories()));
     }
 }
