@@ -16,7 +16,11 @@ public interface Objective {
         /**
          * Objective to destroy another player.
          */
-        DESTROY
+        DESTROY,
+        /**
+         * No objective.
+         */
+        NONE
     }
 
     /**

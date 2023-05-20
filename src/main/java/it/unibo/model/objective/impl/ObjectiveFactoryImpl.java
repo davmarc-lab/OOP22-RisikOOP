@@ -27,12 +27,11 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
     private final Set<Objective> objectives;
 
     private final String pathSeparator = System.getProperty("file.separator");
+    private final String filePath = "src" + pathSeparator + "main" + pathSeparator + "resources" + pathSeparator
+            + "config" + pathSeparator + "objective" + pathSeparator + "Objectives.json";
 
     private final Logger logger = Logger.getLogger(ObjectiveFactoryImpl.class.getName());
 
-    /**
-     * Constructs a new ObjectiveFactoryImpl.
-     */
     public ObjectiveFactoryImpl() {
         this.objectives = new HashSet<>();
     }
@@ -44,8 +43,6 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
     public void createObjectiveSet() {
         final JSONParser parser = new JSONParser();
         try {
-            final String filePath = "src" + pathSeparator + "main" + pathSeparator + "resources" + pathSeparator
-                    + "Objectives.json";
             final FileInputStream fileInputStream = new FileInputStream(filePath);
             final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
