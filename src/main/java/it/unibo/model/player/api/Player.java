@@ -1,7 +1,6 @@
 package it.unibo.model.player.api;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
@@ -29,18 +28,18 @@ public interface Player {
     int getArmy(Territory t);
 
     /**
-     * This method adds a {@code Stream<Territory>} to player's territory.
+     * This method adds a {@code Territory} to player's territory.
      * 
      * @param territory stream of territories that will be added to player
      */
-    void addTerritory(Stream<Territory> territory);
+    void addTerritory(Territory territory);
 
     /**
-     * This method removes a {@code Stream<Territory>} from player's territory.
+     * This method removes a {@code Territory} from player's territory.
      * 
      * @param territory stream of territories that will be removed from player
      */
-    void removeTerritory(Stream<Territory> territory);
+    void removeTerritory(Territory territory);
 
     /**
      * This method return the territories of player.
@@ -70,10 +69,9 @@ public interface Player {
      */
     Objective getObjective();
 
-    /**
-     * This methods returns a {@code Player} shallow copy.
-     * 
-     * @return player's  object shallow copy
-     */
-    Player clone();
+    Deck<Territory> getPlayerHand();
+
+    Player getCopy();
+
+    void setId(int id);
 }
