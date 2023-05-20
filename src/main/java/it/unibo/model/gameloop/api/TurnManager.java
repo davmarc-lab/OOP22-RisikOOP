@@ -1,4 +1,4 @@
-package it.unibo.model.game_loop.api;
+package it.unibo.model.gameloop.api;
 
 import it.unibo.model.player.api.Player;
 

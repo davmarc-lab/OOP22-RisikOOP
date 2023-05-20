@@ -6,7 +6,7 @@ import java.util.Set;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
-import it.unibo.model.game_loop.api.TurnManager;
+import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
@@ -19,7 +19,7 @@ public interface GameBoard {
     /**
      * Maximum number of player in the game.
      */
-    public static final int MAX_PLAYER = 3;
+    int MAX_PLAYER = 3;
 
     /**
      * This method starts a combat between two players.

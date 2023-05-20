@@ -1,6 +1,6 @@
-package it.unibo.model.game_loop.impl;
+package it.unibo.model.gameloop.impl;
 
-import it.unibo.model.game_loop.api.Pair;
+import it.unibo.model.gameloop.api.Pair;
 
 /**
  * Implementation of Pair.

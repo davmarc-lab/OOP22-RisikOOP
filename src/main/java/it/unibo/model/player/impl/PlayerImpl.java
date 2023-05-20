@@ -177,7 +177,7 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public void setObjective(Objective objective) {
+    public void setObjective(final Objective objective) {
         this.objective = objective;
     }
 

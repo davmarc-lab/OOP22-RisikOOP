@@ -37,9 +37,11 @@ public class BoardPanel extends JPanel {
 
     private static final double SCREEN_SCALING_PERC = 10.0;
     private static final String PATH_SEPARATOR = System.getProperty("file.separator");
-    private static final String MAP_PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
+    private static final String MAP_PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources"
+            + PATH_SEPARATOR
             + "images" + PATH_SEPARATOR + "RisikoMap.jpg";
-    private static final String COORDINATES_PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources" + PATH_SEPARATOR
+    private static final String COORDINATES_PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources"
+            + PATH_SEPARATOR
             + "config" + PATH_SEPARATOR + "territory" + PATH_SEPARATOR + "Coordinates.json";
 
     private final Map<JButton, Territory> territories = new HashMap<>();
@@ -48,11 +50,13 @@ public class BoardPanel extends JPanel {
     private ImageIcon map;
 
     /**
-     * Panel that contains the map and the buttons over the names of the territories.
+     * Panel that contains the map and the buttons over the names of the
+     * territories.
      */
     public BoardPanel() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        map = new ImageIcon(adjustImageSize(new ImageIcon(MAP_PATH), (int) screenSize.getWidth(), (int) screenSize.getHeight()));
+        map = new ImageIcon(
+                adjustImageSize(new ImageIcon(MAP_PATH), (int) screenSize.getWidth(), (int) screenSize.getHeight()));
 
         JLabel label = new JLabel(map);
         label.setBounds(0, 0, map.getIconWidth(), map.getIconHeight());
@@ -60,13 +64,13 @@ public class BoardPanel extends JPanel {
         try {
             loadButtons(map.getIconWidth(), map.getIconHeight());
             for (var jb : territories.keySet()) {
-                pane.add(jb, Integer.valueOf(1));   // Puts all buttons on layer 1 (above the map)
+                pane.add(jb, Integer.valueOf(1)); // Puts all buttons on layer 1 (above the map)
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        pane.add(label, Integer.valueOf(0));    // Puts the map on the lowest layer (0)
+        pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
         pane.setPreferredSize(new Dimension(map.getIconWidth(), map.getIconHeight()));
 
         this.add(pane);
@@ -74,15 +78,17 @@ public class BoardPanel extends JPanel {
 
     /**
      * Adjusts the map.png size to the screen resolution (in %).
-     * @param map the ImageIcon of the map
-     * @param width the starting width (the one used to scale the new one)
+     * 
+     * @param map    the ImageIcon of the map
+     * @param width  the starting width (the one used to scale the new one)
      * @param height the starting width (the one used to scale the new one)
      * @return the adjusted image
      */
     private Image adjustImageSize(final ImageIcon map, final int width, final int height) {
         int newWidth = (int) (width * SCREEN_SCALING_PERC / 100);
         int newHeight = (int) (width * SCREEN_SCALING_PERC / 100);
-        return map.getImage().getScaledInstance((int) width - newWidth, (int) height - newHeight, java.awt.Image.SCALE_SMOOTH);
+        return map.getImage().getScaledInstance((int) width - newWidth, (int) height - newHeight,
+                java.awt.Image.SCALE_SMOOTH);
     }
 
     private void loadButtons(final int width, final int height) throws FileNotFoundException {
@@ -94,7 +100,7 @@ public class BoardPanel extends JPanel {
             final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
             factory.createTerritories();
-            for (final Object elem: array) {
+            for (final Object elem : array) {
                 obj = (JSONObject) elem;
                 String name = obj.get("name").toString();
                 int x = (int) (width * Double.parseDouble(obj.get("x").toString()) / 100);
@@ -112,9 +118,10 @@ public class BoardPanel extends JPanel {
 
     /**
      * Creates and invisible button.
-     * @param x horizontal position
-     * @param y vertical position
-     * @param width button width
+     * 
+     * @param x      horizontal position
+     * @param y      vertical position
+     * @param width  button width
      * @param height button height
      * @return invisible JButton with specified values
      */

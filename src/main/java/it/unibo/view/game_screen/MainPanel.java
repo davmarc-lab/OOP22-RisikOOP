@@ -45,7 +45,8 @@ public class MainPanel extends JPanel {
         this.setLayout(layout);
 
         this.dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(new Dimension((int) (this.dimension.getWidth() * WIDTH_PERC), (int) (this.dimension.getHeight() * HEIGHT_PERC)));
+        this.setPreferredSize(new Dimension((int) (this.dimension.getWidth() * WIDTH_PERC),
+                (int) (this.dimension.getHeight() * HEIGHT_PERC)));
 
         jbPlay = new JButton(PLAY);
         jbRules = new JButton(RULES);
@@ -64,8 +65,8 @@ public class MainPanel extends JPanel {
 
         jbQuit.addActionListener(e -> {
             final int n = JOptionPane.showConfirmDialog(this,
-            "Do you really want to quit?", 
-            "Quitting", JOptionPane.YES_NO_OPTION);
+                    "Do you really want to quit?",
+                    "Quitting", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
                 System.exit(0);
             }

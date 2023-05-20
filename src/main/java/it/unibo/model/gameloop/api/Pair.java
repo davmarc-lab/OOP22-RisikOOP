@@ -1,4 +1,4 @@
-package it.unibo.model.game_loop.api;
+package it.unibo.model.gameloop.api;
 
 /**
  * This class is used to save a couple of 2 different values.

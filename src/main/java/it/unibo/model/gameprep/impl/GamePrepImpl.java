@@ -27,7 +27,7 @@ import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 public class GamePrepImpl implements GamePrep {
 
-    private final int MAX_CARDS = 42;
+    private final int MAXCARDS = 42;
 
     private List<Player> players = new ArrayList<>();
     private final ObjectiveFactory objectiveFactory = new ObjectiveFactoryImpl();
@@ -73,14 +73,14 @@ public class GamePrepImpl implements GamePrep {
     @Override
     public void createArmyDeck() {
         Arrays.stream(Army.ArmyType.values())
-                .forEach(armyType -> IntStream.range(0, MAX_CARDS / GameBoard.MAX_PLAYER)
+                .forEach(armyType -> IntStream.range(0, MAXCARDS / GameBoard.MAX_PLAYER)
                         .forEach(i -> this.armyDeck.addCard(new ArmyImpl(armyType))));
         this.armyDeck.shuffle();
     }
 
     @Override
     public void assignTerritories() {
-        this.getPlayers().forEach(player -> IntStream.range(0, MAX_CARDS / GameBoard.MAX_PLAYER)
+        this.getPlayers().forEach(player -> IntStream.range(0, MAXCARDS / GameBoard.MAX_PLAYER)
                 .forEach(i -> player.addTerritory(this.territoryDeck.drawCard())));
     }
 

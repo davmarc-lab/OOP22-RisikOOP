@@ -40,11 +40,11 @@ public interface Player {
         public int getRedValue() {
             return this.r;
         }
-    
+
         public int getGreenValue() {
             return this.g;
         }
-    
+
         public int getBlueValue() {
             return this.b;
         }

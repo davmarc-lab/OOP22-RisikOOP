@@ -13,9 +13,9 @@ import it.unibo.model.territory.api.Territory;
 public interface GamePrep {
 
     void createObjectiveDeck();
-    
+
     void createTerritoryDeck();
-    
+
     void createArmyDeck();
 
     void createPlayers();
@@ -25,13 +25,13 @@ public interface GamePrep {
     void assignObjectives();
 
     void assignTroops();
-    
+
     Deck<Objective> getObjectiveDeck();
-    
+
     Deck<Territory> getTerritoryDeck();
 
     Deck<Army> getArmyDeck();
-    
+
     Map<String, Set<Territory>> getTerritoryMap();
 
     List<Player> getPlayers();

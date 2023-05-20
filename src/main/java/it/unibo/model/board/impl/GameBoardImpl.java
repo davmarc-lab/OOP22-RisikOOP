@@ -13,8 +13,8 @@ import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
-import it.unibo.model.game_loop.api.TurnManager;
-import it.unibo.model.game_loop.impl.TurnManagerImpl;
+import it.unibo.model.gameloop.api.TurnManager;
+import it.unibo.model.gameloop.impl.TurnManagerImpl;
 import it.unibo.model.gameprep.api.GamePrep;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
 import it.unibo.model.objective.api.Objective;
@@ -67,7 +67,7 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public void instanceMovement(Territory oldTerritory, Territory newTerritory) {
+    public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
 
     }
 
