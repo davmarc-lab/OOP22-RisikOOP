@@ -1,20 +1,22 @@
 [
     {
-        "destroyObj" : ["Destroy the BLUE ARMY",
-                        "Destroy the RED ARMY",
-                        "Destroy the GREEN ARMY",
-                        "Destroy the YELLOW ARMY",
-                        "Destroy the BLACK ARMY",
-                        "Destroy the PURPLE ARMY"],
-                        
-        "conquerObj" : ["Conquer ASIA and SOUTH AMERICA",
-                        "Conquer ASIA and AFRICA",
-                        "Conquer NORTH AMERICA and AFRICA",
-                        "Conquer NORTH AMERICA and OCEANIA",
-                        "Conquer EUROPE and SOUTH AMERICA and a third continent of your choice",
-                        "Conquer EUROPE and OCEANIA and a third continent of your choice",
-                        "Conquer 18 territories with at least 2 armies in each territory",
-                        "Conquer 24 territories"]
+        "destroyObj": [
+            "BLUE",
+            "RED",
+            "GREEN",
+            "YELLOW",
+            "BLACK",
+            "WHITE"
+        ],
+        "conquerObj": [
+            "Conquer ASIA and SOUTH AMERICA",
+            "Conquer ASIA and AFRICA",
+            "Conquer NORTH AMERICA and AFRICA",
+            "Conquer NORTH AMERICA and OCEANIA",
+            "Conquer EUROPE and SOUTH AMERICA and a third continent of your choice",
+            "Conquer EUROPE and OCEANIA and a third continent of your choice",
+            "Conquer 18 territories with at least 2 armies in each territory"
+        ],
+        "defaultObj": "Conquer 24 territories"
     }
-
 ]
