@@ -48,12 +48,4 @@ public interface Objective {
      * @return the type of the objective
      */
     ObjectiveType getObjectiveType();
-
-    /**
-     * Gets the string representation of the objective.
-     *
-     * @return a string representation of the objective
-     */
-    @Override
-    String toString();
 }

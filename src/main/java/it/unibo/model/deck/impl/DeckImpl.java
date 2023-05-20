@@ -49,6 +49,11 @@ public final class DeckImpl<T> implements Deck<T> {
 
     @Override
     public List<T> getDeck() {
-        return new ArrayList<T>(this.deck);
+        return this.deck;
+    }
+
+    @Override
+    public String toString() {
+        return "Deck = [" + deck + "]\n";
     }
 }

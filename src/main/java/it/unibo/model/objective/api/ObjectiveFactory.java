@@ -18,4 +18,11 @@ public interface ObjectiveFactory {
      * @return the set of objectives
      */
     Set<Objective> getSetObjectives();
+
+    /**
+     * Gets the default objective.
+     * 
+     * @return the default objective
+     */
+    Objective getDefaulObjective();
 }

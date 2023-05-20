@@ -1,23 +1,35 @@
 package it.unibo.model.gameprep.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
+import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameprep.api.GamePrep;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.api.ObjectiveFactory;
 import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
+import it.unibo.model.objective.impl.ObjectiveImpl;
+import it.unibo.model.player.api.Player;
+import it.unibo.model.player.impl.PlayerImpl;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.api.TerritoryFactory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 public class GamePrepImpl implements GamePrep {
 
+    private final int MAX_CARDS = 42;
+
+    private List<Player> players = new ArrayList<>();
     private final ObjectiveFactory objectiveFactory = new ObjectiveFactoryImpl();
     private Deck<Objective> objectiveDeck;
     private final TerritoryFactory territoryFactory = new TerritoryFactoryImpl();
@@ -25,9 +37,23 @@ public class GamePrepImpl implements GamePrep {
     private final Deck<Army> armyDeck = new DeckImpl<>();
 
     public GamePrepImpl() {
+        this.createPlayers();
         this.createObjectiveDeck();
         this.createTerritoryDeck();
         this.createArmyDeck();
+        this.assignObjectives();
+        this.assignTerritories();
+        this.assignTroops();
+    }
+
+    @Override
+    public void createPlayers() {
+        List<Player.Color> colors = Arrays.asList(Player.Color.values());
+        Collections.shuffle(colors);
+        IntStream.range(0, GameBoard.MAX_PLAYER)
+                .mapToObj(i -> new PlayerImpl(i + 1, new DeckImpl<Territory>(), new DeckImpl<Army>(),
+                        new ObjectiveImpl(), colors.get(i)))
+                .forEach(this.players::add);
     }
 
     @Override
@@ -46,12 +72,42 @@ public class GamePrepImpl implements GamePrep {
 
     @Override
     public void createArmyDeck() {
-        for (final Army.ArmyType armyType : Army.ArmyType.values()) {
-            for (int i = 0; i < 14; i++) {
-                this.armyDeck.addCard(new ArmyImpl(armyType));
+        Arrays.stream(Army.ArmyType.values())
+                .forEach(armyType -> IntStream.range(0, MAX_CARDS / GameBoard.MAX_PLAYER)
+                        .forEach(i -> this.armyDeck.addCard(new ArmyImpl(armyType))));
+        this.armyDeck.shuffle();
+    }
+
+    @Override
+    public void assignTerritories() {
+        this.getPlayers().forEach(player -> IntStream.range(0, MAX_CARDS / GameBoard.MAX_PLAYER)
+                .forEach(i -> player.addTerritory(this.territoryDeck.drawCard())));
+    }
+
+    @Override
+    public void assignObjectives() {
+        List<String> colors = this.getPlayers().stream().map(p -> p.getColorPlayer().getName()).toList();
+        var unaviableColors = new ArrayList<>();
+        for (var objective : objectiveDeck.getDeck()) {
+            if (objective.getObjectiveType().equals(Objective.ObjectiveType.DESTROY)
+                    && !colors.contains(objective.getDescription())) {
+                unaviableColors.add(objective);
             }
         }
-        this.armyDeck.shuffle();
+        objectiveDeck.getDeck().removeAll(unaviableColors);
+        for (final Player player : this.getPlayers()) {
+            Objective drawnObj = this.objectiveDeck.drawCard();
+            if (drawnObj.getDescription().equals(player.getColorPlayer().getName())) {
+                player.setObjective(this.objectiveFactory.getDefaulObjective());
+            } else {
+                player.setObjective(drawnObj);
+            }
+        }
+    }
+
+    @Override
+    public void assignTroops() {
+        // TODO
     }
 
     @Override
@@ -72,5 +128,10 @@ public class GamePrepImpl implements GamePrep {
     @Override
     public Deck<Army> getArmyDeck() {
         return this.armyDeck;
+    }
+
+    @Override
+    public List<Player> getPlayers() {
+        return this.players;
     }
 }

@@ -22,6 +22,11 @@ public class ObjectiveImpl implements Objective {
         this.objectiveType = objectiveType;
     }
 
+    public ObjectiveImpl() {
+        this.description = "";
+        this.objectiveType = ObjectiveType.NONE;
+    }
+
     /**
      * Returns whether this objective has been completed or not.
      *
@@ -67,6 +72,8 @@ public class ObjectiveImpl implements Objective {
      */
     @Override
     public String toString() {
-        return "Objective [Description=" + description + ", Type=" + objectiveType + "]" + "\n";
+        return objectiveType.equals(ObjectiveType.DESTROY)
+                ? new String(new StringBuilder("Destroy the ").append(this.description).append(" army"))
+                : this.description;
     }
 }

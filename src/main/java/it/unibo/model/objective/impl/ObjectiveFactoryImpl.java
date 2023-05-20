@@ -25,6 +25,7 @@ import it.unibo.model.objective.api.ObjectiveFactory;
 public class ObjectiveFactoryImpl implements ObjectiveFactory {
 
     private final Set<Objective> objectives;
+    private Objective defaultObjective;
 
     private final String pathSeparator = System.getProperty("file.separator");
     private final String filePath = "src" + pathSeparator + "main" + pathSeparator + "resources" + pathSeparator
@@ -50,6 +51,7 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
                 final JSONObject obj = (JSONObject) elem;
                 final JSONArray destroyArray = (JSONArray) obj.get("destroyObj");
                 final JSONArray conquerArray = (JSONArray) obj.get("conquerObj");
+                final String defaultObj = obj.get("defaultObj").toString();
                 for (final Object destroyElem : destroyArray) {
                     final ObjectiveImpl objective = new ObjectiveImpl(destroyElem.toString(),
                             Objective.ObjectiveType.DESTROY);
@@ -60,6 +62,9 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
                             Objective.ObjectiveType.CONQUER);
                     this.objectives.add(objective);
                 }
+                this.defaultObjective = new ObjectiveImpl(defaultObj.toString(),
+                        Objective.ObjectiveType.CONQUER);
+                this.objectives.add(defaultObjective);
             }
             inputStreamReader.close();
             fileInputStream.close();
@@ -76,5 +81,10 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
     @Override
     public Set<Objective> getSetObjectives() {
         return Collections.unmodifiableSet(this.objectives);
+    }
+
+    @Override
+    public Objective getDefaulObjective() {
+        return new ObjectiveImpl(this.defaultObjective.getDescription(), this.defaultObjective.getObjectiveType());
     }
 }
