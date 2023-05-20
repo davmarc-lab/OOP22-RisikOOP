@@ -12,6 +12,44 @@ import it.unibo.model.territory.api.Territory;
  */
 public interface Player {
 
+    enum Color {
+
+        BLACK("BLACK", 0, 0, 0),
+        BLUE("BLUE", 0, 0, 255),
+        RED("RED", 255, 0, 0),
+        GREEN("GREEN", 0, 255, 0),
+        YELLOW("YELLOW", 255, 255, 0),
+        WHITE("WHITE", 255, 255, 255);
+
+        private final String name;
+        private final int r;
+        private final int g;
+        private final int b;
+
+        Color(final String name, final int r, final int g, final int b) {
+            this.name = name;
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+
+        String getName() {
+            return this.name;
+        }
+
+        int getRedValue() {
+            return this.r;
+        }
+    
+        int getGreenValue() {
+            return this.g;
+        }
+    
+        int getBlueValue() {
+            return this.b;
+        }
+    }
+
     /**
      * This method returns player's id.
      * 
@@ -53,7 +91,7 @@ public interface Player {
      * 
      * @return player's color
      */
-    ColorPlayer getColorPlayer();
+    Color getColorPlayer();
 
     /**
      * This method gets player's current hand of cards.
