@@ -21,7 +21,7 @@ public class PlayerImpl implements Player {
     private int id;
     private final Deck<Territory> territories;
     private final Deck<Army> playerHandDeck;
-    private final Objective objective;
+    private Objective objective;
     private final ColorPlayer color;
 
     /**
@@ -37,7 +37,7 @@ public class PlayerImpl implements Player {
      * @param id player's id
      */
     public PlayerImpl(final int id) {
-        this(id, new DeckImpl<>(), new DeckImpl<>(), null, new ColorPlayerImpl());
+        this(id, new DeckImpl<>(), new DeckImpl<>(), new ObjectiveImpl("", Objective.ObjectiveType.NONE), new ColorPlayerImpl());
     }
 
     /**
@@ -159,11 +159,16 @@ public class PlayerImpl implements Player {
     @Override
     public String toString() {
         return new String(
-                new StringBuilder("ID -> ").append(this.getId()).append(", OBJ -> ").append(this.getObjective()));
+                new StringBuilder("ID -> ").append(this.getId()).append(", TERR -> ").append(this.getTerritories()));
     }
 
     @Override
     public void setId(final int id) {
         this.id = id;
+    }
+
+    @Override
+    public void setObjective(Objective objective) {
+        this.objective = objective;
     }
 }

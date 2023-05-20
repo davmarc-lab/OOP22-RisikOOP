@@ -71,7 +71,7 @@ public interface Player {
 
     Deck<Territory> getPlayerHand();
 
-    Player getCopy();
-
     void setId(int id);
+
+    void setObjective(Objective objective);
 }

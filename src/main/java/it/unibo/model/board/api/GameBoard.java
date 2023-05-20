@@ -78,5 +78,4 @@ public interface GameBoard {
      * 
      * @return object's shallow copy
      */
-    GameBoard clone();
 }

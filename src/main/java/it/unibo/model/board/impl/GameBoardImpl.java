@@ -19,13 +19,14 @@ import it.unibo.model.gameprep.api.GamePrep;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
+import it.unibo.model.player.impl.ColorPlayerImpl;
 import it.unibo.model.player.impl.PlayerImpl;
 import it.unibo.model.territory.api.Territory;
 
 /**
  * Implementation of GameBoard, instance of the game table.
  */
-public class GameBoardImpl implements GameBoard  {
+public class GameBoardImpl implements GameBoard {
 
     private static final int MAX_PLAYER = 3;
 
@@ -45,7 +46,8 @@ public class GameBoardImpl implements GameBoard  {
         this.armyDeck = gamePrep.getArmyDeck();
         this.territoryDeck = gamePrep.getTerritoryDeck();
         this.objectiveDeck = gamePrep.getObjectiveDeck();
-        IntStream.range(0, MAX_PLAYER).forEach(i -> players.add(new PlayerImpl(i + 1)));
+        IntStream.range(0, MAX_PLAYER).forEach(i -> players.add(new PlayerImpl(i + 1, new DeckImpl<Territory>(),
+                new DeckImpl<Army>(), gamePrep.getObjectiveDeck().drawCard(), new ColorPlayerImpl())));
         this.turnManager = new TurnManagerImpl(new ArrayList<>(this.players));
     }
 
@@ -119,7 +121,7 @@ public class GameBoardImpl implements GameBoard  {
      */
     @Override
     public Player getCurrentPlayer() {
-        return this.turnManager.getCurrentPlayer().clone();
+        return this.turnManager.getCurrentPlayer();
     }
 
     /**

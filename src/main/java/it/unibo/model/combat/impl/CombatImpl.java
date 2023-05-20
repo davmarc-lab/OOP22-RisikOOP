@@ -51,7 +51,7 @@ public class CombatImpl implements Combat {
      * @param tDefender defender's territories
      */
     public CombatImpl(final Territory tStriker, final Territory tDefender) {
-        this.tStriker = tStriker.getCopyOfTerritory();
+        this.tStriker = tStriker;
         this.tDefender = tDefender;
     }
 

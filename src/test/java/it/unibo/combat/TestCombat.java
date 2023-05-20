@@ -32,12 +32,10 @@ class TestCombat {
     @BeforeEach void startSetUp() {
         this.factory = new TerritoryFactoryImpl();
         this.factory.createTerritories();
-        p1.removeTerritory(p1.getTerritories().stream());
-        p2.removeTerritory(p2.getTerritories().stream());
 
-        p1.addTerritory(Stream.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela"),
-            factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")));
-        p2.addTerritory(Stream.of(factory.getTerritory("Brazil"), factory.getTerritory("Ukraine")));
+        Stream.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela"),
+            factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")).forEach(t -> p1.addTerritory(t));
+        Stream.of(factory.getTerritory("Brazil"), factory.getTerritory("Ukraine")).forEach(t -> p2.addTerritory(t));
 
     }
 
@@ -55,11 +53,11 @@ class TestCombat {
 
     @Test
     public void removeTerritoriesTest() {
-        p1.removeTerritory(Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")));
+        Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")).forEach(t -> p1.removeTerritory(t));
         assertEquals(Set.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela")), p1.getTerritories());
-        p2.removeTerritory(Stream.of(factory.getTerritory("Ukraine")));
+        Stream.of(factory.getTerritory("Ukraine")).forEach(t -> p2.removeTerritory(t));
         assertEquals(Set.of(factory.getTerritory("Brazil")), p2.getTerritories());
-        p2.addTerritory(Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Ukraine")));
+        Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Ukraine")).forEach(t -> p2.addTerritory(t));
         assertEquals(Set.of(factory.getTerritory("Brazil"), factory.getTerritory("Egypt"),
             factory.getTerritory("Ukraine")), p2.getTerritories());
 
