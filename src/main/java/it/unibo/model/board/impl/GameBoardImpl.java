@@ -27,11 +27,6 @@ import it.unibo.model.territory.api.Territory;
  */
 public class GameBoardImpl implements GameBoard {
 
-    /**
-     * Maximum number of player in the game.
-     */
-    private static final int MAX_PLAYER = 3;
-
     private final Map<String, Set<Territory>> territoriesMap;
     private final Deck<Army> armyDeck;
     private final Deck<Territory> territoryDeck;

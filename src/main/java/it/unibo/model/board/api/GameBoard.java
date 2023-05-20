@@ -17,6 +17,11 @@ import it.unibo.model.territory.api.Territory;
 public interface GameBoard {
 
     /**
+     * Maximum number of player in the game.
+     */
+    public static final int MAX_PLAYER = 3;
+
+    /**
      * This method starts a combat between two players.
      * 
      * @param tStriker striker territory
