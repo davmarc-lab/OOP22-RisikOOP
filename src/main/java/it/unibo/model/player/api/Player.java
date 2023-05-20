@@ -33,19 +33,19 @@ public interface Player {
             this.b = b;
         }
 
-        String getName() {
+        public String getName() {
             return this.name;
         }
 
-        int getRedValue() {
+        public int getRedValue() {
             return this.r;
         }
     
-        int getGreenValue() {
+        public int getGreenValue() {
             return this.g;
         }
     
-        int getBlueValue() {
+        public int getBlueValue() {
             return this.b;
         }
     }
