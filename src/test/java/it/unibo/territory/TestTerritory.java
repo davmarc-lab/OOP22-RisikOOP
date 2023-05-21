@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -31,10 +30,9 @@ class TestTerritory {
 
     /**
      * Creates all the territories using the factory.
-     * @throws FileNotFoundException
      */
     @BeforeEach
-    void initTerritoryFactory() throws FileNotFoundException {
+    void initTerritoryFactory() {
         this.factory = new TerritoryFactoryImpl();
         this.factory.createTerritories();
     }
@@ -44,7 +42,7 @@ class TestTerritory {
      */
     @Test
     void testCreationTerritories() {
-        assertDoesNotThrow(() -> factory.createTerritories());
+        assertDoesNotThrow(() -> new TerritoryFactoryImpl().createTerritories());
         final Territory t = this.factory.getTerritory("Argentina");
         assertEquals(t.getName(), "Argentina");
         assertEquals(t.getAdjTerritories().stream().map(e -> e.getName()).sorted().collect(Collectors.toSet()),
