@@ -16,10 +16,35 @@ import it.unibo.model.territory.api.Territory;
  */
 public interface GameBoard {
 
+    enum BonusTroops {
+        OCEANIA_TROOPS("Oceania", 2),
+        EUROPE_TROOPS("Europe", 5),
+        SOUTH_AMERICA_TROOPS("South America", 2),
+        NORTH_AMERICA_TROOPS("North America", 5),
+        AFRICA_TROOPS("Africa", 3),
+        ASIA_TROOPS("Asia", 7);
+
+        private final String continent;
+        private final int bonusTroops;
+
+        BonusTroops(final String continent, final int number) {
+            this.continent = continent;
+            this.bonusTroops = number;
+        }
+
+        public String getContinent() {
+            return this.continent;
+        }
+
+        public int getBonusTroops() {
+            return this.bonusTroops;
+        }
+    }
+
     /**
      * Maximum number of player in the game.
      */
-    int MAX_PLAYER = 3;
+    final int MAX_PLAYER = 3;
 
     /**
      * This method starts a combat between two players.

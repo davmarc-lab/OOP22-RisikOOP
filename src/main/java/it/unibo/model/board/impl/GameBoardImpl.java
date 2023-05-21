@@ -25,25 +25,23 @@ import it.unibo.model.territory.api.Territory;
  */
 public class GameBoardImpl implements GameBoard {
 
-    private static final int DIVIDER_FOR_TERRITORIES = 3;
-
     private final Map<String, Set<Territory>> territoriesMap;
     private final Deck<Army> armyDeck;
     private final Deck<Territory> territoryDeck;
     private final Deck<Objective> objectiveDeck;
     private final List<Player> players;
     private final TurnManager turnManager;
+    private final GamePrep gamePrep = new GamePrepImpl();
 
     /**
      * Prepare the {@code GameBoard} and inizialize all fields.
      */
     public GameBoardImpl() {
-        final GamePrep gamePrep = new GamePrepImpl();
-        this.players = gamePrep.getPlayers();
-        this.territoriesMap = gamePrep.getTerritoryMap();
-        this.armyDeck = gamePrep.getArmyDeck();
-        this.territoryDeck = gamePrep.getTerritoryDeck();
-        this.objectiveDeck = gamePrep.getObjectiveDeck();
+        this.players = this.gamePrep.getPlayers();
+        this.territoriesMap = this.gamePrep.getTerritoryMap().getTerritoryMap();
+        this.armyDeck = this.gamePrep.getArmyDeck();
+        this.territoryDeck = this.gamePrep.getTerritoryDeck();
+        this.objectiveDeck = this.gamePrep.getObjectiveDeck();
         this.turnManager = new TurnManagerImpl(new ArrayList<>(this.players));
     }
 
@@ -134,11 +132,14 @@ public class GameBoardImpl implements GameBoard {
     @Override
     public void defineBonusArmies() {
         var player = this.getCurrentPlayer();
-        int numOfTerritories = (int) player.getTerritories().stream().count();
-        int bonusArmies = numOfTerritories / DIVIDER_FOR_TERRITORIES;
-        System.out.println(bonusArmies);
+        var continentsTroops = Set.of(BonusTroops.values());
+        continentsTroops.forEach(
+                t -> player.addTroops(player.getTerritories()
+                        .containsAll(this.gamePrep.getTerritoryMap().getTerritoryByContinent(t.getContinent()))
+                                ? t.getBonusTroops()
+                                : 1));
     }
-    
+
     /**
      * {@inheritDoc}
      */

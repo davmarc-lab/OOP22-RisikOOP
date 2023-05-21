@@ -200,6 +200,6 @@ public class PlayerImpl implements Player {
     @Override
     public String toString() {
         return new String(
-                new StringBuilder("ID -> ").append(this.getId()).append(", TERR -> ").append(this.getTerritories()));
+                new StringBuilder("ID -> ").append(this.getId()).append(", TROOPS -> ").append(this.bonusTroops));
     }
 }
