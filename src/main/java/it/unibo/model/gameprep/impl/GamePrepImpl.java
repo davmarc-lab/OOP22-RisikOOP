@@ -27,7 +27,8 @@ import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 public class GamePrepImpl implements GamePrep {
 
-    private final int MAXCARDS = 42;
+    private static final int MAXCARDS = 42;
+    private static final int TROOPS = 21;
 
     private List<Player> players = new ArrayList<>();
     private final ObjectiveFactory objectiveFactory = new ObjectiveFactoryImpl();
@@ -107,7 +108,8 @@ public class GamePrepImpl implements GamePrep {
 
     @Override
     public void assignTroops() {
-        // TODO
+        this.getPlayers().stream().forEach(p -> p.addTroops(TROOPS));
+        this.getPlayers().stream().forEach(p -> p.getTerritories().forEach(t -> t.addTroops(1)));
     }
 
     @Override
