@@ -1,296 +1,296 @@
 [
-  {
-    "name": "Southern Europe",
-    "x": 48,
-    "y": 25,
-    "width": 6,
-    "height": 5
-  },
-  {
-    "name": "Western Europe",
-    "x": 44,
-    "y": 23,
-    "width": 3.5,
-    "height": 4
-  },
-  {
-    "name": "Northern Europe",
-    "x": 48,
-    "y": 19,
-    "width": 4,
-    "height": 4
-  },
-  {
-    "name": "Ukraine",
-    "x": 54,
-    "y": 14,
-    "width": 6,
-    "height": 8
-  },
-  {
-    "name": "Scandinavia",
-    "x": 48,
-    "y": 9,
-    "width": 6,
-    "height": 6
-  },
-  {
-    "name": "Great Britain",
-    "x": 41,
-    "y": 20.5,
-    "width": 3,
-    "height": 4
-  },
-  {
-    "name": "Iceland",
-    "x": 39,
-    "y": 12,
-    "width": 3,
-    "height": 3
-  },
-  {
-    "name": "Greenland",
-    "x": 33,
-    "y": 2,
-    "width": 7,
-    "height": 8
-  },
-  {
-    "name": "Northwest Territories",
-    "x": 11,
-    "y": 9.5,
-    "width": 10,
-    "height": 5
-  },
-  {
-    "name": "Alaska",
-    "x": 3.5,
-    "y": 9,
-    "width": 5,
-    "height": 5
-  },
-  {
-    "name": "Alberta",
-    "x": 10,
-    "y": 16,
-    "width": 6,
-    "height": 6
-  },
-  {
-    "name": "Ontario",
-    "x": 17,
-    "y": 18,
-    "width": 4.5,
-    "height": 4.5
-  },
-  {
-    "name": "Quebec",
-    "x": 24,
-    "y": 16,
-    "width": 5,
-    "height": 6
-  },
-  {
-    "name": "Western United States",
-    "x": 8,
-    "y": 24,
-    "width": 7,
-    "height": 7
-  },
-  {
-    "name": "Eastern United States",
-    "x": 15.5,
-    "y": 28,
-    "width": 5.5,
-    "height": 6
-  },
-  {
-    "name": "Central America",
-    "x": 10,
-    "y": 40,
-    "width": 5,
-    "height": 6
-  },
-  {
-    "name": "Venezuela",
-    "x": 19,
-    "y": 50,
-    "width": 6,
-    "height": 5
-  },
-  {
-    "name": "Brazil",
-    "x": 25,
-    "y": 58,
-    "width": 6,
-    "height": 10
-  },
-  {
-    "name": "Peru'",
-    "x": 19,
-    "y": 66,
-    "width": 4,
-    "height": 4
-  },
-  {
-    "name": "Argentina",
-    "x": 22.5,
-    "y": 77,
-    "width": 4,
-    "height": 15
-  },
-  {
-    "name": "North Africa",
-    "x": 41,
-    "y": 41.5,
-    "width": 9,
-    "height": 10
-  },
-  {
-    "name": "Egypt",
-    "x": 49,
-    "y": 35.5,
-    "width": 7,
-    "height": 5
-  },
-  {
-    "name": "East Africa",
-    "x": 55,
-    "y": 47.5,
-    "width": 4.5,
-    "height": 7
-  },
-  {
-    "name": "Congo",
-    "x": 49,
-    "y": 56.5,
-    "width": 6,
-    "height": 5
-  },
-  {
-    "name": "South Africa",
-    "x": 51,
-    "y": 67,
-    "width": 5,
-    "height": 14
-  },
-  {
-    "name": "Madagascar",
-    "x": 60,
-    "y": 67,
-    "width": 2,
-    "height": 11
-  },
-  {
-    "name": "Middle East",
-    "x": 57,
-    "y": 33,
-    "width": 7,
-    "height": 7
-  },
-  {
-    "name": "India",
-    "x": 69,
-    "y": 37.5,
-    "width": 5,
-    "height": 5
-  },
-  {
-    "name": "Siam",
-    "x": 78,
-    "y": 44,
-    "width": 4,
-    "height": 4
-  },
-  {
-    "name": "China",
-    "x": 73,
-    "y": 31,
-    "width": 10,
-    "height": 5.5
-  },
-  {
-    "name": "Afghanistan",
-    "x": 62,
-    "y": 22.5,
-    "width": 7,
-    "height": 6
-  },
-  {
-    "name": "Urals",
-    "x": 62,
-    "y": 11,
-    "width": 5,
-    "height": 6
-  },
-  {
-    "name": "Siberia",
-    "x": 68.5,
-    "y": 8,
-    "width": 4,
-    "height": 6
-  },
-  {
-    "name": "Jacuzia",
-    "x": 76,
-    "y": 8,
-    "width": 7,
-    "height": 7
-  },
-  {
-    "name": "Cita",
-    "x": 75,
-    "y": 17,
-    "width": 5,
-    "height": 4
-  },
-  {
-    "name": "Kamchatka",
-    "x": 85.5,
-    "y": 11,
-    "width": 7,
-    "height": 5
-  },
-  {
-    "name": "Mongolia",
-    "x": 75,
-    "y": 23,
-    "width": 9,
-    "height": 4
-  },
-  {
-    "name": "Japan",
-    "x": 88,
-    "y": 26,
-    "width": 2,
-    "height": 9
-  },
-  {
-    "name": "Indonesia",
-    "x": 81,
-    "y": 57,
-    "width": 5,
-    "height": 5
-  },
-  {
-    "name": "New Guinea",
-    "x": 91,
-    "y": 59,
-    "width": 4,
-    "height": 5
-  },
-  {
-    "name": "Western Australia",
-    "x": 83,
-    "y": 73,
-    "width": 4.5,
-    "height": 9
-  },
-  {
-    "name": "Eastern Australia",
-    "x": 89,
-    "y": 69.5,
-    "width": 5,
-    "height": 6.5
-  }
+    {
+        "name": "Southern Europe",
+        "x": 48,
+        "y": 25,
+        "width": 6,
+        "height": 5
+    },
+    {
+        "name": "Western Europe",
+        "x": 44,
+        "y": 23,
+        "width": 3.5,
+        "height": 4
+    },
+    {
+        "name": "Northern Europe",
+        "x": 48,
+        "y": 19,
+        "width": 4,
+        "height": 4
+    },
+    {
+        "name": "Ukraine",
+        "x": 54,
+        "y": 14,
+        "width": 6,
+        "height": 8
+    },
+    {
+        "name": "Scandinavia",
+        "x": 48,
+        "y": 9,
+        "width": 6,
+        "height": 6
+    },
+    {
+        "name": "Great Britain",
+        "x": 41,
+        "y": 20.5,
+        "width": 3,
+        "height": 4
+    },
+    {
+        "name": "Iceland",
+        "x": 39,
+        "y": 12,
+        "width": 3,
+        "height": 3
+    },
+    {
+        "name": "Greenland",
+        "x": 33,
+        "y": 2,
+        "width": 7,
+        "height": 8
+    },
+    {
+        "name": "Northwest Territories",
+        "x": 11,
+        "y": 9.5,
+        "width": 10,
+        "height": 5
+    },
+    {
+        "name": "Alaska",
+        "x": 3.5,
+        "y": 9,
+        "width": 5,
+        "height": 5
+    },
+    {
+        "name": "Alberta",
+        "x": 10,
+        "y": 16,
+        "width": 6,
+        "height": 6
+    },
+    {
+        "name": "Ontario",
+        "x": 17,
+        "y": 18,
+        "width": 4.5,
+        "height": 4.5
+    },
+    {
+        "name": "Quebec",
+        "x": 24,
+        "y": 16,
+        "width": 5,
+        "height": 6
+    },
+    {
+        "name": "Western United States",
+        "x": 8,
+        "y": 24,
+        "width": 7,
+        "height": 7
+    },
+    {
+        "name": "Eastern United States",
+        "x": 15.5,
+        "y": 28,
+        "width": 5.5,
+        "height": 6
+    },
+    {
+        "name": "Central America",
+        "x": 10,
+        "y": 40,
+        "width": 5,
+        "height": 6
+    },
+    {
+        "name": "Venezuela",
+        "x": 19,
+        "y": 50,
+        "width": 6,
+        "height": 5
+    },
+    {
+        "name": "Brazil",
+        "x": 25,
+        "y": 58,
+        "width": 6,
+        "height": 10
+    },
+    {
+        "name": "Peru'",
+        "x": 19,
+        "y": 66,
+        "width": 4,
+        "height": 4
+    },
+    {
+        "name": "Argentina",
+        "x": 22.5,
+        "y": 77,
+        "width": 4,
+        "height": 15
+    },
+    {
+        "name": "North Africa",
+        "x": 41,
+        "y": 41.5,
+        "width": 9,
+        "height": 10
+    },
+    {
+        "name": "Egypt",
+        "x": 49,
+        "y": 35.5,
+        "width": 7,
+        "height": 5
+    },
+    {
+        "name": "East Africa",
+        "x": 55,
+        "y": 47.5,
+        "width": 4.5,
+        "height": 7
+    },
+    {
+        "name": "Congo",
+        "x": 49,
+        "y": 56.5,
+        "width": 6,
+        "height": 5
+    },
+    {
+        "name": "South Africa",
+        "x": 51,
+        "y": 67,
+        "width": 5,
+        "height": 14
+    },
+    {
+        "name": "Madagascar",
+        "x": 60,
+        "y": 67,
+        "width": 2,
+        "height": 11
+    },
+    {
+        "name": "Middle East",
+        "x": 57,
+        "y": 33,
+        "width": 7,
+        "height": 7
+    },
+    {
+        "name": "India",
+        "x": 69,
+        "y": 37.5,
+        "width": 5,
+        "height": 5
+    },
+    {
+        "name": "Siam",
+        "x": 78,
+        "y": 44,
+        "width": 4,
+        "height": 4
+    },
+    {
+        "name": "China",
+        "x": 73,
+        "y": 31,
+        "width": 10,
+        "height": 5.5
+    },
+    {
+        "name": "Afghanistan",
+        "x": 62,
+        "y": 22.5,
+        "width": 7,
+        "height": 6
+    },
+    {
+        "name": "Urals",
+        "x": 62,
+        "y": 11,
+        "width": 5,
+        "height": 6
+    },
+    {
+        "name": "Siberia",
+        "x": 68.5,
+        "y": 8,
+        "width": 4,
+        "height": 6
+    },
+    {
+        "name": "Jacuzia",
+        "x": 76,
+        "y": 8,
+        "width": 7,
+        "height": 7
+    },
+    {
+        "name": "Cita",
+        "x": 75,
+        "y": 17,
+        "width": 5,
+        "height": 4
+    },
+    {
+        "name": "Kamchatka",
+        "x": 85.5,
+        "y": 11,
+        "width": 7,
+        "height": 5
+    },
+    {
+        "name": "Mongolia",
+        "x": 75,
+        "y": 23,
+        "width": 9,
+        "height": 4
+    },
+    {
+        "name": "Japan",
+        "x": 88,
+        "y": 26,
+        "width": 2,
+        "height": 9
+    },
+    {
+        "name": "Indonesia",
+        "x": 81,
+        "y": 57,
+        "width": 5,
+        "height": 5
+    },
+    {
+        "name": "New Guinea",
+        "x": 91,
+        "y": 59,
+        "width": 4,
+        "height": 5
+    },
+    {
+        "name": "Western Australia",
+        "x": 83,
+        "y": 73,
+        "width": 4.5,
+        "height": 9
+    },
+    {
+        "name": "Eastern Australia",
+        "x": 89,
+        "y": 69.5,
+        "width": 5,
+        "height": 6.5
+    }
 ]

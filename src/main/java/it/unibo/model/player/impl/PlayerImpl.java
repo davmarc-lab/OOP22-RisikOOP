@@ -1,6 +1,7 @@
 package it.unibo.model.player.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.army.api.Army;
@@ -21,6 +22,7 @@ public class PlayerImpl implements Player {
     private final Deck<Army> playerHandDeck;
     private Objective objective;
     private final Color color;
+    private int bonusTroops;
 
     /**
      * Empty constructor to create an empty {@code Player}.
@@ -79,6 +81,7 @@ public class PlayerImpl implements Player {
         this.playerHandDeck = new DeckImpl<>(playerHandDeck.getDeck());
         this.objective = new ObjectiveImpl(objective.getDescription(), objective.getObjectiveType());
         this.color = color;
+        this.bonusTroops = 0;
     }
 
     /**
@@ -179,6 +182,16 @@ public class PlayerImpl implements Player {
     @Override
     public void setObjective(final Objective objective) {
         this.objective = objective;
+    }
+
+    @Override
+    public void addTroops(final int numberTroops) {
+        this.bonusTroops += numberTroops;
+    }
+
+    @Override
+    public void playCards(final List<Army> cards) {
+        
     }
 
     /**

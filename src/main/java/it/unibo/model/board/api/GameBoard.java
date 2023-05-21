@@ -24,7 +24,7 @@ public interface GameBoard {
     /**
      * This method starts a combat between two players.
      * 
-     * @param tStriker striker territory
+     * @param tStriker  striker territory
      * @param tDefender defender territory
      */
     void instaceCombat(Territory tStriker, Territory tDefender);
@@ -85,6 +85,15 @@ public interface GameBoard {
      * @return object's shallow copy
      */
     TurnManager getTurnManager();
+
+    /**
+     * This method is called when player gets the armies to be placed in his
+     * territories after changing turn.
+     * 
+     */
+    void defineBonusArmies();
+
+    void placeTroops();
 
     /**
      * This method returns a shallow copy of the {@code GameBoard}.
