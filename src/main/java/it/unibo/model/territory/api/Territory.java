@@ -30,19 +30,19 @@ public interface Territory {
     void addAdjTerritory(Territory t);
 
     /**
-     * Gets the number of armies in the territory.
+     * Gets the number of troops in the territory.
      * 
-     * @return the number of armies in the territory
+     * @return the number of troops in the territory
      */
-    int getArmy();
+    int getTroops();
 
     /**
-     * Add the given number of armies.
+     * Add the given number of troops.
      * 
      * @param n 
-     *          number of armies to add
+     *          number of troops to add
      */
-    void addArmy(int n);
+    void addTroops(int n);
 
     /**
      * Gets a copy of a territory.

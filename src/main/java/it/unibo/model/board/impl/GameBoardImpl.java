@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.combat.api.Combat;
@@ -19,7 +18,6 @@ import it.unibo.model.gameprep.api.GamePrep;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
-import it.unibo.model.player.impl.PlayerImpl;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -27,11 +25,13 @@ import it.unibo.model.territory.api.Territory;
  */
 public class GameBoardImpl implements GameBoard {
 
+    private static final int DIVIDER_FOR_TERRITORIES = 3;
+
     private final Map<String, Set<Territory>> territoriesMap;
     private final Deck<Army> armyDeck;
     private final Deck<Territory> territoryDeck;
     private final Deck<Objective> objectiveDeck;
-    private final List<Player> players = new ArrayList<>();
+    private final List<Player> players;
     private final TurnManager turnManager;
 
     /**
@@ -39,12 +39,11 @@ public class GameBoardImpl implements GameBoard {
      */
     public GameBoardImpl() {
         final GamePrep gamePrep = new GamePrepImpl();
+        this.players = gamePrep.getPlayers();
         this.territoriesMap = gamePrep.getTerritoryMap();
         this.armyDeck = gamePrep.getArmyDeck();
         this.territoryDeck = gamePrep.getTerritoryDeck();
         this.objectiveDeck = gamePrep.getObjectiveDeck();
-        IntStream.range(0, MAX_PLAYER).forEach(i -> players.add(new PlayerImpl(i + 1, new DeckImpl<Territory>(),
-                new DeckImpl<Army>(), gamePrep.getObjectiveDeck().drawCard(), Player.Color.BLACK)));
         this.turnManager = new TurnManagerImpl(new ArrayList<>(this.players));
     }
 
@@ -127,6 +126,26 @@ public class GameBoardImpl implements GameBoard {
     @Override
     public Player getCurrentPlayer() {
         return this.turnManager.getCurrentPlayer();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void defineBonusArmies() {
+        var player = this.getCurrentPlayer();
+        int numOfTerritories = (int) player.getTerritories().stream().count();
+        int bonusArmies = numOfTerritories / DIVIDER_FOR_TERRITORIES;
+        System.out.println(bonusArmies);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void placeTroops() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'placeTroops'");
     }
 
     /**

@@ -12,7 +12,7 @@ public final class TerritoryImpl implements Territory {
 
     private String name;
     private final Set<Territory> adjTerritories;
-    private int numArmy;
+    private int numTroops;
 
     /**
      * Creates a new territory with the name given.
@@ -23,7 +23,7 @@ public final class TerritoryImpl implements Territory {
     public TerritoryImpl(final String name) {
         this.name = name;
         this.adjTerritories = new HashSet<>();
-        this.numArmy = 0;
+        this.numTroops = 0;
     }
 
     /**
@@ -35,7 +35,7 @@ public final class TerritoryImpl implements Territory {
     public TerritoryImpl(final Territory t) {
         this(t.getName());
         this.adjTerritories.addAll(t.getAdjTerritories());
-        this.numArmy = t.getArmy();
+        this.numTroops = t.getTroops();
     }
 
     @Override
@@ -54,13 +54,13 @@ public final class TerritoryImpl implements Territory {
     }
 
     @Override
-    public int getArmy() {
-        return this.numArmy;
+    public int getTroops() {
+        return this.numTroops;
     }
 
     @Override
-    public void addArmy(final int n) {
-        this.numArmy += n;
+    public void addTroops(final int n) {
+        this.numTroops += n;
     }
 
     @Override

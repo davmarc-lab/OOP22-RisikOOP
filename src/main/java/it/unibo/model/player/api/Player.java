@@ -1,5 +1,6 @@
 package it.unibo.model.player.api;
 
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.army.api.Army;
@@ -134,4 +135,8 @@ public interface Player {
      * @param objective player objective
      */
     void setObjective(Objective objective);
+
+    void addTroops(int numberTroops);
+
+    void playCards(List<Army> cards);
 }
