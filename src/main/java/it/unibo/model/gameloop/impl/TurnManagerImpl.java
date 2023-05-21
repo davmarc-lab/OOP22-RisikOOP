@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import it.unibo.common.Pair;
 import it.unibo.model.dice.api.Dice;
 import it.unibo.model.dice.impl.DiceImpl;
-import it.unibo.model.gameloop.api.Pair;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.player.api.Player;
 
@@ -40,11 +40,11 @@ public final class TurnManagerImpl implements TurnManager {
         final Dice d6 = new DiceImpl(DICE_FACES);
         List<Pair<Player, Integer>> list = new ArrayList<>();
         for (int i = 0; i < players.size(); i++) {
-            list.add(new PairImpl<>(players.get(i), d6.roll()));
+            list.add(new Pair<>(players.get(i), d6.roll()));
         }
-        list.sort((p1, p2) -> p1.get2() < p2.get2() ? 1 : -1);
+        list.sort((p1, p2) -> p1.getY() < p2.getY() ? 1 : -1);
         for (int i = 0; i < players.size(); i++) {
-            players.set(i, list.get(i).get1());
+            players.set(i, list.get(i).getX());
         }
     }
 
