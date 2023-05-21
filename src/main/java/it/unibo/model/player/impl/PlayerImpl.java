@@ -97,7 +97,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public int getArmy(final Territory t) {
-        return this.territories.getDeck().stream().filter(x -> x.equals(t)).findFirst().get().getArmy();
+        return this.territories.getDeck().stream().filter(x -> x.equals(t)).findFirst().get().getTroops();
     }
 
     /**

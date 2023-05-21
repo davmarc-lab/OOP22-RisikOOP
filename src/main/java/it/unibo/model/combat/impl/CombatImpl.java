@@ -125,9 +125,9 @@ public class CombatImpl implements Combat {
     private void applyCombatResult(final List<Results> list) {
         list.stream().forEach(r -> {
             if (r.equals(Results.WIN)) {
-                this.tDefender.addArmy(-1);
+                this.tDefender.addTroops(-1);
             } else if (r.equals(Results.LOSE)) {
-                this.tStriker.addArmy(-1);
+                this.tStriker.addTroops(-1);
             } else {
                 throw new IllegalCallerException("Invalid combat resutl, aborted operation");
             }
@@ -141,7 +141,7 @@ public class CombatImpl implements Combat {
      */
     private boolean checkAttackValidity() {
         return this.tStriker.getAdjTerritories().contains(this.tDefender)
-            && this.tStriker.getArmy() > 1;
+            && this.tStriker.getTroops() > 1;
     }
 
     /**

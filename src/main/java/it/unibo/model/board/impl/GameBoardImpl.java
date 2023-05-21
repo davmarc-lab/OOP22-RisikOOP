@@ -131,13 +131,13 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void defineBonusArmies() {
-        // var player = this.getCurrentPlayer();
-        // var continentsTroops = Set.of(BonusTroops.values());
-        // continentsTroops.forEach(
-        //         t -> player.addTroops(player.getTerritories()
-        //                 .containsAll(this.gamePrep.getTerritoryMap().get(t.getContinent()))
-        //                         ? t.getBonusTroops()
-        //                         : 1));
+        var player = this.getCurrentPlayer();
+        var continentsTroops = Set.of(BonusTroops.values());
+        continentsTroops.forEach(
+                t -> player.addTroops(player.getTerritories()
+                        .containsAll(this.gamePrep.getTerritoryMap().get(t.getContinent()))
+                                ? t.getBonusTroops()
+                                : 0));
     }
 
     /**
