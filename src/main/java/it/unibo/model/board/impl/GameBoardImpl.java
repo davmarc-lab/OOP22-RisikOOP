@@ -138,6 +138,15 @@ public class GameBoardImpl implements GameBoard {
         int bonusArmies = numOfTerritories / DIVIDER_FOR_TERRITORIES;
         System.out.println(bonusArmies);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void placeTroops() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'placeTroops'");
+    }
 
     /**
      * {@inheritDoc}
