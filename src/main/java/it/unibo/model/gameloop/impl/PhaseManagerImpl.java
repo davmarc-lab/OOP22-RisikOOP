@@ -24,7 +24,7 @@ public final class PhaseManagerImpl implements PhaseManager {
 
     @Override
     public void switchToNextPhase() {
-        currentPhase = Phase.values()[(currentPhase.ordinal() % Phase.values().length) + 1];
+        currentPhase = Phase.values()[((currentPhase.ordinal() + 1) % Phase.values().length)];
     }
 
     @Override
