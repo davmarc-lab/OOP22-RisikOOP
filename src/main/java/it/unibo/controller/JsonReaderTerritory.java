@@ -4,9 +4,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -24,11 +22,11 @@ public class JsonReaderTerritory extends AbstractJsonReader<Set<Pair<String, Set
     private static final String PATH = "territory";
     private static final String FILE_NAME = "Territories.json";
 
-    private List<Pair<String, Set<Territory>>> territories;
+    private Set<Pair<String, Set<Territory>>> territories;
 
     public JsonReaderTerritory() {
         super(PATH, FILE_NAME);
-        this.territories = new ArrayList<>();
+        this.territories = new HashSet<>();
     }
 
     @Override
