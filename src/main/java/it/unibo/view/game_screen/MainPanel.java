@@ -35,7 +35,7 @@ public class MainPanel extends JPanel {
     private final JPanel southPanel;
     private final JLabel titleLabel;
 
-    public MainPanel() {
+    public MainPanel(final MainFrame frame) {
         final JButton jbPlay;
         final JButton jbRules;
         final JButton jbQuit;
@@ -62,6 +62,15 @@ public class MainPanel extends JPanel {
         this.add(this.southPanel, BorderLayout.SOUTH);
         this.titleLabel = new JLabel(TITLE_LABEL, (int) JPanel.CENTER_ALIGNMENT);
         this.add(this.titleLabel, BorderLayout.NORTH);
+
+        jbPlay.addActionListener(e -> {
+            frame.getContentPane().removeAll();
+            frame.getContentPane().revalidate();
+            frame.getContentPane().repaint();
+            frame.getContentPane().add(new BoardPanel(), BorderLayout.CENTER);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+        });
 
         jbQuit.addActionListener(e -> {
             final int n = JOptionPane.showConfirmDialog(this,
