@@ -19,7 +19,7 @@ import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryImpl;
 import it.unibo.common.Pair;
 
-public class JsonReaderTerritory extends AbstractJsonReader<List<Pair<String, Set<Territory>>>> {
+public class JsonReaderTerritory extends AbstractJsonReader<Set<Pair<String, Set<Territory>>>> {
 
     private static final String PATH = "territory";
     private static final String FILE_NAME = "Territories.json";
@@ -32,7 +32,7 @@ public class JsonReaderTerritory extends AbstractJsonReader<List<Pair<String, Se
     }
 
     @Override
-    public List<Pair<String, Set<Territory>>> readFromJSON() {
+    public Set<Pair<String, Set<Territory>>> readFromJSON() {
         final JSONParser parser = new JSONParser();
         JSONObject obj;
 
@@ -73,7 +73,7 @@ public class JsonReaderTerritory extends AbstractJsonReader<List<Pair<String, Se
         } catch (ParseException e1) {
             this.getLogger().log(Level.SEVERE, "Excpetion in parsing the file", e1);
         }
-        return List.copyOf(this.territories);
+        return Set.copyOf(this.territories);
     }
 
     private Territory getTerritory(final String name) {

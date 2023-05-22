@@ -2,7 +2,6 @@ package it.unibo.model.territory.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,8 +29,8 @@ public final class TerritoryFactoryImpl implements TerritoryFactory {
 
     @Override
     public void createTerritories() {
-        List<Pair<String, Set<Territory>>> list = this.readerTerritory.readFromJSON();
-        list.forEach(p -> this.territories.put(p.getX(), p.getY()));
+        Set<Pair<String, Set<Territory>>> set = this.readerTerritory.readFromJSON();
+        set.forEach(p -> this.territories.put(p.getX(), p.getY()));
     }
 
     @Override
