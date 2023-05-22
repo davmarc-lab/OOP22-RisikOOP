@@ -1,20 +1,9 @@
 package it.unibo.model.objective.impl;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
+import it.unibo.controller.JsonReaderObjective;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.api.ObjectiveFactory;
 
@@ -26,15 +15,12 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
 
     private final Set<Objective> objectives;
     private Objective defaultObjective;
-
-    private final String pathSeparator = System.getProperty("file.separator");
-    private final String filePath = "src" + pathSeparator + "main" + pathSeparator + "resources" + pathSeparator
-            + "config" + pathSeparator + "objective" + pathSeparator + "Objectives.json";
-
-    private final Logger logger = Logger.getLogger(ObjectiveFactoryImpl.class.getName());
+    private final JsonReaderObjective readerObjective;
 
     public ObjectiveFactoryImpl() {
+        this.readerObjective = new JsonReaderObjective();
         this.objectives = new HashSet<>();
+        this.defaultObjective = new ObjectiveImpl();
     }
 
     /**
@@ -42,35 +28,8 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
      */
     @Override
     public void createObjectiveSet() {
-        final JSONParser parser = new JSONParser();
-        try {
-            final FileInputStream fileInputStream = new FileInputStream(filePath);
-            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
-            final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
-            for (final Object elem : array) {
-                final JSONObject obj = (JSONObject) elem;
-                final JSONArray destroyArray = (JSONArray) obj.get("destroyObj");
-                final JSONArray conquerArray = (JSONArray) obj.get("conquerObj");
-                final String defaultObj = obj.get("defaultObj").toString();
-                for (final Object destroyElem : destroyArray) {
-                    final ObjectiveImpl objective = new ObjectiveImpl(destroyElem.toString(),
-                            Objective.ObjectiveType.DESTROY);
-                    this.objectives.add(objective);
-                }
-                for (final Object conquerElem : conquerArray) {
-                    final ObjectiveImpl objective = new ObjectiveImpl(conquerElem.toString(),
-                            Objective.ObjectiveType.CONQUER);
-                    this.objectives.add(objective);
-                }
-                this.defaultObjective = new ObjectiveImpl(defaultObj.toString(),
-                        Objective.ObjectiveType.CONQUER);
-                this.objectives.add(defaultObjective);
-            }
-            inputStreamReader.close();
-            fileInputStream.close();
-        } catch (ParseException | IOException e) {
-            logger.log(Level.SEVERE, "Error parsing Objectives.json", e);
-        }
+        this.objectives.addAll(this.readerObjective.readFromJSON().getY());
+        this.defaultObjective = this.readerObjective.readFromJSON().getX();
     }
 
     /**
@@ -80,11 +39,11 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
      */
     @Override
     public Set<Objective> getSetObjectives() {
-        return Collections.unmodifiableSet(this.objectives);
+        return Set.copyOf(this.objectives);
     }
 
     @Override
     public Objective getDefaulObjective() {
-        return new ObjectiveImpl(this.defaultObjective.getDescription(), this.defaultObjective.getObjectiveType());
+        return this.defaultObjective;
     }
 }
