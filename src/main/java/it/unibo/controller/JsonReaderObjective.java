@@ -17,7 +17,7 @@ import it.unibo.common.Pair;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 
-public class JsonReaderObjective extends AbstractJsonReader<Pair<Objective,Set<Objective>>> {
+public class JsonReaderObjective extends AbstractJsonReader<Pair<Objective, Set<Objective>>> {
 
     private static final String PATH = "objective";
     private static final String FILE_NAME = "Objectives.json";
@@ -31,7 +31,7 @@ public class JsonReaderObjective extends AbstractJsonReader<Pair<Objective,Set<O
     }
 
     @Override
-    public Pair<Objective,Set<Objective>> readFromJSON() {
+    public Pair<Objective, Set<Objective>> readFromJSON() {
         final JSONParser parser = new JSONParser();
         JSONObject obj;
 
@@ -63,6 +63,6 @@ public class JsonReaderObjective extends AbstractJsonReader<Pair<Objective,Set<O
         } catch (ParseException | IOException e) {
             this.getLogger().log(Level.SEVERE, "Error parsing Objectives.json", e);
         }
-        return new Pair<Objective,Set<Objective>>(this.defaultObjective, this.objectives);
+        return new Pair<Objective, Set<Objective>>(this.defaultObjective, this.objectives);
     }
 }

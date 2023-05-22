@@ -16,7 +16,7 @@ public abstract class AbstractJsonReader<T> {
     public AbstractJsonReader(final String path, final String fileName) {
         this.logger = Logger.getLogger(AbstractJsonReader.class.getName());
         this.finalPath = new String(new StringBuilder(CONFIG_PATH)
-            .append(path).append(PATH_SEPARATOR).append(fileName));
+                .append(path).append(PATH_SEPARATOR).append(fileName));
     }
 
     public abstract T readFromJSON();
