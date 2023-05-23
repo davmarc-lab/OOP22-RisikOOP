@@ -28,8 +28,8 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
      */
     @Override
     public void createObjectiveSet() {
-        this.objectives.addAll(this.readerObjective.readFromJSON().getY());
-        this.defaultObjective = this.readerObjective.readFromJSON().getX();
+        this.objectives.addAll(this.readerObjective.readFromFile().getY());
+        this.defaultObjective = this.readerObjective.readFromFile().getX();
     }
 
     /**

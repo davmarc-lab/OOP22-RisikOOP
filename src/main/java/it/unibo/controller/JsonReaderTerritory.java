@@ -17,20 +17,28 @@ import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryImpl;
 import it.unibo.common.Pair;
 
-public class JsonReaderTerritory extends AbstractJsonReader<Set<Pair<String, Set<Territory>>>> {
+public class JsonReaderTerritory extends AbstractFileReader<Set<Pair<String, Set<Territory>>>> {
 
-    private static final String PATH = "territory";
-    private static final String FILE_NAME = "Territories.json";
+    private static final String PATH = new StringBuilder().append("config")
+            .append(PATH_SEPARATOR).append("territory").append(PATH_SEPARATOR)
+            .append("Territories.json").toString();
 
     private Set<Pair<String, Set<Territory>>> territories;
 
     public JsonReaderTerritory() {
-        super(PATH, FILE_NAME);
+        super(PATH);
         this.territories = new HashSet<>();
     }
 
+    /**
+     * Read territories from json file and creates the set of pairs including
+     * continent's name and his set of territories, following the Territories.json
+     * pattern.
+     * 
+     * @return the set of pairs of continent's name and his set of territories
+     */
     @Override
-    public Set<Pair<String, Set<Territory>>> readFromJSON() {
+    public Set<Pair<String, Set<Territory>>> readFromFile() {
         final JSONParser parser = new JSONParser();
         JSONObject obj;
 
@@ -67,7 +75,7 @@ public class JsonReaderTerritory extends AbstractJsonReader<Set<Pair<String, Set
             fileInputStream.close();
             inputStreamReader.close();
         } catch (IOException e) {
-            this.getLogger().log(Level.SEVERE, "File not found in the path", e);
+            this.getLogger().log(Level.SEVERE, "File not found in the path given", e);
         } catch (ParseException e1) {
             this.getLogger().log(Level.SEVERE, "Excpetion in parsing the file", e1);
         }

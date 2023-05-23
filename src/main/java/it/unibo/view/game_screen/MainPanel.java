@@ -6,14 +6,20 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import it.unibo.controller.AbstractFileReader;
 
 public class MainPanel extends JPanel {
     private static final double WIDTH_PERC = 0.4;
@@ -24,11 +30,8 @@ public class MainPanel extends JPanel {
     private static final String RULES = "Rules";
     private static final String TITLE_LABEL = "RISIKOOP";
     private static final String PATH_SEPARATOR = System.getProperty("file.separator");
-    private static final String RULES_PATH = new String(new StringBuilder("src")
-            .append(PATH_SEPARATOR).append("main")
-            .append(PATH_SEPARATOR).append("resources")
-            .append(PATH_SEPARATOR).append("instructions")
-            .append(PATH_SEPARATOR).append("rules.txt"));
+    private static final String RULES_PATH = new StringBuilder("instructions")
+            .append(PATH_SEPARATOR).append("rules.txt").toString();
 
     private final Dimension dimension;
     private final JPanel centerPanel;
@@ -82,22 +85,34 @@ public class MainPanel extends JPanel {
         });
 
         try {
-            String line;
             final String message;
-            StringBuilder sBuilder = new StringBuilder();
-            final FileInputStream fileInputStream = new FileInputStream(RULES_PATH);
-            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
-            final BufferedReader reader = new BufferedReader(inputStreamReader);
-            while ((line = reader.readLine()) != null) {
-                sBuilder.append(line).append("\n");
-            }
-            message = sBuilder.toString();
+            message = new AbstractFileReader<String>(RULES_PATH) {
+                String line;
+                StringBuilder sBuilder = new StringBuilder();
+                final FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
+                final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+                final BufferedReader reader = new BufferedReader(inputStreamReader);
+
+                @Override
+                public String readFromFile() {
+                    try {
+                        while ((line = reader.readLine()) != null) {
+                            sBuilder.append(line).append("\n");
+                        }
+                        reader.close();
+                    } catch (IOException e) {
+                        this.getLogger().log(Level.SEVERE, "Reading from file error", e);
+                    }
+                    return sBuilder.toString();
+                }
+                
+            }.readFromFile();
             jbRules.addActionListener(e -> {
                 JOptionPane.showMessageDialog(new MessageFrame(), message);
             });
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            Logger logger = Logger.getLogger(MainPanel.class.getName());
+            logger.log(Level.SEVERE, "File not found in the path given", e);
         }
         this.updateUI();
     }

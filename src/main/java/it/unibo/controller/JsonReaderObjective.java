@@ -17,21 +17,21 @@ import it.unibo.common.Pair;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 
-public class JsonReaderObjective extends AbstractJsonReader<Pair<Objective, Set<Objective>>> {
+public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<Objective>>> {
 
-    private static final String PATH = "objective";
-    private static final String FILE_NAME = "Objectives.json";
+    private static final String PATH = new StringBuilder("config").append(PATH_SEPARATOR)
+            .append("objective").append(PATH_SEPARATOR).append("Objectives.json").toString();
 
     private Set<Objective> objectives;
     private Objective defaultObjective;
 
     public JsonReaderObjective() {
-        super(PATH, FILE_NAME);
+        super(PATH);
         this.objectives = new HashSet<>();
     }
 
     @Override
-    public Pair<Objective, Set<Objective>> readFromJSON() {
+    public Pair<Objective, Set<Objective>> readFromFile() {
         final JSONParser parser = new JSONParser();
         JSONObject obj;
 
