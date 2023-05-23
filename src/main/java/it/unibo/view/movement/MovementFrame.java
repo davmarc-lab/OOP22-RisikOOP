@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import it.unibo.controller.popup.PlayerPopupController;
 import it.unibo.model.player.impl.PlayerImpl;
+import it.unibo.model.territory.impl.TerritoryImpl;
 
 import java.awt.BorderLayout;
 
@@ -23,7 +24,9 @@ public class MovementFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        new MovementFrame(new PlayerPopupController(new PlayerImpl(1)));
+        var t = new TerritoryImpl("Cina");
+        t.addTroops(2);
+        new MovementFrame(new PlayerPopupController(new PlayerImpl(1), t));
     }
 
 }
