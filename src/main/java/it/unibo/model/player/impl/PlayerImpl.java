@@ -1,12 +1,14 @@
 package it.unibo.model.player.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
+import it.unibo.model.hand.api.Hand;
+import it.unibo.model.hand.impl.AbstractArmyHand;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
@@ -19,51 +21,10 @@ public class PlayerImpl implements Player {
 
     private int id;
     private final Deck<Territory> territories;
-    private final Deck<Army> playerHandDeck;
+    private final Hand<Army> playerHand;
     private Objective objective;
     private final Color color;
     private int bonusTroops;
-
-    /**
-     * Empty constructor to create an empty {@code Player}.
-     */
-    public PlayerImpl() {
-        this(0);
-    }
-
-    /**
-     * Create a player from an specified id.
-     * 
-     * @param id player's id
-     */
-    public PlayerImpl(final int id) {
-        this(id, new DeckImpl<>(), new DeckImpl<>(), new ObjectiveImpl("", Objective.ObjectiveType.NONE),
-                Player.Color.BLACK);
-    }
-
-    /**
-     * This constructor creates a player giving an id and {@code ColorPlayer}.
-     * 
-     * @param id    player's id
-     * @param color player's color
-     */
-    public PlayerImpl(final int id, final Color color) {
-        this(id, new DeckImpl<>(), new DeckImpl<>(), new ObjectiveImpl("None", Objective.ObjectiveType.NONE), color);
-    }
-
-    /**
-     * Create a player form an id and Set of territories.
-     * 
-     * @param id          player's id
-     * @param territories set of territories
-     */
-    public PlayerImpl(final int id, final Deck<Territory> territories) {
-        this(id, territories, new DeckImpl<>(), new ObjectiveImpl("None", Objective.ObjectiveType.NONE), Color.BLACK);
-    }
-
-    public PlayerImpl(final Player p) {
-        this(p.getId(), p.getTerritoryDeck(), p.getHandCards(), p.getObjective(), p.getColorPlayer());
-    }
 
     /**
      * Full constructor of {@code Player}.
@@ -75,13 +36,13 @@ public class PlayerImpl implements Player {
      * @param color          player's color
      */
     public PlayerImpl(final int id, final Deck<Territory> territories,
-            final Deck<Army> playerHandDeck, final Objective objective, final Color color) {
+            final Hand<Army> playerHandDeck, final Objective objective, final Color color, final int bonusTroops) {
         this.id = id;
         this.territories = territories;
-        this.playerHandDeck = new DeckImpl<>(playerHandDeck.getDeck());
+        this.playerHand = new AbstractArmyHand(new ArrayList<>());
         this.objective = new ObjectiveImpl(objective.getDescription(), objective.getObjectiveType());
         this.color = color;
-        this.bonusTroops = 0;
+        this.bonusTroops = bonusTroops;
     }
 
     /**
@@ -136,14 +97,6 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Deck<Army> getHandCards() {
-        return new DeckImpl<>(this.playerHandDeck.getDeck());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Objective getObjective() {
         return new ObjectiveImpl(this.objective.getDescription(), this.objective.getObjectiveType());
     }
@@ -152,10 +105,8 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Deck<Army> getPlayerHand() {
-        Deck<Army> x = new DeckImpl<>();
-        x = this.playerHandDeck;
-        return x;
+    public Hand<Army> getPlayerHand() {
+        return this.playerHand;
     }
 
     /**
@@ -187,11 +138,6 @@ public class PlayerImpl implements Player {
     @Override
     public void addTroops(final int numberTroops) {
         this.bonusTroops += numberTroops;
-    }
-
-    @Override
-    public void playCards(final List<Army> cards) {
-
     }
 
     /**

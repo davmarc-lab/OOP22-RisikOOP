@@ -1,10 +1,10 @@
 package it.unibo.model.player.api;
 
-import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
+import it.unibo.model.hand.api.Hand;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.territory.api.Territory;
 
@@ -95,13 +95,6 @@ public interface Player {
     Color getColorPlayer();
 
     /**
-     * This method gets player's current hand of cards.
-     * 
-     * @return player deck
-     */
-    Deck<Army> getHandCards();
-
-    /**
      * This method gets player's current objective.
      * 
      * @return player objective
@@ -113,7 +106,7 @@ public interface Player {
      * 
      * @return player hand
      */
-    Deck<Army> getPlayerHand();
+    Hand<Army> getPlayerHand();
 
     /**
      * This method returns player's territory deck.
@@ -137,6 +130,4 @@ public interface Player {
     void setObjective(Objective objective);
 
     void addTroops(int numberTroops);
-
-    void playCards(List<Army> cards);
 }
