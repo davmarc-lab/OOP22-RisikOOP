@@ -44,7 +44,7 @@ public interface GameBoard {
     /**
      * Maximum number of player in the game.
      */
-    int MAX_PLAYER = 3;
+    final int MAX_PLAYER = 3;
 
     /**
      * This method starts a combat between two players.
@@ -114,10 +114,13 @@ public interface GameBoard {
     /**
      * This method is called when player gets the armies to be placed in his
      * territories after changing turn.
-     * 
      */
     void defineBonusArmies();
 
+    /**
+     * This method is called when players need to move troops from their
+     * bonus troops to some territories.
+     */
     void placeTroops();
 
     /**

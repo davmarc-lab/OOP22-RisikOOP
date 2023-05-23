@@ -1,48 +1,59 @@
 package it.unibo.model.board.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.impl.CombatImpl;
+import it.unibo.controller.popup.PlayerPopupController;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.impl.TurnManagerImpl;
-import it.unibo.model.gameprep.api.GamePrep;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
 import it.unibo.model.objective.api.Objective;
+import it.unibo.model.objective.api.ObjectiveFactory;
+import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
+import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
+import it.unibo.model.player.impl.PlayerImpl;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.model.territory.api.TerritoryFactory;
+import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 /**
  * Implementation of GameBoard, instance of the game table.
  */
 public class GameBoardImpl implements GameBoard {
 
-    private final Map<String, Set<Territory>> territoriesMap;
-    private final Deck<Army> armyDeck;
-    private final Deck<Territory> territoryDeck;
-    private final Deck<Objective> objectiveDeck;
-    private final List<Player> players;
+    private final List<Player> players = new ArrayList<>();
+    private final TerritoryFactory territoryFactory = new TerritoryFactoryImpl();
+    private final ObjectiveFactory objectiveFactory = new ObjectiveFactoryImpl();
+    private final Deck<Army> armyDeck = new DeckImpl<>();
+
     private final TurnManager turnManager;
-    private final GamePrep gamePrep = new GamePrepImpl();
 
     /**
      * Prepare the {@code GameBoard} and inizialize all fields.
      */
     public GameBoardImpl() {
-        this.players = this.gamePrep.getPlayers();
-        this.territoriesMap = this.gamePrep.getTerritoryMap();
-        this.armyDeck = this.gamePrep.getArmyDeck();
-        this.territoryDeck = this.gamePrep.getTerritoryDeck();
-        this.objectiveDeck = this.gamePrep.getObjectiveDeck();
-        this.turnManager = new TurnManagerImpl(new ArrayList<>(this.players));
+        final List<Player.Color> colors = Arrays.asList(Player.Color.values());
+        Collections.shuffle(colors);
+        IntStream.range(0, GameBoard.MAX_PLAYER)
+                .mapToObj(i -> new PlayerImpl(i + 1, new DeckImpl<Territory>(), new DeckImpl<Army>(), new ObjectiveImpl(),
+                        colors.get(i))).forEach(this.players::add);
+        this.territoryFactory.createTerritories();
+        this.objectiveFactory.createObjectiveSet();
+        new GamePrepImpl(this.players, this.territoryFactory, this.objectiveFactory, this.armyDeck);
+        this.turnManager = new TurnManagerImpl(this.players);
     }
 
     /**
@@ -73,7 +84,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Map<String, Set<Territory>> getTerritories() {
-        return new HashMap<>(this.territoriesMap);
+        return new HashMap<>(this.territoryFactory.getTerritoryMap());
     }
 
     /**
@@ -89,7 +100,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Deck<Objective> getObjectives() {
-        return new DeckImpl<>(this.objectiveDeck.getDeck());
+        return new DeckImpl<>(this.objectiveFactory.getSetObjectives());
     }
 
     /**
@@ -97,7 +108,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Deck<Territory> getTerritoryDeck() {
-        return new DeckImpl<>(this.territoryDeck.getDeck());
+        return new DeckImpl<>(this.territoryFactory.getTerritories());
     }
 
     /**
@@ -105,9 +116,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public TurnManager getTurnManager() {
-        TurnManager tm = new TurnManagerImpl(List.of());
-        tm = this.turnManager;
-        return tm;
+        return this.turnManager;
     }
 
     /**
@@ -115,7 +124,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public List<Player> getAllPlayers() {
-        return new ArrayList<>(this.players);
+        return this.players;
     }
 
     /**
@@ -135,7 +144,7 @@ public class GameBoardImpl implements GameBoard {
         var continentsTroops = Set.of(BonusTroops.values());
         continentsTroops.forEach(
                 t -> player.addTroops(player.getTerritories()
-                        .containsAll(this.gamePrep.getTerritoryMap().get(t.getContinent()))
+                        .containsAll(this.territoryFactory.getTerritoryMap().get(t.getContinent()))
                                 ? t.getBonusTroops()
                                 : 0));
     }
@@ -145,8 +154,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void placeTroops() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'placeTroops'");
+
     }
 
     /**
