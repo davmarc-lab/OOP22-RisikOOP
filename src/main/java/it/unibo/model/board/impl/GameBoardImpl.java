@@ -10,19 +10,17 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 import it.unibo.model.board.api.GameBoard;
-import it.unibo.model.combat.api.Combat;
-import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.common.Constants;
+import it.unibo.common.Pair;
 import it.unibo.model.army.api.Army;
+import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.impl.TurnManagerImpl;
-import it.unibo.model.gameprep.api.GamePrep;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
 import it.unibo.model.objective.api.GameObjective;
 import it.unibo.model.objective.api.Objective;
-import it.unibo.model.objective.api.ObjectiveFactory;
 import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
@@ -40,6 +38,7 @@ public class GameBoardImpl implements GameBoard {
     private final GameTerritory gameTerritory = new TerritoryFactoryImpl().createTerritories();
     private final GameObjective gameObjective = new ObjectiveFactoryImpl().createObjectiveSet();
     private final Deck<Army> armyDeck = new DeckImpl<>();
+    private Deck<Objective> objectiveDeck;
 
     private final TurnManager turnManager;
 
@@ -49,10 +48,16 @@ public class GameBoardImpl implements GameBoard {
     public GameBoardImpl() {
         createPlayers();
         createArmyDeck();
-        new GamePrepImpl(this.players, this.gameTerritory, this.gameObjective, this.armyDeck);
+        createObjectiveDeck();
+        Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck, this.gameObjective.getDefaulObjective());
+        new GamePrepImpl(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective, this.armyDeck);
+        this.objectiveDeck.setDeck(new ArrayList<>(pairObjective.getX().getDeck()));
         this.turnManager = new TurnManagerImpl(this.players.stream().map(Player::getId).toList());
     }
 
+    /**
+     * This method creates the players.
+     */
     private void createPlayers() {
         final List<Player.Color> colors = Arrays.asList(Player.Color.values());
         Collections.shuffle(colors);
@@ -61,11 +66,22 @@ public class GameBoardImpl implements GameBoard {
                         colors.get(i))).forEach(this.players::add);
     }
 
+    /**
+     * This method creates the army deck.
+     */
     private void createArmyDeck() {
         Arrays.stream(Army.ArmyType.values())
                 .forEach(armyType -> IntStream.range(0, Constants.MAX_CARDS_FOR_EACH_PLAYER / GameBoard.MAX_PLAYER)
                         .forEach(i -> this.armyDeck.addCard(new ArmyImpl(armyType))));
         this.armyDeck.shuffle();
+    }
+
+    /**
+     * This method create the objective deck.
+     */
+    private void createObjectiveDeck() {
+        this.objectiveDeck = new DeckImpl<>(this.gameObjective.getSetObjectives());
+        this.objectiveDeck.shuffle();
     }
 
     private Player getPlayerFromId(final int id) {
@@ -108,7 +124,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Deck<Army> getArmyDeck() {
-        return new DeckImpl<>(this.armyDeck.getDeck());
+        return this.armyDeck;
     }
 
     /**
@@ -116,7 +132,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Deck<Objective> getObjectives() {
-        return new DeckImpl<>(this.gameObjective.getSetObjectives());
+        return this.objectiveDeck;
     }
 
     /**

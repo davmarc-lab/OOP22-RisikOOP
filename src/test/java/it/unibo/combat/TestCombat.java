@@ -10,7 +10,7 @@ import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.player.impl.PlayerImpl;
-import it.unibo.model.territory.api.TerritoryFactory;
+import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 import java.util.List;
@@ -27,47 +27,46 @@ class TestCombat {
     private final Player p1 = new PlayerImpl(1);
     private final Player p2 = new PlayerImpl(2);
 
-    private TerritoryFactory factory;
+    private GameTerritory territories;
 
     @BeforeEach void startSetUp() {
-        this.factory = new TerritoryFactoryImpl();
-        this.factory.createTerritories();
+        this.territories = new TerritoryFactoryImpl().createTerritories();
 
-        Stream.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela"),
-            factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")).forEach(t -> p1.addTerritory(t));
-        Stream.of(factory.getTerritory("Brazil"), factory.getTerritory("Ukraine")).forEach(t -> p2.addTerritory(t));
+        Stream.of(territories.getTerritory("Southern Europe"), territories.getTerritory("Venezuela"),
+            territories.getTerritory("Egypt"), territories.getTerritory("Scandinavia")).forEach(t -> p1.addTerritory(t));
+        Stream.of(territories.getTerritory("Brazil"), territories.getTerritory("Ukraine")).forEach(t -> p2.addTerritory(t));
 
     }
 
     @Test
     void testCreationTerritories() {
-        assertEquals(this.factory.getTerritory("Alaska").getName(), "Alaska");
+        assertEquals(this.territories.getTerritory("Alaska").getName(), "Alaska");
     }
 
     @Test
     public void addFirstTerritoryTest() {
-        assertEquals(Set.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela"),
-            factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")), p1.getTerritories());
-        assertEquals(Set.of(factory.getTerritory("Brazil"), factory.getTerritory("Ukraine")), p2.getTerritories());
+        assertEquals(Set.of(territories.getTerritory("Southern Europe"), territories.getTerritory("Venezuela"),
+            territories.getTerritory("Egypt"), territories.getTerritory("Scandinavia")), p1.getTerritories());
+        assertEquals(Set.of(territories.getTerritory("Brazil"), territories.getTerritory("Ukraine")), p2.getTerritories());
     }
 
     @Test
     public void removeTerritoriesTest() {
-        Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")).forEach(t -> p1.removeTerritory(t));
-        assertEquals(Set.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela")), p1.getTerritories());
-        Stream.of(factory.getTerritory("Ukraine")).forEach(t -> p2.removeTerritory(t));
-        assertEquals(Set.of(factory.getTerritory("Brazil")), p2.getTerritories());
-        Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Ukraine")).forEach(t -> p2.addTerritory(t));
-        assertEquals(Set.of(factory.getTerritory("Brazil"), factory.getTerritory("Egypt"),
-            factory.getTerritory("Ukraine")), p2.getTerritories());
+        Stream.of(territories.getTerritory("Egypt"), territories.getTerritory("Scandinavia")).forEach(t -> p1.removeTerritory(t));
+        assertEquals(Set.of(territories.getTerritory("Southern Europe"), territories.getTerritory("Venezuela")), p1.getTerritories());
+        Stream.of(territories.getTerritory("Ukraine")).forEach(t -> p2.removeTerritory(t));
+        assertEquals(Set.of(territories.getTerritory("Brazil")), p2.getTerritories());
+        Stream.of(territories.getTerritory("Egypt"), territories.getTerritory("Ukraine")).forEach(t -> p2.addTerritory(t));
+        assertEquals(Set.of(territories.getTerritory("Brazil"), territories.getTerritory("Egypt"),
+            territories.getTerritory("Ukraine")), p2.getTerritories());
 
     }
 
     @Test
     public void combatTestWithForcedResults() {
-        var s = factory.getTerritory("Southern Europe");
+        var s = territories.getTerritory("Southern Europe");
         s.addTroops(2);
-        var d = factory.getTerritory("Ukraine");
+        var d = territories.getTerritory("Ukraine");
         d.addTroops(3);
         Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS), true);
         assertEquals(List.of(Combat.Results.WIN, Combat.Results.WIN), c1.attack(2, 3));
@@ -76,8 +75,8 @@ class TestCombat {
 
     @Test
     public void throwingExceptionForNumberStrikerNotValid() {
-        var s = factory.getTerritory("Southern Europe");
-        var d = factory.getTerritory("Ukraine");
+        var s = territories.getTerritory("Southern Europe");
+        var d = territories.getTerritory("Ukraine");
         assertThrows(IllegalArgumentException.class, () -> {
             new CombatImpl(s, 0, d, 3).attack(0, 3);
         });
