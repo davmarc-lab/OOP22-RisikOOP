@@ -44,7 +44,7 @@ public interface GameBoard {
     /**
      * Maximum number of player in the game.
      */
-    final int MAX_PLAYER = 3;
+    static final int MAX_PLAYER = 3;
 
     /**
      * This method starts a combat between two players.
