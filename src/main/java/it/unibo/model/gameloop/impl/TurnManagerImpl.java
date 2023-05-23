@@ -31,6 +31,7 @@ public final class TurnManagerImpl implements TurnManager {
         this.players = new LinkedList<>(players);
         playerIterator = this.players.iterator();
         setRandomOrder();
+        this.currentPlayer = playerIterator.next();
     }
 
     /**
@@ -55,12 +56,10 @@ public final class TurnManagerImpl implements TurnManager {
 
     @Override
     public void switchToNextPlayer() {
-        if (playerIterator.hasNext()) {
-            currentPlayer = playerIterator.next();
-        } else {
+        if (!playerIterator.hasNext()) {
             playerIterator = players.iterator();
-            currentPlayer = playerIterator.next();
         }
+        currentPlayer = playerIterator.next();
     }
 
     @Override
