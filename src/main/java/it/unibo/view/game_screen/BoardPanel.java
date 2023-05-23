@@ -4,16 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,11 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
+import it.unibo.common.Constants;
+import it.unibo.controller.JsonReaderCoordinates;
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.territory.api.Territory;
@@ -37,14 +27,8 @@ import it.unibo.model.territory.api.Territory;
  */
 public class BoardPanel extends JPanel {
 
-    private static final double SCREEN_SCALING_PERC = 10.0;
-    private static final String PATH_SEPARATOR = System.getProperty("file.separator");
-    private static final String MAP_PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources"
-            + PATH_SEPARATOR
-            + "images" + PATH_SEPARATOR + "RisikoMap.jpg";
-    private static final String COORDINATES_PATH = "src" + PATH_SEPARATOR + "main" + PATH_SEPARATOR + "resources"
-            + PATH_SEPARATOR
-            + "config" + PATH_SEPARATOR + "territory" + PATH_SEPARATOR + "Coordinates.json";
+    private static final double WIDTH_SCALING = 0.9;
+    private static final double HEIGHT_SCALING = 0.8;
 
     private final Map<JButton, String> territories = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
@@ -59,19 +43,15 @@ public class BoardPanel extends JPanel {
     public BoardPanel() {
         this.controller = new MainControllerImpl(this);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        map = new ImageIcon(
-                adjustImageSize(new ImageIcon(MAP_PATH), (int) screenSize.getWidth(), (int) screenSize.getHeight()));
+        map = new ImageIcon(adjustImageSize(new ImageIcon(Constants.MAP_PATH), (int) screenSize.getWidth(),
+                (int) screenSize.getHeight()));
 
         JLabel label = new JLabel(map);
         label.setBounds(0, 0, map.getIconWidth(), map.getIconHeight());
 
-        try {
-            loadButtons(map.getIconWidth(), map.getIconHeight());
-            for (var jb : this.territories.keySet()) {
-                this.pane.add(jb, Integer.valueOf(1)); // Puts all buttons on layer 1 (above the map)
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        loadButtons(map.getIconWidth(), map.getIconHeight());
+        for (var jb : this.territories.keySet()) {
+            this.pane.add(jb, Integer.valueOf(1)); // Puts all buttons on layer 1 (above the map)
         }
 
         this.pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
@@ -81,7 +61,7 @@ public class BoardPanel extends JPanel {
     }
 
     /**
-     * Adjusts the map.png size to the screen resolution (in %).
+     * Adjusts the map.png size.
      * 
      * @param map    the ImageIcon of the map
      * @param width  the starting width (the one used to scale the new one)
@@ -89,33 +69,19 @@ public class BoardPanel extends JPanel {
      * @return the adjusted image
      */
     private Image adjustImageSize(final ImageIcon map, final int width, final int height) {
-        int newWidth = (int) (width * SCREEN_SCALING_PERC / 100);
-        int newHeight = (int) (width * SCREEN_SCALING_PERC / 100);
-        return map.getImage().getScaledInstance((int) width - newWidth, (int) height - newHeight,
+        return map.getImage().getScaledInstance((int) (width * WIDTH_SCALING), (int) (height * HEIGHT_SCALING),
                 java.awt.Image.SCALE_SMOOTH);
     }
 
-    private void loadButtons(final int width, final int height) throws FileNotFoundException {
-        JSONParser parser = new JSONParser();
-        JSONObject obj = new JSONObject();
-        try {
-            final FileInputStream fileInputStream = new FileInputStream(COORDINATES_PATH);
-            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
-            final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
-            for (final Object elem : array) {
-                obj = (JSONObject) elem;
-                String name = obj.get("name").toString();
-                int x = (int) (width * Double.parseDouble(obj.get("x").toString()) / 100);
-                int y = (int) (height * Double.parseDouble(obj.get("y").toString()) / 100);
-                int w = (int) (width * Double.parseDouble(obj.get("width").toString()) / 100);
-                int h = (int) (height * Double.parseDouble(obj.get("height").toString()) / 100);
-                this.territories.put(createButton(x, y, w, h), name);
-            }
-        } catch (IOException | ParseException e) {
-            if (Files.notExists(Path.of(COORDINATES_PATH), LinkOption.NOFOLLOW_LINKS)) {
-                throw new FileNotFoundException();
-            }
-        }
+    private void loadButtons(final int width, final int height) {
+        new JsonReaderCoordinates().readFromFile().forEach(p -> {
+            Iterator<Double> it = p.getY().iterator();
+            int x = (int) (it.next() * width / 100);
+            int y = (int) (it.next() * height / 100);
+            int w = (int) (it.next() * width / 100);
+            int h = (int) (it.next() * height / 100);
+            territories.put(createButton(x, y, w, h), p.getX());
+        });
     }
 
     /**
@@ -143,6 +109,7 @@ public class BoardPanel extends JPanel {
 
     /**
      * Disables the buttons placed on the list of territories provided.
+     * 
      * @param t list of territories to disable
      */
     public void disableButtons(final Set<Territory> territorySet) {
