@@ -53,6 +53,12 @@ public final class DeckImpl<T> implements Deck<T> {
     }
 
     @Override
+    public void setDeck(List<T> deck) {
+        this.deck.clear();
+        this.deck.addAll(deck);
+    }
+
+    @Override
     public String toString() {
         return "Deck = [" + deck + "]\n";
     }

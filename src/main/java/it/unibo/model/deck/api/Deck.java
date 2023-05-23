@@ -33,4 +33,11 @@ public interface Deck<T> {
      * @return the deck
      */
     List<T> getDeck();
+
+    /**
+     * Sets the deck.
+     * 
+     * @param deck the deck to set
+     */
+    void setDeck(List<T> deck);
 }
