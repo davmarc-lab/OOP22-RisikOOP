@@ -4,11 +4,12 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import it.unibo.common.Constants;
+
 public class MainFrame extends JFrame {
-    private static final String FRAME_NAME = "RisikOOP";
 
     public MainFrame() {
-        super(FRAME_NAME);
+        super(Constants.FRAME_NAME);
         this.setLayout(new BorderLayout());
         this.getContentPane().add(new MainPanel(this), BorderLayout.CENTER);
         this.pack();

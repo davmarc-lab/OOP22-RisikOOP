@@ -13,20 +13,18 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import it.unibo.common.Constants;
 import it.unibo.common.Pair;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 
 public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<Objective>>> {
 
-    private static final String PATH = new StringBuilder("config").append(PATH_SEPARATOR)
-            .append("objective").append(PATH_SEPARATOR).append("Objectives.json").toString();
-
     private Set<Objective> objectives;
     private Objective defaultObjective;
 
     public JsonReaderObjective() {
-        super(PATH);
+        super(Constants.OBJECTIVES_PATH);
         this.objectives = new HashSet<>();
     }
 

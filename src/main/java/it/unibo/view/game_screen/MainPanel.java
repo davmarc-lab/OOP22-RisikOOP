@@ -19,19 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import it.unibo.common.Constants;
 import it.unibo.controller.AbstractFileReader;
 
 public class MainPanel extends JPanel {
-    private static final double WIDTH_PERC = 0.4;
-    private static final double HEIGHT_PERC = 0.4;
-    private static final int VGAP = 100;
-    private static final String PLAY = "Play";
-    private static final String QUIT = "Quit";
-    private static final String RULES = "Rules";
-    private static final String TITLE_LABEL = "RISIKOOP";
-    private static final String PATH_SEPARATOR = System.getProperty("file.separator");
-    private static final String RULES_PATH = new StringBuilder("instructions")
-            .append(PATH_SEPARATOR).append("rules.txt").toString();
 
     private final Dimension dimension;
     private final JPanel centerPanel;
@@ -44,16 +35,16 @@ public class MainPanel extends JPanel {
         final JButton jbQuit;
         final BorderLayout layout = new BorderLayout();
 
-        layout.setVgap(VGAP);
+        layout.setVgap(Constants.MAIN_PANEL_VGAP);
         this.setLayout(layout);
 
         this.dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(new Dimension((int) (this.dimension.getWidth() * WIDTH_PERC),
-                (int) (this.dimension.getHeight() * HEIGHT_PERC)));
+        this.setPreferredSize(new Dimension((int) (this.dimension.getWidth() * Constants.MAIN_PANEL_WIDTH_PERC),
+                (int) (this.dimension.getHeight() * Constants.MAIN_PANEL_HEIGHT_PERC)));
 
-        jbPlay = new JButton(PLAY);
-        jbRules = new JButton(RULES);
-        jbQuit = new JButton(QUIT);
+        jbPlay = new JButton(Constants.MAIN_PANEL_PLAY_LABEL);
+        jbRules = new JButton(Constants.MAIN_PANEL_RULES_LABEL);
+        jbQuit = new JButton(Constants.MAIN_PANEL_QUIT_LABEL);
         this.centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         this.centerPanel.add(jbPlay);
         this.centerPanel.add(jbQuit);
@@ -63,7 +54,7 @@ public class MainPanel extends JPanel {
         this.southPanel.add(jbRules);
 
         this.add(this.southPanel, BorderLayout.SOUTH);
-        this.titleLabel = new JLabel(TITLE_LABEL, (int) JPanel.CENTER_ALIGNMENT);
+        this.titleLabel = new JLabel(Constants.MAIN_PANEL_TITLE_LABEL, (int) JPanel.CENTER_ALIGNMENT);
         this.add(this.titleLabel, BorderLayout.NORTH);
 
         jbPlay.addActionListener(e -> {
@@ -86,7 +77,7 @@ public class MainPanel extends JPanel {
 
         try {
             final String message;
-            message = new AbstractFileReader<String>(RULES_PATH) {
+            message = new AbstractFileReader<String>(Constants.RULES_PATH) {
                 String line;
                 StringBuilder sBuilder = new StringBuilder();
                 final FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
