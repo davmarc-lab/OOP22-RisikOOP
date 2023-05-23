@@ -13,7 +13,9 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,9 +28,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import it.unibo.controller.api.MainController;
+import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.territory.api.Territory;
-import it.unibo.model.territory.api.TerritoryFactory;
-import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 /**
  * This is where the player will be able to click on the territories.
@@ -44,8 +46,9 @@ public class BoardPanel extends JPanel {
             + PATH_SEPARATOR
             + "config" + PATH_SEPARATOR + "territory" + PATH_SEPARATOR + "Coordinates.json";
 
-    private final Map<JButton, Territory> territories = new HashMap<>();
+    private final Map<JButton, String> territories = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
+    private final MainController controller;
 
     private ImageIcon map;
 
@@ -54,6 +57,7 @@ public class BoardPanel extends JPanel {
      * territories.
      */
     public BoardPanel() {
+        this.controller = new MainControllerImpl(this);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         map = new ImageIcon(
                 adjustImageSize(new ImageIcon(MAP_PATH), (int) screenSize.getWidth(), (int) screenSize.getHeight()));
@@ -63,17 +67,17 @@ public class BoardPanel extends JPanel {
 
         try {
             loadButtons(map.getIconWidth(), map.getIconHeight());
-            for (var jb : territories.keySet()) {
-                pane.add(jb, Integer.valueOf(1)); // Puts all buttons on layer 1 (above the map)
+            for (var jb : this.territories.keySet()) {
+                this.pane.add(jb, Integer.valueOf(1)); // Puts all buttons on layer 1 (above the map)
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
-        pane.setPreferredSize(new Dimension(map.getIconWidth(), map.getIconHeight()));
+        this.pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
+        this.pane.setPreferredSize(new Dimension(map.getIconWidth(), map.getIconHeight()));
 
-        this.add(pane);
+        this.add(this.pane);
     }
 
     /**
@@ -94,12 +98,10 @@ public class BoardPanel extends JPanel {
     private void loadButtons(final int width, final int height) throws FileNotFoundException {
         JSONParser parser = new JSONParser();
         JSONObject obj = new JSONObject();
-        TerritoryFactory factory = new TerritoryFactoryImpl();
         try {
             final FileInputStream fileInputStream = new FileInputStream(COORDINATES_PATH);
             final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
-            factory.createTerritories();
             for (final Object elem : array) {
                 obj = (JSONObject) elem;
                 String name = obj.get("name").toString();
@@ -107,7 +109,7 @@ public class BoardPanel extends JPanel {
                 int y = (int) (height * Double.parseDouble(obj.get("y").toString()) / 100);
                 int w = (int) (width * Double.parseDouble(obj.get("width").toString()) / 100);
                 int h = (int) (height * Double.parseDouble(obj.get("height").toString()) / 100);
-                territories.put(createButton(x, y, w, h), factory.getTerritory(name));
+                this.territories.put(createButton(x, y, w, h), name);
             }
         } catch (IOException | ParseException e) {
             if (Files.notExists(Path.of(COORDINATES_PATH), LinkOption.NOFOLLOW_LINKS)) {
@@ -130,10 +132,40 @@ public class BoardPanel extends JPanel {
         jb.setBounds(x, y, width, height);
         jb.setOpaque(false);
         jb.setFocusable(false);
+        jb.setBorderPainted(false);
         jb.setBackground(new Color(0, 0, 0, 0));
         jb.setContentAreaFilled(false);
-        jb.setBorderPainted(false);
+        jb.addActionListener(e -> {
+            this.controller.sendInput(this.territories.get(jb));
+        });
         return jb;
     }
 
+    /**
+     * Disables the buttons placed on the list of territories provided.
+     * @param t list of territories to disable
+     */
+    public void disableButtons(final Set<Territory> territorySet) {
+        Set<String> territoryNames = new HashSet<>();
+        territorySet.forEach(t -> territoryNames.add(t.getName()));
+        this.territories.entrySet().forEach(e -> {
+            if (territoryNames.contains(e.getValue())) {
+                e.getKey().setEnabled(false);
+            }
+        });
+    }
+
+    /**
+     * Enables all buttons.
+     */
+    public void enableAll() {
+        this.territories.entrySet().forEach(e -> e.getKey().setEnabled(true));
+    }
+
+    /**
+     * Disables all buttons.
+     */
+    public void disableAll() {
+        this.territories.entrySet().forEach(e -> e.getKey().setEnabled(false));
+    }
 }
