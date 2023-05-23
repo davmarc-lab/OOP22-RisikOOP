@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.controller.JsonReaderObjective;
+import it.unibo.model.objective.api.GameObjective;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.api.ObjectiveFactory;
 
@@ -12,38 +13,14 @@ import it.unibo.model.objective.api.ObjectiveFactory;
  * a JSON file.
  */
 public class ObjectiveFactoryImpl implements ObjectiveFactory {
-
-    private final Set<Objective> objectives;
-    private Objective defaultObjective;
-    private final JsonReaderObjective readerObjective;
-
-    public ObjectiveFactoryImpl() {
-        this.readerObjective = new JsonReaderObjective();
-        this.objectives = new HashSet<>();
-        this.defaultObjective = new ObjectiveImpl();
-    }
-
     /**
      * Creates a set of objectives from a JSON file.
      */
     @Override
-    public void createObjectiveSet() {
-        this.objectives.addAll(this.readerObjective.readFromFile().getY());
-        this.defaultObjective = this.readerObjective.readFromFile().getX();
-    }
-
-    /**
-     * Returns an unmodifiable set of objectives created by this factory.
-     *
-     * @return an unmodifiable set of objectives
-     */
-    @Override
-    public Set<Objective> getSetObjectives() {
-        return Set.copyOf(this.objectives);
-    }
-
-    @Override
-    public Objective getDefaulObjective() {
-        return this.defaultObjective;
+    public GameObjective createObjectiveSet() {
+        final JsonReaderObjective readerObjective = new JsonReaderObjective();
+        final Set<Objective> objectives = new HashSet<>(readerObjective.readFromFile().getY());
+        final Objective defaultObjective = readerObjective.readFromFile().getX();
+        return new GameObjectiveImpl(objectives, defaultObjective);
     }
 }
