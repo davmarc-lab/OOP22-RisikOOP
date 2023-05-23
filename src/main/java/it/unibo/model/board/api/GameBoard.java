@@ -122,11 +122,4 @@ public interface GameBoard {
      * bonus troops to some territories.
      */
     void placeTroops();
-
-    /**
-     * This method returns a shallow copy of the {@code GameBoard}.
-     * 
-     * @return object's shallow copy
-     */
-    GameBoard getCopy();
 }

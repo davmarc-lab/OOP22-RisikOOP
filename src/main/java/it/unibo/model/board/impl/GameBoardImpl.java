@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.impl.CombatImpl;
-import it.unibo.controller.popup.PlayerPopupController;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
@@ -25,8 +24,8 @@ import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.player.impl.PlayerImpl;
+import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
-import it.unibo.model.territory.api.TerritoryFactory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 /**
@@ -35,7 +34,7 @@ import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 public class GameBoardImpl implements GameBoard {
 
     private final List<Player> players = new ArrayList<>();
-    private final TerritoryFactory territoryFactory = new TerritoryFactoryImpl();
+    private final GameTerritory gameTerritory = new TerritoryFactoryImpl().createTerritories();
     private final ObjectiveFactory objectiveFactory = new ObjectiveFactoryImpl();
     private final Deck<Army> armyDeck = new DeckImpl<>();
 
@@ -50,9 +49,8 @@ public class GameBoardImpl implements GameBoard {
         IntStream.range(0, GameBoard.MAX_PLAYER)
                 .mapToObj(i -> new PlayerImpl(i + 1, new DeckImpl<Territory>(), new DeckImpl<Army>(), new ObjectiveImpl(),
                         colors.get(i))).forEach(this.players::add);
-        this.territoryFactory.createTerritories();
         this.objectiveFactory.createObjectiveSet();
-        new GamePrepImpl(this.players, this.territoryFactory, this.objectiveFactory, this.armyDeck);
+        new GamePrepImpl(this.players, this.gameTerritory, this.objectiveFactory, this.armyDeck);
         this.turnManager = new TurnManagerImpl(this.players);
     }
 
@@ -84,7 +82,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Map<String, Set<Territory>> getTerritories() {
-        return new HashMap<>(this.territoryFactory.getTerritoryMap());
+        return new HashMap<>(this.gameTerritory.getTerritoryMap());
     }
 
     /**
@@ -108,7 +106,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Deck<Territory> getTerritoryDeck() {
-        return new DeckImpl<>(this.territoryFactory.getTerritories());
+        return new DeckImpl<>(this.gameTerritory.getTerritories());
     }
 
     /**
@@ -144,7 +142,7 @@ public class GameBoardImpl implements GameBoard {
         var continentsTroops = Set.of(BonusTroops.values());
         continentsTroops.forEach(
                 t -> player.addTroops(player.getTerritories()
-                        .containsAll(this.territoryFactory.getTerritoryMap().get(t.getContinent()))
+                        .containsAll(this.gameTerritory.getTerritoryMap().get(t.getContinent()))
                                 ? t.getBonusTroops()
                                 : 0));
     }
@@ -155,15 +153,5 @@ public class GameBoardImpl implements GameBoard {
     @Override
     public void placeTroops() {
 
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GameBoard getCopy() {
-        GameBoard gb = new GameBoardImpl();
-        gb = this;
-        return gb;
     }
 }
