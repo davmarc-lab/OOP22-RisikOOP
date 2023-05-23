@@ -191,7 +191,7 @@ public class PlayerImpl implements Player {
 
     @Override
     public void playCards(final List<Army> cards) {
-        
+
     }
 
     /**

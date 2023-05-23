@@ -1,9 +1,9 @@
 package it.unibo.start;
 
-import it.unibo.view.game_screen.*;
+import it.unibo.view.game_screen.MainFrame;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new MainFrame();
     }
 }
