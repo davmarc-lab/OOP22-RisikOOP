@@ -3,8 +3,8 @@ package it.unibo.territory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
-import it.unibo.model.territory.api.TerritoryFactory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 import it.unibo.model.territory.impl.TerritoryImpl;
 
@@ -26,15 +26,14 @@ import java.util.stream.Collectors;
  */
 class TestTerritory {
 
-    private TerritoryFactory factory;
+    private GameTerritory territories;
 
     /**
      * Creates all the territories using the factory.
      */
     @BeforeEach
     void initTerritoryFactory() {
-        this.factory = new TerritoryFactoryImpl();
-        this.factory.createTerritories();
+        this.territories = new TerritoryFactoryImpl().createTerritories();
     }
 
     /**
@@ -43,11 +42,11 @@ class TestTerritory {
     @Test
     void testCreationTerritories() {
         assertDoesNotThrow(() -> new TerritoryFactoryImpl().createTerritories());
-        final Territory t = this.factory.getTerritory("Argentina");
+        final Territory t = this.territories.getTerritory("Argentina");
         assertEquals(t.getName(), "Argentina");
         assertEquals(t.getAdjTerritories().stream().map(e -> e.getName()).sorted().collect(Collectors.toSet()),
                 Set.of("Brazil", "Peru'"));
-        assertThrows(NoSuchElementException.class, () -> this.factory.getTerritory("Italy"));
+        assertThrows(NoSuchElementException.class, () -> this.territories.getTerritory("Italy"));
     }
 
     /**
@@ -55,12 +54,12 @@ class TestTerritory {
      */
     @Test
     void testContinentFromTerritory() {
-        final Territory tM = this.factory.getTerritory("Madagascar");
-        final Territory tJ = this.factory.getTerritory("Japan");
-        assertEquals(this.factory.getContinentNameFromTerritory(tM), "Africa");
-        assertNotEquals(this.factory.getContinentNameFromTerritory(tJ), "Europe");
+        final Territory tM = this.territories.getTerritory("Madagascar");
+        final Territory tJ = this.territories.getTerritory("Japan");
+        assertEquals(this.territories.getContinentNameFromTerritory(tM), "Africa");
+        assertNotEquals(this.territories.getContinentNameFromTerritory(tJ), "Europe");
         assertThrows(NoSuchElementException.class,
-                () -> this.factory.getContinentNameFromTerritory(new TerritoryImpl("France")));
+                () -> this.territories.getContinentNameFromTerritory(new TerritoryImpl("France")));
     }
 
     /**
@@ -68,7 +67,7 @@ class TestTerritory {
      */
     @Test
     void testTerritoryNameSet() {
-        final Set<String> nameSet = this.factory.getTerritoryNameSet();
+        final Set<String> nameSet = this.territories.getTerritoryNameSet();
         assertEquals(nameSet.stream().filter(s -> "alaska".equalsIgnoreCase(s)).findAny().get(), "Alaska");
         assertTrue(nameSet.contains("China"));
         assertFalse(nameSet.contains("japan")); // Not ignoring name's first letter upper case.
@@ -80,7 +79,7 @@ class TestTerritory {
     @Test
     void testAdjTerritories() {
         final Set<String> set = new HashSet<>();
-        this.factory.getTerritory("Southern Europe").getAdjTerritories().forEach(t -> set.add(t.getName()));
+        this.territories.getTerritory("Southern Europe").getAdjTerritories().forEach(t -> set.add(t.getName()));
         assertTrue(set.containsAll(Set.of(
                 "Western Europe",
                 "Northern Europe",
@@ -89,9 +88,9 @@ class TestTerritory {
                 "Egypt",
                 "Middle East")));
         set.clear();
-        this.factory.getTerritory("Eastern Australia").getAdjTerritories().forEach(t -> set.add(t.getName()));
+        this.territories.getTerritory("Eastern Australia").getAdjTerritories().forEach(t -> set.add(t.getName()));
         assertTrue(set.containsAll(Set.of("Western Australia", "New Guinea")));
-        assertFalse(this.factory.getTerritory("Japan").getAdjTerritories().contains(this.factory.getTerritory("Siam")));
+        assertFalse(this.territories.getTerritory("Japan").getAdjTerritories().contains(this.territories.getTerritory("Siam")));
     }
 
     /**
@@ -99,10 +98,10 @@ class TestTerritory {
      */
     @Test
     void testTerritorySet() {
-        final Set<Territory> territories = this.factory.getTerritories();
+        final Set<Territory> territories = this.territories.getTerritories();
         assertInstanceOf(Territory.class,
                 territories.stream().filter(t -> "Quebec".equalsIgnoreCase(t.getName())).findAny().get());
-        assertTrue(territories.contains(this.factory.getTerritory("Ontario")));
+        assertTrue(territories.contains(this.territories.getTerritory("Ontario")));
         assertFalse(territories.contains(new TerritoryImpl("Alberia")));
     }
 
@@ -111,11 +110,11 @@ class TestTerritory {
      */
     @Test
     void testTerritoryByContinent() {
-        assertTrue(this.factory.getTerritoryByContinent("Europe").contains(this.factory.getTerritory("Great Britain")));
-        assertTrue(this.factory.getTerritoryByContinent("Oceania").contains(this.factory.getTerritory("Indonesia")));
+        assertTrue(this.territories.getTerritoryByContinent("Europe").contains(this.territories.getTerritory("Great Britain")));
+        assertTrue(this.territories.getTerritoryByContinent("Oceania").contains(this.territories.getTerritory("Indonesia")));
         assertEquals(
-                this.factory.getTerritoryByContinent("North America").stream()
+                this.territories.getTerritoryByContinent("North America").stream()
                         .filter(t -> "Alaska".equalsIgnoreCase(t.getName())).findAny().get(),
-                this.factory.getTerritory("Alaska"));
+                this.territories.getTerritory("Alaska"));
     }
 }

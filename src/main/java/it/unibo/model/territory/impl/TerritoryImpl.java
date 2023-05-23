@@ -8,7 +8,7 @@ import it.unibo.model.territory.api.Territory;
 /**
  * Implementation of Territory.
  */
-public final class TerritoryImpl implements Territory {
+public class TerritoryImpl implements Territory {
 
     private String name;
     private final Set<Territory> adjTerritories;
@@ -38,36 +38,64 @@ public final class TerritoryImpl implements Territory {
         this.numTroops = t.getTroops();
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return this.name;
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public Set<Territory> getAdjTerritories() {
         return Set.copyOf(this.adjTerritories);
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public void addAdjTerritory(final Territory t) {
         this.adjTerritories.add(t);
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public int getTroops() {
         return this.numTroops;
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public void addTroops(final int n) {
         this.numTroops += n;
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public Territory getCopyOfTerritory(final Territory t) {
         return new TerritoryImpl(t);
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return new String(new StringBuilder("NAME = ").append(this.getName()).append(", ADJ = [").append(
