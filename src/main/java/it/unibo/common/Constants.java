@@ -10,6 +10,8 @@ public final class Constants {
 
     public static final int BONUS_TROOPS_DIVIDER = 3;
 
+    public static final String DISPLACEMENTS_FRAME_NAME = "Displacements";
+
     public static final String FRAME_NAME = "RisikOOP";
 
     public static final double MAIN_PANEL_WIDTH_PERC = 0.4;

@@ -15,7 +15,7 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
     private int id;
     private Deck<Territory> territoryDeck;
     private Hand<Army> playerHand;
-    private Objective objective = new ObjectiveImpl("NONE", Objective.ObjectiveType.NONE);
+    private Objective objective;
     private Color color;
     private int bonusTroops;
 

@@ -48,13 +48,14 @@ public class GameBoardImpl implements GameBoard {
      */
     public GameBoardImpl() {
         createPlayers();
+        System.out.println(this.players);
         createArmyDeck();
         createObjectiveDeck();
         Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck,
                 this.gameObjective.getDefaulObjective());
         new GamePrepImpl(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective,
                 this.armyDeck);
-        this.objectiveDeck.setDeck(new ArrayList<>(pairObjective.getX().getDeck()));
+        this.objectiveDeck.setDeck(pairObjective.getX().getDeck());
         this.turnManager = new TurnManagerImpl(this.players.stream().map(Player::getId).toList());
     }
 
@@ -64,11 +65,8 @@ public class GameBoardImpl implements GameBoard {
     private void createPlayers() {
         final List<Player.Color> colors = Arrays.asList(Player.Color.values());
         Collections.shuffle(colors);
-        Player p = PlayerBuilderImpl.newBuilder().id(0).territoryDeck(new DeckImpl<>())
-                .playerHand(new AbstractArmyHand()).objective(new ObjectiveImpl()).bonusTroops(0).build();
-
         IntStream.range(0, Constants.MAX_PLAYERS)
-                .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).color(colors.get(i)).bonusTroops(0).build())
+                .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>()).objective(new ObjectiveImpl("NONE", Objective.ObjectiveType.NONE)).color(colors.get(i)).bonusTroops(0).build())
                 .forEach(this.players::add);
     }
 
