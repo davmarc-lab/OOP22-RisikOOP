@@ -1,5 +1,6 @@
 package it.unibo.model.deck.api;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -39,5 +40,5 @@ public interface Deck<T> {
      * 
      * @param deck the deck to set
      */
-    void setDeck(List<T> deck);
+    void setDeck(Collection<T> deck);
 }

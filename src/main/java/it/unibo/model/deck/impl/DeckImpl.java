@@ -14,7 +14,7 @@ import it.unibo.model.deck.api.Deck;
  */
 public final class DeckImpl<T> implements Deck<T> {
 
-    private final List<T> deck = new ArrayList<>();
+    private final List<T> deck;
 
     /**
      * Creates a deck of cards.
@@ -22,11 +22,11 @@ public final class DeckImpl<T> implements Deck<T> {
      * @param cards the cards to be added to the deck
      */
     public DeckImpl(final Collection<T> cards) {
-        this.deck.addAll(cards);
+        this.deck = new ArrayList<>(cards);
     }
 
     public DeckImpl() {
-
+        this.deck = new ArrayList<>();
     }
 
     @Override
@@ -53,7 +53,7 @@ public final class DeckImpl<T> implements Deck<T> {
     }
 
     @Override
-    public void setDeck(List<T> deck) {
+    public void setDeck(final Collection<T> deck) {
         this.deck.clear();
         this.deck.addAll(deck);
     }
