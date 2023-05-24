@@ -18,7 +18,9 @@ public final class Constants {
 
     public static final double MAIN_PANEL_HEIGHT_PERC = 0.4;
 
-    public static final int MAIN_PANEL_VGAP = 100;
+    public static final int MAIN_PANEL_VGAP = 250;
+
+    public static final int MAIN_PANEL_HGAP = 50;
 
     public static final String MAIN_PANEL_PLAY_LABEL = "Play";
 
@@ -51,4 +53,7 @@ public final class Constants {
 
     public static final String MAP_PATH = new StringBuilder(RESOURCES_PATH).append("images")
             .append(PATH_SEPARATOR).append("RisikoMap.jpg").toString();
+
+    public static final String WALLPAPER_PATH = new StringBuilder(RESOURCES_PATH).append("images")
+            .append(PATH_SEPARATOR).append("MenuWallpaper.jpg").toString();
 }
