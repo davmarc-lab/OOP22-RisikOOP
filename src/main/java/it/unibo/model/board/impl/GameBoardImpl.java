@@ -48,7 +48,6 @@ public class GameBoardImpl implements GameBoard {
      */
     public GameBoardImpl() {
         createPlayers();
-        System.out.println(this.players);
         createArmyDeck();
         createObjectiveDeck();
         Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck,
