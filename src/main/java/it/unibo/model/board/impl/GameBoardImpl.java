@@ -9,17 +9,20 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import it.unibo.model.board.api.GameBoard;
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
+import it.unibo.controller.combat.impl.CombatControllerImpl;
+import it.unibo.controller.popup.impl.MovementController;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
+import it.unibo.model.board.api.GameBoard;
+import it.unibo.model.combat.api.Combat;
+import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.impl.TurnManagerImpl;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
-import it.unibo.model.hand.impl.AbstractArmyHand;
 import it.unibo.model.objective.api.GameObjective;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
@@ -65,7 +68,9 @@ public class GameBoardImpl implements GameBoard {
         final List<Player.Color> colors = Arrays.asList(Player.Color.values());
         Collections.shuffle(colors);
         IntStream.range(0, Constants.MAX_PLAYERS)
-                .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>()).objective(new ObjectiveImpl("NONE", Objective.ObjectiveType.NONE)).color(colors.get(i)).bonusTroops(0).build())
+                .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>())
+                        .objective(new ObjectiveImpl()).color(colors.get(i))
+                        .bonusTroops(0).build())
                 .forEach(this.players::add);
     }
 
@@ -95,15 +100,8 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public void instaceCombat(final Territory tStriker, final Territory tDefender) {
-        // prova per controllare il funzionamento
-        // var numStriker = 3;
-        // tStriker.addArmy(10);
-        // var numDefender = 3;
-        // tDefender.addArmy(10);
-
-        // final Combat combat = new CombatImpl(tStriker, tDefender);
-        // chiama le gui
+    public void instaceCombat(final Pair<Player, Territory> striker, final Pair<Player, Territory> defender) {
+        
     }
 
     /**
@@ -111,7 +109,8 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
-
+        var mc = new MovementController<Territory, Territory>(new Pair<>(oldTerritory, newTerritory));
+        mc.startPopup();
     }
 
     /**

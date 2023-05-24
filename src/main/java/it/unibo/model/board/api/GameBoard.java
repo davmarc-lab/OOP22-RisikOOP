@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import it.unibo.common.Pair;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.gameloop.api.TurnManager;
@@ -52,7 +53,7 @@ public interface GameBoard {
      * @param tStriker  striker territory
      * @param tDefender defender territory
      */
-    void instaceCombat(Territory tStriker, Territory tDefender);
+    void instaceCombat(Pair<Player, Territory> striker, Pair<Player, Territory> defender);
 
     /**
      * This method starts moving armies from a territory to another one.
