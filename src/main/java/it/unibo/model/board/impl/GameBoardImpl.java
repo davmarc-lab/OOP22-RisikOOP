@@ -19,11 +19,13 @@ import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.impl.TurnManagerImpl;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
+import it.unibo.model.hand.impl.AbstractArmyHand;
 import it.unibo.model.objective.api.GameObjective;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
+import it.unibo.model.player.impl.PlayerBuilderImpl;
 import it.unibo.model.player.impl.PlayerImpl;
 import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
@@ -49,8 +51,10 @@ public class GameBoardImpl implements GameBoard {
         createPlayers();
         createArmyDeck();
         createObjectiveDeck();
-        Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck, this.gameObjective.getDefaulObjective());
-        new GamePrepImpl(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective, this.armyDeck);
+        Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck,
+                this.gameObjective.getDefaulObjective());
+        new GamePrepImpl(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective,
+                this.armyDeck);
         this.objectiveDeck.setDeck(new ArrayList<>(pairObjective.getX().getDeck()));
         this.turnManager = new TurnManagerImpl(this.players.stream().map(Player::getId).toList());
     }
@@ -61,9 +65,12 @@ public class GameBoardImpl implements GameBoard {
     private void createPlayers() {
         final List<Player.Color> colors = Arrays.asList(Player.Color.values());
         Collections.shuffle(colors);
-        IntStream.range(0, GameBoard.MAX_PLAYER)
-                .mapToObj(i -> new PlayerImpl(i + 1, new DeckImpl<Territory>(), new DeckImpl<Army>(), new ObjectiveImpl(),
-                        colors.get(i))).forEach(this.players::add);
+        Player p = PlayerBuilderImpl.newBuilder().id(0).territoryDeck(new DeckImpl<>())
+                .playerHand(new AbstractArmyHand()).objective(new ObjectiveImpl()).bonusTroops(0).build();
+
+        IntStream.range(0, Constants.MAX_PLAYERS)
+                .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).color(colors.get(i)).bonusTroops(0).build())
+                .forEach(this.players::add);
     }
 
     /**
