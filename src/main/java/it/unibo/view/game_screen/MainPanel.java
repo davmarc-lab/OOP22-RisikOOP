@@ -62,6 +62,7 @@ public class MainPanel extends JPanel {
             frame.getContentPane().revalidate();
             frame.getContentPane().repaint();
             frame.getContentPane().add(new BoardPanel(), BorderLayout.CENTER);
+            frame.getContentPane().add(new SideBar(new BoardPanel().getPreferredSize()), BorderLayout.EAST);
             frame.pack();
             frame.setLocationRelativeTo(null);
         });
