@@ -9,21 +9,22 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.controller.popup.PlayerPopupController;
+import it.unibo.controller.popup.api.PopupController;
+import it.unibo.model.territory.api.Territory;
 
 public class MovementPanel extends JPanel {
 
-    public MovementPanel(final PlayerPopupController ppc) {
+    public MovementPanel(final PopupController<Territory, Territory> ppc) {
         final JPanel valuesPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints cnst = new GridBagConstraints();
         this.setLayout(new BorderLayout());
         cnst.gridy = 0;
         cnst.insets = new Insets(2, 5, 2, 5);
         final JLabel labelText = new JLabel(
-                "How many troops do you want send to " + ppc.getTerritory().getName() + ":");
+                "How many troops do you want send to " + ppc.getSecondTypeObject().getName() + ":");
         final JButton buttonUp = new JButton("+");
         final JButton buttonDown = new JButton("-");
-        final JLabel number = new JLabel(String.valueOf(ppc.getTerritory().getTroops()));
+        final JLabel number = new JLabel(String.valueOf(ppc.getSecondTypeObject().getTroops()));
         buttonUp.addActionListener(e -> {
             number.setText(String.valueOf(getIncrementedValue(Integer.parseInt(number.getText()), 1)));
             this.validate();
