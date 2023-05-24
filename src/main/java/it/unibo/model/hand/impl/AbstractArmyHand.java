@@ -16,6 +16,10 @@ public class AbstractArmyHand extends HandImpl<Army> {
         super(hand);
     }
 
+    public AbstractArmyHand() {
+        super();
+    }
+
     @Override
     public int playCards(List<Army> cards) {
         boolean allDifferent = cards.stream().distinct().count() == cards.size();

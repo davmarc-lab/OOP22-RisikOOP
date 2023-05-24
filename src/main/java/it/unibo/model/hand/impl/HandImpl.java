@@ -1,5 +1,6 @@
 package it.unibo.model.hand.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.model.hand.api.Hand;
@@ -10,6 +11,10 @@ public abstract class HandImpl<T> implements Hand<T> {
 
     public HandImpl(final List<T> hand) {
         this.hand = hand;
+    }
+
+    public HandImpl() {
+        this.hand = new ArrayList<>();
     }
 
     @Override
