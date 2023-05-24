@@ -26,7 +26,6 @@ import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.player.impl.PlayerBuilderImpl;
-import it.unibo.model.player.impl.PlayerImpl;
 import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
@@ -180,12 +179,15 @@ public class GameBoardImpl implements GameBoard {
     @Override
     public void defineBonusArmies() {
         var player = this.getCurrentPlayer();
+        final int conquestsTroops = Long.valueOf(player.getTerritories().stream().count()).intValue()
+                / Constants.BONUS_TROOPS_DIVIDER;
         var continentsTroops = Set.of(BonusTroops.values());
         continentsTroops.forEach(
                 t -> player.addTroops(player.getTerritories()
                         .containsAll(this.gameTerritory.getTerritoryMap().get(t.getContinent()))
                                 ? t.getBonusTroops()
                                 : 0));
+        player.addTroops(conquestsTroops);
     }
 
     /**
