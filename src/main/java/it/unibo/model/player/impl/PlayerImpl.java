@@ -135,9 +135,20 @@ public class PlayerImpl implements Player {
         this.objective = objective;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addTroops(final int numberTroops) {
         this.bonusTroops += numberTroops;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getTroops() {
+        return this.bonusTroops;
     }
 
     /**
