@@ -146,6 +146,14 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
+    public GameTerritory getGameTerritories() {
+        return this.gameTerritory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public TurnManager getTurnManager() {
         return this.turnManager;
     }

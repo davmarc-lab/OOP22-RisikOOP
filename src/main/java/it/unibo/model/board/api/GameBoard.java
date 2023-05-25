@@ -10,6 +10,7 @@ import it.unibo.model.deck.api.Deck;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
+import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -104,6 +105,8 @@ public interface GameBoard {
      * @return current player
      */
     Player getCurrentPlayer();
+
+    GameTerritory getGameTerritories();
 
     /**
      * This method returns a shallow copy of the {@code TurnManager}.
