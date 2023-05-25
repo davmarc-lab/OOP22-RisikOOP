@@ -47,4 +47,11 @@ public interface PhaseManager {
      */
     void switchToNextPhase();
 
+    /**
+     * Switches to the specified phase.
+     * 
+     * @param phase the phase
+     */
+    void switchToPhase(Phase phase);
+
 }
