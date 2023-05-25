@@ -7,8 +7,13 @@ import it.unibo.model.objective.api.Objective;
  */
 public class ObjectiveImpl implements Objective {
 
-    private final String description;
-    private final ObjectiveType objectiveType;
+    private String description;
+    private ObjectiveType objectiveType;
+    private String firstContinent;
+    private String secondContinent;
+    private Boolean thirdContinent = false;
+    private int territories;
+    private int minNumArmies;
     private Boolean complete = false;
 
     /**
@@ -19,6 +24,26 @@ public class ObjectiveImpl implements Objective {
      */
     public ObjectiveImpl(final String description, final ObjectiveType objectiveType) {
         this.description = description;
+        this.objectiveType = objectiveType;
+    }
+
+    public ObjectiveImpl(final String firstContinent, final String secondContinent, final ObjectiveType objectiveType) {
+        this.firstContinent = firstContinent;
+        this.secondContinent = secondContinent;
+        this.objectiveType = objectiveType;
+    }
+
+    public ObjectiveImpl(final String firstContinent, final String secondContinent, final Boolean thirdContinent,
+            final ObjectiveType objectiveType) {
+        this.firstContinent = firstContinent;
+        this.secondContinent = secondContinent;
+        this.thirdContinent = thirdContinent;
+        this.objectiveType = objectiveType;
+    }
+
+    public ObjectiveImpl(final int territories, final int minNumArmies, final ObjectiveType objectiveType) {
+        this.territories = territories;
+        this.minNumArmies = minNumArmies;
         this.objectiveType = objectiveType;
     }
 
@@ -72,8 +97,16 @@ public class ObjectiveImpl implements Objective {
      */
     @Override
     public String toString() {
-        return objectiveType.equals(ObjectiveType.DESTROY)
-                ? new String(new StringBuilder("Destroy the ").append(this.description).append(" army"))
-                : this.description;
+        if (objectiveType.equals(ObjectiveType.DESTROY)) {
+            return new String(new StringBuilder("Destroy the ").append(this.description).append(" army"));
+        } else {
+            if (this.thirdContinent) {
+                return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
+                        .append(this.secondContinent).append(" and ").append(thirdContinent));
+            } else {
+                return new String(new StringBuilder("Conquer ").append(this.territories).append(" territories with at least ")
+                        .append(this.minNumArmies).append(" armies"));
+            }
+        }
     }
 }
