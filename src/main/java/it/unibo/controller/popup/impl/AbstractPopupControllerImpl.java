@@ -16,7 +16,7 @@ public abstract class AbstractPopupControllerImpl<X, Y> implements PopupControll
      * {@inheritDoc}
      */
     @Override
-    public X getFirstTypeObgject() {
+    public X getFirstTypeObject() {
         return this.pair.getX();
     }
 

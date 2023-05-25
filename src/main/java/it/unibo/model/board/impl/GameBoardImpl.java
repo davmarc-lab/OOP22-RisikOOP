@@ -11,13 +11,10 @@ import java.util.stream.IntStream;
 
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
-import it.unibo.controller.combat.impl.CombatControllerImpl;
 import it.unibo.controller.popup.impl.MovementController;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;
-import it.unibo.model.combat.api.Combat;
-import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameloop.api.TurnManager;

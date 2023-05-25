@@ -1,7 +1,7 @@
 package it.unibo.controller.popup.api;
 
 public interface PopupController<X, Y> {
-    X getFirstTypeObgject();
+    X getFirstTypeObject();
 
     Y getSecondTypeObject();
 
