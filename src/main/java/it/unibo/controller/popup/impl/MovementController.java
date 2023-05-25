@@ -15,7 +15,7 @@ public class MovementController<X, Y> extends AbstractPopupControllerImpl<X, Y> 
     @Override
     public void startPopup() {
         try {
-            if (this.getFirstTypeObgject() instanceof Territory && this.getSecondTypeObject() instanceof Territory) {
+            if (this.getFirstTypeObject() instanceof Territory && this.getSecondTypeObject() instanceof Territory) {
                 var popup = new MovementPane((PopupController<Territory, Territory>) this);
             }
         } catch (ClassCastException e) {
