@@ -130,4 +130,6 @@ public interface Player {
     void setObjective(Objective objective);
 
     void addTroops(int numberTroops);
+
+    int getTroops();
 }
