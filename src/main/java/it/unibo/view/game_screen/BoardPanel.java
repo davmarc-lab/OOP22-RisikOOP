@@ -32,7 +32,7 @@ public class BoardPanel extends JPanel {
 
     private final Map<JButton, String> territories = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
-    private final MainController controller;
+    private MainController controller;
 
     private ImageIcon map;
 
@@ -41,7 +41,6 @@ public class BoardPanel extends JPanel {
      * territories.
      */
     public BoardPanel() {
-        this.controller = new MainControllerImpl(this);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         map = new ImageIcon(adjustImageSize(new ImageIcon(Constants.MAP_PATH), (int) screenSize.getWidth(),
                 (int) screenSize.getHeight()));
@@ -134,5 +133,19 @@ public class BoardPanel extends JPanel {
      */
     public void disableAll() {
         this.territories.entrySet().forEach(e -> e.getKey().setEnabled(false));
+    }
+
+    /**
+     * @return the controller
+     */
+    public MainController getController() {
+        return this.controller;
+    }
+
+    /**
+     * Creates a controller.
+     */
+    public void createController() {
+        this.controller = new MainControllerImpl(this);
     }
 }
