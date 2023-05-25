@@ -9,14 +9,58 @@
             "WHITE"
         ],
         "conquerObj": [
-            "Conquer ASIA and SOUTH AMERICA",
-            "Conquer ASIA and AFRICA",
-            "Conquer NORTH AMERICA and AFRICA",
-            "Conquer NORTH AMERICA and OCEANIA",
-            "Conquer EUROPE and SOUTH AMERICA and a third continent of your choice",
-            "Conquer EUROPE and OCEANIA and a third continent of your choice",
-            "Conquer 18 territories with at least 2 armies in each territory"
+            {
+                "scope": [
+                    "Asia",
+                    "South America"
+                ]
+            },
+            {
+                "scope": [
+                    "Asia",
+                    "Africa"
+                ]
+            },
+            {
+                "scope": [
+                    "North America",
+                    "Africa"
+                ]
+            },
+            {
+                "scope": [
+                    "North America",
+                    "Oceania"
+                ]
+            },
+            {
+                "scope": [
+                    "Europe",
+                    "South America",
+                    "true"
+                ]
+            },
+            {
+                "scope": [
+                    "Europe",
+                    "Oceania",
+                    "true"
+                ]
+            },
+            {
+                "scope": [
+                    18,
+                    2
+                ]
+            }
         ],
-        "defaultObj": "Conquer 24 territories"
+        "defaultObj": [
+            {
+                "scope": [
+                    24,
+                    1
+                ]
+            }
+        ]
     }
 ]
