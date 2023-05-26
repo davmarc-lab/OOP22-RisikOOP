@@ -9,10 +9,10 @@ public class ObjectiveImpl implements Objective {
 
     private String description;
     private ObjectiveType objectiveType;
-    private String firstContinent;
+    private String firstContinent = "";
     private String secondContinent;
     private Boolean thirdContinent = false;
-    private int territories;
+    private int numTerritories;
     private int minNumArmies;
     private Boolean complete = false;
 
@@ -41,8 +41,8 @@ public class ObjectiveImpl implements Objective {
         this.objectiveType = objectiveType;
     }
 
-    public ObjectiveImpl(final int territories, final int minNumArmies, final ObjectiveType objectiveType) {
-        this.territories = territories;
+    public ObjectiveImpl(final int numTerritories, final int minNumArmies, final ObjectiveType objectiveType) {
+        this.numTerritories = numTerritories;
         this.minNumArmies = minNumArmies;
         this.objectiveType = objectiveType;
     }
@@ -99,14 +99,18 @@ public class ObjectiveImpl implements Objective {
     public String toString() {
         if (objectiveType.equals(ObjectiveType.DESTROY)) {
             return new String(new StringBuilder("Destroy the ").append(this.description).append(" army"));
+        }
+        if (this.firstContinent.isEmpty()) {
+            return new String(
+                    new StringBuilder("Conquer ").append(this.numTerritories).append(" territories with at least ")
+                            .append(this.minNumArmies).append(this.minNumArmies > 1 ? " troops" : " troop"));
+        }
+        if (this.thirdContinent) {
+            return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
+                    .append(this.secondContinent).append(" and another continent of your choice"));
         } else {
-            if (this.thirdContinent) {
-                return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
-                        .append(this.secondContinent).append(" and ").append(thirdContinent));
-            } else {
-                return new String(new StringBuilder("Conquer ").append(this.territories).append(" territories with at least ")
-                        .append(this.minNumArmies).append(" armies"));
-            }
+            return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
+                    .append(this.secondContinent));
         }
     }
 }

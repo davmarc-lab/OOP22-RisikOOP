@@ -50,32 +50,32 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
                 for (Object conquerElem : conquerArray) {
                     var x = (JSONObject) conquerElem;
                     JSONArray cArray = (JSONArray) x.get("scope");
-                    for (Object cElem : cArray) {
-                        if (cArray.size() == 2) {
-                            if (cElem instanceof Integer) {
-                                final ObjectiveImpl objective = new ObjectiveImpl(cElem.toString(),
-                                        cElem.toString(), Objective.ObjectiveType.CONQUER);
-                                this.objectives.add(objective);
-                            } else {
-                                final ObjectiveImpl objective = new ObjectiveImpl(cElem.toString(), cElem.toString(),
-                                        Objective.ObjectiveType.CONQUER);
-                                this.objectives.add(objective);
-                            }
+                    if (cArray.size() == 2) {
+                        if (cArray.get(0).toString().matches("-?\\d+(\\.\\d+)?")) {
+                            final ObjectiveImpl objective = new ObjectiveImpl(
+                                    Integer.parseInt(cArray.get(0).toString()),
+                                    Integer.parseInt(cArray.get(1).toString()), Objective.ObjectiveType.CONQUER);
+                            this.objectives.add(objective);
                         } else {
-                            final ObjectiveImpl objective = new ObjectiveImpl(cElem.toString(), cElem.toString(),
-                                    Boolean.valueOf(cElem.toString()), Objective.ObjectiveType.CONQUER);
+                            final ObjectiveImpl objective = new ObjectiveImpl(cArray.get(0).toString(),
+                                    cArray.get(1).toString(),
+                                    Objective.ObjectiveType.CONQUER);
                             this.objectives.add(objective);
                         }
+                    } else {
+                        final ObjectiveImpl objective = new ObjectiveImpl(cArray.get(0).toString(),
+                                cArray.get(1).toString(),
+                                Boolean.valueOf(cArray.get(2).toString()), Objective.ObjectiveType.CONQUER);
+                        this.objectives.add(objective);
                     }
                 }
                 for (Object defObj : defaultObj) {
                     var z = (JSONObject) defObj;
                     JSONArray dArray = (JSONArray) z.get("scope");
-                    for (Object dElem : dArray) {
-                        this.defaultObjective = new ObjectiveImpl(dElem.toString(),
-                        dElem.toString(), Objective.ObjectiveType.CONQUER);
-                        this.objectives.add(defaultObjective);
-                    }
+                    this.defaultObjective = new ObjectiveImpl(Integer.parseInt(dArray.get(0).toString()),
+                            Integer.parseInt(dArray.get(1).toString()), Objective.ObjectiveType.CONQUER);
+                    this.objectives.add(defaultObjective);
+
                 }
             }
             inputStreamReader.close();
@@ -85,10 +85,10 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
         }
         return new Pair<Objective, Set<Objective>>(this.defaultObjective, this.objectives);
     }
+
     public static void main(String[] args) {
         JsonReaderObjective j = new JsonReaderObjective();
         j.readFromFile();
-        System.out.println(j.defaultObjective);
         System.out.println(j.objectives);
     }
 }
