@@ -9,6 +9,7 @@ public class ObjectiveImpl implements Objective {
 
     private String description;
     private ObjectiveType objectiveType;
+    private String colors;
     private String firstContinent = "";
     private String secondContinent;
     private Boolean thirdContinent = false;
@@ -17,20 +18,22 @@ public class ObjectiveImpl implements Objective {
     private Boolean complete = false;
 
     /**
-     * Constructs a new ObjectiveImpl with the given description and objective type.
+     * Constructs a new ObjectiveImpl with the given colors and objective type.
      *
-     * @param description   the description of the objective
+     * @param colors   the colors of the objective
      * @param objectiveType the type of the objective
      */
-    public ObjectiveImpl(final String description, final ObjectiveType objectiveType) {
-        this.description = description;
+    public ObjectiveImpl(final String colors, final ObjectiveType objectiveType) {
+        this.colors = colors;
         this.objectiveType = objectiveType;
+        this.description = createDescription();
     }
 
     public ObjectiveImpl(final String firstContinent, final String secondContinent, final ObjectiveType objectiveType) {
         this.firstContinent = firstContinent;
         this.secondContinent = secondContinent;
         this.objectiveType = objectiveType;
+        this.description = createDescription();
     }
 
     public ObjectiveImpl(final String firstContinent, final String secondContinent, final Boolean thirdContinent,
@@ -39,12 +42,14 @@ public class ObjectiveImpl implements Objective {
         this.secondContinent = secondContinent;
         this.thirdContinent = thirdContinent;
         this.objectiveType = objectiveType;
+        this.description = createDescription();
     }
 
     public ObjectiveImpl(final int numTerritories, final int minNumArmies, final ObjectiveType objectiveType) {
         this.numTerritories = numTerritories;
         this.minNumArmies = minNumArmies;
         this.objectiveType = objectiveType;
+        this.description = createDescription();
     }
 
     public ObjectiveImpl() {
@@ -77,7 +82,7 @@ public class ObjectiveImpl implements Objective {
      */
     @Override
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     /**
@@ -90,15 +95,9 @@ public class ObjectiveImpl implements Objective {
         return objectiveType;
     }
 
-    /**
-     * Gets a string representation of this objective.
-     *
-     * @return a string representation of this objective
-     */
-    @Override
-    public String toString() {
+    private String createDescription() {
         if (objectiveType.equals(ObjectiveType.DESTROY)) {
-            return new String(new StringBuilder("Destroy the ").append(this.description).append(" army"));
+            return new String(new StringBuilder("Destroy the ").append(this.colors).append(" army"));
         }
         if (this.firstContinent.isEmpty()) {
             return new String(
@@ -112,5 +111,14 @@ public class ObjectiveImpl implements Objective {
             return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
                     .append(this.secondContinent));
         }
+    }
+    /**
+     * Gets a string representation of this objective.
+     *
+     * @return a string representation of this objective
+     */
+    @Override
+    public String toString() {
+        return this.description;
     }
 }

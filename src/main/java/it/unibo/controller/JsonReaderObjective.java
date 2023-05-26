@@ -85,10 +85,4 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
         }
         return new Pair<Objective, Set<Objective>>(this.defaultObjective, this.objectives);
     }
-
-    public static void main(String[] args) {
-        JsonReaderObjective j = new JsonReaderObjective();
-        j.readFromFile();
-        System.out.println(j.objectives);
-    }
 }
