@@ -48,7 +48,7 @@ public class MainPanel extends JPanel {
         this.wallpaper = new ImageIcon(adjustImageSize(new ImageIcon(Constants.WALLPAPER_PATH),
                 (int) this.dimension.getWidth(), (int) this.dimension.getHeight()));
         JLayeredPane pane = new JLayeredPane();
-        JLabel label =new JLabel(this.wallpaper);
+        JLabel label = new JLabel(this.wallpaper);
         label.setBounds(0, 0, this.wallpaper.getIconWidth(), this.wallpaper.getIconHeight());
 
         jbPlay = new JButton(Constants.MAIN_PANEL_PLAY_LABEL);
@@ -62,7 +62,8 @@ public class MainPanel extends JPanel {
         pane.add(this.centerPanel, BorderLayout.CENTER, Integer.valueOf(1));
 
         this.southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        this.southPanel.setBounds(0, Constants.MAIN_PANEL_VGAP + this.centerPanel.getHeight() - 120, Double.valueOf(this.dimension.getWidth()).intValue(), 100);
+        this.southPanel.setBounds(0, Constants.MAIN_PANEL_VGAP + this.centerPanel.getHeight() - 120,
+                Double.valueOf(this.dimension.getWidth()).intValue(), 100);
         this.southPanel.setOpaque(false);
         this.southPanel.add(jbRules);
         pane.add(this.southPanel, Integer.valueOf(1));
@@ -71,10 +72,14 @@ public class MainPanel extends JPanel {
             frame.getContentPane().removeAll();
             frame.getContentPane().revalidate();
             frame.getContentPane().repaint();
-            frame.getContentPane().add(new BoardPanel(), BorderLayout.CENTER);
-            frame.getContentPane().add(new SideBar(new BoardPanel().getPreferredSize()), BorderLayout.EAST);
+            BoardPanel bp = new BoardPanel();
+            SideBar sb = new SideBar(bp.getPreferredSize());
+            frame.getContentPane().add(bp, BorderLayout.CENTER);
+            frame.getContentPane().add(sb, BorderLayout.EAST);
             frame.pack();
             frame.setLocationRelativeTo(null);
+            bp.createController();
+            sb.getButtonPanel().setController(bp.getController());
         });
 
         jbQuit.addActionListener(e -> {

@@ -40,4 +40,18 @@ public interface MainController {
      */
     void disableAllTerritories();
 
+    /**
+     * Switches to combat phase.
+     */
+    void switchToCombat();
+
+    /**
+     * Switches to movement phase.
+     */
+    void switchToMovement();
+
+    /**
+     * Ends the players' turn.
+     */
+    void endTurn();
 }

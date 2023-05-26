@@ -28,6 +28,11 @@ public final class PhaseManagerImpl implements PhaseManager {
     }
 
     @Override
+    public void switchToPhase(Phase phase) {
+        this.currentPhase = phase;
+    }
+
+    @Override
     public String toString() {
         return "[Current phase --> " + currentPhase + "]";
     }

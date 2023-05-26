@@ -51,4 +51,19 @@ public final class MainControllerImpl implements MainController {
         this.gui.disableAll();
     }
 
+    @Override
+    public void switchToCombat() {
+        this.loop.startCombat();
+    }
+
+    @Override
+    public void switchToMovement() {
+        this.loop.startMovement();
+    }
+
+    @Override
+    public void endTurn() {
+        this.loop.endPlayerTurn();
+    }
+
 }
