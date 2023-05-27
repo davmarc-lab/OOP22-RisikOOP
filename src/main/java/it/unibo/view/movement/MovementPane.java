@@ -2,14 +2,14 @@ package it.unibo.view.movement;
 
 import javax.swing.JFrame;
 
-import it.unibo.controller.popup.api.PopupController;
-import it.unibo.model.territory.api.Territory;
+import it.unibo.controller.popup.api.MovementController;
 
 public class MovementPane extends JFrame {
 
-    public MovementPane(final PopupController<Territory, Territory> pp) {
+    public MovementPane(final MovementController mc) {
         super();
-        new MovementPanel(pp);
+        mc.setFrame(this);
+        new MovementPanel(mc);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
-import it.unibo.controller.popup.impl.MovementController;
+import it.unibo.controller.popup.impl.MovementControllerImpl;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;
@@ -106,7 +106,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
-        var mc = new MovementController<Territory, Territory>(new Pair<>(oldTerritory, newTerritory));
+        var mc = new MovementControllerImpl(new Pair<>(oldTerritory, newTerritory));
         mc.startPopup();
     }
 

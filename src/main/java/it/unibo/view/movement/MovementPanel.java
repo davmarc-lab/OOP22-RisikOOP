@@ -10,17 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import it.unibo.controller.popup.api.PopupController;
-import it.unibo.model.territory.api.Territory;
-import it.unibo.view.movement.logic.TroopsLogic;
-import it.unibo.view.movement.logic.TroopsLogicImpl;
+import it.unibo.controller.popup.api.MovementController;
 
 public class MovementPanel extends JPanel {
+    
+    private int source;
+    final JButton buttonUp = new JButton("+");
+    final JButton buttonDown = new JButton("-");
+    final JLabel number = new JLabel(String.valueOf(1));
+    final JLabel currentTerritoryStatus = new JLabel();
 
-    private final TroopsLogic logic;
-
-    public MovementPanel(final PopupController<Territory, Territory> pp) {
-        this.logic = new TroopsLogicImpl(pp.getFirstTypeObject().getTroops());
+    public MovementPanel(final MovementController mc) {
+        source = mc.getFirstObject().getTroops();
         final JButton confirmButton = new JButton("Confirm");
         final JButton cancelButton = new JButton("Cancel");
         final JPanel valuesPanel = new JPanel(new GridBagLayout());
@@ -32,28 +33,30 @@ public class MovementPanel extends JPanel {
         cnst.insets = new Insets(2, 5, 2, 5);
 
         final JLabel labelText = new JLabel(new StringBuilder("How many troops do you want send to ")
-                .append(pp.getSecondTypeObject().getName()).append(":").toString());
-        final JLabel currentTerritoryStatus = new JLabel(getCurrentTerritoryStatus(pp.getFirstTypeObject()));
-        final JButton buttonUp = new JButton("+");
-        final JButton buttonDown = new JButton("-");
-        final JLabel number = new JLabel(String.valueOf(0));
+                .append(mc.getSecondObject().getName()).append(":").toString());
+        currentTerritoryStatus.setText(getCurrentStatus(mc));
+        confirmButton.setEnabled(mc.isConfirmButtonDisable(Integer.parseInt(number.getText())) ? false : true);
+        confirmButton.addActionListener(e -> {
+            mc.setValue(Integer.parseInt(number.getText()));
+            mc.closePopup();
+        });
+
+        cancelButton.addActionListener(e -> {
+            mc.closePopup();
+        });
 
         buttonUp.addActionListener(e -> {
-            if (this.logic.isIncrementationValid(Integer.parseInt(number.getText()))) {
+            if (mc.isNumberValid(Integer.parseInt(number.getText()) + 1)) {
                 number.setText(String.valueOf(getIncrementedValue(Integer.parseInt(number.getText()), 1)));
-                pp.getFirstTypeObject().addTroops(-1);
-                currentTerritoryStatus.setText(getCurrentTerritoryStatus(pp.getFirstTypeObject()));
-                confirmButton.setEnabled(this.logic.isNumberZero(Integer.parseInt(number.getText())) ? false : true);
             }
+            updateView(mc);
         });
 
         buttonDown.addActionListener(e -> {
-            if (this.logic.isDecrementationValid(Integer.parseInt(number.getText()))) {
+            if (mc.isNumberValid(Integer.parseInt(number.getText()) - 1)) {
                 number.setText(String.valueOf(getIncrementedValue(Integer.parseInt(number.getText()), -1)));
-                pp.getFirstTypeObject().addTroops(1);
-                currentTerritoryStatus.setText(getCurrentTerritoryStatus(pp.getFirstTypeObject()));
-                confirmButton.setEnabled(this.logic.isNumberZero(Integer.parseInt(number.getText())) ? false : true);
             }
+            updateView(mc);
         });
 
         valuesPanel.add(buttonUp, cnst);
@@ -66,24 +69,30 @@ public class MovementPanel extends JPanel {
         this.add(currentTerritoryStatus, BorderLayout.SOUTH);
 
         JOptionPane.showOptionDialog(
-                null,
+                mc.getFrame(),
                 this,
-                new StringBuilder("Move troops from ").append(pp.getFirstTypeObject().getName()).toString(),
+                new StringBuilder("Move troops from ").append(mc.getFirstObject().getName()).toString(),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
-                null,       //icon
-                new Object[] {confirmButton, cancelButton},
-                cancelButton
-                );
+                null, // icon
+                new Object[] { confirmButton, cancelButton },
+                cancelButton);
 
     }
 
-    private int getIncrementedValue(final int number, final int offset) {
-        return number + offset;
+    private void updateView(final MovementController mc) {
+        buttonUp.setEnabled(mc.isNumberValid(Integer.parseInt(number.getText()) + 1));
+        buttonDown.setEnabled(mc.isNumberValid(Integer.parseInt(number.getText()) - 1));
+        currentTerritoryStatus.setText(getCurrentStatus(mc));
     }
 
-    private String getCurrentTerritoryStatus(final Territory t) {
-        return new StringBuilder(t.getName())
-                .append(" troops remaining: ").append(t.getTroops()).toString();
+    private int getIncrementedValue(final int val, final int offset) {
+        return val + offset;
     }
+
+    private String getCurrentStatus(final MovementController mc) {
+        return new StringBuilder(mc.getFirstObject().getName())
+                .append(" troops remaining: ").append(this.source - Integer.parseInt(this.number.getText())).toString();
+    }
+
 }
