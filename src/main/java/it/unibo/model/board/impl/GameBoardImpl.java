@@ -29,6 +29,7 @@ import it.unibo.model.player.impl.PlayerBuilderImpl;
 import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
+import it.unibo.view.movement.MovementPopup;
 
 /**
  * Implementation of GameBoard, instance of the game table.
@@ -98,7 +99,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instaceCombat(final Pair<Player, Territory> striker, final Pair<Player, Territory> defender) {
-        
+
     }
 
     /**
@@ -106,8 +107,23 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
-        var mc = new MovementControllerImpl(new Pair<>(oldTerritory, newTerritory));
+        var mc = new MovementControllerImpl(new Pair<>(oldTerritory, newTerritory),
+                new MovementPopup(newTerritory.getName(), oldTerritory.getName(),
+                        oldTerritory.getTroops()));
         mc.startPopup();
+        this.gameTerritory.getTerritory("Southern Europe").addTroops(10);
+        this.gameTerritory.getTerritory("Ukraine").addTroops(10);
+        while (true) {
+            System.out.println(this.gameTerritory.getTerritory("Southern Europe"));
+            System.out.println(this.gameTerritory.getTerritory("Ukraine"));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**

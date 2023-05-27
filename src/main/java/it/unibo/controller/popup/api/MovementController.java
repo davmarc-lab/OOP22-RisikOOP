@@ -1,7 +1,7 @@
 package it.unibo.controller.popup.api;
 
 import it.unibo.model.territory.api.Territory;
-import it.unibo.view.movement.MovementPane;
+import it.unibo.view.movement.api.MovementFrame;
 
 public interface MovementController {
     Territory getFirstObject();
@@ -16,10 +16,10 @@ public interface MovementController {
 
     void setValue(int value);
 
-    void setFrame(MovementPane frame);
+    void setFrame(MovementFrame frame);
 
     // aggiungi l'interfaccia per movementpane
-    MovementPane getFrame();
+    MovementFrame getFrame();
     
     void startPopup();
 
