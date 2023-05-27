@@ -3,11 +3,9 @@ package it.unibo.view.game_screen;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -32,6 +30,12 @@ import it.unibo.controller.AbstractFileReader;
 
 public class MainPanel extends JPanel {
 
+    private static final double BUTTON_WIDTH_PERC = Constants.MAIN_PANEL_WIDTH_PERC * 0.2;
+    private static final double BUTTON_HEIGHT_PERC = Constants.MAIN_PANEL_HEIGHT_PERC * 0.1;
+    private static final double INNER_PANEL_HEIGHT_PERC = Constants.MAIN_PANEL_HEIGHT_PERC * 0.3;
+    private static final int FONT_SIZE = 35;
+    private static final int BUTTON_BORDER_SIZE = 3;
+
     private final Dimension dimension;
     private final ImageIcon wallpaper;
     private final JPanel panel;
@@ -41,16 +45,14 @@ public class MainPanel extends JPanel {
         final JButton jbPlay;
         final JButton jbRules;
         final JButton jbQuit;
-        final GridBagConstraints constraints = new GridBagConstraints();
         final JLabel label;
+        final JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JPanel northPanel = new JPanel(new FlowLayout());
 
         this.pane = new JLayeredPane();
 
         this.panel = new JPanel();
-        this.panel.setLayout(new GridBagLayout());
-
-        constraints.gridy = 1;
-
+        this.panel.setLayout(new BorderLayout());
 
         this.dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(
@@ -63,9 +65,9 @@ public class MainPanel extends JPanel {
         label = new JLabel(this.wallpaper);
         label.setBounds(0, 0, this.wallpaper.getIconWidth(), this.wallpaper.getIconHeight());
 
-        jbPlay = this.createButton(Constants.MAIN_PANEL_PLAY_LABEL, this.getPreferredSize());
-        jbRules = createButton(Constants.MAIN_PANEL_RULES_LABEL, this.getPreferredSize());
-        jbQuit = createButton(Constants.MAIN_PANEL_QUIT_LABEL, this.getPreferredSize());
+        jbPlay = this.createButton(Constants.MAIN_PANEL_PLAY_LABEL, this.getButtonDimension());
+        jbRules = this.createButton(Constants.MAIN_PANEL_RULES_LABEL, this.getButtonDimension());
+        jbQuit = this.createButton(Constants.MAIN_PANEL_QUIT_LABEL, this.getButtonDimension());
 
         jbPlay.addActionListener(e -> {
             frame.getContentPane().removeAll();
@@ -121,31 +123,26 @@ public class MainPanel extends JPanel {
             Logger logger = Logger.getLogger(MainPanel.class.getName());
             logger.log(Level.SEVERE, "File not found in the path given", e);
         }
+
         pane.add(label, Integer.valueOf(0));
         pane.setPreferredSize(new Dimension(this.wallpaper.getIconWidth(), this.wallpaper.getIconHeight()));
 
-        constraints.fill = GridBagConstraints.VERTICAL;
-        constraints.gridwidth = 3;
-        constraints.weightx = 3;
-        constraints.insets = new Insets(0, 0, 0, 100);
-        this.panel.add(jbPlay, constraints);
+        northPanel.add(jbPlay);
+        northPanel.add(jbQuit);
+        northPanel.setOpaque(false);
+        northPanel.setBounds(0, 0, Double.valueOf(this.getInnerPanelDimension().getWidth()).intValue(),
+                Double.valueOf(this.getInnerPanelDimension().getHeight()).intValue());
 
-        constraints.fill = GridBagConstraints.VERTICAL;
-        constraints.gridx = 2;
-        constraints.insets = new Insets(0, 0, 0, 0);
-        this.panel.add(jbQuit, constraints);
-
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.gridx = 0;
-        constraints.gridy++;
-        constraints.weightx = 0;
-        constraints.gridwidth = 2;
-        constraints.insets = new Insets(300, 0, 0, 0);
-        this.panel.add(jbRules, constraints);
+        southPanel.add(jbRules);
+        southPanel.setOpaque(false);
+        southPanel.setBounds(0, 0, Double.valueOf(this.getInnerPanelDimension().getWidth()).intValue(),
+                Double.valueOf(this.getInnerPanelDimension().getHeight()).intValue());
 
         this.panel.setBounds(0, 0,
                 Double.valueOf(this.dimension.getWidth() * Constants.MAIN_PANEL_WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * Constants.MAIN_PANEL_HEIGHT_PERC).intValue());
+        this.panel.add(northPanel, BorderLayout.NORTH);
+        this.panel.add(southPanel, BorderLayout.SOUTH);
         this.panel.setOpaque(false);
 
         pane.add(this.panel, Integer.valueOf(1));
@@ -172,10 +169,21 @@ public class MainPanel extends JPanel {
         jb.setPreferredSize(dim);
         jb.setFocusPainted(false);
         jb.setContentAreaFilled(false);
-        jb.setFont(new Font("Arial", Font.BOLD, 35));
+        jb.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
         jb.setForeground(Color.BLACK);
-        jb.setBorder(new LineBorder(Color.ORANGE, 3));
+        jb.setBorder(new LineBorder(Color.ORANGE, BUTTON_BORDER_SIZE));
 
         return jb;
+    }
+
+    private Dimension getButtonDimension() {
+        return new Dimension(
+                Double.valueOf(this.dimension.getWidth() * BUTTON_WIDTH_PERC).intValue(),
+                Double.valueOf(this.dimension.getHeight() * BUTTON_HEIGHT_PERC).intValue());
+    }
+
+    private Dimension getInnerPanelDimension() {
+        return new Dimension(Double.valueOf(this.dimension.getWidth() * Constants.MAIN_PANEL_WIDTH_PERC).intValue(),
+                Double.valueOf(this.dimension.getHeight() * INNER_PANEL_HEIGHT_PERC).intValue());
     }
 }
