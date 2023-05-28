@@ -2,6 +2,7 @@ package it.unibo.view.game_screen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -172,6 +173,7 @@ public class MainPanel extends JPanel {
         jb.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
         jb.setForeground(Color.BLACK);
         jb.setBorder(new LineBorder(Color.ORANGE, BUTTON_BORDER_SIZE));
+        jb.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         return jb;
     }
