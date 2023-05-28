@@ -32,7 +32,7 @@ public class BoardPanel extends JPanel {
     private static final double HEIGHT_SCALING = 0.8;
     private static final int BUTTON_BORDER_SIZE = 2;
 
-    private final Map<JButton, String> territories = new HashMap<>();
+    private final Map<CustomButton, String> territories = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
     private MainController controller;
 
@@ -52,7 +52,7 @@ public class BoardPanel extends JPanel {
 
         loadButtons(map.getIconWidth(), map.getIconHeight());
         for (var jb : this.territories.keySet()) {
-            this.pane.add(jb, Integer.valueOf(1)); // Puts all buttons on layer 1 (above the map)
+            this.pane.add(((JButton) jb), Integer.valueOf(1)); // Puts all buttons on layer 1 (above the map)
         }
 
         this.pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
@@ -94,18 +94,12 @@ public class BoardPanel extends JPanel {
      * @param height button height
      * @return invisible JButton with specified values
      */
-    private JButton createButton(final int x, final int y, final int width, final int height) {
-        JButton jb = new JButton();
-        jb.setBounds(x, y, width, height);
-        jb.setOpaque(false);
-        jb.setFocusable(false);
-        jb.setBorderPainted(false);
-        jb.setBackground(new Color(0, 0, 0, 0));
-        jb.setContentAreaFilled(false);
-        jb.addActionListener(e -> {
-            this.controller.sendInput(this.territories.get(jb));
+    private CustomButton createButton(final int x, final int y, final int width, final int height) {
+        CustomButton b = new CustomButtonImpl(x, y, width, height);
+        ((JButton) b).addActionListener(e -> {
+            this.controller.sendInput(this.territories.get(b));
         });
-        return jb;
+        return b;
     }
 
     /**
@@ -118,8 +112,8 @@ public class BoardPanel extends JPanel {
         territorySet.forEach(t -> territoryNames.add(t.getName()));
         this.territories.entrySet().forEach(e -> {
             if (territoryNames.contains(e.getValue())) {
-                e.getKey().setEnabled(false);
-                e.getKey().setBorderPainted(false);
+                ((JButton) e.getKey()).setEnabled(false);
+                ((JButton) e.getKey()).setBorderPainted(false);
             }
         });
     }
@@ -129,9 +123,9 @@ public class BoardPanel extends JPanel {
      */
     public void enableAll() {
         this.territories.entrySet().forEach(e -> {
-            e.getKey().setEnabled(true);
-            e.getKey().setBorder(new LineBorder(Color.WHITE, BUTTON_BORDER_SIZE));
-            e.getKey().setBorderPainted(true);
+            ((JButton) e.getKey()).setEnabled(true);
+            ((JButton) e.getKey()).setBorder(new LineBorder(Color.WHITE, BUTTON_BORDER_SIZE));
+            ((JButton) e.getKey()).setBorderPainted(true);
         });
     }
 
@@ -140,8 +134,8 @@ public class BoardPanel extends JPanel {
      */
     public void disableAll() {
         this.territories.entrySet().forEach(e -> {
-            e.getKey().setEnabled(false);
-            e.getKey().setBorderPainted(false);
+            ((JButton) e.getKey()).setEnabled(false);
+            ((JButton) e.getKey()).setBorderPainted(false);
         });
     }
 
