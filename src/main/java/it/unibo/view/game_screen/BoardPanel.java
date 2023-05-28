@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
 import it.unibo.controller.JsonReaderCoordinates;
@@ -29,6 +30,7 @@ public class BoardPanel extends JPanel {
 
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;
+    private static final int BUTTON_BORDER_SIZE = 2;
 
     private final Map<JButton, String> territories = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
@@ -117,6 +119,7 @@ public class BoardPanel extends JPanel {
         this.territories.entrySet().forEach(e -> {
             if (territoryNames.contains(e.getValue())) {
                 e.getKey().setEnabled(false);
+                e.getKey().setBorderPainted(false);
             }
         });
     }
@@ -125,14 +128,21 @@ public class BoardPanel extends JPanel {
      * Enables all buttons.
      */
     public void enableAll() {
-        this.territories.entrySet().forEach(e -> e.getKey().setEnabled(true));
+        this.territories.entrySet().forEach(e -> {
+            e.getKey().setEnabled(true);
+            e.getKey().setBorder(new LineBorder(Color.WHITE, BUTTON_BORDER_SIZE));
+            e.getKey().setBorderPainted(true);
+        });
     }
 
     /**
      * Disables all buttons.
      */
     public void disableAll() {
-        this.territories.entrySet().forEach(e -> e.getKey().setEnabled(false));
+        this.territories.entrySet().forEach(e -> {
+            e.getKey().setEnabled(false);
+            e.getKey().setBorderPainted(false);
+        });
     }
 
     /**

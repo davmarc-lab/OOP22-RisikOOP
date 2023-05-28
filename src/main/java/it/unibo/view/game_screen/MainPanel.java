@@ -60,7 +60,7 @@ public class MainPanel extends JPanel {
                         Double.valueOf(this.dimension.getHeight() * Constants.MAIN_PANEL_HEIGHT_PERC).intValue()));
 
         this.wallpaper = new ImageIcon(adjustImageSize(new ImageIcon(Constants.WALLPAPER_PATH),
-                (int) this.dimension.getWidth(), (int) this.dimension.getHeight()));
+                this.dimension.getWidth(), this.dimension.getHeight()));
 
         label = new JLabel(this.wallpaper);
         label.setBounds(0, 0, this.wallpaper.getIconWidth(), this.wallpaper.getIconHeight());
@@ -158,10 +158,10 @@ public class MainPanel extends JPanel {
         }
     }
 
-    private Image adjustImageSize(final ImageIcon map, final int width, final int height) {
-        return map.getImage().getScaledInstance((int) (width * Constants.MAIN_PANEL_WIDTH_PERC),
-                (int) (height * Constants.MAIN_PANEL_HEIGHT_PERC),
-                java.awt.Image.SCALE_SMOOTH);
+    private Image adjustImageSize(final ImageIcon map, final double width, final double height) {
+        return map.getImage().getScaledInstance(Double.valueOf(width * Constants.MAIN_PANEL_WIDTH_PERC).intValue(),
+                Double.valueOf(height * Constants.MAIN_PANEL_HEIGHT_PERC).intValue(),
+                Image.SCALE_SMOOTH);
     }
 
     private JButton createButton(final String name, final Dimension dim) {
