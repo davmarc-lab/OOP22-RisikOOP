@@ -9,9 +9,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+import javax.swing.SwingUtilities;
+
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
-import it.unibo.controller.popup.impl.MovementControllerImpl;
+import it.unibo.controller.popup.impl.MovementControllerView;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;
@@ -29,7 +31,7 @@ import it.unibo.model.player.impl.PlayerBuilderImpl;
 import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
-import it.unibo.view.movement.MovementPopup;
+import it.unibo.view.movement.impl.MovementPopup;
 
 /**
  * Implementation of GameBoard, instance of the game table.
@@ -107,23 +109,10 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
-        var mc = new MovementControllerImpl(new Pair<>(oldTerritory, newTerritory),
-                new MovementPopup(newTerritory.getName(), oldTerritory.getName(),
-                        oldTerritory.getTroops()));
-        mc.startPopup();
-        this.gameTerritory.getTerritory("Southern Europe").addTroops(10);
-        this.gameTerritory.getTerritory("Ukraine").addTroops(10);
-        while (true) {
-            System.out.println(this.gameTerritory.getTerritory("Southern Europe"));
-            System.out.println(this.gameTerritory.getTerritory("Ukraine"));
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
+        SwingUtilities.invokeLater(() -> {
+            var mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory),
+                    new MovementPopup(oldTerritory.getName(), newTerritory.getName(), oldTerritory.getTroops()));
+        });
     }
 
     /**

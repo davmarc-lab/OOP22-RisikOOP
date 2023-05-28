@@ -1,8 +1,6 @@
 package it.unibo.view.movement.api;
 
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
+import it.unibo.controller.popup.api.ButtonObserver;
 
 public interface MovementFrame {
 
@@ -10,44 +8,16 @@ public interface MovementFrame {
 
     void closePopup();
 
-    void createPanel();
+    void setObserver(ButtonObserver observer);
 
     // BUTTONS
-    JButton getButtonUp();
+    void setUpButtonEnable(boolean enable);
 
-    void addActionListenerButtonUp(ActionListener listener);
-
-    JButton getButtonDown();
-
-    void addActionListenerButtonDown(ActionListener listener);
-
-    JButton getConfirmButton();
-
-    void addActionListenerConfirmButton(ActionListener listener);
-
-    JButton getCancelButton();
-
-    void addActionListenerCancelButton(ActionListener listener);
-    // BUTTONS
-
-    int getSourceTroops();
-
-    void setSourceTroops(int value);
+    void setDownButtonEnable(boolean enable);
 
     int getInputNumberTroops();
 
     void setInputNumberTroops(int value);
 
-    String getCurrentTerritoryStatus();
-
-    void setCurrentTerritoryStatus(String status);
-
-    String getDestinationTerritory();
-
-    void setDestinationTerritory(String name);
-
-    String getSourceTerritory();
-
-    void setSourceTerritory(String name);
-
+    void setSourceTerritoryTroops(int value);
 }
