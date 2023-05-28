@@ -1,8 +1,10 @@
-package it.unibo.controller;
+package it.unibo.controller.reader.impl;
 
 import java.util.logging.Logger;
 
-public abstract class AbstractFileReader<T> {
+import it.unibo.controller.reader.api.FileReader;
+
+public abstract class AbstractFileReader<T> implements FileReader<T> {
 
     private final Logger logger;
     private final String finalPath;

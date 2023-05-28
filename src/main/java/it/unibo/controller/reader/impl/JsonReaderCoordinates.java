@@ -1,4 +1,4 @@
-package it.unibo.controller;
+package it.unibo.controller.reader.impl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,7 +16,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import it.unibo.common.Pair;
-
 import it.unibo.common.Constants;
 
 public class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<String, List<Double>>>> {

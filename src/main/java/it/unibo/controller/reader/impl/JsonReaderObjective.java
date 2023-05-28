@@ -1,4 +1,4 @@
-package it.unibo.controller;
+package it.unibo.controller.reader.impl;
 
 import java.io.FileInputStream;
 import java.io.IOException;

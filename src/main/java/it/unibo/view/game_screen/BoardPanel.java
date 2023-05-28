@@ -18,9 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
-import it.unibo.controller.JsonReaderCoordinates;
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.reader.impl.JsonReaderCoordinates;
 import it.unibo.model.territory.api.Territory;
 
 /**

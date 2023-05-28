@@ -7,9 +7,8 @@ import java.util.Set;
 import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.api.TerritoryFactory;
-import it.unibo.controller.JsonReaderTerritory;
-
 import it.unibo.common.Pair;
+import it.unibo.controller.reader.impl.JsonReaderTerritory;
 /**
  * Implementation of the territory factory.
  */

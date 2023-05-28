@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
-import it.unibo.controller.AbstractFileReader;
+import it.unibo.controller.reader.impl.AbstractFileReader;
 
 public class MainPanel extends JPanel {
 
