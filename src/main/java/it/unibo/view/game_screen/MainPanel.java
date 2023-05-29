@@ -31,6 +31,9 @@ import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.controller.reader.impl.AbstractFileReader;
 import it.unibo.view.game_screen.impl.BoardPanel;
 
+/**
+ * The extension of JPanel which defines the main panel of the game with the start menu.
+ */
 public class MainPanel extends JPanel {
 
     private static final double BUTTON_WIDTH_PERC = Constants.MAIN_PANEL_WIDTH_PERC * 0.2;
@@ -44,6 +47,12 @@ public class MainPanel extends JPanel {
     private final JPanel panel;
     private final JLayeredPane pane;
 
+    /**
+     * Creates the main panel with the start menu.
+     * 
+     * @param frame
+     *              the main frame.
+     */
     public MainPanel(final MainFrame frame) {
         final JButton jbPlay;
         final JButton jbRules;
@@ -91,19 +100,19 @@ public class MainPanel extends JPanel {
                     "Do you really want to quit?",
                     "Quitting", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                System.exit(0);
+                frame.dispose();
             }
         });
 
         try {
             final String message;
             message = new AbstractFileReader<String>(Constants.RULES_PATH) {
-                String line;
-                StringBuilder sBuilder = new StringBuilder();
-                final FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
-                final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream,
+                private String line;
+                private StringBuilder sBuilder = new StringBuilder();
+                private FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
+                private InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream,
                         StandardCharsets.UTF_8);
-                final BufferedReader reader = new BufferedReader(inputStreamReader);
+                private BufferedReader reader = new BufferedReader(inputStreamReader);
 
                 @Override
                 public String readFromFile() {

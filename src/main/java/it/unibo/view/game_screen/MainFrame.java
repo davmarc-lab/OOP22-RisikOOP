@@ -6,8 +6,14 @@ import javax.swing.JFrame;
 
 import it.unibo.common.Constants;
 
+/**
+ * This class extends JFrame and defines the main frame of the game.
+ */
 public class MainFrame extends JFrame {
 
+    /**
+     * Creates the main frame.
+     */
     public MainFrame() {
         super(Constants.FRAME_NAME);
         this.setLayout(new BorderLayout());

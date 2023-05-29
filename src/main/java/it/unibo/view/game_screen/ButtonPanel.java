@@ -17,6 +17,7 @@ public class ButtonPanel extends JPanel {
     private static final double HEIGHT_SCALING = 0.1;
     private static final int FONT_SIZE = 12;
     private static final int NUM_OF_BUTTONS = 3;
+    private static final int BORDER_SIZE = 4;
 
     private MainController controller;
 
@@ -45,7 +46,7 @@ public class ButtonPanel extends JPanel {
         panel.setOpaque(false);
         this.add(panel, BorderLayout.SOUTH);
         this.setBackground(Color.WHITE);
-        this.setBorder(new LineBorder(Color.BLACK, 4));
+        this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
     }
 
     public void setController(final MainController controller) {
