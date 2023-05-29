@@ -27,7 +27,7 @@ import it.unibo.view.game_screen.api.CustomButton;
 /**
  * This is where the player will be able to click on the territories.
  */
-public class BoardPanel extends JPanel implements BoardZone {
+public final class BoardPanel extends JPanel implements BoardZone {
 
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;

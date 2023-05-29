@@ -28,7 +28,7 @@ public final class PhaseManagerImpl implements PhaseManager {
     }
 
     @Override
-    public void switchToPhase(Phase phase) {
+    public void switchToPhase(final Phase phase) {
         this.currentPhase = phase;
     }
 

@@ -1,23 +1,39 @@
 package it.unibo.common;
 
-/*
- * A standard generic Pair<X,Y>, with getters, hashCode, equals, and toString well implemented. 
+/**
+ * A standard generic Pair<X,Y>, with getters, hashCode, equals, and toString
+ * well implemented.
+ * 
+ * @param <X> the first value's type
+ * @param <Y> the second value's type
  */
-public class Pair<X, Y> {
+public final class Pair<X, Y> {
 
     private final X x;
     private final Y y;
 
+    /**
+     * Sets the values.
+     * 
+     * @param x
+     * @param y
+     */
     public Pair(final X x, final Y y) {
         super();
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * @return the first value
+     */
     public X getX() {
         return x;
     }
 
+    /**
+     * @return the second value
+     */
     public Y getY() {
         return y;
     }
@@ -33,7 +49,7 @@ public class Pair<X, Y> {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

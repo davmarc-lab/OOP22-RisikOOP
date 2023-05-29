@@ -18,10 +18,16 @@ import org.json.simple.parser.ParseException;
 import it.unibo.common.Pair;
 import it.unibo.common.Constants;
 
-public class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<String, List<Double>>>> {
+/**
+ * Json reader for the coordinates of the territories.
+ */
+public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<String, List<Double>>>> {
 
     private Set<Pair<String, List<Double>>> territories;
 
+    /**
+     * Basic constructor.
+     */
     public JsonReaderCoordinates() {
         super(Constants.COORDINATES_PATH);
         this.territories = new HashSet<>();
