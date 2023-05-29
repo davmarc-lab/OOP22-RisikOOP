@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
+import it.unibo.controller.popup.api.MovementController;
 import it.unibo.controller.popup.impl.MovementControllerView;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
@@ -31,7 +32,6 @@ import it.unibo.model.player.impl.PlayerBuilderImpl;
 import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
-import it.unibo.view.movement.impl.MovementPopup;
 
 /**
  * Implementation of GameBoard, instance of the game table.
@@ -109,10 +109,8 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
-        SwingUtilities.invokeLater(() -> {
-            var mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory),
-                    new MovementPopup(oldTerritory.getName(), newTerritory.getName(), oldTerritory.getTroops()));
-        });
+        MovementController mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory));
+        mc.startPopup();
     }
 
     /**

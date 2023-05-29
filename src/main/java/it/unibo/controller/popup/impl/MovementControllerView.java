@@ -1,64 +1,63 @@
 package it.unibo.controller.popup.impl;
 
 import it.unibo.common.Pair;
-import it.unibo.controller.popup.api.ButtonObserver;
+import it.unibo.controller.popup.api.MovementController;
 import it.unibo.model.territory.api.Territory;
-import it.unibo.view.movement.api.MovementFrame;
+import it.unibo.view.movement.api.MovementView;
+import it.unibo.view.movement.impl.MovementFrame;
 
-public class MovementControllerView implements ButtonObserver{
+public class MovementControllerView implements MovementController{
 
-    private MovementFrame frame;
+    private MovementView frame;
     private final Pair<Territory, Territory> model;
     private int value;
 
-    public MovementControllerView(Pair<Territory, Territory> pair, MovementFrame frame) {
+    public MovementControllerView(Pair<Territory, Territory> pair) {
         this.model = pair;
-        this.frame = frame;
-        this.frame.setObserver(this);
-        this.value = this.frame.getInputNumberTroops();
+        this.value = 1;
+        this.frame = new MovementFrame(this);
+    }
+
+    @Override
+    public void startPopup() {
         this.frame.startPopup();
     }
 
-    private void updateView() {
-        this.frame.setInputNumberTroops(this.value);
-        this.frame.setSourceTerritoryTroops(this.getFirstObject().getTroops() - this.value);
+    @Override
+    public MovementView getFrame() {
+        return this.frame;
     }
-  
-    private boolean isNumberValid(int value) {
+
+    @Override
+    public boolean isNumberValid(int value) {
         return value <= this.getFirstObject().getTroops() - 1 && value >= 1;
     }
 
-    private Territory getFirstObject() {
+    @Override
+    public Territory getFirstObject() {
         return this.model.getX();
     }
 
-    private Territory getSecondObject() {
+    @Override
+    public Territory getSecondObject() {
         return this.model.getY();
     }
     
-    private void setValue(int value) {
-        this.getFirstObject().addTroops(-value);
-        this.getSecondObject().addTroops(value);
+    @Override
+    public void setValue() {
+        this.getFirstObject().addTroops(-this.value);
+        this.getSecondObject().addTroops(this.value);
     }
 
     @Override
     public void addValue(int n) {
-        this.frame.setUpButtonEnable(this.value + n < this.getFirstObject().getTroops() - 1);
-        this.frame.setDownButtonEnable(this.value + n > 1);
         if (isNumberValid(this.value + n)) {
             this.value += n;
-            updateView();
         }
     }
 
     @Override
-    public void confirmMovement() {
-        this.setValue(this.value);
-        this.frame.closePopup();
-    }
-
-    @Override
-    public void cancelMovement() {
-        this.frame.closePopup();
+    public void setFrame(MovementView frame) {
+        this.frame = frame;
     }
 }
