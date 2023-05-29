@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen;
+package it.unibo.view.game_screen.api;
 
 import java.awt.Color;
 

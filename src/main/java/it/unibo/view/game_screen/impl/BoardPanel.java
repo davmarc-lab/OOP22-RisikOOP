@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen;
+package it.unibo.view.game_screen.impl;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,14 +19,15 @@ import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
 import it.unibo.controller.api.MainController;
-import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.controller.reader.impl.JsonReaderCoordinates;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.view.game_screen.api.BoardZone;
+import it.unibo.view.game_screen.api.CustomButton;
 
 /**
  * This is where the player will be able to click on the territories.
  */
-public class BoardPanel extends JPanel {
+public class BoardPanel extends JPanel implements BoardZone {
 
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;
@@ -102,11 +103,7 @@ public class BoardPanel extends JPanel {
         return b;
     }
 
-    /**
-     * Disables the buttons placed on the list of territories provided.
-     * 
-     * @param t list of territories to disable
-     */
+    @Override
     public void disableButtons(final Set<Territory> territorySet) {
         Set<String> territoryNames = new HashSet<>();
         territorySet.forEach(t -> territoryNames.add(t.getName()));
@@ -118,9 +115,7 @@ public class BoardPanel extends JPanel {
         });
     }
 
-    /**
-     * Enables all buttons.
-     */
+    @Override
     public void enableAll() {
         this.territories.entrySet().forEach(e -> {
             ((JButton) e.getKey()).setEnabled(true);
@@ -129,9 +124,7 @@ public class BoardPanel extends JPanel {
         });
     }
 
-    /**
-     * Disables all buttons.
-     */
+    @Override
     public void disableAll() {
         this.territories.entrySet().forEach(e -> {
             ((JButton) e.getKey()).setEnabled(false);
@@ -139,17 +132,14 @@ public class BoardPanel extends JPanel {
         });
     }
 
-    /**
-     * @return the controller
-     */
+    @Override
     public MainController getController() {
         return this.controller;
     }
 
-    /**
-     * Creates a controller.
-     */
-    public void createController() {
-        this.controller = new MainControllerImpl(this);
+    @Override
+    public void setController(final MainController controller) {
+        this.controller = controller;
     }
+
 }

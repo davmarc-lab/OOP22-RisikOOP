@@ -7,14 +7,15 @@ import javax.swing.JOptionPane;
 import it.unibo.controller.api.MainController;
 import it.unibo.model.gameloop.GameLoop;
 import it.unibo.model.territory.api.Territory;
-import it.unibo.view.game_screen.BoardPanel;
+import it.unibo.view.game_screen.api.BoardZone;
+import it.unibo.view.game_screen.impl.BoardPanel;
 
 /**
  * Implementation of MainController.
  */
 public final class MainControllerImpl implements MainController {
 
-    private final BoardPanel gui;
+    private final BoardZone gui;
     private final GameLoop loop;
 
     /**
