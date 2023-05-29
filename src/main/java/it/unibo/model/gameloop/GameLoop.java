@@ -3,6 +3,7 @@ package it.unibo.model.gameloop;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import it.unibo.common.Constants;
 import it.unibo.controller.api.MainController;
@@ -48,20 +49,20 @@ public class GameLoop {
             this.troopsCounter++;
             this.board.getCurrentPlayer().addTroops(-1);
             this.board.getGameTerritories().getTerritory((String) input).addTroops(1);
-            if (troopsCounter == PREPARATION_TROOPS) {
-                this.troopsCounter = 0;
-                this.board.getTurnManager().switchToNextPlayer();
-                this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
-                        + ", it's your turn to place 3 troops on your territories");
-                this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
-            }
         }
         if (this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0)
                 .count() == Constants.MAX_PLAYERS) {
             this.phaseManager.switchToNextPhase();
             this.board.getTurnManager().switchToNextPlayer();
+            this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
             this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
                     + ", you can now play your cards to gain bonus troops");
+        } else if (troopsCounter == PREPARATION_TROOPS) {
+            this.troopsCounter = 0;
+            this.board.getTurnManager().switchToNextPlayer();
+            this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
+                    + ", it's your turn to place 3 troops on your territories");
+            this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
         }
     }
 
@@ -79,19 +80,18 @@ public class GameLoop {
         }
         switch (this.phaseManager.getCurrentPhase()) {
             case PREPARATION:
-                this.phaseManager.switchToNextPhase();
                 break;
             case PLAY_CARDS:
-                this.phaseManager.switchToNextPhase();
                 break;
             case COMBAT:
-                this.phaseManager.switchToNextPhase();
                 break;
             case MOVEMENT:
                 if (input instanceof String) {
                     if (this.first.isEmpty()) {
                         this.first = Optional.of(this.board.getGameTerritories().getTerritory((String) input));
-                        this.setAvailableTerritories(first.get().getAdjTerritories());
+                        this.setAvailableTerritories(this.first.get().getAdjTerritories().stream()
+                                .filter(t -> this.board.getCurrentPlayer().getTerritories().contains(t))
+                                .collect(Collectors.toSet()));
                         this.controller.sendMessage("Choose an adjacent territory");
                     } else {
                         this.second = Optional.of(this.board.getGameTerritories().getTerritory((String) input));
