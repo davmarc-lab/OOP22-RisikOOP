@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import javax.swing.SwingUtilities;
-
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
 import it.unibo.controller.movement.api.MovementController;
@@ -23,6 +21,7 @@ import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.impl.TurnManagerImpl;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
+import it.unibo.model.movement.impl.MovementImpl;
 import it.unibo.model.objective.api.GameObjective;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
@@ -111,6 +110,7 @@ public class GameBoardImpl implements GameBoard {
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
         MovementController mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory));
         mc.startPopup();
+        new MovementImpl(oldTerritory, newTerritory).moveTroops(mc.getFinalResult());
     }
 
     /**

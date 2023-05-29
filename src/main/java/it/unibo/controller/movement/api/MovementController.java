@@ -17,6 +17,8 @@ public interface MovementController {
 
     void setValue();
 
+    int getFinalResult();
+
     Territory getFirstObject();
     
     Territory getSecondObject();

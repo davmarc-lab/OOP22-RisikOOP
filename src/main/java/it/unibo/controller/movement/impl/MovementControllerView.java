@@ -1,7 +1,10 @@
 package it.unibo.controller.movement.impl;
 
+import java.util.Optional;
+
 import it.unibo.common.Pair;
 import it.unibo.controller.movement.api.MovementController;
+import it.unibo.model.movement.impl.MovementErrorDialog;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.view.movement.api.MovementView;
 import it.unibo.view.movement.impl.MovementFrame;
@@ -11,11 +14,18 @@ public class MovementControllerView implements MovementController{
     private MovementView frame;
     private final Pair<Territory, Territory> model;
     private int value;
+    private Optional<Integer> finalResult = Optional.empty();
 
     public MovementControllerView(Pair<Territory, Territory> pair) {
         this.model = pair;
-        this.value = 1;
-        this.frame = new MovementFrame(this);
+        if (this.model.getX().getTroops() > 1) {
+            this.value = 1;
+            this.frame = new MovementFrame(this);
+        } else {
+            // logger here
+            this.frame = new MovementErrorDialog();
+        }
+        
     }
 
     @Override
@@ -45,8 +55,18 @@ public class MovementControllerView implements MovementController{
     
     @Override
     public void setValue() {
-        this.getFirstObject().addTroops(-this.value);
-        this.getSecondObject().addTroops(this.value);
+        if (isNumberValid(this.value)) {
+            this.finalResult = Optional.of(this.value);
+        }
+    }
+
+    @Override
+    public int getFinalResult() {
+        if (this.finalResult.isPresent()) {
+            return this.finalResult.get();
+        }
+        // logger here
+        return 0;
     }
 
     @Override
