@@ -84,7 +84,7 @@ class TestCombat {
     }
 
     @Test
-    public void throwingExceptionForNumberStrikerNotValid() {
+    public void throwingExceptionForNumberAttackerNotValid() {
         var s = territories.getTerritory("Southern Europe");
         var d = territories.getTerritory("Ukraine");
         assertThrows(IllegalArgumentException.class, () -> {

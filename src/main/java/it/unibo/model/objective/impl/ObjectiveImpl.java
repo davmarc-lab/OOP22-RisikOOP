@@ -9,7 +9,7 @@ public class ObjectiveImpl implements Objective {
 
     private String description;
     private ObjectiveType objectiveType;
-    private String colors;
+    private String armyColor;
     private String firstContinent = "";
     private String secondContinent;
     private Boolean thirdContinent = false;
@@ -18,13 +18,13 @@ public class ObjectiveImpl implements Objective {
     private Boolean complete = false;
 
     /**
-     * Constructs a new ObjectiveImpl with the given colors and objective type.
+     * Constructs a new ObjectiveImpl with the given armyColor and objective type.
      *
-     * @param colors   the colors of the objective
+     * @param armyColor        the armyColor of the objective
      * @param objectiveType the type of the objective
      */
-    public ObjectiveImpl(final String colors, final ObjectiveType objectiveType) {
-        this.colors = colors;
+    public ObjectiveImpl(final String armyColor, final ObjectiveType objectiveType) {
+        this.armyColor = armyColor;
         this.objectiveType = objectiveType;
         this.description = createDescription();
     }
@@ -97,7 +97,7 @@ public class ObjectiveImpl implements Objective {
 
     private String createDescription() {
         if (objectiveType.equals(ObjectiveType.DESTROY)) {
-            return new String(new StringBuilder("Destroy the ").append(this.colors).append(" army"));
+            return new String(new StringBuilder("Destroy the ").append(this.armyColor).append(" army"));
         }
         if (this.firstContinent.isEmpty()) {
             return new String(
@@ -112,6 +112,7 @@ public class ObjectiveImpl implements Objective {
                     .append(this.secondContinent));
         }
     }
+
     /**
      * Gets a string representation of this objective.
      *

@@ -111,7 +111,7 @@ public class GameLoop {
                         this.controller.sendMessage(COMBAT_MESSAGE);
                     } else {
                         this.second = Optional.of(this.board.getGameTerritories().getTerritory((String) input));
-                        this.board.instaceCombat(new Pair<>(this.board.getCurrentPlayer(), this.first.get()),
+                        this.board.instanceCombat(new Pair<>(this.board.getCurrentPlayer(), this.first.get()),
                                 new Pair<>(this.board.getAllPlayers().stream()
                                         .filter(p -> p.getTerritories().contains(this.second.get()))
                                         .findAny().get(),

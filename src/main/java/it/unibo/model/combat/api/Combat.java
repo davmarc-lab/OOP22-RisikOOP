@@ -16,12 +16,12 @@ public interface Combat {
      */
     enum Results {
         /**
-         * The striker win fight.
+         * The attacker win fight.
          */
         WIN,
 
         /**
-         * The striker lose fight.
+         * The attacker lose fight.
          */
         LOSE,
 
@@ -34,9 +34,9 @@ public interface Combat {
     /**
      * This method start and compute the attack between two territories.
      * 
-     * @param numStriker numer of striker's armies
+     * @param numAttacker numer of attacker's armies
      * @param numDefender numer of defender's armies
      * @return a list of {@code Combat.Results} indicating the combat results 
      */
-    List<Results> attack(int numStriker, int numDefender);
+    List<Results> attack(int numAttacker, int numDefender);
 }

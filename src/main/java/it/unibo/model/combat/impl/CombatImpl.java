@@ -17,41 +17,41 @@ public class CombatImpl implements Combat {
     private static final int MAX_ATTACK_DEFEND_ARMY = 3;
     private static final int MIN_ATTACK_DEFEND_ARMY = 1;
 
-    private final List<Integer> strikers = new ArrayList<>();
+    private final List<Integer> attackers = new ArrayList<>();
     private final List<Integer> defenders = new ArrayList<>();
-    private final Territory tStriker;
+    private final Territory tAttacker;
     private final Territory tDefender;
     private final Dice dice = new DiceImpl(MAX_DICE_NUMBER);
     // fields used for test purpose
-    private int numberStriker;
+    private int numberAttacker;
     private int numberDefender;
     private boolean testFlag = false;
 
     /**
      * This constructor create a standard Combat object.
      * 
-     * @param tStriker striker's territory
-     * @param numberStriker striker's armies
+     * @param tAttacker attacker's territory
+     * @param numberAttacker attacker's armies
      * @param tDefender defender's territory
      * @param numberDefender defender's armies
      * 
      * {@throws IllegalArgumentException} if the number of armies doesn't respect the rules (must be between 1 and 3)
      */
-    public CombatImpl(final Territory tStriker, final int numberStriker,
+    public CombatImpl(final Territory tAttacker, final int numberAttacker,
         final Territory tDefender, final int numberDefender) {
-        this(tStriker, tDefender);
-        this.numberStriker = numberStriker;
+        this(tAttacker, tDefender);
+        this.numberAttacker = numberAttacker;
         this.numberDefender = numberDefender;
     }
 
     /**
-     * This constructor is used for test classes creating a situation with 0 strikers and defenders.
+     * This constructor is used for test classes creating a situation with 0 attackers and defenders.
      * 
-     * @param tStriker striker's territories
+     * @param tAttacker attacker's territories
      * @param tDefender defender's territories
      */
-    public CombatImpl(final Territory tStriker, final Territory tDefender) {
-        this.tStriker = tStriker;
+    public CombatImpl(final Territory tAttacker, final Territory tDefender) {
+        this.tAttacker = tAttacker;
         this.tDefender = tDefender;
     }
 
@@ -59,18 +59,18 @@ public class CombatImpl implements Combat {
      * This constructor is used for test classes, it creates a situation with default number of armies.
      * and default results of each dice.
      * 
-     * @param tStriker striker's territory
-     * @param numberStriker striker's armies
+     * @param tAttacker attacker's territory
+     * @param numberAttacker attacker's armies
      * @param tDefender defender's territory
      * @param numberDefender defender's armies
-     * @param strikers results of the dice for striker's armies
+     * @param attackers results of the dice for attacker's armies
      * @param defenders results of the dice for defender's armies
      * @param testFlag flag used in test classes
      */
-    public CombatImpl(final Territory tStriker, final int numberStriker, final Territory tDefender,
-        final int numberDefender, final List<Integer> strikers, final List<Integer> defenders, final boolean testFlag) {
-        this(tStriker, numberStriker, tDefender, numberDefender);
-        this.strikers.addAll(strikers);
+    public CombatImpl(final Territory tAttacker, final int numberAttacker, final Territory tDefender,
+        final int numberDefender, final List<Integer> attackers, final List<Integer> defenders, final boolean testFlag) {
+        this(tAttacker, numberAttacker, tDefender, numberDefender);
+        this.attackers.addAll(attackers);
         this.defenders.addAll(defenders);
         this.testFlag = true;
     }
@@ -78,11 +78,11 @@ public class CombatImpl implements Combat {
     /**
      * This method is used to check the number of armies for each side.
      * 
-     * @return a {@code boolean} value indicating if the numbers of defenders and strikers are correct
+     * @return a {@code boolean} value indicating if the numbers of defenders and attackers are correct
      */
     private boolean isNumberArmiesValid() {
         return this.numberDefender <= MAX_ATTACK_DEFEND_ARMY && this.numberDefender >= MIN_ATTACK_DEFEND_ARMY
-            && this.numberStriker <= MAX_ATTACK_DEFEND_ARMY && this.numberStriker >= MIN_ATTACK_DEFEND_ARMY;
+            && this.numberAttacker <= MAX_ATTACK_DEFEND_ARMY && this.numberAttacker >= MIN_ATTACK_DEFEND_ARMY;
     }
 
     /**
@@ -101,17 +101,17 @@ public class CombatImpl implements Combat {
     /**
      * Calculate the result of the combat comparing the values obtained.
      * 
-     * @param strikers values of each striker army
+     * @param attackers values of each attacker army
      * @param defenders values of each defender army
      * @return a {@code List<Results>} containing the result of each fight between armies
      */
-    private List<Results> computeAttack(final List<Integer> strikers, final List<Integer> defenders) {
+    private List<Results> computeAttack(final List<Integer> attackers, final List<Integer> defenders) {
         final List<Results> r = new ArrayList<>();
-        while (!(strikers.isEmpty() || defenders.isEmpty())) {
-            final var s = strikers.get(0);
+        while (!(attackers.isEmpty() || defenders.isEmpty())) {
+            final var s = attackers.get(0);
             final var d = defenders.get(0);
             r.add(s > d ? Results.WIN : Results.LOSE);
-            strikers.remove(0);
+            attackers.remove(0);
             defenders.remove(0);
         }
         return r;
@@ -127,7 +127,7 @@ public class CombatImpl implements Combat {
             if (r.equals(Results.WIN)) {
                 this.tDefender.addTroops(-1);
             } else if (r.equals(Results.LOSE)) {
-                this.tStriker.addTroops(-1);
+                this.tAttacker.addTroops(-1);
             } else {
                 throw new IllegalCallerException("Invalid combat resutl, aborted operation");
             }
@@ -140,16 +140,16 @@ public class CombatImpl implements Combat {
      * @return {@code true} if the combat is valid
      */
     private boolean checkAttackValidity() {
-        return this.tStriker.getAdjTerritories().contains(this.tDefender)
-            && this.tStriker.getTroops() > 1;
+        return this.tAttacker.getAdjTerritories().contains(this.tDefender)
+            && this.tAttacker.getTroops() > 1;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Results> attack(final int numStriker, final int numDefender) {
-        this.numberStriker = numStriker;
+    public List<Results> attack(final int numAttacker, final int numDefender) {
+        this.numberAttacker = numAttacker;
         this.numberDefender = numDefender;
 
         if (!isNumberArmiesValid()) {
@@ -163,14 +163,14 @@ public class CombatImpl implements Combat {
 
         // only for test purpose
         if (testFlag) {
-            var res = this.computeAttack(strikers, defenders);
+            var res = this.computeAttack(attackers, defenders);
             applyCombatResult(res);
             return res;
         }
 
-        final var strikers = declarePower(this.numberStriker);
+        final var attackers = declarePower(this.numberAttacker);
         final var defenders = declarePower(this.numberDefender);
-        final var results = computeAttack(strikers, defenders);
+        final var results = computeAttack(attackers, defenders);
         // removing armies from the territories
         applyCombatResult(results);
         return results;

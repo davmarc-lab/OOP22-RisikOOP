@@ -11,11 +11,14 @@ import java.util.stream.IntStream;
 
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
+import it.unibo.controller.combat.api.CombatController;
+import it.unibo.controller.combat.impl.CombatControllerView;
 import it.unibo.controller.movement.api.MovementController;
 import it.unibo.controller.movement.impl.MovementControllerView;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;
+import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameloop.api.TurnManager;
@@ -99,8 +102,13 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public void instaceCombat(final Pair<Player, Territory> striker, final Pair<Player, Territory> defender) {
-
+    public void instanceCombat(final Pair<Player, Territory> attacker, final Pair<Player, Territory> defender) {
+        CombatController ccAttacker = new CombatControllerView(attacker);
+        ccAttacker.startPopup();
+        CombatController ccDefender = new CombatControllerView(defender);
+        ccDefender.startPopup();
+        var r = new CombatImpl(attacker.getY(), defender.getY()).attack(ccAttacker.getFinalResult(), ccDefender.getFinalResult());
+        System.out.println(r);
     }
 
     /**

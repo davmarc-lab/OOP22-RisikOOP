@@ -51,10 +51,10 @@ public interface GameBoard {
     /**
      * This method starts a combat between two players.
      * 
-     * @param tStriker  striker territory
+     * @param tAttacker attacker territory
      * @param tDefender defender territory
      */
-    void instaceCombat(Pair<Player, Territory> striker, Pair<Player, Territory> defender);
+    void instanceCombat(Pair<Player, Territory> attacker, Pair<Player, Territory> defender);
 
     /**
      * This method starts moving armies from a territory to another one.
