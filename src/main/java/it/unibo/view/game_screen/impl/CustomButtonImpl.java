@@ -1,9 +1,12 @@
-package it.unibo.view.game_screen;
+package it.unibo.view.game_screen.impl;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 
 import javax.swing.JButton;
+
+import it.unibo.view.game_screen.api.CustomButton;
 
 /**
  * Implementation of CustomButton.
@@ -17,8 +20,9 @@ public final class CustomButtonImpl extends JButton implements CustomButton {
 
     /**
      * Basic constructor. Creates a button with the specified values
-     * @param x x position
-     * @param y y position
+     * 
+     * @param x      x position
+     * @param y      y position
      * @param width
      * @param height
      */
@@ -31,6 +35,7 @@ public final class CustomButtonImpl extends JButton implements CustomButton {
         this.setFocusable(false);
         this.setBorderPainted(false);
         this.setContentAreaFilled(false);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.setBackground(hoverColor);
     }
 

@@ -27,7 +27,9 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
+import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.controller.reader.impl.AbstractFileReader;
+import it.unibo.view.game_screen.impl.BoardPanel;
 
 public class MainPanel extends JPanel {
 
@@ -80,7 +82,7 @@ public class MainPanel extends JPanel {
             frame.getContentPane().add(sb, BorderLayout.EAST);
             frame.pack();
             frame.setLocationRelativeTo(null);
-            bp.createController();
+            bp.setController(new MainControllerImpl(bp));
             sb.getButtonPanel().setController(bp.getController());
         });
 
@@ -174,7 +176,6 @@ public class MainPanel extends JPanel {
         jb.setForeground(Color.BLACK);
         jb.setBorder(new LineBorder(Color.ORANGE, BUTTON_BORDER_SIZE));
         jb.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
         return jb;
     }
 
