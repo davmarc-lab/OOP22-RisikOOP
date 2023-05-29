@@ -36,9 +36,19 @@ import it.unibo.view.game_screen.impl.BoardPanel;
  */
 public class MainPanel extends JPanel {
 
-    private static final double BUTTON_WIDTH_PERC = Constants.MAIN_PANEL_WIDTH_PERC * 0.2;
-    private static final double BUTTON_HEIGHT_PERC = Constants.MAIN_PANEL_HEIGHT_PERC * 0.1;
-    private static final double INNER_PANEL_HEIGHT_PERC = Constants.MAIN_PANEL_HEIGHT_PERC * 0.3;
+    private static final String RULES_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("instructions")
+            .append(Constants.PATH_SEPARATOR).append("rules.txt").toString();
+    private static final String WALLPAPER_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("images")
+            .append(Constants.PATH_SEPARATOR).append("MenuWallpaper.jpg").toString();
+
+    private static final String PLAY_LABEL = "Play";
+    private static final String QUIT_LABEL = "Quit";
+    private static final String RULES_LABEL = "Rules";
+    private static final double WIDTH_PERC = 0.4;
+    private static final double HEIGHT_PERC = 0.4;
+    private static final double BUTTON_WIDTH_PERC = WIDTH_PERC * 0.2;
+    private static final double BUTTON_HEIGHT_PERC = HEIGHT_PERC * 0.1;
+    private static final double INNER_PANEL_HEIGHT_PERC = HEIGHT_PERC * 0.3;
     private static final int FONT_SIZE = 35;
     private static final int BUTTON_BORDER_SIZE = 3;
 
@@ -68,18 +78,18 @@ public class MainPanel extends JPanel {
 
         this.dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(
-                new Dimension(Double.valueOf(this.dimension.getWidth() * Constants.MAIN_PANEL_WIDTH_PERC).intValue(),
-                        Double.valueOf(this.dimension.getHeight() * Constants.MAIN_PANEL_HEIGHT_PERC).intValue()));
+                new Dimension(Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
+                        Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue()));
 
-        this.wallpaper = new ImageIcon(adjustImageSize(new ImageIcon(Constants.WALLPAPER_PATH),
+        this.wallpaper = new ImageIcon(adjustImageSize(new ImageIcon(WALLPAPER_PATH),
                 this.dimension.getWidth(), this.dimension.getHeight()));
 
         label = new JLabel(this.wallpaper);
         label.setBounds(0, 0, this.wallpaper.getIconWidth(), this.wallpaper.getIconHeight());
 
-        jbPlay = this.createButton(Constants.MAIN_PANEL_PLAY_LABEL, this.getButtonDimension());
-        jbRules = this.createButton(Constants.MAIN_PANEL_RULES_LABEL, this.getButtonDimension());
-        jbQuit = this.createButton(Constants.MAIN_PANEL_QUIT_LABEL, this.getButtonDimension());
+        jbPlay = this.createButton(PLAY_LABEL, this.getButtonDimension());
+        jbRules = this.createButton(RULES_LABEL, this.getButtonDimension());
+        jbQuit = this.createButton(QUIT_LABEL, this.getButtonDimension());
 
         jbPlay.addActionListener(e -> {
             frame.getContentPane().removeAll();
@@ -106,7 +116,7 @@ public class MainPanel extends JPanel {
 
         try {
             final String message;
-            message = new AbstractFileReader<String>(Constants.RULES_PATH) {
+            message = new AbstractFileReader<String>(RULES_PATH) {
                 private String line;
                 private StringBuilder sBuilder = new StringBuilder();
                 private FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
@@ -151,8 +161,8 @@ public class MainPanel extends JPanel {
                 Double.valueOf(this.getInnerPanelDimension().getHeight()).intValue());
 
         this.panel.setBounds(0, 0,
-                Double.valueOf(this.dimension.getWidth() * Constants.MAIN_PANEL_WIDTH_PERC).intValue(),
-                Double.valueOf(this.dimension.getHeight() * Constants.MAIN_PANEL_HEIGHT_PERC).intValue());
+                Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
+                Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue());
         this.panel.add(northPanel, BorderLayout.NORTH);
         this.panel.add(southPanel, BorderLayout.SOUTH);
         this.panel.setOpaque(false);
@@ -171,8 +181,8 @@ public class MainPanel extends JPanel {
     }
 
     private Image adjustImageSize(final ImageIcon map, final double width, final double height) {
-        return map.getImage().getScaledInstance(Double.valueOf(width * Constants.MAIN_PANEL_WIDTH_PERC).intValue(),
-                Double.valueOf(height * Constants.MAIN_PANEL_HEIGHT_PERC).intValue(),
+        return map.getImage().getScaledInstance(Double.valueOf(width * WIDTH_PERC).intValue(),
+                Double.valueOf(height * HEIGHT_PERC).intValue(),
                 Image.SCALE_SMOOTH);
     }
 
@@ -195,7 +205,7 @@ public class MainPanel extends JPanel {
     }
 
     private Dimension getInnerPanelDimension() {
-        return new Dimension(Double.valueOf(this.dimension.getWidth() * Constants.MAIN_PANEL_WIDTH_PERC).intValue(),
+        return new Dimension(Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * INNER_PANEL_HEIGHT_PERC).intValue());
     }
 }

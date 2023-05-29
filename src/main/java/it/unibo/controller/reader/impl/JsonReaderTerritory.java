@@ -23,13 +23,18 @@ import it.unibo.common.Pair;
  */
 public class JsonReaderTerritory extends AbstractFileReader<Set<Pair<String, Set<Territory>>>> {
 
+    private static final String TERRITORIES_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("config")
+            .append(Constants.PATH_SEPARATOR).append("territory").append(Constants.PATH_SEPARATOR)
+            .append("Territories.json").toString();
+
     private Set<Pair<String, Set<Territory>>> territories;
 
     /**
-     * Creates the {@code set of pairs of string and territories' set} where the string is the continent.
+     * Creates the {@code set of pairs of string and territories' set} where the
+     * string is the continent.
      */
     public JsonReaderTerritory() {
-        super(Constants.TERRITORIES_PATH);
+        super(TERRITORIES_PATH);
         this.territories = new HashSet<>();
     }
 
@@ -38,7 +43,8 @@ public class JsonReaderTerritory extends AbstractFileReader<Set<Pair<String, Set
      * continent's name and his set of territories, following the Territories.json
      * pattern.
      * 
-     * @return the {@code set of pairs of continent's name and his set of territories}
+     * @return the
+     *         {@code set of pairs of continent's name and his set of territories}
      */
     @Override
     public Set<Pair<String, Set<Territory>>> readFromFile() {

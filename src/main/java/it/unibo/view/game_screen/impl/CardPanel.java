@@ -1,10 +1,12 @@
 package it.unibo.view.game_screen.impl;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import it.unibo.view.game_screen.api.CardZone;
@@ -17,9 +19,10 @@ public class CardPanel extends JPanel implements CardZone {
 
     public CardPanel(final Dimension size) {
         super();
+        this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(Double.valueOf(size.getWidth()).intValue(),
                 Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue()));
-        this.add(new JLabel(CARD_LABEL));
+        this.add(new JLabel(CARD_LABEL, SwingConstants.CENTER), BorderLayout.NORTH);
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
     }
 
