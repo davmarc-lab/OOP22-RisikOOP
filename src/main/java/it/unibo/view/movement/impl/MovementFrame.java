@@ -3,7 +3,7 @@ package it.unibo.view.movement.impl;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import it.unibo.controller.popup.api.MovementController;
+import it.unibo.controller.movement.api.MovementController;
 import it.unibo.view.movement.api.MovementView;
 
 public class MovementFrame extends JFrame implements MovementView {

@@ -13,8 +13,8 @@ import javax.swing.SwingUtilities;
 
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
-import it.unibo.controller.popup.api.MovementController;
-import it.unibo.controller.popup.impl.MovementControllerView;
+import it.unibo.controller.movement.api.MovementController;
+import it.unibo.controller.movement.impl.MovementControllerView;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;

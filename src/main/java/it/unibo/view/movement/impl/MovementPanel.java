@@ -9,9 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.controller.popup.api.MovementController;
+import it.unibo.controller.movement.api.MovementController;
 
-public class MovementPopup extends JPanel {
+public class MovementPanel extends JPanel {
     
     private int source;
     final JButton buttonUp = new JButton("+");
@@ -19,7 +19,7 @@ public class MovementPopup extends JPanel {
     final JLabel number = new JLabel(String.valueOf(1));
     final JLabel currentTerritoryStatus = new JLabel();
 
-    public MovementPopup(final MovementController mc) {
+    public MovementPanel(final MovementController mc) {
         source = mc.getFirstObject().getTroops();
 
         final JPanel valuesPanel = new JPanel(new GridBagLayout());

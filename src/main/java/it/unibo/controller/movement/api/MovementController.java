@@ -1,4 +1,4 @@
-package it.unibo.controller.popup.api;
+package it.unibo.controller.movement.api;
 
 import it.unibo.model.territory.api.Territory;
 import it.unibo.view.movement.api.MovementView;

@@ -1,6 +1,6 @@
 package it.unibo.view.movement.api;
 
-import it.unibo.controller.popup.api.MovementController;
+import it.unibo.controller.movement.api.MovementController;
 
 public interface MovementView {
 

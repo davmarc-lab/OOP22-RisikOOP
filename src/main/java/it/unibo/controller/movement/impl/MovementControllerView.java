@@ -1,7 +1,7 @@
-package it.unibo.controller.popup.impl;
+package it.unibo.controller.movement.impl;
 
 import it.unibo.common.Pair;
-import it.unibo.controller.popup.api.MovementController;
+import it.unibo.controller.movement.api.MovementController;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.view.movement.api.MovementView;
 import it.unibo.view.movement.impl.MovementFrame;
