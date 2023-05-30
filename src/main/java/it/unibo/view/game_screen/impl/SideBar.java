@@ -1,10 +1,11 @@
-package it.unibo.view.game_screen;
+package it.unibo.view.game_screen.impl;
 
 import javax.swing.JPanel;
 
+import it.unibo.view.game_screen.api.ButtonZone;
+import it.unibo.view.game_screen.api.CardZone;
+import it.unibo.view.game_screen.api.InfoZone;
 import it.unibo.view.game_screen.api.SideZone;
-import it.unibo.view.game_screen.impl.CardPanel;
-import it.unibo.view.game_screen.impl.InfoPanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,9 +16,9 @@ public class SideBar extends JPanel implements SideZone {
     private static final double WIDTH_SCALING = 0.08;
     private static final int VGAP = 2;
 
-    private final InfoPanel ip;
-    private final CardPanel cp;
-    private final ButtonPanel bp;
+    private final InfoZone ip;
+    private final CardZone cp;
+    private final ButtonZone bp;
 
     public SideBar(final Dimension size) {
         super();
@@ -28,27 +29,27 @@ public class SideBar extends JPanel implements SideZone {
         layout.setVgap(VGAP);
         this.setLayout(layout);
         this.ip = new InfoPanel(this.getPreferredSize());
-        this.ip.setPreferredSize(new Dimension(Double.valueOf(this.getPreferredSize().getWidth()).intValue(),
+        ((InfoPanel) this.ip).setPreferredSize(new Dimension(Double.valueOf(this.getPreferredSize().getWidth()).intValue(),
                 Double.valueOf(this.getPreferredSize().getHeight() * 0.45).intValue()));
-        this.add(ip, BorderLayout.NORTH);
+        this.add((InfoPanel) ip, BorderLayout.NORTH);
         this.cp = new CardPanel(this.getPreferredSize());
-        this.add(cp, BorderLayout.CENTER);
+        this.add((CardPanel) cp, BorderLayout.CENTER);
         this.bp = new ButtonPanel(this.getPreferredSize());
-        this.add(bp, BorderLayout.SOUTH);
+        this.add((ButtonPanel) bp, BorderLayout.SOUTH);
     }
 
     @Override
-    public ButtonPanel getButtonPanel() {
+    public ButtonZone getButtonPanel() {
         return this.bp;
     }
 
     @Override
-    public CardPanel getCardPanel() {
+    public CardZone getCardPanel() {
         return this.cp;
     }
 
     @Override
-    public InfoPanel getInfoPanel() {
+    public InfoZone getInfoPanel() {
         return this.ip;
     }
 }

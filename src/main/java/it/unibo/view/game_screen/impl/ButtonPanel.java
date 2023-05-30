@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen;
+package it.unibo.view.game_screen.impl;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -7,6 +7,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.MainController;
+import it.unibo.view.game_screen.api.ButtonZone;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,7 +17,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-public class ButtonPanel extends JPanel {
+public class ButtonPanel extends JPanel implements ButtonZone {
 
     private static final double HEIGHT_SCALING = 0.15;
     private static final double BUTTON_SCALING = 0.08;
@@ -67,6 +68,7 @@ public class ButtonPanel extends JPanel {
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
     }
 
+    @Override
     public void setController(final MainController controller) {
         this.controller = controller;
     }

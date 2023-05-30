@@ -30,6 +30,7 @@ import it.unibo.common.Constants;
 import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.controller.reader.impl.AbstractFileReader;
 import it.unibo.view.game_screen.impl.BoardPanel;
+import it.unibo.view.game_screen.impl.SideBar;
 
 /**
  * The extension of JPanel which defines the main panel of the game with the start menu.
