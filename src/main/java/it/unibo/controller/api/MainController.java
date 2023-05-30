@@ -4,6 +4,7 @@ import java.util.Set;
 
 import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.view.game_screen.api.GameZone;
 
 /**
  * This interface models a controller that allows the board view to communicate
@@ -60,5 +61,15 @@ public interface MainController {
      * @return the game loop
      */
     GameLoop getGameLoop();
+
+    /**
+     * @return the area that contains the board and the side bar
+     */
+    GameZone getGameZone();
+
+    /**
+     * Starts game loop.
+     */
+    void startLoop();
 
 }

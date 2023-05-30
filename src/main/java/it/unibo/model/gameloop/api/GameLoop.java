@@ -13,6 +13,11 @@ import it.unibo.model.territory.api.Territory;
 public interface GameLoop {
 
     /**
+     * Starts game loop.
+     */
+    void start();
+
+    /**
      * Processes the input.
      * 
      * @param input the value of the button that was clicked

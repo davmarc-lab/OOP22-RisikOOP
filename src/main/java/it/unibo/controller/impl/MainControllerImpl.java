@@ -8,24 +8,28 @@ import it.unibo.controller.api.MainController;
 import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.gameloop.impl.GameLoopImpl;
 import it.unibo.model.territory.api.Territory;
-import it.unibo.view.game_screen.api.BoardZone;
-import it.unibo.view.game_screen.impl.BoardPanel;
+import it.unibo.view.game_screen.api.GameZone;
 
 /**
  * Implementation of MainController.
  */
 public final class MainControllerImpl implements MainController {
 
-    private final BoardZone gui;
+    private final GameZone gui;
     private final GameLoop loop;
 
     /**
      * Basic constructor generated from a GUI, creates a GameLoop.
      * @param gui the GUI that generated this controller
      */
-    public MainControllerImpl(final BoardPanel gui) {
+    public MainControllerImpl(final GameZone gui) {
         this.gui = gui;
         this.loop = new GameLoopImpl(this);
+    }
+    
+    @Override
+    public void startLoop() {
+        this.loop.start();
     }
 
     @Override
@@ -40,17 +44,17 @@ public final class MainControllerImpl implements MainController {
 
     @Override
     public void disableTerritories(final Set<Territory> territories) {
-        this.gui.disableButtons(territories);
+        this.gui.getBoard().disableButtons(territories);
     }
 
     @Override
     public void enableAllTerritories() {
-        this.gui.enableAll();
+        this.gui.getBoard().enableAll();
     }
 
     @Override
     public void disableAllTerritories() {
-        this.gui.disableAll();
+        this.gui.getBoard().disableAll();
     }
 
     @Override
@@ -71,6 +75,11 @@ public final class MainControllerImpl implements MainController {
     @Override
     public GameLoop getGameLoop() {
         return this.loop;
+    }
+
+    @Override
+    public GameZone getGameZone() {
+        return this.gui;
     }
 
 }

@@ -50,6 +50,10 @@ public class GameLoopImpl implements GameLoop {
         this.controller = controller;
         this.board = new GameBoardImpl();
         this.phaseManager = new PhaseManagerImpl();
+    }
+
+    @Override
+    public void start() {
         this.controller.sendMessage(
                 "Game started, Player" + this.board.getCurrentPlayer().getId() + " start placing your troops");
         this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
