@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements GameZone {
     public GamePanel() {
         this.setLayout(new BorderLayout());
         this.board = new BoardPanel();
-        this.side = new SideBar(((JPanel) this.board).getPreferredSize());
+        this.side = new SideBar(((JPanel) this.board).getPreferredSize(), this);
         this.controller = new MainControllerImpl(this);
         this.board.setController(this.controller);
         this.side.getButtonPanel().setController(this.controller);
