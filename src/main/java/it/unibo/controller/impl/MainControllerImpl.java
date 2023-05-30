@@ -68,4 +68,9 @@ public final class MainControllerImpl implements MainController {
         this.loop.endPlayerTurn();
     }
 
+    @Override
+    public GameLoop getGameLoop() {
+        return this.loop;
+    }
+
 }

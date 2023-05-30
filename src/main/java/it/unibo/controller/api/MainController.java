@@ -2,6 +2,7 @@ package it.unibo.controller.api;
 
 import java.util.Set;
 
+import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -54,4 +55,10 @@ public interface MainController {
      * Ends the players' turn.
      */
     void endTurn();
+
+    /**
+     * @return the game loop
+     */
+    GameLoop getGameLoop();
+
 }
