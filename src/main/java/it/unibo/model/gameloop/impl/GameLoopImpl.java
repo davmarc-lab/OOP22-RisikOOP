@@ -38,6 +38,7 @@ public class GameLoopImpl implements GameLoop {
     private Set<Territory> disabledTerritories = new HashSet<>();
     private Optional<Territory> first;
     private Optional<Territory> second;
+    private boolean prepare = true;
 
     private int troopsCounter = 0;
 
@@ -66,16 +67,16 @@ public class GameLoopImpl implements GameLoop {
      * 
      * @param input the selected territory
      */
-    private void prepareGame(final Object input) {
-        if (this.troopsCounter < PREPARATION_TROOPS && input instanceof String) {
+    private void prepareGame(final Territory t) {
+        if (this.troopsCounter < PREPARATION_TROOPS) {
             this.troopsCounter++;
             this.board.getCurrentPlayer().addTroops(-1);
-            this.board.getGameTerritories().getTerritory((String) input).addTroops(1);
+            t.addTroops(1);
         }
-        if (this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0)
-                .count() == Constants.MAX_PLAYERS) {
+        if (this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0).count() == Constants.MAX_PLAYERS) {
             this.phaseManager.switchToNextPhase();
             this.board.getTurnManager().switchToNextPlayer();
+            this.prepare = false;
             this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
             this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
                     + ", you can now play your cards to gain bonus troops");
@@ -90,57 +91,67 @@ public class GameLoopImpl implements GameLoop {
 
     @Override
     public void processInput(final Object input) {
-        if (this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0).count() != Constants.MAX_PLAYERS) {
-            this.prepareGame(input);
+        Territory t;
+        if (input instanceof String) {
+            t = this.board.getGameTerritories().getTerritory((String) input);
+        } else {
+            // t = card
+            t = this.board.getGameTerritories().getTerritory((String) input);
+        }
+        if (this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0).count() != Constants.MAX_PLAYERS
+            && this.prepare) {
+            this.prepareGame(t);
             return;
         }
         switch (this.phaseManager.getCurrentPhase()) {
             case PREPARATION:
+                if (this.board.getCurrentPlayer().getTroops() > 0) {
+                    t.addTroops(1);
+                    this.board.getCurrentPlayer().addTroops(-1);
+                    if (this.board.getCurrentPlayer().getTroops() == 0) {
+                        this.phaseManager.switchToNextPhase();
+                        this.controller.sendMessage("You can now play your cards.");
+                    }
+                }
                 break;
             case PLAY_CARDS:
                 break;
             case COMBAT:
-                if (input instanceof String) {
-                    if (this.first.isEmpty()) {
-                        this.first = Optional.of(this.board.getGameTerritories().getTerritory((String) input));
-                        this.setAvailableTerritories(this.first.get().getAdjTerritories().stream()
-                                .filter(t -> !this.board.getCurrentPlayer().getTerritories().contains(t))
-                                .collect(Collectors.toSet()));
-                        this.controller.sendMessage(COMBAT_MESSAGE);
-                    } else {
-                        this.second = Optional.of(this.board.getGameTerritories().getTerritory((String) input));
-                        this.board.instanceCombat(new Pair<>(this.board.getCurrentPlayer(), this.first.get()),
-                                new Pair<>(this.board.getAllPlayers().stream()
-                                        .filter(p -> p.getTerritories().contains(this.second.get()))
-                                        .findAny().get(),
-                                        this.second.get()));
-                        this.controller.sendMessage(RESET_COMBAT_MESSAGE);
-                        this.resetClicks();
-                    }
+                if (this.first.isEmpty()) {
+                    this.first = Optional.of(t);
+                    this.setAvailableTerritories(this.first.get().getAdjTerritories().stream()
+                            .filter(terr -> !this.board.getCurrentPlayer().getTerritories().contains(terr))
+                            .collect(Collectors.toSet()));
+                    this.controller.sendMessage(COMBAT_MESSAGE);
+                } else {
+                    this.second = Optional.of(t);
+                    this.board.instanceCombat(new Pair<>(this.board.getCurrentPlayer(), this.first.get()),
+                            new Pair<>(this.board.getAllPlayers().stream()
+                                    .filter(p -> p.getTerritories().contains(this.second.get()))
+                                    .findAny().get(),
+                                    this.second.get()));
+                    this.controller.sendMessage(RESET_COMBAT_MESSAGE);
+                    this.resetClicks();
                 }
                 break;
             case MOVEMENT:
-                if (input instanceof String) {
-                    if (this.first.isEmpty()) {
-                        this.first = Optional.of(this.board.getGameTerritories().getTerritory((String) input));
-                        this.setAvailableTerritories(this.first.get().getAdjTerritories().stream()
-                                .filter(t -> this.board.getCurrentPlayer().getTerritories().contains(t))
-                                .collect(Collectors.toSet()));
-                        this.controller.sendMessage(MOVEMENT_MESSAGE);
-                    } else {
-                        this.second = Optional.of(this.board.getGameTerritories().getTerritory((String) input));
-                        this.board.instanceMovement(this.first.get(), this.second.get());
-                        this.first = Optional.empty();
-                        this.second = Optional.empty();
-                        this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
-                        this.controller.sendMessage(RESET_MOVEMENT_MESSAGE);
-                        this.resetClicks();
-                    }
+                if (this.first.isEmpty()) {
+                    this.first = Optional.of(t);
+                    this.setAvailableTerritories(this.first.get().getAdjTerritories().stream()
+                            .filter(terr -> this.board.getCurrentPlayer().getTerritories().contains(terr))
+                            .collect(Collectors.toSet()));
+                    this.controller.sendMessage(MOVEMENT_MESSAGE);
+                } else {
+                    this.second = Optional.of(t);
+                    this.board.instanceMovement(this.first.get(), this.second.get());
+                    this.first = Optional.empty();
+                    this.second = Optional.empty();
+                    this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
+                    this.controller.sendMessage(RESET_MOVEMENT_MESSAGE);
+                    this.resetClicks();
                 }
                 break;
             case END_TURN:
-                phaseManager.switchToNextPhase();
-                board.getTurnManager().switchToNextPlayer();
                 break;
             default:
                 break;
@@ -180,7 +191,12 @@ public class GameLoopImpl implements GameLoop {
 
     @Override
     public void endPlayerTurn() {
-        this.phaseManager.switchToPhase(Phase.END_TURN);
+        this.phaseManager.switchToPhase(Phase.PREPARATION);
+        this.board.getTurnManager().switchToNextPlayer();
+        this.board.defineBonusArmies();
+        this.controller.sendMessage("It's Player" + this.board.getCurrentPlayer().getId()
+                + "'s turn.\nYou can now assign your bonus troops to your territories.");
+        this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
     }
 
     @Override
