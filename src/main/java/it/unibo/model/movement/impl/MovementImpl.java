@@ -18,8 +18,6 @@ public class MovementImpl implements Movement {
         if (this.isNumberValid(troops, this.source.getTroops())) {
             source.addTroops(-troops);
             destination.addTroops(troops);
-        } else {
-
         }
     }
 

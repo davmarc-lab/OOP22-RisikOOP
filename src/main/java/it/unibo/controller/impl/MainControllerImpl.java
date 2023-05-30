@@ -5,7 +5,8 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import it.unibo.controller.api.MainController;
-import it.unibo.model.gameloop.GameLoop;
+import it.unibo.model.gameloop.api.GameLoop;
+import it.unibo.model.gameloop.impl.GameLoopImpl;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.view.game_screen.api.BoardZone;
 import it.unibo.view.game_screen.impl.BoardPanel;
@@ -24,7 +25,7 @@ public final class MainControllerImpl implements MainController {
      */
     public MainControllerImpl(final BoardPanel gui) {
         this.gui = gui;
-        this.loop = new GameLoop(this);
+        this.loop = new GameLoopImpl(this);
     }
 
     @Override
