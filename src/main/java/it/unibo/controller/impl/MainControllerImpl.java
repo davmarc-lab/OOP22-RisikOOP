@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 
 import it.unibo.controller.api.MainController;
 import it.unibo.model.gameloop.api.GameLoop;
-import it.unibo.model.gameloop.impl.GameLoopImpl;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.view.game_screen.api.GameZone;
 
@@ -15,18 +14,25 @@ import it.unibo.view.game_screen.api.GameZone;
  */
 public final class MainControllerImpl implements MainController {
 
-    private final GameZone gui;
-    private final GameLoop loop;
+    private GameZone gui;
+    private GameLoop loop;
 
     /**
-     * Basic constructor generated from a GUI, creates a GameLoop.
-     * @param gui the GUI that generated this controller
+     * Empty constructor.
      */
-    public MainControllerImpl(final GameZone gui) {
-        this.gui = gui;
-        this.loop = new GameLoopImpl(this);
+    public MainControllerImpl() {
     }
-    
+
+    @Override
+    public void setGameLoop(final GameLoop loop) {
+        this.loop = loop;
+    }
+
+    @Override
+    public void setGameZone(final GameZone gui) {
+        this.gui = gui;
+    }
+
     @Override
     public void startLoop() {
         this.loop.start();

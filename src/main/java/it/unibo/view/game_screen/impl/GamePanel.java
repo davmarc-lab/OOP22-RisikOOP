@@ -5,24 +5,31 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import it.unibo.controller.api.MainController;
-import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.view.game_screen.api.BoardZone;
 import it.unibo.view.game_screen.api.GameZone;
 import it.unibo.view.game_screen.api.SideZone;
 
-public class GamePanel extends JPanel implements GameZone {
+/**
+ * This class is used to contain the board and the side bar.
+ */
+public final class GamePanel extends JPanel implements GameZone {
 
     private final BoardZone board;
     private final SideZone side;
     private final MainController controller;
 
-    public GamePanel() {
-        this.setLayout(new BorderLayout());
+    /**
+     * Sets up the controller and adds the board and the side bar.
+     * 
+     * @param controller
+     */
+    public GamePanel(final MainController controller) {
+        this.controller = controller;
         this.board = new BoardPanel();
         this.side = new SideBar(((JPanel) this.board).getPreferredSize(), this);
-        this.controller = new MainControllerImpl(this);
         this.board.setController(this.controller);
         this.side.getButtonPanel().setController(this.controller);
+        this.setLayout(new BorderLayout());
         this.add(((JPanel) this.board), BorderLayout.CENTER);
         this.add(((JPanel) this.side), BorderLayout.EAST);
     }
@@ -41,5 +48,5 @@ public class GamePanel extends JPanel implements GameZone {
     public MainController getController() {
         return this.controller;
     }
-    
+
 }

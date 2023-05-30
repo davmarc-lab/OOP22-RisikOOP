@@ -15,20 +15,21 @@ public interface MainController {
     /**
      * Sends the input received from the board to the model.
      * 
-     * @param input what the player clicked
+     * @param input
      */
     void sendInput(Object input);
 
     /**
      * Sends a message to be displayed on the GUI.
      * 
-     * @param message the message to be attached to the notification
+     * @param message
      */
     void sendMessage(String message);
 
     /**
      * Disables the specified territories in the GUI.
-     * @param territories the Set of territories
+     * 
+     * @param territories
      */
     void disableTerritories(Set<Territory> territories);
 
@@ -71,5 +72,19 @@ public interface MainController {
      * Starts game loop.
      */
     void startLoop();
+
+    /**
+     * Sets the game loop.
+     * 
+     * @param loop
+     */
+    void setGameLoop(GameLoop loop);
+
+    /**
+     * Sets the game zone.
+     * 
+     * @param gui
+     */
+    void setGameZone(GameZone gui);
 
 }
