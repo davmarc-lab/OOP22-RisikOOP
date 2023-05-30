@@ -2,6 +2,7 @@ package it.unibo.view.game_screen;
 
 import javax.swing.JPanel;
 
+import it.unibo.view.game_screen.api.SideZone;
 import it.unibo.view.game_screen.impl.CardPanel;
 import it.unibo.view.game_screen.impl.InfoPanel;
 
@@ -9,7 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 
-public class SideBar extends JPanel {
+public class SideBar extends JPanel implements SideZone {
 
     private static final double WIDTH_SCALING = 0.08;
     private static final int VGAP = 2;
@@ -36,7 +37,18 @@ public class SideBar extends JPanel {
         this.add(bp, BorderLayout.SOUTH);
     }
 
+    @Override
     public ButtonPanel getButtonPanel() {
         return this.bp;
+    }
+
+    @Override
+    public CardPanel getCardPanel() {
+        return this.cp;
+    }
+
+    @Override
+    public InfoPanel getInfoPanel() {
+        return this.ip;
     }
 }
