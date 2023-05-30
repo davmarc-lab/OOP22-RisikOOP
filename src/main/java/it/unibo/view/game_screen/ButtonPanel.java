@@ -1,7 +1,9 @@
 package it.unibo.view.game_screen;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.MainController;
@@ -16,14 +18,18 @@ import java.awt.Insets;
 
 public class ButtonPanel extends JPanel {
 
-    private static final double HEIGHT_SCALING = 0.1;
+    private static final double HEIGHT_SCALING = 0.15;
+    private static final double BUTTON_SCALING = 0.08;
     private static final int FONT_SIZE = 12;
     private static final int NUM_OF_BUTTONS = 3;
     private static final int BORDER_SIZE = 4;
+    private static final String TITLE_LABEL = "PLAYER ACTIONS";
 
     private MainController controller;
 
     public ButtonPanel(final Dimension size) {
+        this.setLayout(new BorderLayout());
+        JLabel label = new JLabel(TITLE_LABEL, SwingConstants.CENTER);
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(Double.valueOf(size.getWidth()).intValue(),
                 Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue()));
@@ -31,7 +37,8 @@ public class ButtonPanel extends JPanel {
         final GridBagConstraints cnst = new GridBagConstraints();
         cnst.insets = new Insets(2, 5, 2, 5);
         cnst.gridy = 0;
-        cnst.ipadx = 20;
+        cnst.ipadx = Double.valueOf(panel.getPreferredSize().getWidth() * BUTTON_SCALING).intValue();
+        cnst.ipady = Double.valueOf(panel.getPreferredSize().getHeight() * BUTTON_SCALING).intValue();
 
         final JButton atkJB = this.createButton("ATTACK", size);
         final JButton movJB = this.createButton("MOVE", size);
@@ -54,6 +61,7 @@ public class ButtonPanel extends JPanel {
         });
 
         panel.setOpaque(false);
+        this.add(label, BorderLayout.NORTH);
         this.add(panel, BorderLayout.SOUTH);
         this.setBackground(Color.WHITE);
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
