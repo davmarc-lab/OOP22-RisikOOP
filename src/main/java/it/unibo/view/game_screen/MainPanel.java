@@ -27,10 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
-import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.controller.reader.impl.AbstractFileReader;
-import it.unibo.view.game_screen.impl.BoardPanel;
-import it.unibo.view.game_screen.impl.SideBar;
 
 /**
  * The extension of JPanel which defines the main panel of the game with the start menu.
@@ -93,17 +90,7 @@ public class MainPanel extends JPanel {
         jbQuit = this.createButton(QUIT_LABEL, this.getButtonDimension());
 
         jbPlay.addActionListener(e -> {
-            frame.getContentPane().removeAll();
-            frame.getContentPane().revalidate();
-            frame.getContentPane().repaint();
-            BoardPanel bp = new BoardPanel();
-            SideBar sb = new SideBar(bp.getPreferredSize());
-            frame.getContentPane().add(bp, BorderLayout.CENTER);
-            frame.getContentPane().add(sb, BorderLayout.EAST);
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            bp.setController(new MainControllerImpl(bp));
-            sb.getButtonPanel().setController(bp.getController());
+            frame.startGame();
         });
 
         jbQuit.addActionListener(e -> {
