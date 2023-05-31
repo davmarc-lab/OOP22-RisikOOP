@@ -9,7 +9,6 @@ import it.unibo.view.game_screen.api.InfoZone;
 import it.unibo.view.game_screen.api.SideZone;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 
