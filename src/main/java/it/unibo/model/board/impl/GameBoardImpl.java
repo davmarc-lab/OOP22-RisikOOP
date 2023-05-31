@@ -36,7 +36,7 @@ import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 /**
- * Implementation of GameBoard, instance of the game table.
+ * Implementation of {@link GameBoard} interface.
  */
 public class GameBoardImpl implements GameBoard {
 
@@ -45,26 +45,25 @@ public class GameBoardImpl implements GameBoard {
     private final GameObjective gameObjective = new ObjectiveFactoryImpl().createObjectiveSet();
     private final Deck<Army> armyDeck = new DeckImpl<>();
     private Deck<Objective> objectiveDeck;
-
     private final TurnManager turnManager;
 
     /**
-     * Prepare the {@code GameBoard} and inizialize all fields.
+     * Constructor of {@code GameBoardImpl} that inizialize all fields.
      */
     public GameBoardImpl() {
         createPlayers();
         createArmyDeck();
         createObjectiveDeck();
-        Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck,
+        final Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck,
                 this.gameObjective.getDefaulObjective());
-        new GamePrepImpl(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective,
-                this.armyDeck);
+        new GamePrepImpl(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective)
+                .preparePlayers();
         this.objectiveDeck.setDeck(pairObjective.getX().getDeck());
         this.turnManager = new TurnManagerImpl(this.players.stream().map(Player::getId).toList());
     }
 
     /**
-     * This method creates the players.
+     * Creates all players.
      */
     private void createPlayers() {
         final List<Player.Color> colors = Arrays.asList(Player.Color.values());
@@ -77,7 +76,7 @@ public class GameBoardImpl implements GameBoard {
     }
 
     /**
-     * This method creates the army deck.
+     * Creates the army deck.
      */
     private void createArmyDeck() {
         Arrays.stream(Army.ArmyType.values())
@@ -87,13 +86,19 @@ public class GameBoardImpl implements GameBoard {
     }
 
     /**
-     * This method create the objective deck.
+     * Creates the objective deck.
      */
     private void createObjectiveDeck() {
         this.objectiveDeck = new DeckImpl<>(this.gameObjective.getSetObjectives());
         this.objectiveDeck.shuffle();
     }
 
+    /**
+     * Retrieves a player from an id.
+     * 
+     * @param id players's id
+     * @return player
+     */
     private Player getPlayerFromId(final int id) {
         return this.players.stream().filter(p -> p.getId() == id).findFirst().get();
     }
@@ -107,7 +112,8 @@ public class GameBoardImpl implements GameBoard {
         ccAttacker.startPopup();
         CombatController ccDefender = new CombatControllerView(defender);
         ccDefender.startPopup();
-        var r = new CombatImpl(attacker.getY(), defender.getY()).attack(ccAttacker.getFinalResult(), ccDefender.getFinalResult());
+        var r = new CombatImpl(attacker.getY(), defender.getY()).attack(ccAttacker.getFinalResult(),
+                ccDefender.getFinalResult());
         System.out.println(r);
     }
 

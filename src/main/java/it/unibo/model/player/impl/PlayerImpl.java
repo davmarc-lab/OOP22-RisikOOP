@@ -15,7 +15,7 @@ import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * Implementation of Player interface.
+ * Implementation of {@link Player} interface.
  */
 public class PlayerImpl implements Player {
 

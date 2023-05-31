@@ -9,15 +9,23 @@ import it.unibo.model.territory.api.Territory;
 import it.unibo.view.movement.api.MovementView;
 import it.unibo.view.movement.impl.MovementFrame;
 
-public class MovementControllerView implements MovementController{
+/**
+ * Implemetnation of {@code MovementController}.
+ */
+public class MovementControllerView implements MovementController {
 
     private MovementView frame;
     private final Pair<Territory, Territory> model;
     private int value;
     private Optional<Integer> finalResult = Optional.empty();
 
-    public MovementControllerView(Pair<Territory, Territory> pair) {
-        this.model = pair;
+    /**
+     * Constructor with the model parts.
+     * 
+     * @param model the model objects used
+     */
+    public MovementControllerView(final Pair<Territory, Territory> model) {
+        this.model = model;
         if (this.model.getX().getTroops() > 1) {
             this.value = 1;
             this.frame = new MovementFrame(this);
@@ -25,34 +33,52 @@ public class MovementControllerView implements MovementController{
             // logger here
             this.frame = new MovementErrorDialog();
         }
-        
+
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startPopup() {
         this.frame.startPopup();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MovementView getFrame() {
         return this.frame;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isNumberValid(int value) {
+    public boolean isNumberValid(final int value) {
         return value <= this.getFirstObject().getTroops() - 1 && value >= 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Territory getFirstObject() {
         return this.model.getX();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Territory getSecondObject() {
         return this.model.getY();
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setValue() {
         if (isNumberValid(this.value)) {
@@ -60,6 +86,9 @@ public class MovementControllerView implements MovementController{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getFinalResult() {
         if (this.finalResult.isPresent()) {
@@ -69,15 +98,21 @@ public class MovementControllerView implements MovementController{
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void addValue(int n) {
+    public void addValue(final int n) {
         if (isNumberValid(this.value + n)) {
             this.value += n;
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setFrame(MovementView frame) {
+    public void setFrame(final MovementView frame) {
         this.frame = frame;
     }
 }
