@@ -25,6 +25,9 @@ public final class DeckImpl<T> implements Deck<T> {
         this.deck = new ArrayList<>(cards);
     }
 
+    /**
+     * Creates an empty deck of cards.
+     */
     public DeckImpl() {
         this.deck = new ArrayList<>();
     }

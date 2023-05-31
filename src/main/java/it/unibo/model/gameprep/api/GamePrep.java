@@ -1,15 +1,13 @@
 package it.unibo.model.gameprep.api;
 
-import it.unibo.common.Pair;
-import it.unibo.model.army.api.Army;
-import it.unibo.model.deck.api.Deck;
-import it.unibo.model.objective.api.Objective;
-import it.unibo.model.territory.api.Territory;
-
+/**
+ * Represents the game preparation phase.
+ */
 public interface GamePrep {
-    void assignTerritories(Deck<Territory> territoryDeck);
+    /**
+     * Prepares each players assiging them a deck of territories, an objective, and
+     * troops.
+     */
+    void preparePlayers();
 
-    void assignObjectives(Pair<Deck<Objective>, Objective> objectives);
-
-    void assignTroops(Deck<Army> armyDeck);
 }
