@@ -1,12 +1,10 @@
 package it.unibo.model.player.impl;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
-import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.hand.api.Hand;
 import it.unibo.model.hand.impl.AbstractArmyHand;
 import it.unibo.model.objective.api.Objective;

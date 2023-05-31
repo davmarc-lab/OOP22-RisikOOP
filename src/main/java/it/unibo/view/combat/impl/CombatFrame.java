@@ -6,38 +6,52 @@ import javax.swing.JOptionPane;
 import it.unibo.controller.combat.api.CombatController;
 import it.unibo.view.combat.api.CombatView;
 
+/**
+ * Represents the frame for the combat phase.
+ */
 public class CombatFrame extends JFrame implements CombatView {
 
     private CombatController cc;
 
-    public CombatFrame(CombatController cc) {
+    /**
+     * Constructs a CombatFrame object with the specified CombatController.
+     *
+     * @param cc the CombatController associated with the frame
+     */
+    public CombatFrame(final CombatController cc) {
         this.cc = cc;
         cc.setFrame(this);
         this.setVisible(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startPopup() {
-        String[] options = { "Confirm", "Cancel" };
-        int result = JOptionPane.showOptionDialog(
+        final String[] options = { "Confirm", "Cancel" };
+        final int result = JOptionPane.showOptionDialog(
                 null,
                 new CombatPanel(cc),
-                new StringBuilder("Player").append(cc.getFirstObject().getId()).append(" troops").toString(),
+                new StringBuilder("Player").append(cc.getCombatPlayer().getId()).append(" troops").toString(),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null, // icon
                 options,
                 options[1]);
         if (result == 0) {
-            cc.setValue();
+            cc.setCombatOutcome();
             this.dispose();
         } else {
             this.dispose();
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setController(CombatController controller) {
+    public void setController(final CombatController controller) {
         this.cc = controller;
     }
 }

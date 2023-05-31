@@ -112,8 +112,8 @@ public class GameBoardImpl implements GameBoard {
         ccAttacker.startPopup();
         final CombatController ccDefender = new CombatControllerView(defender);
         ccDefender.startPopup();
-        var r = new CombatImpl(attacker.getY(), defender.getY()).attack(ccAttacker.getFinalResult(),
-                ccDefender.getFinalResult());
+        new CombatImpl(attacker.getY(), defender.getY()).attack(ccAttacker.getCombatOutcome(),
+                ccDefender.getCombatOutcome());
     }
 
     /**
