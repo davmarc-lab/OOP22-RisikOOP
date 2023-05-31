@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import it.unibo.common.Pair;
 import it.unibo.controller.movement.api.MovementController;
-import it.unibo.view.movement.impl.MovementErrorDialog;
+import it.unibo.model.movement.impl.MovementErrorDialog;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.view.movement.api.MovementView;
 import it.unibo.view.movement.impl.MovementFrame;
