@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
 import it.unibo.controller.api.MainController;
+import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.board.impl.GameBoardImpl;
 import it.unibo.model.gameloop.api.GameLoop;
@@ -85,6 +86,8 @@ public class GameLoopImpl implements GameLoop {
             } else {
                 this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
                         + ", it's your turn to place 3 troops on your territories");
+                this.controller.getGameZone().getSideBar().getCardPanel().setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
+                this.controller.getGameZone().getSideBar().getCardPanel().updateView();
             }
         }
     }
@@ -203,6 +206,8 @@ public class GameLoopImpl implements GameLoop {
             this.board.defineBonusArmies();
             this.controller.sendMessage("It's Player" + this.board.getCurrentPlayer().getId()
                     + "'s turn.\nYou can now assign your bonus troops to your territories.");
+            this.controller.getGameZone().getSideBar().getCardPanel().setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
+            this.controller.getGameZone().getSideBar().getCardPanel().updateView();
             this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
         }
     }
