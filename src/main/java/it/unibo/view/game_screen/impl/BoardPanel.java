@@ -2,6 +2,7 @@ package it.unibo.view.game_screen.impl;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import javax.swing.border.LineBorder;
 import it.unibo.common.Constants;
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.reader.impl.JsonReaderCoordinates;
+import it.unibo.controller.reader.impl.JsonReaderSquareCoordinates;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.view.game_screen.api.BoardZone;
 import it.unibo.view.game_screen.api.CustomButton;
@@ -32,8 +34,10 @@ public final class BoardPanel extends JPanel implements BoardZone {
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;
     private static final int BUTTON_BORDER_SIZE = 2;
+    private static final int LABEL_SIZE = 20;
 
     private final Map<CustomButton, String> territories = new HashMap<>();
+    private final Map<JLabel, String> squares = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
     private MainController controller;
 
@@ -52,8 +56,13 @@ public final class BoardPanel extends JPanel implements BoardZone {
         label.setBounds(0, 0, map.getIconWidth(), map.getIconHeight());
 
         loadButtons(map.getIconWidth(), map.getIconHeight());
+        loadLabels(map.getIconWidth(), map.getIconHeight());
+        // Puts all buttons and labels on layer 1 (above the map)
         for (var jb : this.territories.keySet()) {
-            this.pane.add(((JButton) jb), Integer.valueOf(1)); // Puts all buttons on layer 1 (above the map)
+            this.pane.add(((JButton) jb), Integer.valueOf(1));
+        }
+        for (var lb : this.squares.keySet()) {
+            this.pane.add(lb, Integer.valueOf(1));
         }
 
         this.pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
@@ -75,14 +84,35 @@ public final class BoardPanel extends JPanel implements BoardZone {
                 java.awt.Image.SCALE_SMOOTH);
     }
 
+    /**
+     * Creates the JButtons that will contain the number of troops on a territory.
+     */
     private void loadButtons(final int width, final int height) {
         new JsonReaderCoordinates().readFromFile().forEach(p -> {
-            Iterator<Double> it = p.getY().iterator();
-            int x = (int) (it.next() * width / 100);
-            int y = (int) (it.next() * height / 100);
-            int w = (int) (it.next() * width / 100);
-            int h = (int) (it.next() * height / 100);
-            territories.put(createButton(x, y, w, h), p.getX());
+            final Iterator<Double> it = p.getY().iterator();
+            final int x = Double.valueOf(it.next() * width / 100).intValue();
+            final int y = Double.valueOf(it.next() * height / 100).intValue();
+            final int w = Double.valueOf(it.next() * width / 100).intValue();
+            final int h = Double.valueOf(it.next() * height / 100).intValue();
+            this.territories.put(createButton(x, y, w, h), p.getX());
+        });
+    }
+
+    /**
+     * Creates the JLabels that will contain the number of troops on a territory.
+     */
+    private void loadLabels(final int width, final int height) {
+        new JsonReaderSquareCoordinates().readFromFile().forEach(pair -> {
+            final JLabel lab = new JLabel();
+            lab.setFont(new Font("Arial", Font.PLAIN, 14));
+            lab.setText("10");
+            lab.setForeground(Color.WHITE);
+            lab.setBackground(Color.BLACK);
+            lab.setOpaque(true);
+            final int x = Double.valueOf(pair.getY().getX() * width / 100).intValue();
+            final int y = Double.valueOf(pair.getY().getY() * height / 100).intValue();
+            lab.setBounds(x, y, LABEL_SIZE, LABEL_SIZE);
+            this.squares.put(lab, pair.getX());
         });
     }
 

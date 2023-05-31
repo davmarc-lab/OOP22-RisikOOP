@@ -1,0 +1,212 @@
+[
+    {
+        "name": "Southern Europe",
+        "x": 49,
+        "y": 24.5
+    },
+    {
+        "name": "Western Europe",
+        "x": 43.5,
+        "y": 27.5
+    },
+    {
+        "name": "Northern Europe",
+        "x": 46.5,
+        "y": 18.5
+    },
+    {
+        "name": "Ukraine",
+        "x": 54,
+        "y": 16.5
+    },
+    {
+        "name": "Scandinavia",
+        "x": 46.5,
+        "y": 12
+    },
+    {
+        "name": "Great Britain",
+        "x": 43.5,
+        "y": 17.5
+    },
+    {
+        "name": "Iceland",
+        "x": 40.5,
+        "y": 9.5
+    },
+    {
+        "name": "Greenland",
+        "x": 33.5,
+        "y": 4.5
+    },
+    {
+        "name": "Northwest Territories",
+        "x": 12,
+        "y": 9.5
+    },
+    {
+        "name": "Alaska",
+        "x": 3.5,
+        "y": 10
+    },
+    {
+        "name": "Alberta",
+        "x": 9,
+        "y": 17
+    },
+    {
+        "name": "Ontario",
+        "x": 16,
+        "y": 18.5
+    },
+    {
+        "name": "Quebec",
+        "x": 23,
+        "y": 21.5
+    },
+    {
+        "name": "Western United States",
+        "x": 10,
+        "y": 30.5
+    },
+    {
+        "name": "Eastern United States",
+        "x": 16.5,
+        "y": 26
+    },
+    {
+        "name": "Central America",
+        "x": 14,
+        "y": 44.5
+    },
+    {
+        "name": "Venezuela",
+        "x": 19.5,
+        "y": 55
+    },
+    {
+        "name": "Brazil",
+        "x": 24.5,
+        "y": 63
+    },
+    {
+        "name": "Peru'",
+        "x": 19,
+        "y": 63.5
+    },
+    {
+        "name": "Argentina",
+        "x": 22.5,
+        "y": 77
+    },
+    {
+        "name": "North Africa",
+        "x": 42,
+        "y": 41.5
+    },
+    {
+        "name": "Egypt",
+        "x": 49.5,
+        "y": 36.5
+    },
+    {
+        "name": "East Africa",
+        "x": 54.5,
+        "y": 48.5
+    },
+    {
+        "name": "Congo",
+        "x": 49.5,
+        "y": 56.5
+    },
+    {
+        "name": "South Africa",
+        "x": 50,
+        "y": 70
+    },
+    {
+        "name": "Madagascar",
+        "x": 62,
+        "y": 74
+    },
+    {
+        "name": "Middle East",
+        "x": 59.5,
+        "y": 38
+    },
+    {
+        "name": "India",
+        "x": 68.5,
+        "y": 37.5
+    },
+    {
+        "name": "Siam",
+        "x": 76.5,
+        "y": 43.5
+    },
+    {
+        "name": "China",
+        "x": 74,
+        "y": 31.5
+    },
+    {
+        "name": "Afghanistan",
+        "x": 61,
+        "y": 23.5
+    },
+    {
+        "name": "Urals",
+        "x": 63,
+        "y": 13
+    },
+    {
+        "name": "Siberia",
+        "x": 69,
+        "y": 7
+    },
+    {
+        "name": "Jacuzia",
+        "x": 76,
+        "y": 9.5
+    },
+    {
+        "name": "Cita",
+        "x": 75,
+        "y": 17.5
+    },
+    {
+        "name": "Kamchatka",
+        "x": 86,
+        "y": 13.5
+    },
+    {
+        "name": "Mongolia",
+        "x": 75.5,
+        "y": 23.5
+    },
+    {
+        "name": "Japan",
+        "x": 89.5,
+        "y": 27.5
+    },
+    {
+        "name": "Indonesia",
+        "x": 81,
+        "y": 59
+    },
+    {
+        "name": "New Guinea",
+        "x": 90.5,
+        "y": 59.5
+    },
+    {
+        "name": "Western Australia",
+        "x": 86,
+        "y": 72
+    },
+    {
+        "name": "Eastern Australia",
+        "x": 88.5,
+        "y": 71.5
+    }
+]
