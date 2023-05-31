@@ -1,8 +1,5 @@
 package it.unibo.model.objective.impl;
 
-import java.util.List;
-
-import it.unibo.common.Pair;
 import it.unibo.model.objective.api.Objective;
 
 /**
@@ -13,18 +10,17 @@ public class ObjectiveImpl implements Objective {
     private String description;
     private ObjectiveType objectiveType;
     private String armyColor;
-    private String firstContinent;
+    private String firstContinent = "";
     private String secondContinent;
     private Boolean thirdContinent = false;
-    private int numTerritoriesToConquer;
+    private int numTerritories;
     private int minNumArmies;
     private Boolean complete = false;
-    private Pair<ObjectiveType, List<String>> checkObjectives;
 
     /**
      * Constructs a new ObjectiveImpl with the given armyColor and objective type.
      *
-     * @param armyColor     the armyColor of the objective
+     * @param armyColor        the armyColor of the objective
      * @param objectiveType the type of the objective
      */
     public ObjectiveImpl(final String armyColor, final ObjectiveType objectiveType) {
@@ -49,8 +45,8 @@ public class ObjectiveImpl implements Objective {
         this.description = createDescription();
     }
 
-    public ObjectiveImpl(final int numTerritoriesToConquer, final int minNumArmies, final ObjectiveType objectiveType) {
-        this.numTerritoriesToConquer = numTerritoriesToConquer;
+    public ObjectiveImpl(final int numTerritories, final int minNumArmies, final ObjectiveType objectiveType) {
+        this.numTerritories = numTerritories;
         this.minNumArmies = minNumArmies;
         this.objectiveType = objectiveType;
         this.description = createDescription();
@@ -62,7 +58,9 @@ public class ObjectiveImpl implements Objective {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns whether this objective has been completed or not.
+     *
+     * @return true if this objective is complete, false otherwise
      */
     @Override
     public Boolean isComplete() {
@@ -70,7 +68,7 @@ public class ObjectiveImpl implements Objective {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets this objective as completed.
      */
     @Override
     public void setComplete() {
@@ -78,7 +76,9 @@ public class ObjectiveImpl implements Objective {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the description of this objective.
+     *
+     * @return the description of this objective
      */
     @Override
     public String getDescription() {
@@ -86,51 +86,40 @@ public class ObjectiveImpl implements Objective {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the type of this objective.
+     *
+     * @return the type of this objective
      */
     @Override
     public ObjectiveType getObjectiveType() {
         return objectiveType;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Pair<ObjectiveType, List<String>> getCheckObjectives() {
-        return this.checkObjectives;
+    private String createDescription() {
+        if (objectiveType.equals(ObjectiveType.DESTROY)) {
+            return new String(new StringBuilder("Destroy the ").append(this.armyColor).append(" army"));
+        }
+        if (this.firstContinent.isEmpty()) {
+            return new String(
+                    new StringBuilder("Conquer ").append(this.numTerritories).append(" territories with at least ")
+                            .append(this.minNumArmies).append(this.minNumArmies > 1 ? " troops" : " troop"));
+        }
+        if (this.thirdContinent) {
+            return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
+                    .append(this.secondContinent).append(" and another continent of your choice"));
+        } else {
+            return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
+                    .append(this.secondContinent));
+        }
     }
 
     /**
-     * {@inheritDoc}
+     * Gets a string representation of this objective.
+     *
+     * @return a string representation of this objective
      */
     @Override
     public String toString() {
         return this.description;
-    }
-
-    private String createDescription() {
-        if (objectiveType.equals(ObjectiveType.DESTROY)) {
-            this.checkObjectives = new Pair<>(objectiveType, List.of(this.armyColor));
-            return new String(new StringBuilder("Destroy the ").append(this.armyColor).append(" army"));
-        }
-        if (this.firstContinent.isEmpty()) {
-            this.checkObjectives = new Pair<>(objectiveType,
-                    List.of(Integer.toString(this.numTerritoriesToConquer), Integer.toString(this.minNumArmies)));
-            return new String(
-                    new StringBuilder("Conquer ").append(this.numTerritoriesToConquer)
-                            .append(" territories with at least ")
-                            .append(this.minNumArmies).append(this.minNumArmies > 1 ? " troops" : " troop"));
-        }
-        if (this.thirdContinent) {
-            this.checkObjectives = new Pair<>(objectiveType,
-                    List.of(this.firstContinent, this.secondContinent, this.thirdContinent.toString()));
-            return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
-                    .append(this.secondContinent).append(" and another continent of your choice"));
-        } else {
-            this.checkObjectives = new Pair<>(objectiveType, List.of(this.firstContinent, this.secondContinent));
-            return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
-                    .append(this.secondContinent));
-        }
     }
 }
