@@ -94,10 +94,16 @@ public class MainPanel extends JPanel {
         });
 
         jbQuit.addActionListener(e -> {
-            final int n = JOptionPane.showConfirmDialog(this,
+            final String[] options = {"Yes", "No"};
+            final int result = JOptionPane.showOptionDialog(this,
                     "Do you really want to quit?",
-                    "Quitting", JOptionPane.YES_NO_OPTION);
-            if (n == JOptionPane.YES_OPTION) {
+                    "Quitting",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[1]);
+            if (result == 0) {
                 frame.dispose();
             }
         });
