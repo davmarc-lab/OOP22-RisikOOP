@@ -44,12 +44,12 @@ public class MovementImpl implements Movement {
     }
 
     @Override
-    public void setSource(Territory source) {
+    public void setSource(final Territory source) {
         this.source = source;
     }
 
     @Override
-    public void setDestination(Territory destination) {
+    public void setDestination(final Territory destination) {
         this.destination = destination;
     }
 

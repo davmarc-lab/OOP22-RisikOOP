@@ -23,7 +23,7 @@ public interface MovementController {
     MovementView getFrame();
 
     /**
-     * This method set the popup frame
+     * This method set the popup frame.
      * 
      * @param frame
      */

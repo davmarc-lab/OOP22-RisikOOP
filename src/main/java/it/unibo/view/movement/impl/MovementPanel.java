@@ -11,14 +11,25 @@ import javax.swing.JPanel;
 
 import it.unibo.controller.movement.api.MovementController;
 
+/**
+ * The {@code MovementPanel} class represent a graphical panel to move the
+ * troops between territories.
+ */
 public class MovementPanel extends JPanel {
-    
-    private int source;
-    final JButton buttonUp = new JButton("+");
-    final JButton buttonDown = new JButton("-");
-    final JLabel number = new JLabel(String.valueOf(1));
-    final JLabel currentTerritoryStatus = new JLabel();
 
+    private static final int UP_DOWN_SPACE = 5;
+
+    private final int source;
+    private final JButton buttonUp = new JButton("+");
+    private final JButton buttonDown = new JButton("-");
+    private final JLabel number = new JLabel(String.valueOf(1));
+    private final JLabel currentTerritoryStatus = new JLabel();
+
+    /**
+     * Constructor that creates a {@code MovementPanel} object.
+     * 
+     * @param mc movement controller
+     */
     public MovementPanel(final MovementController mc) {
         source = mc.getFirstObject().getTroops();
 
@@ -27,10 +38,10 @@ public class MovementPanel extends JPanel {
 
         this.setLayout(new BorderLayout());
         cnst.gridy = 0;
-        cnst.insets = new Insets(2, 5, 2, 5);
+        cnst.insets = new Insets(2, UP_DOWN_SPACE, 2, UP_DOWN_SPACE);
 
         final JLabel labelText = new JLabel(new StringBuilder("How many troops do you want send to ")
-                .append(mc.getSecondObject().getName()).append(":").toString());
+                .append(mc.getSecondObject().getName()).append(':').toString());
         currentTerritoryStatus.setText(getCurrentStatus(mc));
 
         buttonUp.addActionListener(e -> {
@@ -73,5 +84,4 @@ public class MovementPanel extends JPanel {
         return new StringBuilder(mc.getFirstObject().getName())
                 .append(" troops remaining: ").append(this.source - Integer.parseInt(this.number.getText())).toString();
     }
-
 }

@@ -6,20 +6,32 @@ import javax.swing.JOptionPane;
 import it.unibo.controller.movement.api.MovementController;
 import it.unibo.view.movement.api.MovementView;
 
+/**
+ * Implementation of {@link MovementView} class represent a graphical frame displaying the
+ * movement view.
+ */
 public class MovementFrame extends JFrame implements MovementView {
 
     private MovementController mc;
 
-    public MovementFrame(MovementController mc) {
+    /**
+     * Constructor that creates a {@code MovementFrame} object.
+     * 
+     * @param mc movement controller
+     */
+    public MovementFrame(final MovementController mc) {
         this.mc = mc;
         mc.setFrame(this);
         this.setVisible(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startPopup() {
-        String[] options = {"Confirm", "Cancel"};
-        int result = JOptionPane.showOptionDialog(
+        final String[] options = { "Confirm", "Cancel" };
+        final int result = JOptionPane.showOptionDialog(
                 null,
                 new MovementPanel(mc),
                 new StringBuilder("Move troops from ").append(mc.getFirstObject().getName()).toString(),
@@ -36,9 +48,12 @@ public class MovementFrame extends JFrame implements MovementView {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setController(MovementController controller) {
+    public void setController(final MovementController controller) {
         this.mc = controller;
     }
-    
+
 }

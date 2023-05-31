@@ -25,7 +25,7 @@ public class CombatImpl implements Combat {
     // fields used for test purpose
     private int numberAttacker;
     private int numberDefender;
-    private boolean testFlag = false;
+    private boolean testFlag;
 
     /**
      * This constructor create a standard Combat object.
@@ -72,7 +72,7 @@ public class CombatImpl implements Combat {
         this(tAttacker, numberAttacker, tDefender, numberDefender);
         this.attackers.addAll(attackers);
         this.defenders.addAll(defenders);
-        this.testFlag = true;
+        this.testFlag = testFlag;
     }
 
     /**
@@ -163,7 +163,7 @@ public class CombatImpl implements Combat {
 
         // only for test purpose
         if (testFlag) {
-            var res = this.computeAttack(attackers, defenders);
+            final List<Results> res = this.computeAttack(attackers, defenders);
             applyCombatResult(res);
             return res;
         }

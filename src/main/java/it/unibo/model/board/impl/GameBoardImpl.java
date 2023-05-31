@@ -108,13 +108,12 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instanceCombat(final Pair<Player, Territory> attacker, final Pair<Player, Territory> defender) {
-        CombatController ccAttacker = new CombatControllerView(attacker);
+        final CombatController ccAttacker = new CombatControllerView(attacker);
         ccAttacker.startPopup();
-        CombatController ccDefender = new CombatControllerView(defender);
+        final CombatController ccDefender = new CombatControllerView(defender);
         ccDefender.startPopup();
         var r = new CombatImpl(attacker.getY(), defender.getY()).attack(ccAttacker.getFinalResult(),
                 ccDefender.getFinalResult());
-        System.out.println(r);
     }
 
     /**
@@ -122,7 +121,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
-        MovementController mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory));
+        final MovementController mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory));
         mc.startPopup();
         new MovementImpl(oldTerritory, newTerritory).moveTroops(mc.getFinalResult());
     }
@@ -196,10 +195,10 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void defineBonusArmies() {
-        var player = this.getCurrentPlayer();
+        final Player player = this.getCurrentPlayer();
         final int conquestsTroops = Long.valueOf(player.getTerritories().stream().count()).intValue()
                 / Constants.BONUS_TROOPS_DIVIDER;
-        var continentsTroops = Set.of(BonusTroops.values());
+        final Set<BonusTroops> continentsTroops = Set.of(BonusTroops.values());
         continentsTroops.forEach(
                 t -> player.addTroops(player.getTerritories()
                         .containsAll(this.gameTerritory.getTerritoryMap().get(t.getContinent()))

@@ -34,12 +34,13 @@ public class PlayerImpl implements Player {
      * @param playerHandDeck player's personal deck
      * @param objective      player's objective
      * @param color          player's color
+     * @param bonusTroops    player's bonus troops
      */
     public PlayerImpl(final int id, final Deck<Territory> territories,
             final Hand<Army> playerHandDeck, final Objective objective, final Color color, final int bonusTroops) {
         this.id = id;
         this.territories = territories;
-        this.playerHand = new AbstractArmyHand(new ArrayList<>());
+        this.playerHand = new AbstractArmyHand(playerHandDeck.getHand());
         this.objective = new ObjectiveImpl(objective.getDescription(), objective.getObjectiveType());
         this.color = color;
         this.bonusTroops = bonusTroops;
@@ -114,9 +115,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public Deck<Territory> getTerritoryDeck() {
-        Deck<Territory> t = new DeckImpl<>();
-        t = this.territories;
-        return t;
+        return this.territories;
     }
 
     /**
