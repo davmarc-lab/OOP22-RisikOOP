@@ -59,6 +59,7 @@ public class GameLoopImpl implements GameLoop {
                 "Game started, Player" + this.board.getCurrentPlayer().getId() + " start placing your troops");
         this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
         this.resetClicks();
+        this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
     }
 
     /**
@@ -76,6 +77,7 @@ public class GameLoopImpl implements GameLoop {
         if (this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0).count() == Constants.MAX_PLAYERS) {
             this.phaseManager.switchToNextPhase();
             this.board.getTurnManager().switchToNextPlayer();
+            this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
             this.prepare = false;
             this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
             this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
@@ -83,6 +85,7 @@ public class GameLoopImpl implements GameLoop {
         } else if (troopsCounter == PREPARATION_TROOPS) {
             this.troopsCounter = 0;
             this.board.getTurnManager().switchToNextPlayer();
+            this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
             this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
                     + ", it's your turn to place 3 troops on your territories");
             this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
