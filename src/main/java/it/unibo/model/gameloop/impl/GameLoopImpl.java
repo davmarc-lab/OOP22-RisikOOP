@@ -197,6 +197,7 @@ public class GameLoopImpl implements GameLoop {
         } else {
             this.phaseManager.switchToPhase(Phase.PREPARATION);
             this.board.getTurnManager().switchToNextPlayer();
+            this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
             this.board.defineBonusArmies();
             this.controller.sendMessage("It's Player" + this.board.getCurrentPlayer().getId()
                     + "'s turn.\nYou can now assign your bonus troops to your territories.");

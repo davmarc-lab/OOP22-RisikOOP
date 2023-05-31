@@ -59,7 +59,6 @@ public class ButtonPanel extends JPanel implements ButtonZone {
         });
         endJB.addActionListener(e -> {
             this.controller.endTurn();
-            this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
         });
 
         panel.setOpaque(false);
