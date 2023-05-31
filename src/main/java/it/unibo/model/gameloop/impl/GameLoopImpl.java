@@ -151,8 +151,6 @@ public class GameLoopImpl implements GameLoop {
                     this.resetClicks();
                 }
                 break;
-            case END_TURN:
-                break;
             default:
                 break;
         }
@@ -191,12 +189,16 @@ public class GameLoopImpl implements GameLoop {
 
     @Override
     public void endPlayerTurn() {
-        this.phaseManager.switchToPhase(Phase.PREPARATION);
-        this.board.getTurnManager().switchToNextPlayer();
-        this.board.defineBonusArmies();
-        this.controller.sendMessage("It's Player" + this.board.getCurrentPlayer().getId()
-                + "'s turn.\nYou can now assign your bonus troops to your territories.");
-        this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
+        if (this.phaseManager.getCurrentPhase().equals(Phase.PREPARATION)) {
+            this.controller.sendMessage("Can't end turn your turn during preparation");
+        } else {
+            this.phaseManager.switchToPhase(Phase.PREPARATION);
+            this.board.getTurnManager().switchToNextPlayer();
+            this.board.defineBonusArmies();
+            this.controller.sendMessage("It's Player" + this.board.getCurrentPlayer().getId()
+                    + "'s turn.\nYou can now assign your bonus troops to your territories.");
+            this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
+        }
     }
 
     @Override

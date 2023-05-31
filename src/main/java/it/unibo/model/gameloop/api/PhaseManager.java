@@ -28,13 +28,7 @@ public interface PhaseManager {
          * The player can move some of his troops from one of his territories to
          * another.
          */
-        MOVEMENT,
-
-        /**
-         * The player draws a card if he conquered a territory and the game checks if
-         * his objective has been completed.
-         */
-        END_TURN
+        MOVEMENT
     }
 
     /**
