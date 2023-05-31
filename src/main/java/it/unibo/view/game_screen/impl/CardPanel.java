@@ -33,7 +33,7 @@ public class CardPanel extends JPanel implements CardZone {
 
     private PlayerHandController phc;
 
-    public CardPanel(final Dimension size) {
+    public CardPanel(final Dimension size, final PlayerHandController phc) {
         super();
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(Double.valueOf(size.getWidth()).intValue(),
@@ -70,12 +70,41 @@ public class CardPanel extends JPanel implements CardZone {
 
         final JButton playCards = new JButton("Play");
         final JButton resetCards = new JButton("Reset");
-        JPanel playPanel = new JPanel(new FlowLayout());
+
+        firstCard.addActionListener(e -> {
+            this.phc.addInputCard(this.phc.getArmyTypeFromString(firstCard.getText()));
+            this.firstPlayed.setText(String.valueOf(Integer.parseInt(this.firstPlayed.getText()) + 1));
+            this.updateView();
+        });
+
+        secondCard.addActionListener(e -> {
+            this.phc.addInputCard(this.phc.getArmyTypeFromString(secondCard.getText()));
+            this.secondPlayed.setText(String.valueOf(Integer.parseInt(this.secondPlayed.getText()) + 1));
+            this.updateView();
+        });
+
+        thridCard.addActionListener(e -> {
+            this.phc.addInputCard(this.phc.getArmyTypeFromString(thridCard.getText()));
+            this.thirdPlayed.setText(String.valueOf(Integer.parseInt(this.thirdPlayed.getText()) + 1));
+            this.updateView();
+        });
+
+        resetCards.addActionListener(e -> {
+            this.resetUserInput();
+        });
+
+        final JPanel playPanel = new JPanel(new FlowLayout());
         playPanel.add(playCards);
         playPanel.add(resetCards);
 
         this.add(cardsPanel, BorderLayout.CENTER);
         this.add(playPanel, BorderLayout.SOUTH);
+    }
+
+    private void resetUserInput() {
+        this.firstPlayed.setText("0");
+        this.secondPlayed.setText("0");
+        this.thirdPlayed.setText("0");
     }
 
     private int getFirstCardCount() {

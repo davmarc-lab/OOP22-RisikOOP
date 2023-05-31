@@ -11,15 +11,25 @@ public interface Army {
         /**
          * Represents the Infantry Army card.
          */
-        INFANTRY,
+        INFANTRY("Infantry"),
         /**
          * Represents the Cavalry Army card.
          */
-        CAVALRY,
+        CAVALRY("Cavalry"),
         /**
          * Represents the Artillery Army card.
          */
-        ARTILLERY
+        ARTILLERY("Artillery");
+
+        private final String name;
+
+        ArmyType(final String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return this.name;
+        }
     }
 
     /**

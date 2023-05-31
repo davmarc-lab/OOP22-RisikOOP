@@ -2,6 +2,7 @@ package it.unibo.view.game_screen.impl;
 
 import javax.swing.JPanel;
 
+import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.view.game_screen.api.ButtonZone;
 import it.unibo.view.game_screen.api.CardZone;
 import it.unibo.view.game_screen.api.GameZone;
@@ -32,10 +33,12 @@ public class SideBar extends JPanel implements SideZone {
         layout.setVgap(VGAP);
         this.setLayout(layout);
         this.ip = new InfoPanel(this.getPreferredSize(), this);
-        ((InfoPanel) this.ip).setPreferredSize(new Dimension(Double.valueOf(this.getPreferredSize().getWidth()).intValue(),
-                Double.valueOf(this.getPreferredSize().getHeight() * 0.45).intValue()));
+        ((InfoPanel) this.ip)
+                .setPreferredSize(new Dimension(Double.valueOf(this.getPreferredSize().getWidth()).intValue(),
+                        Double.valueOf(this.getPreferredSize().getHeight() * 0.45).intValue()));
         this.add((InfoPanel) ip, BorderLayout.NORTH);
-        this.cp = new CardPanel(this.getPreferredSize());
+        this.cp = new CardPanel(this.getPreferredSize(),
+                new PlayerHandControllerImpl(parent.getController().getGameLoop().getBoard().getCurrentPlayer()));
         this.add((CardPanel) cp, BorderLayout.CENTER);
         this.bp = new ButtonPanel(this.getPreferredSize());
         this.add((ButtonPanel) bp, BorderLayout.SOUTH);

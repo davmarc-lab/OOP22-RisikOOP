@@ -5,8 +5,14 @@ import java.util.List;
 import it.unibo.model.army.api.Army.ArmyType;
 
 public interface PlayerHandController {
-    
-    List<ArmyType> getArmyTypes();
+
+    List<ArmyType> getInputCards();
+
+    void addInputCard(final ArmyType card);
+
+    void clearInputCards();
+
+    ArmyType getArmyTypeFromString(final String name);
 
     int getPlayerFirstCards();
 

@@ -1,5 +1,6 @@
 package it.unibo.controller.playerhand.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,14 +11,30 @@ import it.unibo.model.player.api.Player;
 public class PlayerHandControllerImpl implements PlayerHandController {
 
     private final Player model;
+    private final List<ArmyType> inputCards = new ArrayList<>();
 
     public PlayerHandControllerImpl(final Player model) {
         this.model = model;
     }
 
     @Override
-    public List<ArmyType> getArmyTypes() {
-        return Arrays.stream(ArmyType.values()).toList();
+    public List<ArmyType> getInputCards() {
+        return this.inputCards;
+    }
+
+    @Override
+    public void addInputCard(final ArmyType card) {
+        this.inputCards.add(card);
+    }
+
+    @Override
+    public void clearInputCards() {
+        this.inputCards.clear();
+    }
+
+    @Override
+    public ArmyType getArmyTypeFromString(String name) {
+        return Arrays.stream(ArmyType.values()).filter(t -> t.getName().equals(name)).findAny().get();
     }
 
     @Override
