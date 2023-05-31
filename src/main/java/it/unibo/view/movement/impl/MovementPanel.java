@@ -17,7 +17,8 @@ import it.unibo.controller.movement.api.MovementController;
  */
 public class MovementPanel extends JPanel {
 
-    private static final int UP_DOWN_SPACE = 5;
+    private static final int LEFT_RIGHT_BORDER = 5;
+    private static final int TOP_BOTTOM_BORDER = 2;
 
     private final int source;
     private final JButton buttonUp = new JButton("+");
@@ -38,7 +39,7 @@ public class MovementPanel extends JPanel {
 
         this.setLayout(new BorderLayout());
         cnst.gridy = 0;
-        cnst.insets = new Insets(2, UP_DOWN_SPACE, 2, UP_DOWN_SPACE);
+        cnst.insets = new Insets(TOP_BOTTOM_BORDER, LEFT_RIGHT_BORDER, TOP_BOTTOM_BORDER, LEFT_RIGHT_BORDER);
 
         final JLabel labelText = new JLabel(new StringBuilder("How many troops do you want send to ")
                 .append(mc.getSecondObject().getName()).append(':').toString());
