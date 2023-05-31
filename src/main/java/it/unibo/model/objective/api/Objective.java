@@ -1,5 +1,9 @@
 package it.unibo.model.objective.api;
 
+import java.util.List;
+
+import it.unibo.common.Pair;
+
 /**
  * Interface representing a game objective.
  */
@@ -41,6 +45,14 @@ public interface Objective {
      * @return the description of the objective
      */
     String getDescription();
+
+    /**
+     * Gets the check objectives which are used to check if the objective is
+     * complete.
+     * 
+     * @return a pair containing the type of the objective and a list of strings
+     */
+    Pair<ObjectiveType, List<String>> getCheckObjectives();
 
     /**
      * Gets the type of the objective.
