@@ -14,13 +14,24 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import it.unibo.controller.playerhand.api.PlayerHandController;
 import it.unibo.view.game_screen.api.CardZone;
 
 public class CardPanel extends JPanel implements CardZone {
 
     private static final double HEIGHT_SCALING = 0.3;
-    private static final String CARD_LABEL = "CARD PANEL";
+    private static final String CARD_LABEL = "PLAYER HAND";
     private static final int BORDER_SIZE = 4;
+
+    private final JLabel firstText = new JLabel("NaN");
+    private final JLabel secondText = new JLabel("NaN");
+    private final JLabel thirdText = new JLabel("NaN");
+
+    private final JLabel firstPlayed = new JLabel("NaN");
+    private final JLabel secondPlayed = new JLabel("NaN");
+    private final JLabel thirdPlayed = new JLabel("NaN");
+
+    private PlayerHandController phc;
 
     public CardPanel(final Dimension size) {
         super();
@@ -33,32 +44,61 @@ public class CardPanel extends JPanel implements CardZone {
         final JPanel cardsPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints cnst = new GridBagConstraints();
         cnst.gridy = 0;
-        cnst.ipady = (int) (this.getPreferredSize().getHeight() / 10);
-        cnst.ipadx = 10;
+        var n = (int) (this.getPreferredSize().getHeight() * 0.05);
         cnst.insets = new Insets(2, 2, 2, 2);
 
         final JButton firstCard = new JButton("Infantry");
+        firstCard.setMargin(new Insets(n, n, n, n));
         final JButton secondCard = new JButton("Cavalry");
+        secondCard.setMargin(new Insets(n, n, n, n));
         final JButton thridCard = new JButton("Artillery");
+        thridCard.setMargin(new Insets(n, n, n, n));
         
-        final JLabel firstText = new JLabel("1");
-        cardsPanel.add(firstText, cnst);
+        cardsPanel.add(this.firstText, cnst);
         cardsPanel.add(firstCard, cnst);
+        cardsPanel.add(this.firstPlayed, cnst);
         cnst.gridy++;
-        final JLabel secondText = new JLabel("1");
-        cardsPanel.add(secondText, cnst);
+        
+        cardsPanel.add(this.secondText, cnst);
         cardsPanel.add(secondCard, cnst);
+        cardsPanel.add(this.secondPlayed, cnst);
         cnst.gridy++;
-        final JLabel thirdText = new JLabel("1");
-        cardsPanel.add(thirdText, cnst);
+        cardsPanel.add(this.thirdText, cnst);
         cardsPanel.add(thridCard, cnst);
+        cardsPanel.add(this.thirdPlayed, cnst);
         cnst.gridy++;
 
         final JButton playCards = new JButton("Play");
-        JPanel play = new JPanel(new FlowLayout());
-        play.add( playCards);
+        final JButton resetCards = new JButton("Reset");
+        JPanel playPanel = new JPanel(new FlowLayout());
+        playPanel.add(playCards);
+        playPanel.add(resetCards);
 
         this.add(cardsPanel, BorderLayout.CENTER);
-        this.add(play, BorderLayout.SOUTH);
+        this.add(playPanel, BorderLayout.SOUTH);
+    }
+
+    private int getFirstCardCount() {
+        return this.phc == null ? -1 : this.phc.getPlayerFirstCards();
+    }
+
+    private int getSecondCardCount() {
+        return this.phc == null ? -1 : this.phc.getPlayerSecondCards();
+    }
+
+    private int getThirdCardCount() {
+        return this.phc == null ? -1 : this.phc.getPlayerThirdCards();
+    }
+
+    @Override
+    public void setController(PlayerHandController controller) {
+        this.phc = controller;
+    }
+
+    @Override
+    public void updateView() {
+        this.firstText.setText(String.valueOf(this.getFirstCardCount()));
+        this.secondText.setText(String.valueOf(this.getSecondCardCount()));
+        this.thirdText.setText(String.valueOf(this.getThirdCardCount()));
     }
 }

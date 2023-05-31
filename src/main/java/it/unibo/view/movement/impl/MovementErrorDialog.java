@@ -1,4 +1,4 @@
-package it.unibo.model.movement.impl;
+package it.unibo.view.movement.impl;
 
 import javax.swing.JOptionPane;
 

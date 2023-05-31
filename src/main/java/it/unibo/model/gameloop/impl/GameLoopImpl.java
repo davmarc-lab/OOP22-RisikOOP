@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
 import it.unibo.controller.api.MainController;
+import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.board.impl.GameBoardImpl;
 import it.unibo.model.gameloop.api.GameLoop;
@@ -22,14 +23,10 @@ import it.unibo.model.territory.api.Territory;
 public class GameLoopImpl implements GameLoop {
 
     private static final int PREPARATION_TROOPS = 3;
-    private static final String COMBAT_MESSAGE = 
-        "Select an adjacent enemy territory.\nIf you want to undo the attack and start another, press ATTACK";
-    private static final String RESET_COMBAT_MESSAGE = 
-        "You can attack again by selecting one of your territories.\nIf you don't want to attack press MOVE or END TURN";
-    private static final String MOVEMENT_MESSAGE = 
-        "Select an adjacent territory.\nIf you want to undo the movement and start another, press MOVE";
-    private static final String RESET_MOVEMENT_MESSAGE = 
-        "You can move again by selecting one of your territories.\nIf you don't want to move press END TURN";
+    private static final String COMBAT_MESSAGE = "Select an adjacent enemy territory.\nIf you want to undo the attack and start another, press ATTACK";
+    private static final String RESET_COMBAT_MESSAGE = "You can attack again by selecting one of your territories.\nIf you don't want to attack press MOVE or END TURN";
+    private static final String MOVEMENT_MESSAGE = "Select an adjacent territory.\nIf you want to undo the movement and start another, press MOVE";
+    private static final String RESET_MOVEMENT_MESSAGE = "You can move again by selecting one of your territories.\nIf you don't want to move press END TURN";
 
     private final PhaseManager phaseManager;
     private final GameBoard board;
@@ -82,6 +79,8 @@ public class GameLoopImpl implements GameLoop {
             this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
             this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
                     + ", you can now play your cards to gain bonus troops");
+            this.controller.getGameZone().getSideBar().getCardPanel().setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
+            this.controller.getGameZone().getSideBar().getCardPanel().updateView();
         } else if (troopsCounter == PREPARATION_TROOPS) {
             this.troopsCounter = 0;
             this.board.getTurnManager().switchToNextPlayer();
@@ -102,7 +101,7 @@ public class GameLoopImpl implements GameLoop {
             t = this.board.getGameTerritories().getTerritory((String) input);
         }
         if (this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0).count() != Constants.MAX_PLAYERS
-            && this.prepare) {
+                && this.prepare) {
             this.prepareGame(t);
             return;
         }
@@ -201,6 +200,8 @@ public class GameLoopImpl implements GameLoop {
             this.board.defineBonusArmies();
             this.controller.sendMessage("It's Player" + this.board.getCurrentPlayer().getId()
                     + "'s turn.\nYou can now assign your bonus troops to your territories.");
+            this.controller.getGameZone().getSideBar().getCardPanel().setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
+            this.controller.getGameZone().getSideBar().getCardPanel().updateView();
             this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
         }
     }
