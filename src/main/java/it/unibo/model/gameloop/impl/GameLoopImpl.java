@@ -61,6 +61,7 @@ public class GameLoopImpl implements GameLoop {
         this.controller.sendMessage(
                 "Game started, Player" + this.board.getCurrentPlayer().getId() + " start placing your troops");
         this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
+        this.controller.getGameZone().getBoard().setTroopsView();
         this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
     }
 
@@ -72,6 +73,7 @@ public class GameLoopImpl implements GameLoop {
      */
     private void updatePreparation(final Territory t) {
         this.selectedTerritories.add(t);
+        this.controller.getGameZone().getBoard().updateTroopsView(t.getName());
         if (this.selectedTerritories.size() == PREPARATION_TROOPS) {
             this.board.getTurnManager().switchToNextPlayer();
             this.selectedTerritories.clear();
@@ -110,14 +112,15 @@ public class GameLoopImpl implements GameLoop {
             t = this.board.getGameTerritories().getTerritory((String) input);
         }
         if (this.prepare) {
-            this.board.placeTroops(t);
+            this.board.placeTroops(t, 1);
             this.updatePreparation(t);
             return;
         }
         switch (this.phaseManager.getCurrentPhase()) {
             case PREPARATION:
                 this.selectedTerritories.add(t);
-                this.board.placeTroops(t);
+                this.board.placeTroops(t, 1);
+                this.controller.getGameZone().getBoard().updateTroopsView(t.getName());
                 if (this.selectedTerritories.size() == this.board.getCurrentPlayer().getTroops()) {
                     this.selectedTerritories.clear();
                     this.phaseManager.switchToNextPhase();
@@ -154,6 +157,7 @@ public class GameLoopImpl implements GameLoop {
                 } else {
                     this.board.instanceMovement(this.selectedTerritories.get(FIRST),
                             this.selectedTerritories.get(SECOND));
+                            this.selectedTerritories.forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
                     this.selectedTerritories.clear();
                     this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
                     this.controller.sendMessage(RESET_MOVEMENT_MESSAGE);

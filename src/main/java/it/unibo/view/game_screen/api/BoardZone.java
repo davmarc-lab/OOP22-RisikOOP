@@ -39,4 +39,16 @@ public interface BoardZone {
      */
     MainController getController();
 
+    /**
+     * Sets the text color in the label with the number of troops in all territories.
+     */
+    void setTroopsView();
+
+    /**
+     * Update the label with the number of troops of the territory given.
+     * 
+     * @param territory the territory name
+     */
+    void updateTroopsView(String territory);
+
 }
