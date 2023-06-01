@@ -2,6 +2,7 @@ package it.unibo.controller.combat.impl;
 
 import java.util.Optional;
 
+import it.unibo.model.combat.api.Combat.Role;
 import it.unibo.common.Pair;
 import it.unibo.controller.combat.api.CombatController;
 import it.unibo.model.player.api.Player;
@@ -18,6 +19,7 @@ public class CombatControllerView implements CombatController {
     private CombatView frame;
     private final Pair<Player, Territory> model;
     private int value;
+    private final Role role;
     private Optional<Integer> combatOutcome = Optional.empty();
 
     /**
@@ -25,9 +27,10 @@ public class CombatControllerView implements CombatController {
      *
      * @param model the player and territory pair for the combat
      */
-    public CombatControllerView(final Pair<Player, Territory> model) {
+    public CombatControllerView(final Pair<Player, Territory> model, final Role role) {
         this.model = model;
         this.value = 1;
+        this.role = role;
         this.frame = new CombatFrame(this);
     }
 
@@ -70,7 +73,7 @@ public class CombatControllerView implements CombatController {
      */
     @Override
     public boolean isNumberValid(final int value) {
-        return value <= 3 && value >= 1;
+        return value <= 3 && this.checkStableTroops(value) && value >= 1;
     }
 
     /**
@@ -109,5 +112,9 @@ public class CombatControllerView implements CombatController {
     @Override
     public Territory getCombatTerritory() {
         return this.model.getY();
+    }
+
+    private boolean checkStableTroops(final int value) {
+        return value <= this.getCombatTerritory().getTroops() - this.role.getStableTroops();
     }
 }

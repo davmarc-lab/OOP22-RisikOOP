@@ -3,6 +3,7 @@ package it.unibo.model.player.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.hand.api.Hand;
 import it.unibo.model.hand.impl.HandImpl;
@@ -105,6 +106,11 @@ public class PlayerImpl implements Player {
     @Override
     public Hand getPlayerHand() {
         return this.playerHand;
+    }
+
+    @Override
+    public void addCard(Army card) {
+        this.playerHand.addCard(card);
     }
 
     /**

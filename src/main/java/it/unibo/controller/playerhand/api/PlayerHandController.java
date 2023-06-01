@@ -12,6 +12,12 @@ public interface PlayerHandController {
 
     void clearInputCards();
 
+    boolean isInputFull();
+
+    boolean isAddPossible(int input, int currentNumber);
+
+    void attemptPlayCards();
+
     int getNumberOfCards(String cardType);
 
     int getPlayerFirstCards();

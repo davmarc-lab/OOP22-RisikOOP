@@ -16,6 +16,7 @@ import it.unibo.controller.movement.impl.MovementControllerView;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;
+import it.unibo.model.combat.api.Combat.Role;
 import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.deck.impl.DeckImpl;
@@ -107,9 +108,9 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void instanceCombat(final Pair<Player, Territory> attacker, final Pair<Player, Territory> defender) {
-        final CombatController ccAttacker = new CombatControllerView(attacker);
+        final CombatController ccAttacker = new CombatControllerView(attacker, Role.ATTACKER);
         ccAttacker.startPopup();
-        final CombatController ccDefender = new CombatControllerView(defender);
+        final CombatController ccDefender = new CombatControllerView(defender, Role.DEFENDER);
         ccDefender.startPopup();
         new CombatImpl(attacker.getY(), defender.getY()).attack(ccAttacker.getCombatOutcome(),
                 ccDefender.getCombatOutcome());

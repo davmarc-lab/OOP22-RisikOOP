@@ -19,6 +19,10 @@ public class PlayerHandControllerImpl implements PlayerHandController {
         this.model = model;
     }
 
+    private ArmyType getArmyTypeFromString(String name) {
+        return Arrays.stream(ArmyType.values()).filter(t -> t.getName().equals(name)).findAny().get();
+    }
+
     @Override
     public List<Army> getInputCards() {
         return this.inputCards;
@@ -34,8 +38,20 @@ public class PlayerHandControllerImpl implements PlayerHandController {
         this.inputCards.clear();
     }
 
-    private ArmyType getArmyTypeFromString(String name) {
-        return Arrays.stream(ArmyType.values()).filter(t -> t.getName().equals(name)).findAny().get();
+    @Override
+    public boolean isInputFull() {
+        return this.inputCards.size() == 3;
+    }
+
+    @Override
+    public boolean isAddPossible(int currentNumber, int input) {
+        return input + 1 <= currentNumber;
+    }
+
+    @Override
+    public void attemptPlayCards() {
+        final int bonusTroops = this.model.getPlayerHand().playCards(inputCards);
+        this.model.addTroops(bonusTroops);
     }
 
     @Override
@@ -60,5 +76,4 @@ public class PlayerHandControllerImpl implements PlayerHandController {
         return (int) this.model.getPlayerHand().getHand().stream()
                 .filter(c -> c.getArmyType().equals(ArmyType.ARTILLERY)).count();
     }
-
 }
