@@ -22,19 +22,21 @@ public abstract class AbstractFileReader<T> implements FileReader<T> {
      */
     public AbstractFileReader(final String pathToFile) {
         this.logger = Logger.getLogger(AbstractFileReader.class.getName());
-        this.finalPath = new String(pathToFile);
+        this.finalPath = pathToFile;
     }
 
     /**
      * 
      * {@inheritDoc}
      */
+    @Override
     public abstract T readFromFile();
 
     /**
      * 
      * {@inheritDoc}
      */
+    @Override
     public Logger getLogger() {
         return this.logger;
     }
@@ -43,6 +45,7 @@ public abstract class AbstractFileReader<T> implements FileReader<T> {
      * 
      * {@inheritDoc}
      */
+    @Override
     public String getFilePath() {
         return this.finalPath;
     }

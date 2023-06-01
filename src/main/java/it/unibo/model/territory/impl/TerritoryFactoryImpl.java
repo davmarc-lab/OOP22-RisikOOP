@@ -20,8 +20,8 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
      */
     @Override
     public GameTerritory createTerritories() {
-        Map<String, Set<Territory>> territories = new HashMap<>();
-        Set<Pair<String, Set<Territory>>> set = new JsonReaderTerritory().readFromFile();
+        final Map<String, Set<Territory>> territories = new HashMap<>();
+        final Set<Pair<String, Set<Territory>>> set = new JsonReaderTerritory().readFromFile();
         set.forEach(p -> territories.put(p.getX(), p.getY()));
         return new GameTerritoryImpl(territories);
     }

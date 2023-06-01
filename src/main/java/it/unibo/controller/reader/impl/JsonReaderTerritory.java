@@ -27,7 +27,7 @@ public class JsonReaderTerritory extends AbstractFileReader<Set<Pair<String, Set
             .append(Constants.PATH_SEPARATOR).append("territory").append(Constants.PATH_SEPARATOR)
             .append("Territories.json").toString();
 
-    private Set<Pair<String, Set<Territory>>> territories;
+    private final Set<Pair<String, Set<Territory>>> territories;
 
     /**
      * Creates the {@code set of pairs of string and territories' set} where the
