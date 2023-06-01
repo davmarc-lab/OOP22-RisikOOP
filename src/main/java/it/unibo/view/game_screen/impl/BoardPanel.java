@@ -37,7 +37,7 @@ public final class BoardPanel extends JPanel implements BoardZone {
     private static final int LABEL_SIZE = 20;
 
     private final Map<CustomButton, String> territories = new HashMap<>();
-    private final Map<JLabel, String> squares = new HashMap<>();
+    private final Map<String, JLabel> squares = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
     private MainController controller;
 
@@ -61,7 +61,7 @@ public final class BoardPanel extends JPanel implements BoardZone {
         for (var jb : this.territories.keySet()) {
             this.pane.add(((JButton) jb), Integer.valueOf(1));
         }
-        for (var lb : this.squares.keySet()) {
+        for (var lb : this.squares.values()) {
             this.pane.add(lb, Integer.valueOf(1));
         }
 
@@ -105,14 +105,14 @@ public final class BoardPanel extends JPanel implements BoardZone {
         new JsonReaderSquareCoordinates().readFromFile().forEach(pair -> {
             final JLabel lab = new JLabel();
             lab.setFont(new Font("Arial", Font.PLAIN, 14));
-            lab.setText("10");
+            lab.setText("1");
             lab.setForeground(Color.WHITE);
             lab.setBackground(Color.BLACK);
             lab.setOpaque(true);
             final int x = Double.valueOf(pair.getY().getX() * width / 100).intValue();
             final int y = Double.valueOf(pair.getY().getY() * height / 100).intValue();
             lab.setBounds(x, y, LABEL_SIZE, LABEL_SIZE);
-            this.squares.put(lab, pair.getX());
+            this.squares.put(pair.getX(), lab);
         });
     }
 
@@ -170,6 +170,35 @@ public final class BoardPanel extends JPanel implements BoardZone {
     @Override
     public void setController(final MainController controller) {
         this.controller = controller;
+    }
+
+    @Override
+    public void setTroopsView() {
+        this.controller.getGameLoop().getBoard().getAllPlayers().forEach(
+                p -> p.getTerritories().forEach(
+                        t -> this.getLabel(t.getName()).setForeground(new Color(p.getColorPlayer().getRedValue(),
+                                p.getColorPlayer().getGreenValue(), p.getColorPlayer().getBlueValue()))));
+    }
+
+    @Override
+    public void updateTroopsView(final String territory) {
+        final int troops = this.controller.getGameLoop().getBoard().getGameTerritories().getTerritories().stream()
+                .filter(t -> t.getName().equals(territory)).findAny().get().getTroops();
+        this.getLabel(territory).setText((String.valueOf(troops)));
+        this.getLabel(territory).setForeground(this.getPlayerColor());
+    }
+
+    private JLabel getLabel(final String t) {
+        return this.squares.get(t);
+    }
+
+    private Color getPlayerColor() {
+        return new Color(this.controller.getGameLoop().getBoard().getCurrentPlayer()
+                .getColorPlayer().getRedValue(),
+                this.controller.getGameLoop().getBoard().getCurrentPlayer()
+                        .getColorPlayer().getGreenValue(),
+                this.controller.getGameLoop().getBoard().getCurrentPlayer()
+                        .getColorPlayer().getBlueValue());
     }
 
 }

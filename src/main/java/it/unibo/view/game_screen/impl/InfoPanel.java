@@ -78,7 +78,7 @@ public class InfoPanel extends JPanel implements InfoZone {
 
     private String getCurrentPlayerObjective() {
         return this.parent.getParentEntity().getController().getGameLoop().getBoard().getCurrentPlayer().getObjective()
-                .toString();
+                .getDescription();
     }
 
     @Override
