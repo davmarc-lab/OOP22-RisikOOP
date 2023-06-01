@@ -38,8 +38,8 @@ public class ButtonPanel extends JPanel implements ButtonZone {
      */
     public ButtonPanel(final Dimension size) {
         this.setLayout(new BorderLayout());
-        JLabel label = new JLabel(TITLE_LABEL, SwingConstants.CENTER);
-        JPanel panel = new JPanel();
+        final JLabel label = new JLabel(TITLE_LABEL, SwingConstants.CENTER);
+        final JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(Double.valueOf(size.getWidth()).intValue(),
                 Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue()));
         panel.setLayout(new GridBagLayout());
@@ -95,7 +95,7 @@ public class ButtonPanel extends JPanel implements ButtonZone {
     }
 
     private JButton createButton(final String name, final Dimension dim) {
-        JButton jb = new JButton(name);
+        final JButton jb = new JButton(name);
         jb.setBounds(0, 0, Double.valueOf(dim.getWidth()).intValue(),
                 Double.valueOf(dim.getHeight() / NUM_OF_BUTTONS).intValue());
         jb.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));

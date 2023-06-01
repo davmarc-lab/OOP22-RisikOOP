@@ -40,27 +40,25 @@ public final class BoardPanel extends JPanel implements BoardZone {
     private final JLayeredPane pane = new JLayeredPane();
     private MainController controller;
 
-    private ImageIcon map;
-
     /**
      * Panel that contains the map and the buttons over the names of the
      * territories.
      */
     public BoardPanel() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        map = new ImageIcon(adjustImageSize(new ImageIcon(Constants.MAP_PATH), (int) screenSize.getWidth(),
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final ImageIcon map = new ImageIcon(adjustImageSize(new ImageIcon(Constants.MAP_PATH), (int) screenSize.getWidth(),
                 (int) screenSize.getHeight()));
 
-        JLabel label = new JLabel(map);
+        final JLabel label = new JLabel(map);
         label.setBounds(0, 0, map.getIconWidth(), map.getIconHeight());
 
         loadButtons(map.getIconWidth(), map.getIconHeight());
         loadLabels(map.getIconWidth(), map.getIconHeight());
         // Puts all buttons and labels on layer 1 (above the map)
-        for (var jb : this.territories.keySet()) {
-            this.pane.add(((JButton) jb), Integer.valueOf(1));
+        for (final var jb : this.territories.keySet()) {
+            this.pane.add((JButton) jb, Integer.valueOf(1));
         }
-        for (var lb : this.squares.values()) {
+        for (final var lb : this.squares.values()) {
             this.pane.add(lb, Integer.valueOf(1));
         }
 
@@ -80,7 +78,7 @@ public final class BoardPanel extends JPanel implements BoardZone {
      */
     private Image adjustImageSize(final ImageIcon map, final int width, final int height) {
         return map.getImage().getScaledInstance((int) (width * WIDTH_SCALING), (int) (height * HEIGHT_SCALING),
-                java.awt.Image.SCALE_SMOOTH);
+                Image.SCALE_SMOOTH);
     }
 
     /**
@@ -124,7 +122,7 @@ public final class BoardPanel extends JPanel implements BoardZone {
      * @return invisible JButton with specified values
      */
     private CustomButton createButton(final int x, final int y, final int width, final int height) {
-        CustomButton b = new CustomButtonImpl(x, y, width, height);
+        final CustomButton b = new CustomButtonImpl(x, y, width, height);
         ((JButton) b).addActionListener(e -> {
             this.controller.sendInput(this.territories.get(b));
         });
@@ -180,7 +178,7 @@ public final class BoardPanel extends JPanel implements BoardZone {
     public void updateTroopsView(final String territory) {
         final int troops = this.controller.getGameLoop().getBoard().getGameTerritories().getTerritories().stream()
                 .filter(t -> t.getName().equals(territory)).findAny().get().getTroops();
-        this.getLabel(territory).setText((String.valueOf(troops)));
+        this.getLabel(territory).setText(String.valueOf(troops));
         this.getLabel(territory).setForeground(this.getPlayerColor(territory));
     }
 

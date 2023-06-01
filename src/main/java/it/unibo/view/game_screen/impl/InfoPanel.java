@@ -2,7 +2,6 @@ package it.unibo.view.game_screen.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -26,27 +25,26 @@ public class InfoPanel extends JPanel implements InfoZone {
     private static final int BORDER_SIZE = 4;
 
     private final SideZone parent;
-    private final JPanel playerPanel;
-    private final JPanel objectivePanel;
-    private JLabel pLabel;
-    private JLabel cLabel;
-    private final JLabel oLabel;
-    private JTextArea objText;
+    private final JLabel pLabel;
+    private final JLabel cLabel;
+    private final JTextArea objText;
 
     /**
      * Creates the panel with the player's informations inside the sidebar.
      * 
-     * @param size the size of the parent entity given
      * @param parent the parent entity
      */
-    public InfoPanel(final Dimension size, final SideZone parent) {
+    public InfoPanel(final SideZone parent) {
         super();
         this.parent = parent;
         this.setLayout(new BorderLayout());
         this.add(new JLabel(INFO_LABEL, SwingConstants.CENTER), BorderLayout.NORTH);
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
 
-        this.playerPanel = new JPanel(new GridBagLayout());
+        final JPanel playerPanel;
+        final JPanel objectivePanel;
+
+        playerPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cnst = new GridBagConstraints();
         final int n1 = 2;
         final int n2 = 5;
@@ -55,21 +53,22 @@ public class InfoPanel extends JPanel implements InfoZone {
         this.pLabel = new JLabel();
         this.cLabel = new JLabel();
         cnst.gridy++;
-        this.playerPanel.add(pLabel, cnst);
+        playerPanel.add(this.pLabel, cnst);
         cnst.gridy++;
-        this.playerPanel.add(cLabel, cnst);
+        playerPanel.add(this.cLabel, cnst);
         this.add(playerPanel, BorderLayout.CENTER);
 
-        this.objectivePanel = new JPanel(new BorderLayout());
-        this.oLabel = new JLabel(OBJECTIVE_TITLE);
+        objectivePanel = new JPanel(new BorderLayout());
+        final JLabel oLabel;
+        oLabel = new JLabel(OBJECTIVE_TITLE);
         this.objText = new JTextArea();
         this.objText.setLineWrap(true);
         this.objText.setWrapStyleWord(true);
         this.objText.setEditable(false);
-        this.objectivePanel.add(this.oLabel, BorderLayout.NORTH);
-        this.objectivePanel.add(this.objText, BorderLayout.CENTER);
+        objectivePanel.add(oLabel, BorderLayout.NORTH);
+        objectivePanel.add(this.objText, BorderLayout.CENTER);
 
-        this.add(this.objectivePanel, BorderLayout.SOUTH);
+        this.add(objectivePanel, BorderLayout.SOUTH);
         this.updateUI();
     }
 

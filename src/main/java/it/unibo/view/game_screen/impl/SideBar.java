@@ -39,10 +39,10 @@ public class SideBar extends JPanel implements SideZone {
         this.setPreferredSize(new Dimension(Double.valueOf(size.getWidth() * WIDTH_SCALING).intValue(),
                 Double.valueOf(size.getHeight()).intValue()));
         this.setBackground(Color.WHITE);
-        BorderLayout layout = new BorderLayout();
+        final BorderLayout layout = new BorderLayout();
         layout.setVgap(VGAP);
         this.setLayout(layout);
-        this.ip = new InfoPanel(this.getPreferredSize(), this);
+        this.ip = new InfoPanel(this);
         ((InfoPanel) this.ip)
                 .setPreferredSize(new Dimension(Double.valueOf(this.getPreferredSize().getWidth()).intValue(),
                         Double.valueOf(this.getPreferredSize().getHeight() * INFO_PANEL_HEIGHT_SCALING).intValue()));

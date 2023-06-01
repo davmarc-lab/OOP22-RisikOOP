@@ -31,7 +31,8 @@ import it.unibo.controller.reader.impl.AbstractFileReader;
 import it.unibo.view.game_screen.impl.MainFrame;
 
 /**
- * The extension of JPanel which defines the main panel of the game with the start menu.
+ * The extension of JPanel which defines the main panel of the game with the
+ * start menu.
  */
 public class MainPanel extends JPanel {
 
@@ -52,9 +53,6 @@ public class MainPanel extends JPanel {
     private static final int BUTTON_BORDER_SIZE = 3;
 
     private final Dimension dimension;
-    private final ImageIcon wallpaper;
-    private final JPanel panel;
-    private final JLayeredPane pane;
 
     /**
      * Creates the main panel with the start menu.
@@ -63,28 +61,31 @@ public class MainPanel extends JPanel {
      *              the main frame.
      */
     public MainPanel(final MainFrame frame) {
+        final JPanel panel;
+        final JLayeredPane pane;
         final JButton jbPlay;
         final JButton jbRules;
         final JButton jbQuit;
         final JLabel label;
         final JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         final JPanel northPanel = new JPanel(new FlowLayout());
+        final ImageIcon wallpaper;
 
-        this.pane = new JLayeredPane();
+        pane = new JLayeredPane();
 
-        this.panel = new JPanel();
-        this.panel.setLayout(new BorderLayout());
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
         this.dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(
                 new Dimension(Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
                         Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue()));
 
-        this.wallpaper = new ImageIcon(adjustImageSize(new ImageIcon(WALLPAPER_PATH),
-                this.dimension.getWidth(), this.dimension.getHeight()));
+        wallpaper = new ImageIcon(adjustImageSize(new ImageIcon(WALLPAPER_PATH),
+                dimension.getWidth(), this.dimension.getHeight()));
 
-        label = new JLabel(this.wallpaper);
-        label.setBounds(0, 0, this.wallpaper.getIconWidth(), this.wallpaper.getIconHeight());
+        label = new JLabel(wallpaper);
+        label.setBounds(0, 0, wallpaper.getIconWidth(), wallpaper.getIconHeight());
 
         jbPlay = this.createButton(PLAY_LABEL, this.getButtonDimension());
         jbRules = this.createButton(RULES_LABEL, this.getButtonDimension());
@@ -95,7 +96,7 @@ public class MainPanel extends JPanel {
         });
 
         jbQuit.addActionListener(e -> {
-            final String[] options = {"Yes", "No"};
+            final String[] options = { "Yes", "No" };
             final int result = JOptionPane.showOptionDialog(this,
                     "Do you really want to quit?",
                     "Quitting",
@@ -112,8 +113,6 @@ public class MainPanel extends JPanel {
         try {
             final String message;
             message = new AbstractFileReader<String>(RULES_PATH) {
-                private String line;
-                private StringBuilder sBuilder = new StringBuilder();
                 private FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
                 private InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream,
                         StandardCharsets.UTF_8);
@@ -121,9 +120,13 @@ public class MainPanel extends JPanel {
 
                 @Override
                 public String readFromFile() {
+                    String line;
+                    final StringBuilder sBuilder = new StringBuilder();
                     try {
-                        while ((line = reader.readLine()) != null) {
-                            sBuilder.append(line).append("\n");
+                        line = reader.readLine();
+                        while (line != null) {
+                            sBuilder.append(line).append('\n');
+                            line = reader.readLine();
                         }
                         reader.close();
                     } catch (IOException e) {
@@ -137,12 +140,11 @@ public class MainPanel extends JPanel {
                 JOptionPane.showMessageDialog(new MessageFrame(), message);
             });
         } catch (FileNotFoundException e) {
-            Logger logger = Logger.getLogger(MainPanel.class.getName());
-            logger.log(Level.SEVERE, "File not found in the path given", e);
+            Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, "File not found in the path given", e);
         }
 
         pane.add(label, Integer.valueOf(0));
-        pane.setPreferredSize(new Dimension(this.wallpaper.getIconWidth(), this.wallpaper.getIconHeight()));
+        pane.setPreferredSize(new Dimension(wallpaper.getIconWidth(), wallpaper.getIconHeight()));
 
         northPanel.add(jbPlay);
         northPanel.add(jbQuit);
@@ -155,14 +157,14 @@ public class MainPanel extends JPanel {
         southPanel.setBounds(0, 0, Double.valueOf(this.getInnerPanelDimension().getWidth()).intValue(),
                 Double.valueOf(this.getInnerPanelDimension().getHeight()).intValue());
 
-        this.panel.setBounds(0, 0,
+        panel.setBounds(0, 0,
                 Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue());
-        this.panel.add(northPanel, BorderLayout.NORTH);
-        this.panel.add(southPanel, BorderLayout.SOUTH);
-        this.panel.setOpaque(false);
+        panel.add(northPanel, BorderLayout.NORTH);
+        panel.add(southPanel, BorderLayout.SOUTH);
+        panel.setOpaque(false);
 
-        pane.add(this.panel, Integer.valueOf(1));
+        pane.add(panel, Integer.valueOf(1));
         this.add(pane);
         this.updateUI();
     }
@@ -182,7 +184,7 @@ public class MainPanel extends JPanel {
     }
 
     private JButton createButton(final String name, final Dimension dim) {
-        JButton jb = new JButton(name);
+        final JButton jb = new JButton(name);
         jb.setPreferredSize(dim);
         jb.setFocusPainted(false);
         jb.setContentAreaFilled(false);
