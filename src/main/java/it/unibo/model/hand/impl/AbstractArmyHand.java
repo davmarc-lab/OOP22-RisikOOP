@@ -75,7 +75,7 @@ public class AbstractArmyHand extends HandImpl<Army> {
      * @return true if the cards are playable, false otherwise
      */
     @Override
-    protected boolean checkPlayableCards(final List<Army> cards) {
+    public boolean checkPlayableCards(final List<Army> cards) {
         return cards.size() == PLAYABLE_CARDS && this.hand.containsAll(cards);
     }
 }

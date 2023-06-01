@@ -46,22 +46,4 @@ public abstract class HandImpl<T> implements Hand<T> {
     public List<T> getHand() {
         return this.hand;
     }
-
-    /**
-     * Abstract method representing the logic for playing cards.
-     * Subclasses should implement this method to define the gameplay.
-     * 
-     * @param cards the list of cards to play
-     * @return an integer representing the outcome of the gameplay
-     */
-    protected abstract int playCards(List<T> cards);
-
-    /**
-     * Abstract method for checking if the given list of cards is playable.
-     * Subclasses should implement this method to define the playable card logic.
-     * 
-     * @param cards the list of cards to check
-     * @return true if the cards are playable, false otherwise
-     */
-    protected abstract boolean checkPlayableCards(List<T> cards);
 }
