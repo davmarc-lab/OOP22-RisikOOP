@@ -18,9 +18,9 @@ public interface Player {
     enum Color {
 
         /**
-         * Black color.
+         * Purple color.
          */
-        BLACK("BLACK", 0, 0, 0),
+        PURPLE("PURPLE", 166, 77, 255),
         /**
          * Blue color.
          */
@@ -34,9 +34,9 @@ public interface Player {
          */
         GREEN("GREEN", 0, 255, 0),
         /**
-         * Yellow color.
+         * Orange color.
          */
-        YELLOW("YELLOW", 255, 255, 0),
+        ORANGE("ORANGE", 255, 133, 51),
         /**
          * White color.
          */
@@ -164,7 +164,7 @@ public interface Player {
     void setObjective(Objective objective);
 
     /**
-     * Retrieves player's {@code Hand<Army>}.
+     * Retrieves player's {@code Hand}.
      * 
      * @return player hand
      */

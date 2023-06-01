@@ -28,7 +28,7 @@ public interface PlayerBuilder {
     PlayerBuilder territoryDeck(Deck<Territory> territoryDeck);
 
     /**
-     * Sets the player {@code Hand<Army>}.
+     * Sets the player {@code Hand}.
      * 
      * @param playerHand the player hand
      * @return the player hand
