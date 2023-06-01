@@ -26,14 +26,10 @@ import it.unibo.model.territory.api.Territory;
 public class GameLoopImpl implements GameLoop {
 
     private static final int PREPARATION_TROOPS = 3;
-    private static final String COMBAT_MESSAGE = 
-        "Select an adjacent enemy territory.\nIf you want to undo the attack and start another, press ATTACK";
-    private static final String RESET_COMBAT_MESSAGE = 
-        "You can attack again by selecting one of your territories.\nIf you don't want to attack press MOVE or END TURN";
-    private static final String MOVEMENT_MESSAGE = 
-        "Select an adjacent territory.\nIf you want to undo the movement and start another, press MOVE";
-    private static final String RESET_MOVEMENT_MESSAGE = 
-        "You can move again by selecting one of your territories.\nIf you don't want to move press END TURN";
+    private static final String COMBAT_MESSAGE = "Select an adjacent enemy territory.\nIf you want to undo the attack and start another, press ATTACK";
+    private static final String RESET_COMBAT_MESSAGE = "You can attack again by selecting one of your territories.\nIf you don't want to attack press MOVE or END TURN";
+    private static final String MOVEMENT_MESSAGE = "Select an adjacent territory.\nIf you want to undo the movement and start another, press MOVE";
+    private static final String RESET_MOVEMENT_MESSAGE = "You can move again by selecting one of your territories.\nIf you don't want to move press END TURN";
     private static final int FIRST = 0;
     private static final int SECOND = 1;
 
@@ -167,6 +163,8 @@ public class GameLoopImpl implements GameLoop {
                             new Pair<>(this.board.getAllPlayers().stream()
                                     .filter(p -> p.getTerritories().contains(this.selectedTerritories.get(SECOND)))
                                     .findAny().get(), this.selectedTerritories.get(SECOND)));
+                    this.selectedTerritories
+                            .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
                     this.selectedTerritories.clear();
                     this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories().stream()
                             .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
