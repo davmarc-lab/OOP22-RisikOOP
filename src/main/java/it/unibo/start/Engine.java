@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.gameloop.impl.GameLoopImpl;
-import it.unibo.view.game_screen.MainFrame;
 import it.unibo.view.game_screen.impl.GamePanel;
+import it.unibo.view.game_screen.impl.MainFrame;
 
 /**
  * This class is used to start the application.

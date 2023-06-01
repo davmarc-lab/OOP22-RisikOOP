@@ -28,6 +28,7 @@ import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
 import it.unibo.controller.reader.impl.AbstractFileReader;
+import it.unibo.view.game_screen.impl.MainFrame;
 
 /**
  * The extension of JPanel which defines the main panel of the game with the start menu.

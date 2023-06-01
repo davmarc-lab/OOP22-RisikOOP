@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
@@ -103,9 +104,8 @@ public final class BoardPanel extends JPanel implements BoardZone {
      */
     private void loadLabels(final int width, final int height) {
         new JsonReaderSquareCoordinates().readFromFile().forEach(pair -> {
-            final JLabel lab = new JLabel();
+            final JLabel lab = new JLabel("1", SwingConstants.CENTER);
             lab.setFont(new Font("Arial", Font.PLAIN, 14));
-            lab.setText("1");
             lab.setForeground(Color.WHITE);
             lab.setBackground(Color.BLACK);
             lab.setOpaque(true);
