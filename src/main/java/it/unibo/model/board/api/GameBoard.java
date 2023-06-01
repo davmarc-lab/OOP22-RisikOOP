@@ -103,13 +103,6 @@ public interface GameBoard {
     void instanceMovement(Territory oldTerritory, Territory newTerritory);
 
     /**
-     * Retrieves a map of {@code Territory} categorized by thier continent.
-     * 
-     * @return a map of territories
-     */
-    Map<String, Set<Territory>> getTerritories();
-
-    /**
      * Retrieves the army deck.
      * 
      * @return the army deck's data structure

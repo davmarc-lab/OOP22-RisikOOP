@@ -131,14 +131,6 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public Map<String, Set<Territory>> getTerritories() {
-        return new HashMap<>(this.gameTerritory.getTerritoryMap());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Deck<Army> getArmyDeck() {
         return this.armyDeck;
     }
