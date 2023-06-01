@@ -27,6 +27,13 @@ public class CardPanel extends JPanel implements CardZone {
     private final JLabel secondText = new JLabel("NaN");
     private final JLabel thirdText = new JLabel("NaN");
 
+    private final JButton firstCard = new JButton("Infantry");
+    private final JButton secondCard = new JButton("Cavalry");
+    private final JButton thridCard = new JButton("Artillery");
+    
+    private final JButton playCards = new JButton("Play");
+    private final JButton resetCards = new JButton("Reset");
+
     private final JLabel firstPlayed = new JLabel("NaN");
     private final JLabel secondPlayed = new JLabel("NaN");
     private final JLabel thirdPlayed = new JLabel("NaN");
@@ -47,18 +54,15 @@ public class CardPanel extends JPanel implements CardZone {
         var n = (int) (this.getPreferredSize().getHeight() * 0.05);
         cnst.insets = new Insets(2, 2, 2, 2);
 
-        final JButton firstCard = new JButton("Infantry");
         firstCard.setMargin(new Insets(n, n, n, n));
-        final JButton secondCard = new JButton("Cavalry");
         secondCard.setMargin(new Insets(n, n, n, n));
-        final JButton thridCard = new JButton("Artillery");
         thridCard.setMargin(new Insets(n, n, n, n));
-        
+
         cardsPanel.add(this.firstText, cnst);
         cardsPanel.add(firstCard, cnst);
         cardsPanel.add(this.firstPlayed, cnst);
         cnst.gridy++;
-        
+
         cardsPanel.add(this.secondText, cnst);
         cardsPanel.add(secondCard, cnst);
         cardsPanel.add(this.secondPlayed, cnst);
@@ -68,24 +72,28 @@ public class CardPanel extends JPanel implements CardZone {
         cardsPanel.add(this.thirdPlayed, cnst);
         cnst.gridy++;
 
-        final JButton playCards = new JButton("Play");
-        final JButton resetCards = new JButton("Reset");
+
+        firstCard.setEnabled(false);
+        secondCard.setEnabled(false);
+        thridCard.setEnabled(false);
+        playCards.setEnabled(false);
+        resetCards.setEnabled(false);
 
         firstCard.addActionListener(e -> {
-            this.phc.addInputCard(this.phc.getArmyTypeFromString(firstCard.getText()));
-            this.firstPlayed.setText(String.valueOf(Integer.parseInt(this.firstPlayed.getText()) + 1));
+            this.phc.addInputCard(firstCard.getText());
+            this.firstPlayed.setText(String.valueOf(this.phc.getNumberOfCards(firstCard.getText())));
             this.updateView();
         });
 
         secondCard.addActionListener(e -> {
-            this.phc.addInputCard(this.phc.getArmyTypeFromString(secondCard.getText()));
-            this.secondPlayed.setText(String.valueOf(Integer.parseInt(this.secondPlayed.getText()) + 1));
+            this.phc.addInputCard(secondCard.getText());
+            this.secondPlayed.setText(String.valueOf(this.phc.getNumberOfCards(secondCard.getText())));
             this.updateView();
         });
 
         thridCard.addActionListener(e -> {
-            this.phc.addInputCard(this.phc.getArmyTypeFromString(thridCard.getText()));
-            this.thirdPlayed.setText(String.valueOf(Integer.parseInt(this.thirdPlayed.getText()) + 1));
+            this.phc.addInputCard(thridCard.getText());
+            this.thirdPlayed.setText(String.valueOf(this.phc.getNumberOfCards(thridCard.getText())));
             this.updateView();
         });
 
@@ -105,6 +113,7 @@ public class CardPanel extends JPanel implements CardZone {
         this.firstPlayed.setText("0");
         this.secondPlayed.setText("0");
         this.thirdPlayed.setText("0");
+        this.phc.clearInputCards();
     }
 
     private int getFirstCardCount() {
@@ -126,6 +135,11 @@ public class CardPanel extends JPanel implements CardZone {
 
     @Override
     public void updateView() {
+        this.firstCard.setEnabled(true);
+        this.secondCard.setEnabled(true);
+        this.thridCard.setEnabled(true);
+        this.playCards.setEnabled(true);
+        this.resetCards.setEnabled(true);
         this.firstText.setText(String.valueOf(this.getFirstCardCount()));
         this.secondText.setText(String.valueOf(this.getSecondCardCount()));
         this.thirdText.setText(String.valueOf(this.getThirdCardCount()));

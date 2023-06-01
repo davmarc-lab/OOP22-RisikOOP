@@ -83,11 +83,11 @@ public class GameLoopImpl implements GameLoop {
                 this.phaseManager.switchToNextPhase();
                 this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
                         + ", you can now play your cards to gain bonus troops");
+                this.controller.getGameZone().getSideBar().getCardPanel().setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
+                this.controller.getGameZone().getSideBar().getCardPanel().updateView();
             } else {
                 this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
                         + ", it's your turn to place 3 troops on your territories");
-                this.controller.getGameZone().getSideBar().getCardPanel().setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
-                this.controller.getGameZone().getSideBar().getCardPanel().updateView();
             }
         }
     }

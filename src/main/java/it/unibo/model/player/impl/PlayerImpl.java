@@ -97,7 +97,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public Objective getObjective() {
-        return new ObjectiveImpl(this.objective.getDescription(), this.objective.getObjectiveType());
+        return this.objective;
     }
 
     /**

@@ -5,26 +5,28 @@ import java.util.Arrays;
 import java.util.List;
 
 import it.unibo.controller.playerhand.api.PlayerHandController;
+import it.unibo.model.army.api.Army;
 import it.unibo.model.army.api.Army.ArmyType;
+import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.player.api.Player;
 
 public class PlayerHandControllerImpl implements PlayerHandController {
 
     private final Player model;
-    private final List<ArmyType> inputCards = new ArrayList<>();
+    private final List<Army> inputCards = new ArrayList<>();
 
     public PlayerHandControllerImpl(final Player model) {
         this.model = model;
     }
 
     @Override
-    public List<ArmyType> getInputCards() {
+    public List<Army> getInputCards() {
         return this.inputCards;
     }
 
     @Override
-    public void addInputCard(final ArmyType card) {
-        this.inputCards.add(card);
+    public void addInputCard(final String card) {
+        this.inputCards.add(new ArmyImpl(getArmyTypeFromString(card)));
     }
 
     @Override
@@ -32,9 +34,13 @@ public class PlayerHandControllerImpl implements PlayerHandController {
         this.inputCards.clear();
     }
 
-    @Override
-    public ArmyType getArmyTypeFromString(String name) {
+    private ArmyType getArmyTypeFromString(String name) {
         return Arrays.stream(ArmyType.values()).filter(t -> t.getName().equals(name)).findAny().get();
+    }
+
+    @Override
+    public int getNumberOfCards(String cardType) {
+        return (int) this.inputCards.stream().filter(c -> c.getArmyType().getName().equals(cardType)).count();
     }
 
     @Override

@@ -2,17 +2,17 @@ package it.unibo.controller.playerhand.api;
 
 import java.util.List;
 
-import it.unibo.model.army.api.Army.ArmyType;
+import it.unibo.model.army.api.Army;
 
 public interface PlayerHandController {
 
-    List<ArmyType> getInputCards();
+    List<Army> getInputCards();
 
-    void addInputCard(final ArmyType card);
+    void addInputCard(String card);
 
     void clearInputCards();
 
-    ArmyType getArmyTypeFromString(final String name);
+    int getNumberOfCards(String cardType);
 
     int getPlayerFirstCards();
 
