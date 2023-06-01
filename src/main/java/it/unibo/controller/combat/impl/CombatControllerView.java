@@ -70,7 +70,7 @@ public class CombatControllerView implements CombatController {
      */
     @Override
     public boolean isNumberValid(final int value) {
-        return value <= this.getCombatTerritory().getTroops() - 1 && value >= 1;
+        return value <= 3 && value >= 1;
     }
 
     /**
