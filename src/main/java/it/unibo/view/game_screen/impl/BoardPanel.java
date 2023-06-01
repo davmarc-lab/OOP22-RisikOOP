@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -23,7 +22,6 @@ import it.unibo.common.Constants;
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.reader.impl.JsonReaderCoordinates;
 import it.unibo.controller.reader.impl.JsonReaderSquareCoordinates;
-import it.unibo.model.territory.api.Territory;
 import it.unibo.view.game_screen.api.BoardZone;
 import it.unibo.view.game_screen.api.CustomButton;
 
@@ -134,11 +132,9 @@ public final class BoardPanel extends JPanel implements BoardZone {
     }
 
     @Override
-    public void disableButtons(final Set<Territory> territorySet) {
-        Set<String> territoryNames = new HashSet<>();
-        territorySet.forEach(t -> territoryNames.add(t.getName()));
+    public void disableButtons(final Set<String> territorySet) {
         this.territories.entrySet().forEach(e -> {
-            if (territoryNames.contains(e.getValue())) {
+            if (territorySet.contains(e.getValue())) {
                 ((JButton) e.getKey()).setEnabled(false);
                 ((JButton) e.getKey()).setBorderPainted(false);
             }
@@ -185,20 +181,17 @@ public final class BoardPanel extends JPanel implements BoardZone {
         final int troops = this.controller.getGameLoop().getBoard().getGameTerritories().getTerritories().stream()
                 .filter(t -> t.getName().equals(territory)).findAny().get().getTroops();
         this.getLabel(territory).setText((String.valueOf(troops)));
-        this.getLabel(territory).setForeground(this.getPlayerColor());
+        this.getLabel(territory).setForeground(this.getPlayerColor(territory));
     }
 
     private JLabel getLabel(final String t) {
         return this.squares.get(t);
     }
 
-    private Color getPlayerColor() {
-        return new Color(this.controller.getGameLoop().getBoard().getCurrentPlayer()
-                .getColorPlayer().getRedValue(),
-                this.controller.getGameLoop().getBoard().getCurrentPlayer()
-                        .getColorPlayer().getGreenValue(),
-                this.controller.getGameLoop().getBoard().getCurrentPlayer()
-                        .getColorPlayer().getBlueValue());
+    private Color getPlayerColor(final String territory) {
+        return new Color(this.controller.getPlayerFromTerritory(territory).getColorPlayer().getRedValue(),
+                         this.controller.getPlayerFromTerritory(territory).getColorPlayer().getGreenValue(),
+                         this.controller.getPlayerFromTerritory(territory).getColorPlayer().getBlueValue());
     }
 
 }

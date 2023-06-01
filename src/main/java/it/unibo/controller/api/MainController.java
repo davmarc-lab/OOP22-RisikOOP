@@ -3,7 +3,7 @@ package it.unibo.controller.api;
 import java.util.Set;
 
 import it.unibo.model.gameloop.api.GameLoop;
-import it.unibo.model.territory.api.Territory;
+import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.GameZone;
 
 /**
@@ -31,7 +31,7 @@ public interface MainController {
      * 
      * @param territories
      */
-    void disableTerritories(Set<Territory> territories);
+    void disableTerritories(Set<String> territories);
 
     /**
      * Enables all the territories in the GUI.
@@ -86,5 +86,16 @@ public interface MainController {
      * @param gui
      */
     void setGameZone(GameZone gui);
+
+    /**
+     * Randomizes the distribution of troops on territories.
+     */
+    void randomize();
+
+    /**
+     * @param territory
+     * @return the player that possesses that territory
+     */
+    Player getPlayerFromTerritory(String territory);
 
 }

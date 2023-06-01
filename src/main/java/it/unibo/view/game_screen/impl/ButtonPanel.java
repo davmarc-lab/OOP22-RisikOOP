@@ -44,12 +44,15 @@ public class ButtonPanel extends JPanel implements ButtonZone {
         final JButton atkJB = this.createButton("ATTACK", size);
         final JButton movJB = this.createButton("MOVE", size);
         final JButton endJB = this.createButton("END_TURN", size);
+        final JButton randJB = this.createButton("RANDOM", size);
         cnst.gridy++;
         panel.add(atkJB, cnst);
         cnst.gridy++;
         panel.add(movJB, cnst);
         cnst.gridy++;
         panel.add(endJB, cnst);
+        cnst.gridy++;
+        panel.add(randJB, cnst);
 
         atkJB.addActionListener(e -> {
             this.controller.switchToCombat();
@@ -59,6 +62,10 @@ public class ButtonPanel extends JPanel implements ButtonZone {
         });
         endJB.addActionListener(e -> {
             this.controller.endTurn();
+        });
+        randJB.addActionListener(e -> {
+            this.controller.randomize();
+            randJB.setEnabled(false);
         });
 
         panel.setOpaque(false);

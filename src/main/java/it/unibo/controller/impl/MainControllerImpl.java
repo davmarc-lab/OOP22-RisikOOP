@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import it.unibo.controller.api.MainController;
 import it.unibo.model.gameloop.api.GameLoop;
-import it.unibo.model.territory.api.Territory;
+import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.GameZone;
 
 /**
@@ -49,7 +49,7 @@ public final class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void disableTerritories(final Set<Territory> territories) {
+    public void disableTerritories(final Set<String> territories) {
         this.gui.getBoard().disableButtons(territories);
     }
 
@@ -86,6 +86,16 @@ public final class MainControllerImpl implements MainController {
     @Override
     public GameZone getGameZone() {
         return this.gui;
+    }
+
+    @Override
+    public void randomize() {
+        this.loop.randomize();
+    }
+
+    @Override
+    public Player getPlayerFromTerritory(String territory) {
+        return this.loop.getPlayerFromTerritory(territory);
     }
 
 }

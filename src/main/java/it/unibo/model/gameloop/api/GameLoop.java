@@ -4,6 +4,7 @@ import java.util.Set;
 
 import it.unibo.controller.api.MainController;
 import it.unibo.model.board.api.GameBoard;
+import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -61,5 +62,16 @@ public interface GameLoop {
      * @return the controller
      */
     MainController getController();
+
+    /**
+     * Randomizes the distribution of troops on territories.
+     */
+    void randomize();
+
+    /**
+     * @param territory
+     * @return the player that possesses that territory
+     */
+    Player getPlayerFromTerritory(String territory);
 
 }

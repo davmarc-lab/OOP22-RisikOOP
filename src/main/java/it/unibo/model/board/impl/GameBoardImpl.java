@@ -204,6 +204,6 @@ public class GameBoardImpl implements GameBoard {
     @Override
     public void placeTroops(final Territory territory, final int troops) {
         territory.addTroops(troops);
-        this.getCurrentPlayer().addTroops(-troops);
+        this.players.stream().filter(p -> p.getTerritories().contains(territory)).findAny().get().addTroops(-troops);
     }
 }

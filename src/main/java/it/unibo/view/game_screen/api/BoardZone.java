@@ -3,7 +3,6 @@ package it.unibo.view.game_screen.api;
 import java.util.Set;
 
 import it.unibo.controller.api.MainController;
-import it.unibo.model.territory.api.Territory;
 
 /**
  * This interface models a basic view containing the game map and the buttons.
@@ -15,7 +14,7 @@ public interface BoardZone {
      * 
      * @param terr set of territories
      */
-    void disableButtons(Set<Territory> terr);
+    void disableButtons(Set<String> terr);
 
     /**
      * Enables all buttons.
