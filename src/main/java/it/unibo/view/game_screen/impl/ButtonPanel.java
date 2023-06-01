@@ -17,6 +17,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+/**
+ * Implementation of ButtonZone interface.
+ */
 public class ButtonPanel extends JPanel implements ButtonZone {
 
     private static final double HEIGHT_SCALING = 0.15;
@@ -28,6 +31,11 @@ public class ButtonPanel extends JPanel implements ButtonZone {
 
     private MainController controller;
 
+    /**
+     * Creates the panel with the action buttons inside the sidebar.
+     * 
+     * @param size the size of the sidebar
+     */
     public ButtonPanel(final Dimension size) {
         this.setLayout(new BorderLayout());
         JLabel label = new JLabel(TITLE_LABEL, SwingConstants.CENTER);
@@ -36,7 +44,9 @@ public class ButtonPanel extends JPanel implements ButtonZone {
                 Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue()));
         panel.setLayout(new GridBagLayout());
         final GridBagConstraints cnst = new GridBagConstraints();
-        cnst.insets = new Insets(2, 5, 2, 5);
+        final int n1 = 2;
+        final int n2 = 5;
+        cnst.insets = new Insets(n1, n2, n1, n2);
         cnst.gridy = 0;
         cnst.ipadx = Double.valueOf(panel.getPreferredSize().getWidth() * BUTTON_SCALING).intValue();
         cnst.ipady = Double.valueOf(panel.getPreferredSize().getHeight() * BUTTON_SCALING).intValue();
@@ -75,6 +85,10 @@ public class ButtonPanel extends JPanel implements ButtonZone {
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public void setController(final MainController controller) {
         this.controller = controller;

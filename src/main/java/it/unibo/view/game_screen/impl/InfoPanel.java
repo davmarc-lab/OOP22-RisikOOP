@@ -16,6 +16,9 @@ import javax.swing.border.LineBorder;
 import it.unibo.view.game_screen.api.InfoZone;
 import it.unibo.view.game_screen.api.SideZone;
 
+/**
+ * Implementation of InfoZone interface.
+ */
 public class InfoPanel extends JPanel implements InfoZone {
 
     private static final String INFO_LABEL = "PLAYER INFO";
@@ -30,6 +33,12 @@ public class InfoPanel extends JPanel implements InfoZone {
     private final JLabel oLabel;
     private JTextArea objText;
 
+    /**
+     * Creates the panel with the player's informations inside the sidebar.
+     * 
+     * @param size the size of the parent entity given
+     * @param parent the parent entity
+     */
     public InfoPanel(final Dimension size, final SideZone parent) {
         super();
         this.parent = parent;
@@ -39,7 +48,9 @@ public class InfoPanel extends JPanel implements InfoZone {
 
         this.playerPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cnst = new GridBagConstraints();
-        cnst.insets = new Insets(2, 5, 2, 5);
+        final int n1 = 2;
+        final int n2 = 5;
+        cnst.insets = new Insets(n1, n2, n1, n2);
         cnst.gridy = 0;
         this.pLabel = new JLabel();
         this.cLabel = new JLabel();
@@ -62,6 +73,10 @@ public class InfoPanel extends JPanel implements InfoZone {
         this.updateUI();
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public SideZone getParentEntity() {
         return this.parent;
@@ -81,6 +96,10 @@ public class InfoPanel extends JPanel implements InfoZone {
                 .getDescription();
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public void updateView() {
         this.pLabel

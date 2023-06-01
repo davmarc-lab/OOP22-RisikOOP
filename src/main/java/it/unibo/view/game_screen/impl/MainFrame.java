@@ -16,6 +16,8 @@ public class MainFrame extends JFrame implements MainView {
 
     /**
      * Creates the main frame.
+     * 
+     * @param engine the engine of the game
      */
     public MainFrame(final Engine engine) {
         super(Constants.FRAME_NAME);
@@ -28,6 +30,10 @@ public class MainFrame extends JFrame implements MainView {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public void startGame() {
         engine.createGameLoop();
