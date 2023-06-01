@@ -212,10 +212,8 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public void placeTroops(final List<Territory> territories) {
-        for (Territory t : territories) {
-            t.addTroops(1);
-            this.getCurrentPlayer().addTroops(-1);
-        }
+    public void placeTroops(final Territory territory) {
+        territory.addTroops(1);
+        this.getCurrentPlayer().addTroops(-1);
     }
 }

@@ -161,5 +161,5 @@ public interface GameBoard {
     /**
      * Place bonus troops on the current player territories.
      */
-    void placeTroops(List<Territory> territories);
+    void placeTroops(Territory territory);
 }

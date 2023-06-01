@@ -70,10 +70,9 @@ public class GameLoopImpl implements GameLoop {
      * 
      * @param t the selected territory
      */
-    private void prepareTroops(final Territory t) {
+    private void updatePreparation(final Territory t) {
         this.selectedTerritories.add(t);
         if (this.selectedTerritories.size() == PREPARATION_TROOPS) {
-            this.board.placeTroops(selectedTerritories);
             this.board.getTurnManager().switchToNextPlayer();
             this.selectedTerritories.clear();
             this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
@@ -111,14 +110,15 @@ public class GameLoopImpl implements GameLoop {
             t = this.board.getGameTerritories().getTerritory((String) input);
         }
         if (this.prepare) {
-            this.prepareTroops(t);
+            this.board.placeTroops(t);
+            this.updatePreparation(t);
             return;
         }
         switch (this.phaseManager.getCurrentPhase()) {
             case PREPARATION:
                 this.selectedTerritories.add(t);
+                this.board.placeTroops(t);
                 if (this.selectedTerritories.size() == this.board.getCurrentPlayer().getTroops()) {
-                    this.board.placeTroops(selectedTerritories);
                     this.selectedTerritories.clear();
                     this.phaseManager.switchToNextPhase();
                     this.controller.sendMessage("You can now play your cards to gain bonus troops");
