@@ -19,7 +19,7 @@ public class HandImpl implements Hand {
     private static final int DIFFERENT_CARDS_TROOPS = 10;
 
     private List<Army> hand = new ArrayList<>();
-    
+
     /**
      * Constructs a HandImpl object with the specified initial hand.
      * 
@@ -61,8 +61,8 @@ public class HandImpl implements Hand {
         if (!checkPlayableCards(cards)) {
             return 0;
         }
-        if (cards.stream().distinct().count() == 1) {
-            this.hand.removeAll(cards);
+        if (cards.stream().map(c -> c.getArmyType()).distinct().count() == 1) {
+            this.removeFromHand(cards);
 
             switch (cards.get(0).getArmyType()) {
                 case ARTILLERY:
@@ -74,8 +74,8 @@ public class HandImpl implements Hand {
                 default:
                     return 0;
             }
-        } else if (cards.stream().distinct().count() == cards.size()) {
-            this.hand.removeAll(cards);
+        } else if (cards.stream().map(c -> c.getArmyType()).distinct().count() == cards.size()) {
+            this.removeFromHand(cards);
             return DIFFERENT_CARDS_TROOPS;
         }
         return 0;
@@ -86,6 +86,17 @@ public class HandImpl implements Hand {
      */
     @Override
     public boolean checkPlayableCards(final List<Army> cards) {
-        return cards.size() == PLAYABLE_CARDS && this.hand.containsAll(cards);
+        return cards.size() == PLAYABLE_CARDS && this.checkIfInHand(cards);
+    }
+
+    private boolean checkIfInHand(final List<Army> cards) {
+        return cards.stream()
+                .map(Army::getArmyType)
+                .anyMatch(cardInHand -> hand.stream().anyMatch(card -> card.getArmyType().equals(cardInHand)));
+    }
+
+    private void removeFromHand(final List<Army> cards) {
+        this.hand.removeIf(cardInHand -> cards.stream()
+                .anyMatch(card -> card.getArmyType().getName().equals(cardInHand.getArmyType().getName())));
     }
 }
