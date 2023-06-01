@@ -1,8 +1,6 @@
 package it.unibo.model.board.api;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import it.unibo.common.Pair;
 import it.unibo.model.army.api.Army;

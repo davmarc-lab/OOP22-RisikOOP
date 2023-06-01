@@ -1,6 +1,5 @@
 package it.unibo.model.player.api;
 
-import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.hand.api.Hand;
 import it.unibo.model.objective.api.Objective;
@@ -34,7 +33,7 @@ public interface PlayerBuilder {
      * @param playerHand the player hand
      * @return the player hand
      */
-    PlayerBuilder playerHand(Hand<Army> playerHand);
+    PlayerBuilder playerHand(Hand playerHand);
 
     /**
      * Sets the current player objective.

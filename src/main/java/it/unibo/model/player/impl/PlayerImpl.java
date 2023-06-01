@@ -3,10 +3,9 @@ package it.unibo.model.player.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.hand.api.Hand;
-import it.unibo.model.hand.impl.AbstractArmyHand;
+import it.unibo.model.hand.impl.HandImpl;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
@@ -19,7 +18,7 @@ public class PlayerImpl implements Player {
 
     private int id;
     private final Deck<Territory> territories;
-    private final Hand<Army> playerHand;
+    private final Hand playerHand;
     private Objective objective;
     private final Color color;
     private int bonusTroops;
@@ -35,10 +34,10 @@ public class PlayerImpl implements Player {
      * @param bonusTroops    player's bonus troops
      */
     public PlayerImpl(final int id, final Deck<Territory> territories,
-            final Hand<Army> playerHandDeck, final Objective objective, final Color color, final int bonusTroops) {
+            final Hand playerHandDeck, final Objective objective, final Color color, final int bonusTroops) {
         this.id = id;
         this.territories = territories;
-        this.playerHand = new AbstractArmyHand(playerHandDeck.getHand());
+        this.playerHand = new HandImpl(playerHandDeck.getHand());
         this.objective = new ObjectiveImpl(objective.getDescription(), objective.getObjectiveType());
         this.color = color;
         this.bonusTroops = bonusTroops;
@@ -104,7 +103,7 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Hand<Army> getPlayerHand() {
+    public Hand getPlayerHand() {
         return this.playerHand;
     }
 

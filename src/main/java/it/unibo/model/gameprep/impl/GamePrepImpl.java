@@ -47,9 +47,7 @@ public class GamePrepImpl implements GamePrep {
     }
 
     /**
-     * Assigns territories to the players using the initial territory deck.
-     *
-     * @param territoryDeck the deck of territories to assign
+     * Assigns territories to the players.
      */
     private void assignTerritories() {
         this.players.forEach(player -> IntStream.range(0, Constants.MAX_CARDS_FOR_EACH_PLAYER / Constants.MAX_PLAYERS)
@@ -57,11 +55,7 @@ public class GamePrepImpl implements GamePrep {
     }
 
     /**
-     * Assigns objectives to the players using the initial objective deck and
-     * default objective.
-     *
-     * @param objectives a pair consisting of the objective deck and the default
-     *                   objective
+     * Assigns objectives to the players.
      */
     private void assignObjectives() {
         final List<String> colors = this.players.stream().map(p -> p.getColorPlayer().getName()).toList();
@@ -84,7 +78,7 @@ public class GamePrepImpl implements GamePrep {
     }
 
     /**
-     * Assigns troops to the players using the initial army deck.
+     * Assigns troops to the players.
      */
     private void assignTroops() {
         this.players.stream().forEach(p -> p.addTroops(Constants.TROOPS));

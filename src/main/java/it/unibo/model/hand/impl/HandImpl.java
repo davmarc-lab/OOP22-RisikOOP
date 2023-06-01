@@ -10,7 +10,7 @@ import it.unibo.model.hand.api.Hand;
  * Implementation of the {@link Hand} interface representing the hand of a
  * player.
  */
-public abstract class HandImpl implements Hand {
+public class HandImpl implements Hand {
 
     private static final int PLAYABLE_CARDS = 3;
     private static final int ARTILLERY_TROOPS = 4;

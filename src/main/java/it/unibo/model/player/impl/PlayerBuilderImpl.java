@@ -1,6 +1,5 @@
 package it.unibo.model.player.impl;
 
-import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.hand.api.Hand;
 import it.unibo.model.objective.api.Objective;
@@ -16,7 +15,7 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
 
     private int id;
     private Deck<Territory> territoryDeck;
-    private Hand<Army> playerHand;
+    private Hand playerHand;
     private Objective objective;
     private Color color;
     private int bonusTroops;
@@ -52,7 +51,7 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
      * {@inheritDoc}
      */
     @Override
-    public PlayerBuilder playerHand(final Hand<Army> playerHand) {
+    public PlayerBuilder playerHand(final Hand playerHand) {
         this.playerHand = playerHand;
         return this;
     }

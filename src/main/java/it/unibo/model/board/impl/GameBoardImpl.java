@@ -22,7 +22,7 @@ import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.impl.TurnManagerImpl;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
-import it.unibo.model.hand.impl.AbstractArmyHand;
+import it.unibo.model.hand.impl.HandImpl;
 import it.unibo.model.movement.impl.MovementImpl;
 import it.unibo.model.objective.api.GameObjective;
 import it.unibo.model.objective.api.Objective;
@@ -69,7 +69,7 @@ public class GameBoardImpl implements GameBoard {
         Collections.shuffle(colors);
         IntStream.range(0, Constants.MAX_PLAYERS)
                 .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>())
-                        .playerHand(new AbstractArmyHand()).objective(new ObjectiveImpl()).color(colors.get(i))
+                        .playerHand(new HandImpl()).objective(new ObjectiveImpl()).color(colors.get(i))
                         .bonusTroops(0).build())
                 .forEach(this.players::add);
     }
