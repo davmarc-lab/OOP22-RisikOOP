@@ -129,7 +129,7 @@ public class CombatImpl implements Combat {
             } else if (r.equals(Results.LOSE)) {
                 this.tAttacker.addTroops(-1);
             } else {
-                throw new IllegalCallerException("Invalid combat resutl, aborted operation");
+                throw new IllegalCallerException("Invalid combat result, aborted operation");
             }
         });
     }

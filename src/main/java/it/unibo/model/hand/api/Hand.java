@@ -2,41 +2,39 @@ package it.unibo.model.hand.api;
 
 import java.util.List;
 
+import it.unibo.model.army.api.Army;
+
 /**
  * Represents the hand of a player.
- * 
- * @param <T> the type of the hand
  */
-public interface Hand<T> {
+public interface Hand {
     /**
      * Adds a card to the hand.
      * 
      * @param card the card to add
      */
-    void addCard(T card);
+    void addCard(Army card);
 
     /**
      * Gets the hand.
      * 
      * @return the hand
      */
-    List<T> getHand();
+    List<Army> getHand();
 
     /**
-     * Abstract method representing the logic for playing cards.
-     * Subclasses should implement this method to define the gameplay.
+     * Represents the logic for playing cards.
      * 
      * @param cards the list of cards to play
-     * @return an integer representing the outcome of the gameplay
+     * @return an integer representing the number of troops obtained
      */
-    abstract int playCards(List<T> cards);
+    int playCards(List<Army> cards);
 
     /**
-     * Abstract method for checking if the given list of cards is playable.
-     * Subclasses should implement this method to define the playable card logic.
+     * Checks if the given list of cards is playable.
      * 
      * @param cards the list of cards to check
      * @return true if the cards are playable, false otherwise
      */
-    abstract boolean checkPlayableCards(List<T> cards);
+    boolean checkPlayableCards(List<Army> cards);
 }
