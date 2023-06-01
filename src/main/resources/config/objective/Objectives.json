@@ -4,33 +4,37 @@
             "BLUE",
             "RED",
             "GREEN",
-            "YELLOW",
-            "BLACK",
+            "ORANGE",
+            "PURPLE",
             "WHITE"
         ],
         "conquerObj": [
             {
                 "scope": [
                     "Asia",
-                    "South America"
+                    "South America",
+                    "false"
                 ]
             },
             {
                 "scope": [
                     "Asia",
-                    "Africa"
+                    "Africa",
+                    "false"
                 ]
             },
             {
                 "scope": [
                     "North America",
-                    "Africa"
+                    "Africa",
+                    "false"
                 ]
             },
             {
                 "scope": [
                     "North America",
-                    "Oceania"
+                    "Oceania",
+                    "false"
                 ]
             },
             {

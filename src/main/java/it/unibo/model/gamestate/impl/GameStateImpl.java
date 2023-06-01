@@ -22,26 +22,42 @@ public class GameStateImpl implements GameState {
         for (Player player : players) {
             if (player.getObjective().getObjectiveType().equals(Objective.ObjectiveType.DESTROY)) {
                 if (players.stream()
-                        .filter(p -> p.getColorPlayer()
+                        .filter(p -> p.getColorPlayer().getName()
                         .equals(player.getObjective().getCheckObjectives().getY().get(0)))
                         .findAny().get().getTerritories().isEmpty()) {
+                    player.getObjective().setComplete();
                     return true;
                 }
             } else {
-                if (player.getTerritories().size() >= Integer.parseInt(player.getObjective().getCheckObjectives().getY().get(0))) {
-                    for (Territory t : gameLoop.getBoard().getGameTerritories().getTerritories()) {
-                        if (t.getTroops() >= Integer.parseInt(player.getObjective().getCheckObjectives().getY().get(1))) {
+                if (player.getObjective().getCheckObjectives().getY().size() == 2) {
+                    if (player.getTerritories().size() >= Integer.parseInt(player.getObjective().getCheckObjectives().getY().get(0))) {
+                        for (Territory t : player.getTerritories()) {
+                            if (t.getTroops() >= Integer.parseInt(player.getObjective().getCheckObjectives().getY().get(1))) {
+                                player.getObjective().setComplete();
+                                return true;
+                            }
+                        }
+                    }
+                } else {
+                    if (Boolean.valueOf(player.getObjective().getCheckObjectives().getY().get(2))) {
+                        if ((player.getTerritories().containsAll(gameLoop.getBoard().getGameTerritories().getTerritoryMap().get(player.getObjective().getCheckObjectives().getY().get(0)))) &&
+                            (player.getTerritories().containsAll(gameLoop.getBoard().getGameTerritories().getTerritoryMap().get(player.getObjective().getCheckObjectives().getY().get(1))))) {
+                            for (String continent : gameLoop.getBoard().getGameTerritories().getTerritoryMap().keySet()) {
+                                if (player.getTerritories().containsAll(gameLoop.getBoard().getGameTerritories().getTerritoryMap().get(continent)));
+                                player.getObjective().setComplete();
+                                return true;
+                            }
+                        }
+                    } else {
+                        if ((player.getTerritories().containsAll(gameLoop.getBoard().getGameTerritories().getTerritoryMap().get(player.getObjective().getCheckObjectives().getY().get(0)))) &&
+                            (player.getTerritories().containsAll(gameLoop.getBoard().getGameTerritories().getTerritoryMap().get(player.getObjective().getCheckObjectives().getY().get(1))))) {
+                            player.getObjective().setComplete();
                             return true;
                         }
                     }
-                } else if (gameLoop.getBoard().getCurrentPlayer().getContinents().size() >= gameLoop.getBoard()
-                        .getCurrentPlayer()
-                        .getObjective().getCheckObjectives().getFirst().getNumContinentsToConquer()) {
-                    return true;
                 }
-
             }
         }
+        return false;
     }
-
 }

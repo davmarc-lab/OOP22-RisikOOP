@@ -41,8 +41,8 @@ public class GamePrepImpl implements GamePrep {
      */
     @Override
     public void preparePlayers() {
-        this.assignTerritories(this.territoryDeck);
-        this.assignObjectives(this.objectives);
+        this.assignTerritories();
+        this.assignObjectives();
         this.assignTroops();
     }
 
@@ -51,7 +51,7 @@ public class GamePrepImpl implements GamePrep {
      *
      * @param territoryDeck the deck of territories to assign
      */
-    private void assignTerritories(final Deck<Territory> territoryDeck) {
+    private void assignTerritories() {
         this.players.forEach(player -> IntStream.range(0, Constants.MAX_CARDS_FOR_EACH_PLAYER / Constants.MAX_PLAYERS)
                 .forEach(i -> player.addTerritory(territoryDeck.drawCard())));
     }
@@ -63,7 +63,7 @@ public class GamePrepImpl implements GamePrep {
      * @param objectives a pair consisting of the objective deck and the default
      *                   objective
      */
-    private void assignObjectives(final Pair<Deck<Objective>, Objective> objectives) {
+    private void assignObjectives() {
         final List<String> colors = this.players.stream().map(p -> p.getColorPlayer().getName()).toList();
         final List<Objective> unaviableColors = new ArrayList<>();
         for (final Objective objective : objectives.getX().getDeck()) {

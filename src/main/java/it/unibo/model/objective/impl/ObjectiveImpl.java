@@ -33,13 +33,6 @@ public class ObjectiveImpl implements Objective {
         this.description = createDescription();
     }
 
-    public ObjectiveImpl(final String firstContinent, final String secondContinent, final ObjectiveType objectiveType) {
-        this.firstContinent = firstContinent;
-        this.secondContinent = secondContinent;
-        this.objectiveType = objectiveType;
-        this.description = createDescription();
-    }
-
     public ObjectiveImpl(final String firstContinent, final String secondContinent, final Boolean thirdContinent,
             final ObjectiveType objectiveType) {
         this.firstContinent = firstContinent;
