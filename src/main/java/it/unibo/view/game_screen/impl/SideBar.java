@@ -48,7 +48,7 @@ public class SideBar extends JPanel implements SideZone {
                         Double.valueOf(this.getPreferredSize().getHeight() * INFO_PANEL_HEIGHT_SCALING).intValue()));
         this.add((InfoPanel) ip, BorderLayout.NORTH);
         this.cp = new CardPanel(this.getPreferredSize(),
-                new PlayerHandControllerImpl(parent.getController().getGameLoop().getBoard().getCurrentPlayer()));
+                new PlayerHandControllerImpl(parent.getController().getGameLoop().getCurrentPlayer()));
         this.add((CardPanel) cp, BorderLayout.CENTER);
         this.bp = new ButtonPanel(this.getPreferredSize());
         this.add((ButtonPanel) bp, BorderLayout.SOUTH);

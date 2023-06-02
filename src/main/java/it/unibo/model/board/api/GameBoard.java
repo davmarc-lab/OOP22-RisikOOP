@@ -90,7 +90,7 @@ public interface GameBoard {
      * @param attacker attacker territory
      * @param defender defender territory
      */
-    void instanceCombat(Pair<Player, Territory> attacker, Pair<Player, Territory> defender);
+    boolean instanceCombat(Pair<Player, Territory> attacker, Pair<Player, Territory> defender);
 
     /**
      * Initiate troops movement from a territory to another.
@@ -128,12 +128,8 @@ public interface GameBoard {
      */
     List<Player> getAllPlayers();
 
-    /**
-     * Retrieves the current player of the turn.
-     * 
-     * @return current player
-     */
-    Player getCurrentPlayer();
+
+    Player getPlayerFromId(final int id);
 
     GameTerritory getGameTerritories();
 
@@ -147,7 +143,7 @@ public interface GameBoard {
     /**
      * Define the current player bonus troops dependig of his territories.
      */
-    void defineBonusArmies();
+    void defineBonusArmies(Player player);
 
     /**
      * Place bonus troops on the current player territories.

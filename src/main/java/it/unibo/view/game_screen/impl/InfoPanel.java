@@ -82,16 +82,16 @@ public class InfoPanel extends JPanel implements InfoZone {
     }
 
     private int getCurrentPlayerId() {
-        return this.parent.getParentEntity().getController().getGameLoop().getBoard().getCurrentPlayer().getId();
+        return this.parent.getParentEntity().getController().getGameLoop().getCurrentPlayer().getId();
     }
 
     private String getCurrentPlayerColor() {
-        return this.parent.getParentEntity().getController().getGameLoop().getBoard().getCurrentPlayer()
+        return this.parent.getParentEntity().getController().getGameLoop().getCurrentPlayer()
                 .getColorPlayer().getName();
     }
 
     private String getCurrentPlayerObjective() {
-        return this.parent.getParentEntity().getController().getGameLoop().getBoard().getCurrentPlayer().getObjective()
+        return this.parent.getParentEntity().getController().getGameLoop().getCurrentPlayer().getObjective()
                 .getDescription();
     }
 

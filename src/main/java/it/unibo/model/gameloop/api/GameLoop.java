@@ -74,4 +74,6 @@ public interface GameLoop {
      */
     Player getPlayerFromTerritory(String territory);
 
+    Player getCurrentPlayer();
+
 }

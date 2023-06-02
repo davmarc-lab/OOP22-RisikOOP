@@ -59,4 +59,6 @@ public interface Combat {
      * @return a list of {@code Combat.Results} indicating the combat results
      */
     List<Results> attack(int numAttacker, int numDefender);
+
+    boolean isTerritoryConquered();
 }

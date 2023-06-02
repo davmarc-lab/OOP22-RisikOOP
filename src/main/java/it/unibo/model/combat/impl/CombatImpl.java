@@ -175,4 +175,9 @@ public class CombatImpl implements Combat {
         applyCombatResult(results);
         return results;
     }
+
+    @Override
+    public boolean isTerritoryConquered() {
+        return this.tDefender.getTroops() == 0;
+    }
 }

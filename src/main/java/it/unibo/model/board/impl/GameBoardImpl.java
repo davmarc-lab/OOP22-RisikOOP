@@ -16,6 +16,7 @@ import it.unibo.controller.movement.impl.MovementControllerView;
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;
+import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.api.Combat.Role;
 import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.deck.api.Deck;
@@ -40,12 +41,12 @@ import it.unibo.model.territory.impl.TerritoryFactoryImpl;
  */
 public class GameBoardImpl implements GameBoard {
 
-    private final List<Player> players = new ArrayList<>();
-    private final GameTerritory gameTerritory = new TerritoryFactoryImpl().createTerritories();
-    private final GameObjective gameObjective = new ObjectiveFactoryImpl().createObjectiveSet();
-    private final Deck<Army> armyDeck = new DeckImpl<>();
+    private List<Player> players = new ArrayList<>();
+    private GameTerritory gameTerritory = new TerritoryFactoryImpl().createTerritories();
+    private GameObjective gameObjective = new ObjectiveFactoryImpl().createObjectiveSet();
+    private Deck<Army> armyDeck = new DeckImpl<>();
     private Deck<Objective> objectiveDeck;
-    private final TurnManager turnManager;
+    private TurnManager turnManager;
 
     /**
      * Constructor of {@code GameBoardImpl} that inizialize all fields.
@@ -99,7 +100,8 @@ public class GameBoardImpl implements GameBoard {
      * @param id players's id
      * @return player
      */
-    private Player getPlayerFromId(final int id) {
+    @Override
+    public Player getPlayerFromId(final int id) {
         return this.players.stream().filter(p -> p.getId() == id).findFirst().get();
     }
 
@@ -107,13 +109,14 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public void instanceCombat(final Pair<Player, Territory> attacker, final Pair<Player, Territory> defender) {
+    public boolean instanceCombat(final Pair<Player, Territory> attacker, final Pair<Player, Territory> defender) {
         final CombatController ccAttacker = new CombatControllerView(attacker, Role.ATTACKER);
         ccAttacker.startPopup();
         final CombatController ccDefender = new CombatControllerView(defender, Role.DEFENDER);
         ccDefender.startPopup();
-        new CombatImpl(attacker.getY(), defender.getY()).attack(ccAttacker.getCombatOutcome(),
-                ccDefender.getCombatOutcome());
+        Combat combat = new CombatImpl(attacker.getY(), defender.getY());
+        combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
+        return combat.isTerritoryConquered();
     }
 
     /**
@@ -131,7 +134,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Deck<Army> getArmyDeck() {
-        return this.armyDeck;
+        return new DeckImpl<>(this.armyDeck.getDeck());
     }
 
     /**
@@ -139,7 +142,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Deck<Objective> getObjectives() {
-        return this.objectiveDeck;
+        return new DeckImpl<>(this.objectiveDeck.getDeck());
     }
 
     /**
@@ -163,7 +166,7 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public TurnManager getTurnManager() {
-        return this.turnManager;
+        return new TurnManagerImpl(this.turnManager);
     }
 
     /**
@@ -171,23 +174,14 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public List<Player> getAllPlayers() {
-        return this.players;
+        return new ArrayList<>(this.players);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Player getCurrentPlayer() {
-        return this.getPlayerFromId(this.turnManager.getCurrentPlayerID());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void defineBonusArmies() {
-        final Player player = this.getCurrentPlayer();
+    public void defineBonusArmies(final Player player) {
         final int conquestsTroops = Long.valueOf(player.getTerritories().stream().count()).intValue()
                 / Constants.BONUS_TROOPS_DIVIDER;
         final Set<BonusTroops> continentsTroops = Set.of(BonusTroops.values());

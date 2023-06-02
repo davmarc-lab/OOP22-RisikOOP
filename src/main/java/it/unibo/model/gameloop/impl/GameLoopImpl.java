@@ -15,6 +15,7 @@ import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.board.impl.GameBoardImpl;
 import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.gameloop.api.PhaseManager;
+import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.api.PhaseManager.Phase;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
@@ -35,6 +36,7 @@ public class GameLoopImpl implements GameLoop {
 
     private final PhaseManager phaseManager;
     private final GameBoard board;
+    private final TurnManager turnManager;
     private final MainController controller;
     private final List<Territory> selectedTerritories;
     private final Set<Territory> disabledTerritories;
@@ -51,14 +53,17 @@ public class GameLoopImpl implements GameLoop {
         this.disabledTerritories = new HashSet<>();
         this.controller = controller;
         this.board = new GameBoardImpl();
+        this.turnManager = this.board.getTurnManager();
+        System.out.println(this.turnManager.getPlayersId());
+        System.out.println(this.turnManager.getCurrentPlayerID());
         this.phaseManager = new PhaseManagerImpl();
     }
 
     @Override
     public void start() {
         this.controller.sendMessage(
-                "Game started, Player" + this.board.getCurrentPlayer().getId() + " start placing your troops");
-        this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
+                "Game started, Player" + this.getCurrentPlayer().getId() + " start placing your troops");
+        this.setAvailableTerritories(this.getCurrentPlayer().getTerritories());
         this.controller.getGameZone().getBoard().setTroopsView();
         this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
     }
@@ -78,7 +83,7 @@ public class GameLoopImpl implements GameLoop {
         this.selectedTerritories.clear();
         this.phaseManager.switchToNextPhase();
         this.controller.getGameZone().getSideBar().getCardPanel()
-                .setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
+                .setController(new PlayerHandControllerImpl(this.getCurrentPlayer()));
         this.controller.getGameZone().getSideBar().getCardPanel().updateView();
         this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
         this.board.getGameTerritories().getTerritories()
@@ -96,20 +101,20 @@ public class GameLoopImpl implements GameLoop {
         this.selectedTerritories.add(t);
         this.controller.getGameZone().getBoard().updateTroopsView(t.getName());
         if (this.selectedTerritories.size() == PREPARATION_TROOPS) {
-            this.board.getTurnManager().switchToNextPlayer();
+            this.turnManager.switchToNextPlayer();
             this.selectedTerritories.clear();
             this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
-            this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
+            this.setAvailableTerritories(this.getCurrentPlayer().getTerritories());
             if (this.checkAllInitialTroops()) {
                 this.prepare = false;
                 this.phaseManager.switchToNextPhase();
-                this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
+                this.controller.sendMessage("Player" + this.getCurrentPlayer().getId()
                         + ", you can now play your cards to gain bonus troops");
                 this.controller.getGameZone().getSideBar().getCardPanel()
-                        .setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
+                        .setController(new PlayerHandControllerImpl(this.getCurrentPlayer()));
                 this.controller.getGameZone().getSideBar().getCardPanel().updateView();
             } else {
-                this.controller.sendMessage("Player" + this.board.getCurrentPlayer().getId()
+                this.controller.sendMessage("Player" + this.getCurrentPlayer().getId()
                         + ", it's your turn to place 3 troops on your territories");
             }
         }
@@ -142,7 +147,7 @@ public class GameLoopImpl implements GameLoop {
             case PREPARATION:
                 this.board.placeTroops(t, 1);
                 this.controller.getGameZone().getBoard().updateTroopsView(t.getName());
-                if (this.board.getCurrentPlayer().getTroops() == 0) {
+                if (this.getCurrentPlayer().getTroops() == 0) {
                     this.selectedTerritories.clear();
                     this.phaseManager.switchToNextPhase();
                     this.controller.sendMessage("You can now play your cards to gain bonus troops");
@@ -154,19 +159,24 @@ public class GameLoopImpl implements GameLoop {
                 this.selectedTerritories.add(t);
                 if (this.selectedTerritories.size() == 1) {
                     this.setAvailableTerritories(t.getAdjTerritories().stream()
-                            .filter(terr -> !this.board.getCurrentPlayer().getTerritories().contains(terr))
+                            .filter(terr -> !this.getCurrentPlayer().getTerritories().contains(terr))
                             .collect(Collectors.toSet()));
                     this.controller.sendMessage(COMBAT_MESSAGE);
                 } else {
-                    this.board.instanceCombat(
-                            new Pair<>(this.board.getCurrentPlayer(), this.selectedTerritories.get(FIRST)),
+                    boolean result = this.board.instanceCombat(
+                            new Pair<>(this.getCurrentPlayer(), this.selectedTerritories.get(FIRST)),
                             new Pair<>(this.board.getAllPlayers().stream()
                                     .filter(p -> p.getTerritories().contains(this.selectedTerritories.get(SECOND)))
                                     .findAny().get(), this.selectedTerritories.get(SECOND)));
                     this.selectedTerritories
                             .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
+                    if (result) {
+                        this.board.instanceMovement(this.selectedTerritories.get(FIRST), this.selectedTerritories.get(SECOND));
+                        this.selectedTerritories
+                            .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
+                    }
                     this.selectedTerritories.clear();
-                    this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories().stream()
+                    this.setAvailableTerritories(this.getCurrentPlayer().getTerritories().stream()
                             .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
                     this.controller.sendMessage(RESET_COMBAT_MESSAGE);
                 }
@@ -175,7 +185,7 @@ public class GameLoopImpl implements GameLoop {
                 this.selectedTerritories.add(t);
                 if (this.selectedTerritories.size() == 1) {
                     this.setAvailableTerritories(t.getAdjTerritories().stream()
-                            .filter(terr -> this.board.getCurrentPlayer().getTerritories().contains(terr))
+                            .filter(terr -> this.getCurrentPlayer().getTerritories().contains(terr))
                             .collect(Collectors.toSet()));
                     this.controller.sendMessage(MOVEMENT_MESSAGE);
                 } else {
@@ -184,7 +194,7 @@ public class GameLoopImpl implements GameLoop {
                     this.selectedTerritories
                             .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
                     this.selectedTerritories.clear();
-                    this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories().stream()
+                    this.setAvailableTerritories(this.getCurrentPlayer().getTerritories().stream()
                             .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
                     this.controller.sendMessage(RESET_MOVEMENT_MESSAGE);
                 }
@@ -201,7 +211,7 @@ public class GameLoopImpl implements GameLoop {
         } else {
             phaseManager.switchToPhase(Phase.COMBAT);
             controller.sendMessage("Select one of your territories");
-            this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories().stream()
+            this.setAvailableTerritories(this.getCurrentPlayer().getTerritories().stream()
                     .filter(t -> t.getTroops() > 1).collect(Collectors.toSet()));
             this.selectedTerritories.clear();
         }
@@ -211,7 +221,7 @@ public class GameLoopImpl implements GameLoop {
     public void startMovement() {
         phaseManager.switchToPhase(Phase.MOVEMENT);
         controller.sendMessage("Select one of your territories");
-        this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories().stream()
+        this.setAvailableTerritories(this.getCurrentPlayer().getTerritories().stream()
                 .filter(t -> t.getTroops() > 1).collect(Collectors.toSet()));
         this.selectedTerritories.clear();
     }
@@ -219,17 +229,17 @@ public class GameLoopImpl implements GameLoop {
     @Override
     public void endPlayerTurn() {
         this.phaseManager.switchToPhase(Phase.PREPARATION);
-        this.board.getTurnManager().switchToNextPlayer();
+        this.turnManager.switchToNextPlayer();
         this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
-        this.board.defineBonusArmies();
+        this.board.defineBonusArmies(this.getCurrentPlayer());
         this.selectedTerritories.clear();
-        this.controller.sendMessage("It's Player" + this.board.getCurrentPlayer().getId()
+        this.controller.sendMessage("It's Player" + this.getCurrentPlayer().getId()
                 + "'s turn.\nYou can now assign your bonus troops to your territories.\nBonus troops: "
-                + this.board.getCurrentPlayer().getTroops());
+                + this.getCurrentPlayer().getTroops());
         this.controller.getGameZone().getSideBar().getCardPanel()
-                .setController(new PlayerHandControllerImpl(this.board.getCurrentPlayer()));
+                .setController(new PlayerHandControllerImpl(this.getCurrentPlayer()));
         this.controller.getGameZone().getSideBar().getCardPanel().updateView();
-        this.setAvailableTerritories(this.board.getCurrentPlayer().getTerritories());
+        this.setAvailableTerritories(this.getCurrentPlayer().getTerritories());
     }
 
     @Override
@@ -274,6 +284,11 @@ public class GameLoopImpl implements GameLoop {
                 .filter(p -> p.getTerritories().contains(
                         this.controller.getGameLoop().getBoard().getGameTerritories().getTerritory(territory)))
                 .findAny().get();
+    }
+
+    @Override
+    public Player getCurrentPlayer() {
+        return this.board.getPlayerFromId(this.turnManager.getCurrentPlayerID());
     }
 
 }

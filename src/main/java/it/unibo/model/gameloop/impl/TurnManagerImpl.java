@@ -32,6 +32,28 @@ public final class TurnManagerImpl implements TurnManager {
         this.currentPlayerID = playerIterator.next();
     }
 
+    public TurnManagerImpl(final TurnManager tm) {
+        this.currentPlayerID = tm.getCurrentPlayerID();
+        this.playersIDs = new ArrayList<>(tm.getPlayersId());
+        this.playerIterator = tm.getIterator();
+    }
+
+    @Override
+    public Iterator<Integer> getIterator() {
+        final Iterator<Integer> copy = this.playersIDs.iterator();
+        while (copy.hasNext()) {
+            if (copy.next().equals(this.currentPlayerID)) {
+                return copy;
+            }
+        }
+        throw new IllegalAccessError("Impossible to find player ID");
+    }
+
+    @Override
+    public List<Integer> getPlayersId() {
+        return new ArrayList<>(this.playersIDs);
+    }
+
     /**
      * Randomizes the order of playersIDs based on the dice throw.
      */
@@ -48,7 +70,7 @@ public final class TurnManagerImpl implements TurnManager {
     }
 
     @Override
-    public Integer getCurrentPlayerID() {
+    public int getCurrentPlayerID() {
         return currentPlayerID;
     }
 
