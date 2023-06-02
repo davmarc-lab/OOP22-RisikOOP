@@ -13,7 +13,7 @@ import it.unibo.view.game_screen.impl.MainFrame;
  */
 public final class Engine {
 
-    private final MainController controller;
+    private MainController controller;
     private MainFrame frame;
 
     /**
@@ -28,6 +28,13 @@ public final class Engine {
      */
     public void startApp() {
         this.frame = new MainFrame(this);
+    }
+
+    /**
+     * Creates a new instance of MainController.
+     */
+    public void createController() {
+        this.controller = new MainControllerImpl();
     }
 
     /**
