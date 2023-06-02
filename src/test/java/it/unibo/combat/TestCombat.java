@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.deck.impl.DeckImpl;
+import it.unibo.model.hand.impl.HandImpl;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.player.impl.PlayerBuilderImpl;
@@ -26,8 +27,8 @@ class TestCombat {
     private static final List<Integer> ATTACKERS_INTEGERS = new ArrayList<>(List.of(6, 5));
     private static final List<Integer> DEFENDERS_INTEGERS = new ArrayList<>(List.of(5, 2, 1));
 
-    private final Player p1 = PlayerBuilderImpl.newBuilder().id(1).territoryDeck(new DeckImpl<>()).objective(new ObjectiveImpl()).build();
-    private final Player p2 = PlayerBuilderImpl.newBuilder().id(2).territoryDeck(new DeckImpl<>()).objective(new ObjectiveImpl()).build();
+    private final Player p1 = PlayerBuilderImpl.newBuilder().id(1).territoryDeck(new DeckImpl<>()).playerHand(new HandImpl()).objective(new ObjectiveImpl()).build();
+    private final Player p2 = PlayerBuilderImpl.newBuilder().id(2).territoryDeck(new DeckImpl<>()).playerHand(new HandImpl()).objective(new ObjectiveImpl()).build();
 
     private GameTerritory territories;
 
@@ -79,7 +80,7 @@ class TestCombat {
         d.addTroops(3);
         Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS),
                 true);
-        assertEquals(List.of(Combat.Results.WIN, Combat.Results.WIN), c1.attack(2, 3));
+        assertEquals(List.of(Combat.Result.WIN, Combat.Result.WIN), c1.attack(2, 3));
         assertEquals(List.of(2, 1), List.of(s.getTroops(), d.getTroops()));
     }
 
