@@ -55,17 +55,10 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
                     var x = (JSONObject) conquerElem;
                     JSONArray cArray = (JSONArray) x.get("scope");
                     if (cArray.size() == 2) {
-                        if (cArray.get(0).toString().matches("-?\\d+(\\.\\d+)?")) {
-                            final ObjectiveImpl objective = new ObjectiveImpl(
-                                    Integer.parseInt(cArray.get(0).toString()),
-                                    Integer.parseInt(cArray.get(1).toString()), Objective.ObjectiveType.CONQUER);
-                            this.objectives.add(objective);
-                        } else {
-                            final ObjectiveImpl objective = new ObjectiveImpl(cArray.get(0).toString(),
-                                    cArray.get(1).toString(), Boolean.valueOf(cArray.get(2).toString()),
-                                    Objective.ObjectiveType.CONQUER);
-                            this.objectives.add(objective);
-                        }
+                        final ObjectiveImpl objective = new ObjectiveImpl(
+                                Integer.parseInt(cArray.get(0).toString()),
+                                Integer.parseInt(cArray.get(1).toString()), Objective.ObjectiveType.CONQUER);
+                        this.objectives.add(objective);
                     } else {
                         final ObjectiveImpl objective = new ObjectiveImpl(cArray.get(0).toString(),
                                 cArray.get(1).toString(),

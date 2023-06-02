@@ -16,6 +16,8 @@ import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.gameloop.api.PhaseManager;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.api.PhaseManager.Phase;
+import it.unibo.model.gamestate.api.GameState;
+import it.unibo.model.gamestate.impl.GameStateImpl;
 import it.unibo.model.modelconstants.ModelConstants;
 import it.unibo.model.territory.api.Territory;
 
@@ -37,6 +39,7 @@ public class GameLoopImpl implements GameLoop {
     private final GameBoard board;
     private final TurnManager turnManager;
     private final MainController controller;
+    private final GameState gameState;
     private final List<Territory> selectedTerritories;
     private final Set<Territory> disabledTerritories;
 
@@ -54,6 +57,7 @@ public class GameLoopImpl implements GameLoop {
         this.board = new GameBoardImpl();
         this.turnManager = this.board.getTurnManager();
         this.phaseManager = new PhaseManagerImpl();
+        this.gameState = new GameStateImpl(this.controller);
     }
 
     @Override
@@ -145,6 +149,7 @@ public class GameLoopImpl implements GameLoop {
         switch (this.phaseManager.getCurrentPhase()) {
             case PREPARATION:
                 this.board.placeTroops(t, 1);
+                this.checkGameState();
                 this.controller.getGameZone().getBoard().updateTroopsView(t.getName());
                 if (this.controller.getCurrentPlayer().getTroops() == 0) {
                     this.selectedTerritories.clear();
@@ -190,6 +195,7 @@ public class GameLoopImpl implements GameLoop {
                         this.selectedTerritories
                                 .forEach(terr -> this.controller.getGameZone().getBoard()
                                         .updateTroopsView(terr.getName()));
+                        this.checkGameState();
                     }
                     this.selectedTerritories.clear();
                     this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
@@ -211,8 +217,9 @@ public class GameLoopImpl implements GameLoop {
                             .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
                     this.selectedTerritories.clear();
                     this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
-                            .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
+                    .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
                     this.controller.sendMessage(RESET_MOVEMENT_MESSAGE);
+                    this.checkGameState();
                 }
                 break;
             default:
@@ -300,4 +307,9 @@ public class GameLoopImpl implements GameLoop {
         return new TurnManagerImpl(this.turnManager);
     }
 
+    private void checkGameState() {
+        if (this.gameState.isGameOver()) {
+            System.out.println(this.gameState.getWinner());
+        }
+    }
 }

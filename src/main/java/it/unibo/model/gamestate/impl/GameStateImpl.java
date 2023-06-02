@@ -1,7 +1,9 @@
 package it.unibo.model.gamestate.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.common.Pair;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.gamestate.api.GameState;
 import it.unibo.model.objective.api.Objective;
@@ -48,17 +50,18 @@ public class GameStateImpl implements GameState {
      */
     private boolean checkIfPlayerWon() {
         final List<Player> players = this.mc.getGameLoop().getBoard().getAllPlayers();
+        final List<Pair<Integer, Boolean>> results = new ArrayList<>();
         for (final Player player : players) {
             final String armyColor = player.getObjective().getCheckObjectives().getY().get(0);
             if (player.getObjective().getObjectiveType().equals(Objective.ObjectiveType.DESTROY)) {
-                return isColorDestroyed(player, armyColor, players);
+                results.add(new Pair<>(player.getId(), isColorDestroyed(player, armyColor, players)));
             } else if (player.getObjective().getCheckObjectives().getY().size() == 2) {
-                return checkNumberOfConqueredTerritories(player);
+                results.add(new Pair<>(player.getId(), checkNumberOfConqueredTerritories(player)));
             } else {
-                return checkConqueredContinent(player);
+                results.add(new Pair<>(player.getId(), checkConqueredContinent(player)));
             }
         }
-        return false;
+        return results.stream().anyMatch(p -> p.getY().equals(true));
     }
 
     /**
@@ -91,7 +94,7 @@ public class GameStateImpl implements GameState {
         final boolean isObjectiveComplete = player.getTerritories().stream()
                 .filter(t -> t.getTroops() >= minNumArmies)
                 .limit(numTerritoriesToConquer)
-                .count() == numTerritoriesToConquer;
+                .count() >= numTerritoriesToConquer;
         if (isObjectiveComplete) {
             player.getObjective().setComplete();
             return true;
