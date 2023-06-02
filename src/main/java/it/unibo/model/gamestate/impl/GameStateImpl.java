@@ -6,7 +6,6 @@ import it.unibo.controller.api.MainController;
 import it.unibo.model.gamestate.api.GameState;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
-import it.unibo.model.territory.api.Territory;
 
 public class GameStateImpl implements GameState {
 
@@ -34,12 +33,10 @@ public class GameStateImpl implements GameState {
             final String armyColor = player.getObjective().getCheckObjectives().getY().get(0);
             if (player.getObjective().getObjectiveType().equals(Objective.ObjectiveType.DESTROY)) {
                 return isColorDestroyed(player, armyColor, players);
+            } else if (player.getObjective().getCheckObjectives().getY().size() == 2) {
+                return checkNumberOfConqueredTerritories(player);
             } else {
-                if (player.getObjective().getCheckObjectives().getY().size() == 2) {
-                    return checkNumberOfConqueredTerritories(player);
-                } else {
-                    return checkConqueredContinent(player);
-                }
+                return checkConqueredContinent(player);
             }
         }
         return false;
@@ -55,46 +52,42 @@ public class GameStateImpl implements GameState {
         }
         return false;
     }
-
+    
     private boolean checkNumberOfConqueredTerritories(final Player player) {
         final int numTerritoriesToConquer = Integer.parseInt(player.getObjective().getCheckObjectives().getY().get(0));
         final int minNumArmies = Integer.parseInt(player.getObjective().getCheckObjectives().getY().get(1));
-        if (player.getTerritories().size() >= numTerritoriesToConquer) {
-            for (final Territory t : player.getTerritories()) {
-                if (t.getTroops() >= minNumArmies) {
-                    player.getObjective().setComplete();
-                    return true;
-                }
-            }
+        final boolean isObjectiveComplete = player.getTerritories().stream()
+                .filter(t -> t.getTroops() >= minNumArmies)
+                .limit(numTerritoriesToConquer)
+                .count() == numTerritoriesToConquer;
+        if (isObjectiveComplete) {
+            player.getObjective().setComplete();
+            return true;
         }
         return false;
     }
-
+    
     private boolean checkConqueredContinent(final Player player) {
         final String firstContinent = player.getObjective().getCheckObjectives().getY().get(0);
         final String secondContinent = player.getObjective().getCheckObjectives().getY().get(1);
         final boolean thirdContinent = Boolean.valueOf(player.getObjective().getCheckObjectives().getY().get(2));
-        if (thirdContinent) {
-            if (isContinentConquered(player, firstContinent) && isContinentConquered(player, secondContinent)) {
-                for (final String continent : this.mc.getGameLoop().getBoard().getGameTerritories().getTerritoryMap()
-                        .keySet()) {
-                    if (isContinentConquered(player, continent)) {
-                        player.getObjective().setComplete();
-                        return true;
-                    }
-                }
-            }
-        } else {
-            if (isContinentConquered(player, firstContinent) && isContinentConquered(player, secondContinent)) {
+        
+        if (thirdContinent && isContinentConquered(player, firstContinent) && isContinentConquered(player, secondContinent)) {
+            if (this.mc.getGameLoop().getBoard().getGameTerritories().getTerritoryMap().keySet().stream()
+                    .filter(c -> !c.equals(firstContinent) && !c.equals(secondContinent))
+                    .anyMatch(continent -> isContinentConquered(player, continent))) {
                 player.getObjective().setComplete();
                 return true;
             }
+        } else if (isContinentConquered(player, firstContinent) && isContinentConquered(player, secondContinent)) {
+            player.getObjective().setComplete();
+            return true;
         }
+        
         return false;
     }
 
     private boolean isContinentConquered(final Player player, final String continent) {
-        return player.getTerritories()
-                .containsAll(this.mc.getGameLoop().getBoard().getGameTerritories().getTerritoryMap().get(continent));
+        return player.getTerritories().containsAll(this.mc.getGameLoop().getBoard().getGameTerritories().getTerritoryMap().get(continent));
     }
 }
