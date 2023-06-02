@@ -162,10 +162,8 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void restartApp() {
-        this.engine.createController();
-        this.engine.createGameLoop();
-        this.engine.createGUI();
-        this.engine.startEngine();
+        this.engine.stopEngine();
+        this.engine.startApp();
     }
 
 }

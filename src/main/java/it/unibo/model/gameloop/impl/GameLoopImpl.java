@@ -129,7 +129,8 @@ public class GameLoopImpl implements GameLoop {
      * @return true or false
      */
     private boolean checkAllInitialTroops() {
-        return this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0).count() == ModelConstants.MAX_PLAYERS;
+        return this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0)
+                .count() == ModelConstants.MAX_PLAYERS;
     }
 
     @Override
@@ -195,12 +196,14 @@ public class GameLoopImpl implements GameLoop {
                         this.selectedTerritories
                                 .forEach(terr -> this.controller.getGameZone().getBoard()
                                         .updateTroopsView(terr.getName()));
-                        this.checkGameState();
+                        if (this.checkGameState()) {
+                            break;
+                        }
                     }
+                    this.controller.sendMessage(RESET_COMBAT_MESSAGE);
                     this.selectedTerritories.clear();
                     this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
                             .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
-                    this.controller.sendMessage(RESET_COMBAT_MESSAGE);
                 }
                 break;
             case MOVEMENT:
@@ -217,9 +220,9 @@ public class GameLoopImpl implements GameLoop {
                             .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
                     this.selectedTerritories.clear();
                     this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
-                    .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
-                    this.controller.sendMessage(RESET_MOVEMENT_MESSAGE);
+                            .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
                     this.checkGameState();
+                    this.controller.sendMessage(RESET_MOVEMENT_MESSAGE);
                 }
                 break;
             default:
@@ -307,9 +310,13 @@ public class GameLoopImpl implements GameLoop {
         return new TurnManagerImpl(this.turnManager);
     }
 
-    private void checkGameState() {
+    private boolean checkGameState() {
         if (this.gameState.isGameOver()) {
-            System.out.println(this.gameState.getWinner());
+            this.controller.sendMessage(new StringBuilder("Player").append(this.gameState.getWinner().getId())
+                    .append(" has won!").toString());
+            this.controller.restartApp();
+            return true;
         }
+        return false;
     }
 }

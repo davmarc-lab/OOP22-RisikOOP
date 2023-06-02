@@ -64,6 +64,10 @@ public final class Engine {
         this.controller.startLoop();
     }
 
+    public void stopEngine() {
+        this.frame.dispose();
+    }
+
     /**
      * main.
      * @param args
