@@ -19,11 +19,12 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
@@ -137,7 +138,12 @@ public class MainPanel extends JPanel {
 
             }.readFromFile();
             jbRules.addActionListener(e -> {
-                JOptionPane.showMessageDialog(new MessageFrame(), message);
+                JTextArea textArea = new JTextArea();
+                textArea.setEditable(false);
+                textArea.setText(message);
+                JScrollPane scrollPane = new JScrollPane(textArea);
+                scrollPane.setPreferredSize(new Dimension(Double.valueOf(this.dimension.getWidth() * 0.5).intValue(), Double.valueOf(this.dimension.getHeight() * 0.7).intValue()));
+                JOptionPane.showMessageDialog(this, scrollPane);
             });
         } catch (FileNotFoundException e) {
             Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, "File not found in the path given", e);
@@ -167,14 +173,6 @@ public class MainPanel extends JPanel {
         pane.add(panel, Integer.valueOf(1));
         this.add(pane);
         this.updateUI();
-    }
-
-    private class MessageFrame extends JFrame {
-
-        MessageFrame() {
-            this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-            this.setLocationRelativeTo(null);
-        }
     }
 
     private Image adjustImageSize(final ImageIcon map, final double width, final double height) {
