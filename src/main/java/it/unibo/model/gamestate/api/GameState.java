@@ -2,10 +2,22 @@ package it.unibo.model.gamestate.api;
 
 import it.unibo.model.player.api.Player;
 
+/**
+ * The GameState interface represents the current state of a game.
+ */
 public interface GameState {
 
-    boolean isGameFinished();
+    /**
+     * Checks if the game is over.
+     *
+     * @return true if the game is over, false otherwise
+     */
+    boolean isGameOver();
 
+    /**
+     * Retrieves the winner of the game.
+     *
+     * @return the player who won the game
+     */
     Player getWinner();
-
 }

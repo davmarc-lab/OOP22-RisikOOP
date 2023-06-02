@@ -22,7 +22,7 @@ public class ObjectiveImpl implements Objective {
     private Pair<ObjectiveType, List<String>> checkObjectives;
 
     /**
-     * Constructs a new ObjectiveImpl with the given armyColor and objective type.
+     * Constructs a new ObjectiveImpl with the given armyColor and objective type for the destroy objective.
      *
      * @param armyColor     the armyColor of the objective
      * @param objectiveType the type of the objective
@@ -33,6 +33,15 @@ public class ObjectiveImpl implements Objective {
         this.description = createDescription();
     }
 
+    /**
+     * Constructs a new ObjectiveImpl with the given firstContinent,
+     * secondContinent, thirdContinent and objective type for the conquer objective.
+     * 
+     * @param firstContinent
+     * @param secondContinent
+     * @param thirdContinent
+     * @param objectiveType
+     */
     public ObjectiveImpl(final String firstContinent, final String secondContinent, final Boolean thirdContinent,
             final ObjectiveType objectiveType) {
         this.firstContinent = firstContinent;
@@ -42,6 +51,14 @@ public class ObjectiveImpl implements Objective {
         this.description = createDescription();
     }
 
+    /**
+     * Constructs a new ObjectiveImpl with the given numTerritoriesToConquer with at
+     * least minNumArmies on it and objective type for the conquer objective.
+     * 
+     * @param numTerritoriesToConquer
+     * @param minNumArmies
+     * @param objectiveType
+     */
     public ObjectiveImpl(final int numTerritoriesToConquer, final int minNumArmies, final ObjectiveType objectiveType) {
         this.numTerritoriesToConquer = numTerritoriesToConquer;
         this.minNumArmies = minNumArmies;
@@ -49,6 +66,9 @@ public class ObjectiveImpl implements Objective {
         this.description = createDescription();
     }
 
+    /**
+     * Constructs an empty ObjectiveImpl.
+     */
     public ObjectiveImpl() {
         this.description = "";
         this.objectiveType = ObjectiveType.NONE;
@@ -95,13 +115,10 @@ public class ObjectiveImpl implements Objective {
     }
 
     /**
-     * {@inheritDoc}
+     * Creates the description of the objective based on the objectiveType.
+     * 
+     * @return a string containing the description of the objective
      */
-    @Override
-    public String toString() {
-        return this.description;
-    }
-
     private String createDescription() {
         if (objectiveType.equals(ObjectiveType.DESTROY)) {
             this.checkObjectives = new Pair<>(objectiveType, List.of(this.armyColor));

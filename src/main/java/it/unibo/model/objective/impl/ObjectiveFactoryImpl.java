@@ -14,7 +14,7 @@ import it.unibo.model.objective.api.ObjectiveFactory;
  */
 public class ObjectiveFactoryImpl implements ObjectiveFactory {
     /**
-     * Creates a set of objectives from a JSON file.
+     * {@inheritDoc}
      */
     @Override
     public GameObjective createObjectiveSet() {

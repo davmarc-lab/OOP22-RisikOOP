@@ -55,7 +55,7 @@ public class GameBoardImpl implements GameBoard {
         createArmyDeck();
         createObjectiveDeck();
         final Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck,
-                this.gameObjective.getDefaulObjective());
+                this.gameObjective.getDefaultObjective());
         new GamePrepImpl(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective)
                 .preparePlayers();
         this.objectiveDeck.setDeck(pairObjective.getX().getDeck());

@@ -1,11 +1,13 @@
 package it.unibo.model.objective.api;
 
 import java.util.Set;
-
+/**
+ * The GameObjective interface represents the set of objectives of the game.
+ */
 public interface GameObjective {
 
     /**
-     * Gets the set of objectives created by this factory.
+     * Gets the set of objectives created by the factory.
      *
      * @return the set of objectives
      */
@@ -16,5 +18,5 @@ public interface GameObjective {
      * 
      * @return the default objective
      */
-    Objective getDefaulObjective();
+    Objective getDefaultObjective();
 }
