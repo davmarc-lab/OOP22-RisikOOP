@@ -32,19 +32,36 @@ public interface Combat {
     }
 
     /**
-     * Enumerating the role of the player during the combat. It defined the troops
+     * Enumerating the role of the player during the combat. It defines the troops
      * that have to remain in the terriotory for each role.
      */
     enum Role {
+        /**
+         * Attacker role.
+         * Has to leave at least 1 troop on the territory he attacks from
+         */
         ATTACKER(1),
+
+        /**
+         * Defender role.
+         * Doesn't need to leave any troops on his territory, as he can only try to
+         * survive an attack
+         */
         DEFENDER(0);
 
-        final int stableTroops;
+        private final int stableTroops;
 
-        private Role(final int stableTroops) {
+        /**
+         * @param stableTroops the numbero of troops that have to remain in the
+         *                     territory
+         */
+        Role(final int stableTroops) {
             this.stableTroops = stableTroops;
         }
 
+        /**
+         * @return the number of troops that have to remain in the territory
+         */
         public int getStableTroops() {
             return this.stableTroops;
         }
@@ -60,5 +77,11 @@ public interface Combat {
      */
     List<Result> attack(int numAttacker, int numDefender);
 
+    /**
+     * Checks if a territory has been conquered.
+     * 
+     * @return true if the territory is conquered, false otherwise
+     */
     boolean isTerritoryConquered();
+
 }

@@ -27,6 +27,9 @@ public interface Army {
             this.name = name;
         }
 
+        /**
+         * @return the name of the type
+         */
         public String getName() {
             return this.name;
         }

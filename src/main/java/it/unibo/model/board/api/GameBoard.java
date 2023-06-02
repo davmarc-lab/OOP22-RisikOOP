@@ -25,22 +25,27 @@ public interface GameBoard {
          * Bonus troops of the continent Oceania.
          */
         OCEANIA_TROOPS("Oceania", 2),
+
         /**
          * Bonus troops of the continent Europe.
          */
         EUROPE_TROOPS("Europe", 5),
+
         /**
          * Bonus troops of the continent South America.
          */
         SOUTH_AMERICA_TROOPS("South America", 2),
+
         /**
          * Bonus troops of the continent North America.
          */
         NORTH_AMERICA_TROOPS("North America", 5),
+
         /**
          * Bonus troops of the continent Africa.
          */
         AFRICA_TROOPS("Africa", 3),
+
         /**
          * Bonus troops of the continent Asia.
          */
@@ -84,8 +89,10 @@ public interface GameBoard {
      * 
      * @param attacker attacker territory
      * @param defender defender territory
+     * @return a pair of results and the boolean result of the attack
      */
-    Pair<Pair<Integer, Integer>, Boolean> instanceCombat(Pair<Player, Territory> attacker, Pair<Player, Territory> defender);
+    Pair<Pair<Integer, Integer>, Boolean> instanceCombat(Pair<Player, Territory> attacker,
+            Pair<Player, Territory> defender);
 
     /**
      * Initiate troops movement from a territory to another.
@@ -117,14 +124,23 @@ public interface GameBoard {
     Deck<Territory> getTerritoryDeck();
 
     /**
-     * Retrives a list of all player in the game.
+     * Retrieves a list of all player in the game.
      * 
      * @return players that are playing
      */
     List<Player> getAllPlayers();
 
-    Player getPlayerFromId(final int id);
+    /**
+     * Retrieves the player that has a certain ID.
+     * 
+     * @param id the id
+     * @return the player with the specified ID
+     */
+    Player getPlayerFromId(int id);
 
+    /**
+     * @return the GameTerritory
+     */
     GameTerritory getGameTerritories();
 
     /**
@@ -134,15 +150,27 @@ public interface GameBoard {
      */
     TurnManager getTurnManager();
 
+    /**
+     * Make a player draw a card.
+     * 
+     * @param player the player that draws a card
+     */
     void playerDrawArmyCard(Player player);
 
     /**
-     * Define the current player bonus troops dependig of his territories.
+     * Define the current player bonus troops depending on the territories he
+     * controls.
+     * 
+     * @param player the player that will get the bonus troops
      */
     void defineBonusArmies(Player player);
 
     /**
-     * Place bonus troops on the current player territories.
+     * Place troops on a territory.
+     * 
+     * @param territory the territory that will receive the troops
+     * @param troops    the number of troops to be placed
      */
     void placeTroops(Territory territory, int troops);
+
 }

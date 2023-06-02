@@ -26,6 +26,7 @@ public class CombatControllerView implements CombatController {
      * Constructs a CombatControllerView object.
      *
      * @param model the player and territory pair for the combat
+     * @param role the role of the player involved in combat
      */
     public CombatControllerView(final Pair<Player, Territory> model, final Role role) {
         this.model = model;

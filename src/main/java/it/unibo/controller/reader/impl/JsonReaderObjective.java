@@ -18,6 +18,9 @@ import it.unibo.controller.controllerconstants.ControllerConstants;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.impl.ObjectiveImpl;
 
+/**
+ * This class is used to read the objectives from the json file.
+ */
 public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<Objective>>> {
 
     private static final String OBJECTIVES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH).append("config")
@@ -27,11 +30,18 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
     private Set<Objective> objectives;
     private Objective defaultObjective;
 
+    /**
+     * Empty constructor that prepares an empty set of objectives that will be
+     * filled later.
+     */
     public JsonReaderObjective() {
         super(OBJECTIVES_PATH);
         this.objectives = new HashSet<>();
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public Pair<Objective, Set<Objective>> readFromFile() {
         final JSONParser parser = new JSONParser();
@@ -82,4 +92,5 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
         }
         return new Pair<Objective, Set<Objective>>(this.defaultObjective, this.objectives);
     }
+
 }

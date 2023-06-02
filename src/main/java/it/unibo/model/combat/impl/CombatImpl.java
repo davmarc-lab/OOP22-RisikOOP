@@ -30,22 +30,25 @@ public class CombatImpl implements Combat {
     /**
      * This constructor create a standard Combat object.
      * 
-     * @param tAttacker attacker's territory
+     * @param tAttacker      attacker's territory
      * @param numberAttacker attacker's armies
-     * @param tDefender defender's territory
+     * @param tDefender      defender's territory
      * @param numberDefender defender's armies
      * 
-     * {@throws IllegalArgumentException} if the number of armies doesn't respect the rules (must be between 1 and 3)
+     * {
+     * @throws IllegalArgumentException} if the number of armies doesn't respect the
+     *                                   rules (must be between 1 and 3)
      */
     public CombatImpl(final Territory tAttacker, final int numberAttacker,
-        final Territory tDefender, final int numberDefender) {
+            final Territory tDefender, final int numberDefender) {
         this(tAttacker, tDefender);
         this.numberAttacker = numberAttacker;
         this.numberDefender = numberDefender;
     }
 
     /**
-     * This constructor is used for test classes creating a situation with 0 attackers and defenders.
+     * This constructor is used for test classes creating a situation with 0
+     * attackers and defenders.
      * 
      * @param tAttacker attacker's territories
      * @param tDefender defender's territories
@@ -56,19 +59,21 @@ public class CombatImpl implements Combat {
     }
 
     /**
-     * This constructor is used for test classes, it creates a situation with default number of armies.
+     * This constructor is used for test classes, it creates a situation with
+     * default number of armies.
      * and default results of each dice.
      * 
-     * @param tAttacker attacker's territory
+     * @param tAttacker      attacker's territory
      * @param numberAttacker attacker's armies
-     * @param tDefender defender's territory
+     * @param tDefender      defender's territory
      * @param numberDefender defender's armies
-     * @param attackers results of the dice for attacker's armies
-     * @param defenders results of the dice for defender's armies
-     * @param testFlag flag used in test classes
+     * @param attackers      results of the dice for attacker's armies
+     * @param defenders      results of the dice for defender's armies
+     * @param testFlag       flag used in test classes
      */
     public CombatImpl(final Territory tAttacker, final int numberAttacker, final Territory tDefender,
-        final int numberDefender, final List<Integer> attackers, final List<Integer> defenders, final boolean testFlag) {
+            final int numberDefender, final List<Integer> attackers, final List<Integer> defenders,
+            final boolean testFlag) {
         this(tAttacker, numberAttacker, tDefender, numberDefender);
         this.attackers.addAll(attackers);
         this.defenders.addAll(defenders);
@@ -78,23 +83,24 @@ public class CombatImpl implements Combat {
     /**
      * This method is used to check the number of armies for each side.
      * 
-     * @return a {@code boolean} value indicating if the numbers of defenders and attackers are correct
+     * @return a {@code boolean} value indicating if the numbers of defenders and
+     *         attackers are correct
      */
     private boolean isNumberArmiesValid() {
         return this.numberDefender <= MAX_ATTACK_DEFEND_ARMY && this.numberDefender >= MIN_ATTACK_DEFEND_ARMY
-            && this.numberAttacker <= MAX_ATTACK_DEFEND_ARMY && this.numberAttacker >= MIN_ATTACK_DEFEND_ARMY;
+                && this.numberAttacker <= MAX_ATTACK_DEFEND_ARMY && this.numberAttacker >= MIN_ATTACK_DEFEND_ARMY;
     }
 
     /**
      * Calculate the values of each army throwing a dice.
      * 
      * @param numberOfDice number of armies used in combat
-     * @return a {@code List<Integer>} containing the sorted values of each army 
+     * @return a {@code List<Integer>} containing the sorted values of each army
      */
     private List<Integer> declarePower(final int numberOfDice) {
         final List<Integer> l = new ArrayList<>();
         l.addAll(dice.rollMultiple(numberOfDice));
-        l.sort((x, y) ->  y - x);
+        l.sort((x, y) -> y - x);
         return l;
     }
 
@@ -103,7 +109,8 @@ public class CombatImpl implements Combat {
      * 
      * @param attackers values of each attacker army
      * @param defenders values of each defender army
-     * @return a {@code List<Results>} containing the result of each fight between armies
+     * @return a {@code List<Results>} containing the result of each fight between
+     *         armies
      */
     private List<Result> computeAttack(final List<Integer> attackers, final List<Integer> defenders) {
         final List<Result> r = new ArrayList<>();
@@ -141,7 +148,7 @@ public class CombatImpl implements Combat {
      */
     private boolean checkAttackValidity() {
         return this.tAttacker.getAdjTerritories().contains(this.tDefender)
-            && this.tAttacker.getTroops() > 1;
+                && this.tAttacker.getTroops() > 1;
     }
 
     /**
@@ -176,8 +183,12 @@ public class CombatImpl implements Combat {
         return results;
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public boolean isTerritoryConquered() {
         return this.tDefender.getTroops() == 0;
     }
+
 }
