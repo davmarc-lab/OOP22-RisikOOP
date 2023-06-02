@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.player.api.Player;
+import it.unibo.start.Engine;
 import it.unibo.view.game_screen.api.GameZone;
 
 /**
@@ -14,17 +15,19 @@ import it.unibo.view.game_screen.api.GameZone;
  */
 public class MainControllerImpl implements MainController {
 
+    private final Engine engine;
     private GameZone gui;
     private GameLoop loop;
 
     /**
      * Empty constructor.
      */
-    public MainControllerImpl() {
+    public MainControllerImpl(final Engine engine) {
+        this.engine = engine;
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void setGameLoop(final GameLoop loop) {
@@ -32,7 +35,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void setGameZone(final GameZone gui) {
@@ -40,7 +43,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void startLoop() {
@@ -48,7 +51,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void sendInput(final Object input) {
@@ -56,7 +59,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void sendMessage(final String message) {
@@ -64,7 +67,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void disableTerritories(final Set<String> territories) {
@@ -72,7 +75,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void enableAllTerritories() {
@@ -80,7 +83,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void disableAllTerritories() {
@@ -88,7 +91,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void switchToCombat() {
@@ -96,7 +99,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void switchToMovement() {
@@ -104,7 +107,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void endTurn() {
@@ -112,7 +115,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public GameLoop getGameLoop() {
@@ -120,7 +123,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public GameZone getGameZone() {
@@ -128,7 +131,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void randomize() {
@@ -136,7 +139,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public Player getPlayerFromTerritory(final String territory) {
@@ -147,11 +150,20 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public Player getCurrentPlayer() {
         return this.loop.getBoard().getPlayerFromId(this.loop.getTurnManager().getCurrentPlayerID());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void restartApp() {
+        this.engine.createController();
+        this.engine.startApp();
     }
 
 }

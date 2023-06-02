@@ -103,4 +103,9 @@ public interface MainController {
      */
     Player getCurrentPlayer();
 
+    /**
+     * Restarts application.
+     */
+    void restartApp();
+
 }

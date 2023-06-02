@@ -20,7 +20,7 @@ public final class Engine {
      * Sets up the controller.
      */
     public Engine() {
-        this.controller = new MainControllerImpl();
+        this.controller = new MainControllerImpl(this);
     }
 
     /**
@@ -34,7 +34,7 @@ public final class Engine {
      * Creates a new instance of MainController.
      */
     public void createController() {
-        this.controller = new MainControllerImpl();
+        this.controller = new MainControllerImpl(this);
     }
 
     /**
