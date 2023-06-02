@@ -23,8 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
@@ -138,12 +136,7 @@ public class MainPanel extends JPanel {
 
             }.readFromFile();
             jbRules.addActionListener(e -> {
-                JTextArea textArea = new JTextArea();
-                textArea.setEditable(false);
-                textArea.setText(message);
-                JScrollPane scrollPane = new JScrollPane(textArea);
-                scrollPane.setPreferredSize(new Dimension(Double.valueOf(this.dimension.getWidth() * 0.5).intValue(), Double.valueOf(this.dimension.getHeight() * 0.7).intValue()));
-                JOptionPane.showMessageDialog(this, scrollPane);
+                JOptionPane.showMessageDialog(this, message);
             });
         } catch (FileNotFoundException e) {
             Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, "File not found in the path given", e);
