@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import it.unibo.common.Pair;
 import it.unibo.controller.movement.api.MovementController;
-import it.unibo.view.movement.impl.MovementErrorDialog;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.view.movement.api.MovementView;
 import it.unibo.view.movement.impl.MovementFrame;
@@ -29,11 +28,7 @@ public class MovementControllerView implements MovementController {
         if (this.model.getX().getTroops() > 1) {
             this.value = 1;
             this.frame = new MovementFrame(this);
-        } else {
-            // logger here
-            this.frame = new MovementErrorDialog();
         }
-
     }
 
     /**
