@@ -4,7 +4,7 @@ import it.unibo.controller.gamecontroller.api.MainController;
 
 /**
  * This interface models the zone (in our case a JPanel) that contains the board
- * and the side bar
+ * and the side bar.
  */
 public interface GameZone {
 

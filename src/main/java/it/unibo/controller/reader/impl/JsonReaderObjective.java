@@ -27,8 +27,7 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
             .append(ControllerConstants.PATH_SEPARATOR)
             .append("objective").append(ControllerConstants.PATH_SEPARATOR).append("Objectives.json").toString();
 
-    private Set<Objective> objectives;
-    private Objective defaultObjective;
+    private final Set<Objective> objectives;
 
     /**
      * Empty constructor that prepares an empty set of objectives that will be
@@ -40,10 +39,11 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}}
      */
     @Override
     public Pair<Objective, Set<Objective>> readFromFile() {
+        Objective defaultObjective = new ObjectiveImpl();
         final JSONParser parser = new JSONParser();
         JSONObject obj;
 
@@ -61,9 +61,9 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
                             Objective.ObjectiveType.DESTROY);
                     this.objectives.add(objective);
                 }
-                for (Object conquerElem : conquerArray) {
-                    var x = (JSONObject) conquerElem;
-                    JSONArray cArray = (JSONArray) x.get("scope");
+                for (final Object conquerElem : conquerArray) {
+                    final JSONObject x = (JSONObject) conquerElem;
+                    final JSONArray cArray = (JSONArray) x.get("scope");
                     if (cArray.size() == 2) {
                         final ObjectiveImpl objective = new ObjectiveImpl(
                                 Integer.parseInt(cArray.get(0).toString()),
@@ -76,10 +76,10 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
                         this.objectives.add(objective);
                     }
                 }
-                for (Object defObj : defaultObj) {
-                    var z = (JSONObject) defObj;
-                    JSONArray dArray = (JSONArray) z.get("scope");
-                    this.defaultObjective = new ObjectiveImpl(Integer.parseInt(dArray.get(0).toString()),
+                for (final Object defObj : defaultObj) {
+                    final JSONObject z = (JSONObject) defObj;
+                    final JSONArray dArray = (JSONArray) z.get("scope");
+                    defaultObjective = new ObjectiveImpl(Integer.parseInt(dArray.get(0).toString()),
                             Integer.parseInt(dArray.get(1).toString()), Objective.ObjectiveType.CONQUER);
                     this.objectives.add(defaultObjective);
 
@@ -90,7 +90,6 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
         } catch (ParseException | IOException e) {
             this.getLogger().log(Level.SEVERE, "Error parsing Objectives.json", e);
         }
-        return new Pair<Objective, Set<Objective>>(this.defaultObjective, this.objectives);
+        return new Pair<Objective, Set<Objective>>(defaultObjective, this.objectives);
     }
-
 }

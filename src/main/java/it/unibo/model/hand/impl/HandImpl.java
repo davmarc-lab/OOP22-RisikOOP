@@ -18,7 +18,7 @@ public class HandImpl implements Hand {
     private static final int CAVALRY_TROOPS = 8;
     private static final int DIFFERENT_CARDS_TROOPS = 10;
 
-    private List<Army> hand = new ArrayList<>();
+    private final List<Army> hand;
 
     /**
      * Constructs a HandImpl object with the specified initial hand.

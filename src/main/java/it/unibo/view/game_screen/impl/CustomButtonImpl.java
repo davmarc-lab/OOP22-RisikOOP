@@ -40,12 +40,12 @@ public final class CustomButtonImpl extends JButton implements CustomButton {
     }
 
     @Override
-    public void setPressedColor(Color c) {
+    public void setPressedColor(final Color c) {
         this.pressedColor = c;
     }
 
     @Override
-    public void setHoverColor(Color c) {
+    public void setHoverColor(final Color c) {
         this.hoverColor = c;
     }
 
@@ -60,7 +60,7 @@ public final class CustomButtonImpl extends JButton implements CustomButton {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(final Graphics g) {
         if (getModel().isPressed()) {
             g.setColor(pressedColor);
         } else if (getModel().isRollover()) {

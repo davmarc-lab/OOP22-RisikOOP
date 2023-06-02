@@ -138,7 +138,8 @@ public class ObjectiveImpl implements Objective {
             return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
                     .append(this.secondContinent).append(" and another continent of your choice"));
         } else {
-            this.checkObjectives = new Pair<>(objectiveType, List.of(this.firstContinent, this.secondContinent, this.thirdContinent.toString()));
+            this.checkObjectives = new Pair<>(objectiveType,
+                    List.of(this.firstContinent, this.secondContinent, this.thirdContinent.toString()));
             return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
                     .append(this.secondContinent));
         }

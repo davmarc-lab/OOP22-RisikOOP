@@ -3,7 +3,7 @@ package it.unibo.view.game_screen.api;
 import java.awt.Color;
 
 /**
- * This interface models a custom button 
+ * This interface models a custom button.
  */
 public interface CustomButton {
 
@@ -17,7 +17,7 @@ public interface CustomButton {
      * Sets the hover color for the button.
      * @param c color
      */
-    void setHoverColor(Color g);
+    void setHoverColor(Color c);
 
     /**
      * @return background color
