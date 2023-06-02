@@ -182,7 +182,7 @@ public class GameBoardImpl implements GameBoard {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void playerDrawArmyCard(final Player player) {

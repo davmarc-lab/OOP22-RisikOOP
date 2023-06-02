@@ -40,7 +40,7 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public Pair<Objective, Set<Objective>> readFromFile() {

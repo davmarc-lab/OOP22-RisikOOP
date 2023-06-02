@@ -184,7 +184,7 @@ public class CombatImpl implements Combat {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public boolean isTerritoryConquered() {

@@ -41,7 +41,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public List<Army> getInputCards() {
@@ -49,7 +49,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void addInputCard(final String card) {
@@ -57,7 +57,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void clearInputCards() {
@@ -65,7 +65,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public boolean isInputFull() {
@@ -73,7 +73,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public boolean isAddPossible(final int currentNumber, final int input) {
@@ -81,7 +81,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void attemptPlayCards() {
@@ -96,7 +96,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public int getNumberOfCards(final String cardType) {
@@ -104,7 +104,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public int getPlayerFirstCards() {
@@ -113,7 +113,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public int getPlayerSecondCards() {
@@ -122,7 +122,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public int getPlayerThirdCards() {
@@ -131,7 +131,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public String getMessage() {
@@ -139,7 +139,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public CardZone getView() {
