@@ -36,7 +36,7 @@ public final class BoardPanel extends JPanel implements BoardZone {
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;
     private static final int BUTTON_BORDER_SIZE = 2;
-    private static final int LABEL_SIZE = 20;
+    private static final double LABEL_SCALING = 1.04;
 
     private final Map<CustomButton, String> territories = new HashMap<>();
     private final Map<String, JLabel> squares = new HashMap<>();
@@ -100,6 +100,9 @@ public final class BoardPanel extends JPanel implements BoardZone {
 
     /**
      * Creates the JLabels that will contain the number of troops on a territory.
+     * 
+     * @param width  map width
+     * @param heigth map height
      */
     private void loadLabels(final int width, final int height) {
         new JsonReaderSquareCoordinates().readFromFile().forEach(pair -> {
@@ -110,7 +113,8 @@ public final class BoardPanel extends JPanel implements BoardZone {
             lab.setOpaque(true);
             final int x = Double.valueOf(pair.getY().getX() * width / 100).intValue();
             final int y = Double.valueOf(pair.getY().getY() * height / 100).intValue();
-            lab.setBounds(x, y, LABEL_SIZE, LABEL_SIZE);
+            lab.setBounds(x, y, Double.valueOf(width * LABEL_SCALING / 100).intValue(),
+                    Double.valueOf(width * LABEL_SCALING / 100).intValue());
             this.squares.put(pair.getX(), lab);
         });
     }
@@ -191,8 +195,8 @@ public final class BoardPanel extends JPanel implements BoardZone {
 
     private Color getPlayerColor(final String territory) {
         return new Color(this.controller.getPlayerFromTerritory(territory).getColorPlayer().getRedValue(),
-                         this.controller.getPlayerFromTerritory(territory).getColorPlayer().getGreenValue(),
-                         this.controller.getPlayerFromTerritory(territory).getColorPlayer().getBlueValue());
+                this.controller.getPlayerFromTerritory(territory).getColorPlayer().getGreenValue(),
+                this.controller.getPlayerFromTerritory(territory).getColorPlayer().getBlueValue());
     }
 
 }
