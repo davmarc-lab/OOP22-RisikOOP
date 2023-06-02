@@ -20,11 +20,15 @@ import it.unibo.model.objective.impl.ObjectiveImpl;
 
 public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<Objective>>> {
 
+    private static final String OBJECTIVES_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("config")
+            .append(Constants.PATH_SEPARATOR)
+            .append("objective").append(Constants.PATH_SEPARATOR).append("Objectives.json").toString();
+
     private Set<Objective> objectives;
     private Objective defaultObjective;
 
     public JsonReaderObjective() {
-        super(Constants.OBJECTIVES_PATH);
+        super(OBJECTIVES_PATH);
         this.objectives = new HashSet<>();
     }
 

@@ -2,7 +2,6 @@ package it.unibo.view.game_screen.impl;
 
 import javax.swing.JFrame;
 
-import it.unibo.common.Constants;
 import it.unibo.start.Engine;
 import it.unibo.view.game_screen.MainPanel;
 import it.unibo.view.game_screen.api.MainView;
@@ -12,6 +11,8 @@ import it.unibo.view.game_screen.api.MainView;
  */
 public class MainFrame extends JFrame implements MainView {
 
+    private static final String FRAME_NAME = "RisikOOP";
+
     private final Engine engine;
 
     /**
@@ -20,7 +21,7 @@ public class MainFrame extends JFrame implements MainView {
      * @param engine the engine of the game
      */
     public MainFrame(final Engine engine) {
-        super(Constants.FRAME_NAME);
+        super(FRAME_NAME);
         this.engine = engine;
         this.getContentPane().add(new MainPanel(this));
         this.pack();

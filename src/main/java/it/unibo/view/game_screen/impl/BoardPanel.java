@@ -30,6 +30,9 @@ import it.unibo.view.game_screen.api.CustomButton;
  */
 public final class BoardPanel extends JPanel implements BoardZone {
 
+    private static final String MAP_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("images")
+            .append(Constants.PATH_SEPARATOR).append("RisikoMap.jpg").toString();
+
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;
     private static final int BUTTON_BORDER_SIZE = 2;
@@ -46,7 +49,7 @@ public final class BoardPanel extends JPanel implements BoardZone {
      */
     public BoardPanel() {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final ImageIcon map = new ImageIcon(adjustImageSize(new ImageIcon(Constants.MAP_PATH), (int) screenSize.getWidth(),
+        final ImageIcon map = new ImageIcon(adjustImageSize(new ImageIcon(MAP_PATH), (int) screenSize.getWidth(),
                 (int) screenSize.getHeight()));
 
         final JLabel label = new JLabel(map);

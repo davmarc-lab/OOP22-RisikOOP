@@ -23,13 +23,17 @@ import it.unibo.common.Constants;
  */
 public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<String, List<Double>>>> {
 
+    private static final String COORDINATES_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("config")
+            .append(Constants.PATH_SEPARATOR).append("territory").append(Constants.PATH_SEPARATOR)
+            .append("Coordinates.json").toString();
+
     private Set<Pair<String, List<Double>>> territories;
 
     /**
      * Basic constructor.
      */
     public JsonReaderCoordinates() {
-        super(Constants.COORDINATES_PATH);
+        super(COORDINATES_PATH);
         this.territories = new HashSet<>();
     }
 
