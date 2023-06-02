@@ -1,5 +1,6 @@
 package it.unibo.model.player.api;
 
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.army.api.Army;
@@ -171,7 +172,9 @@ public interface Player {
      */
     Hand getPlayerHand();
 
-    void addCard(Army card);
+    void addCardToPlayerHand(Army card);
+
+    void removeCardsToPlayerHand(List<Army> cards);
 
     /**
      * Retrieves player's territory deck.

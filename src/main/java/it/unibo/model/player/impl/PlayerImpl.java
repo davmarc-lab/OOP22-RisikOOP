@@ -1,6 +1,7 @@
 package it.unibo.model.player.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.army.api.Army;
@@ -109,8 +110,14 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public void addCard(Army card) {
+    public void addCardToPlayerHand(Army card) {
         this.playerHand.addCard(card);
+    }
+
+    @Override
+    public void removeCardsToPlayerHand(List<Army> cards) {
+        this.playerHand.getHand().removeIf(cardInHand -> cards.stream()
+                .anyMatch(card -> card.getArmyType().getName().equals(cardInHand.getArmyType().getName())));
     }
 
     /**
@@ -159,6 +166,6 @@ public class PlayerImpl implements Player {
     @Override
     public String toString() {
         return new String(
-                new StringBuilder("ID -> ").append(this.getId()).append(", TROOPS -> ").append(this.bonusTroops));
-    }
+            new StringBuilder("ID -> ").append(this.getId()).append(", TROOPS -> ").append(this.bonusTroops));
+        }
 }

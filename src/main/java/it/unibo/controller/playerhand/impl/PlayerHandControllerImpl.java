@@ -50,8 +50,9 @@ public class PlayerHandControllerImpl implements PlayerHandController {
 
     @Override
     public void attemptPlayCards() {
-        final int bonusTroops = this.model.getPlayerHand().playCards(inputCards);
+        final int bonusTroops = this.model.getPlayerHand().playCards(this.inputCards);
         this.model.addTroops(bonusTroops);
+        this.model.removeCardsToPlayerHand(this.inputCards);
     }
 
     @Override

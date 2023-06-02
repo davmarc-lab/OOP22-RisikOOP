@@ -54,8 +54,6 @@ public class GameLoopImpl implements GameLoop {
         this.controller = controller;
         this.board = new GameBoardImpl();
         this.turnManager = this.board.getTurnManager();
-        System.out.println(this.turnManager.getPlayersId());
-        System.out.println(this.turnManager.getCurrentPlayerID());
         this.phaseManager = new PhaseManagerImpl();
     }
 
@@ -171,6 +169,10 @@ public class GameLoopImpl implements GameLoop {
                     this.selectedTerritories
                             .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
                     if (result) {
+                        this.board.playerDrawArmyCard(this.getCurrentPlayer());
+                        this.getPlayerFromTerritory(this.selectedTerritories.get(SECOND).getName()).removeTerritory(this.selectedTerritories.get(SECOND));
+                        this.getCurrentPlayer().addTerritory(this.board.getGameTerritories().getTerritory(this.selectedTerritories.get(SECOND).getName()));
+                        this.controller.getGameZone().getSideBar().getCardPanel().updateView();
                         this.board.instanceMovement(this.selectedTerritories.get(FIRST), this.selectedTerritories.get(SECOND));
                         this.selectedTerritories
                             .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));

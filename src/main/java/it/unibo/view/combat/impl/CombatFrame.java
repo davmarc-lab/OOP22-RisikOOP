@@ -38,7 +38,7 @@ public class CombatFrame extends JFrame implements CombatView {
                 JOptionPane.INFORMATION_MESSAGE,
                 null, // icon
                 options,
-                options[1]);
+                options[0]);
         if (result == 0) {
             cc.setCombatOutcome();
             this.dispose();

@@ -95,7 +95,7 @@ public class CardPanel extends JPanel implements CardZone {
         });
 
         thirdCard.addActionListener(e -> {
-            if (this.phc.isAddPossible(Integer.parseInt(thirdText.getText()), this.getThirdCardCount())) {
+            if (this.phc.isAddPossible(Integer.parseInt(thirdText.getText()), Integer.parseInt(this.thirdPlayed.getText()))) {
                 this.phc.addInputCard(thirdCard.getText());
                 this.thirdPlayed.setText(String.valueOf(this.phc.getNumberOfCards(thirdCard.getText())));
             }

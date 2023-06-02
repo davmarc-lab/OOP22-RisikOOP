@@ -177,6 +177,11 @@ public class GameBoardImpl implements GameBoard {
         return new ArrayList<>(this.players);
     }
 
+    @Override
+    public void playerDrawArmyCard(Player player) {
+        player.addCardToPlayerHand(this.armyDeck.drawCard());
+    }
+
     /**
      * {@inheritDoc}
      */

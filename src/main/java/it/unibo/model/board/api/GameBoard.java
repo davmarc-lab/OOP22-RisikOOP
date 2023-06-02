@@ -128,7 +128,6 @@ public interface GameBoard {
      */
     List<Player> getAllPlayers();
 
-
     Player getPlayerFromId(final int id);
 
     GameTerritory getGameTerritories();
@@ -139,6 +138,8 @@ public interface GameBoard {
      * @return turn manager
      */
     TurnManager getTurnManager();
+
+    void playerDrawArmyCard(Player player);
 
     /**
      * Define the current player bonus troops dependig of his territories.

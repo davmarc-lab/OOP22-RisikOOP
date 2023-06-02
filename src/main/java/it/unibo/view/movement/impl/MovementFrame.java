@@ -39,7 +39,7 @@ public class MovementFrame extends JFrame implements MovementView {
                 JOptionPane.INFORMATION_MESSAGE,
                 null, // icon
                 options,
-                options[1]);
+                options[0]);
         if (result == 0) {
             mc.setValue();
             this.dispose();
