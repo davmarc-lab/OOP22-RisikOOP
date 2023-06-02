@@ -14,7 +14,7 @@ public interface Combat {
      * {@link #LOSE},
      * {@link #NONE}
      */
-    enum Results {
+    enum Result {
         /**
          * The attacker win fight.
          */
@@ -58,7 +58,7 @@ public interface Combat {
      * @param numDefender numer of defender's armies
      * @return a list of {@code Combat.Results} indicating the combat results
      */
-    List<Results> attack(int numAttacker, int numDefender);
+    List<Result> attack(int numAttacker, int numDefender);
 
     boolean isTerritoryConquered();
 }

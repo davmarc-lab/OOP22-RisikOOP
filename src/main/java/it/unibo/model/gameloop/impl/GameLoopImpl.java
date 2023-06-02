@@ -162,14 +162,23 @@ public class GameLoopImpl implements GameLoop {
                             .collect(Collectors.toSet()));
                     this.controller.sendMessage(COMBAT_MESSAGE);
                 } else {
-                    boolean result = this.board.instanceCombat(
+                    var result = this.board.instanceCombat(
                             new Pair<>(this.controller.getCurrentPlayer(), this.selectedTerritories.get(FIRST)),
                             new Pair<>(this.board.getAllPlayers().stream()
                                     .filter(p -> p.getTerritories().contains(this.selectedTerritories.get(SECOND)))
                                     .findAny().get(), this.selectedTerritories.get(SECOND)));
+                    this.controller.sendMessage(new StringBuilder("The attacker lost ")
+                            .append(result.getX().getX())
+                            .append(" troop")
+                            .append(result.getX().getX() != 1 ? "s, " : ", ")
+                            .append("and the defender lost ")
+                            .append(result.getX().getY())
+                            .append(" troop")
+                            .append(result.getX().getY() != 1 ? "s." : '.')
+                            .toString());
                     this.selectedTerritories
                             .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
-                    if (result) {
+                    if (result.getY()) {
                         this.board.playerDrawArmyCard(this.controller.getCurrentPlayer());
                         this.controller.getPlayerFromTerritory(this.selectedTerritories.get(SECOND).getName())
                                 .removeTerritory(this.selectedTerritories.get(SECOND));

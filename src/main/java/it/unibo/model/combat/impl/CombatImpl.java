@@ -105,12 +105,12 @@ public class CombatImpl implements Combat {
      * @param defenders values of each defender army
      * @return a {@code List<Results>} containing the result of each fight between armies
      */
-    private List<Results> computeAttack(final List<Integer> attackers, final List<Integer> defenders) {
-        final List<Results> r = new ArrayList<>();
+    private List<Result> computeAttack(final List<Integer> attackers, final List<Integer> defenders) {
+        final List<Result> r = new ArrayList<>();
         while (!(attackers.isEmpty() || defenders.isEmpty())) {
             final var s = attackers.get(0);
             final var d = defenders.get(0);
-            r.add(s > d ? Results.WIN : Results.LOSE);
+            r.add(s > d ? Result.WIN : Result.LOSE);
             attackers.remove(0);
             defenders.remove(0);
         }
@@ -122,11 +122,11 @@ public class CombatImpl implements Combat {
      * 
      * @param list list of combat result
      */
-    private void applyCombatResult(final List<Results> list) {
+    private void applyCombatResult(final List<Result> list) {
         list.stream().forEach(r -> {
-            if (r.equals(Results.WIN)) {
+            if (r.equals(Result.WIN)) {
                 this.tDefender.addTroops(-1);
-            } else if (r.equals(Results.LOSE)) {
+            } else if (r.equals(Result.LOSE)) {
                 this.tAttacker.addTroops(-1);
             } else {
                 throw new IllegalCallerException("Invalid combat result, aborted operation");
@@ -148,7 +148,7 @@ public class CombatImpl implements Combat {
      * {@inheritDoc}
      */
     @Override
-    public List<Results> attack(final int numAttacker, final int numDefender) {
+    public List<Result> attack(final int numAttacker, final int numDefender) {
         this.numberAttacker = numAttacker;
         this.numberDefender = numDefender;
 
@@ -158,12 +158,12 @@ public class CombatImpl implements Combat {
 
         // only for test purpose
         if (!checkAttackValidity()) {
-            return List.of(Results.NONE);
+            return List.of(Result.NONE);
         }
 
         // only for test purpose
         if (testFlag) {
-            final List<Results> res = this.computeAttack(attackers, defenders);
+            final List<Result> res = this.computeAttack(attackers, defenders);
             applyCombatResult(res);
             return res;
         }

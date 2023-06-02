@@ -109,14 +109,18 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public boolean instanceCombat(final Pair<Player, Territory> attacker, final Pair<Player, Territory> defender) {
+    public Pair<Pair<Integer, Integer>, Boolean> instanceCombat(final Pair<Player, Territory> attacker,
+            final Pair<Player, Territory> defender) {
         final CombatController ccAttacker = new CombatControllerView(attacker, Role.ATTACKER);
         ccAttacker.startPopup();
         final CombatController ccDefender = new CombatControllerView(defender, Role.DEFENDER);
         ccDefender.startPopup();
         Combat combat = new CombatImpl(attacker.getY(), defender.getY());
-        combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
-        return combat.isTerritoryConquered();
+        List<Combat.Result> results = combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
+        Pair<Integer, Integer> p = new Pair<Integer, Integer>(
+                (int) results.stream().filter(r -> r.equals(Combat.Result.LOSE)).count(),
+                (int) results.stream().filter(r -> r.equals(Combat.Result.WIN)).count());
+        return new Pair<>(p, combat.isTerritoryConquered());
     }
 
     /**

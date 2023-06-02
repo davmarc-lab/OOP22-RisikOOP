@@ -85,7 +85,7 @@ public interface GameBoard {
      * @param attacker attacker territory
      * @param defender defender territory
      */
-    boolean instanceCombat(Pair<Player, Territory> attacker, Pair<Player, Territory> defender);
+    Pair<Pair<Integer, Integer>, Boolean> instanceCombat(Pair<Player, Territory> attacker, Pair<Player, Territory> defender);
 
     /**
      * Initiate troops movement from a territory to another.
