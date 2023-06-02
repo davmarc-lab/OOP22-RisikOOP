@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.view.game_screen.api.ButtonZone;
 
 import java.awt.BorderLayout;

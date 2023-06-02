@@ -2,7 +2,7 @@ package it.unibo.view.game_screen.api;
 
 import java.util.Set;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 
 /**
  * This interface models a basic view containing the game map and the buttons.

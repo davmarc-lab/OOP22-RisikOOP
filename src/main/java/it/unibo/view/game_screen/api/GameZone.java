@@ -1,6 +1,6 @@
 package it.unibo.view.game_screen.api;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 
 /**
  * This interface models the zone (in our case a JPanel) that contains the board

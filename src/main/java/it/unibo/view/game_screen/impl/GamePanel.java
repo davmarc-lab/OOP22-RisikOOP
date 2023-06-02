@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.view.game_screen.api.BoardZone;
 import it.unibo.view.game_screen.api.GameZone;
 import it.unibo.view.game_screen.api.SideZone;

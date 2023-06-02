@@ -1,6 +1,6 @@
 package it.unibo.view.game_screen.api;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 
 /**
  * The interface that defines the area inside the side zone where action

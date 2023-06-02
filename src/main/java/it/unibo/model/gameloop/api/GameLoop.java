@@ -2,7 +2,7 @@ package it.unibo.model.gameloop.api;
 
 import java.util.Set;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.territory.api.Territory;
 

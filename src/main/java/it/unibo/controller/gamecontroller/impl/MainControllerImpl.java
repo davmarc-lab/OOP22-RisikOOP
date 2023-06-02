@@ -1,10 +1,10 @@
-package it.unibo.controller.impl;
+package it.unibo.controller.gamecontroller.impl;
 
 import java.util.Set;
 
 import javax.swing.JOptionPane;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.GameZone;

@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import it.unibo.common.Constants;
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.reader.impl.JsonReaderCoordinates;
 import it.unibo.controller.reader.impl.JsonReaderSquareCoordinates;
 import it.unibo.view.game_screen.api.BoardZone;

@@ -2,7 +2,7 @@ package it.unibo.model.gamestate.impl;
 
 import java.util.List;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.gamestate.api.GameState;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;

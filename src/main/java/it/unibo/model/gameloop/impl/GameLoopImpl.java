@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import it.unibo.common.Constants;
 import it.unibo.common.Pair;
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.board.impl.GameBoardImpl;

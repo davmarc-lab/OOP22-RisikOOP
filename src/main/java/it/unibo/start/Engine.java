@@ -2,8 +2,8 @@ package it.unibo.start;
 
 import javax.swing.JPanel;
 
-import it.unibo.controller.api.MainController;
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.gamecontroller.api.MainController;
+import it.unibo.controller.gamecontroller.impl.MainControllerImpl;
 import it.unibo.model.gameloop.impl.GameLoopImpl;
 import it.unibo.view.game_screen.impl.GamePanel;
 import it.unibo.view.game_screen.impl.MainFrame;
