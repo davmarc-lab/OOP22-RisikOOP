@@ -80,11 +80,6 @@ public interface GameBoard {
     }
 
     /**
-     * Maximum number of player in the game.
-     */
-    int MAX_PLAYER = 3;
-
-    /**
      * Initiate a combat between two territories.
      * 
      * @param attacker attacker territory

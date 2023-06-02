@@ -16,15 +16,15 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import it.unibo.common.Pair;
-import it.unibo.common.Constants;
+import it.unibo.controller.controllerconstants.ControllerConstants;
 
 /**
  * Json reader for the coordinates of the territories.
  */
 public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<String, List<Double>>>> {
 
-    private static final String COORDINATES_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("config")
-            .append(Constants.PATH_SEPARATOR).append("territory").append(Constants.PATH_SEPARATOR)
+    private static final String COORDINATES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH).append("config")
+            .append(ControllerConstants.PATH_SEPARATOR).append("territory").append(ControllerConstants.PATH_SEPARATOR)
             .append("Coordinates.json").toString();
 
     private Set<Pair<String, List<Double>>> territories;

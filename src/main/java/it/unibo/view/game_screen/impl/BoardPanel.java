@@ -18,20 +18,20 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import it.unibo.common.Constants;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.reader.impl.JsonReaderCoordinates;
 import it.unibo.controller.reader.impl.JsonReaderSquareCoordinates;
 import it.unibo.view.game_screen.api.BoardZone;
 import it.unibo.view.game_screen.api.CustomButton;
+import it.unibo.view.viewconstants.ViewConstants;
 
 /**
  * This is where the player will be able to click on the territories.
  */
 public final class BoardPanel extends JPanel implements BoardZone {
 
-    private static final String MAP_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("images")
-            .append(Constants.PATH_SEPARATOR).append("RisikoMap.jpg").toString();
+    private static final String MAP_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("images")
+            .append(ViewConstants.PATH_SEPARATOR).append("RisikoMap.jpg").toString();
 
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;

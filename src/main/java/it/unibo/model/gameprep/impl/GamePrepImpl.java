@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import it.unibo.common.Constants;
 import it.unibo.common.Pair;
 import it.unibo.model.deck.api.Deck;
 import it.unibo.model.gameprep.api.GamePrep;
+import it.unibo.model.modelconstants.ModelConstants;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
@@ -50,7 +50,7 @@ public class GamePrepImpl implements GamePrep {
      * Assigns territories to the players.
      */
     private void assignTerritories() {
-        this.players.forEach(player -> IntStream.range(0, Constants.MAX_CARDS_FOR_EACH_PLAYER / Constants.MAX_PLAYERS)
+        this.players.forEach(player -> IntStream.range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
                 .forEach(i -> player.addTerritory(territoryDeck.drawCard())));
     }
 
@@ -81,7 +81,7 @@ public class GamePrepImpl implements GamePrep {
      * Assigns troops to the players.
      */
     private void assignTroops() {
-        this.players.stream().forEach(p -> p.addTroops(Constants.TROOPS));
+        this.players.stream().forEach(p -> p.addTroops(ModelConstants.TROOPS));
         this.players.stream().forEach(p -> p.getTerritories().forEach(t -> t.addTroops(1)));
     }
 }

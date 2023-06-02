@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import it.unibo.common.Constants;
 import it.unibo.common.Pair;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
@@ -17,6 +16,7 @@ import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.gameloop.api.PhaseManager;
 import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.api.PhaseManager.Phase;
+import it.unibo.model.modelconstants.ModelConstants;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -125,7 +125,7 @@ public class GameLoopImpl implements GameLoop {
      * @return true or false
      */
     private boolean checkAllInitialTroops() {
-        return this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0).count() == Constants.MAX_PLAYERS;
+        return this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0).count() == ModelConstants.MAX_PLAYERS;
     }
 
     @Override

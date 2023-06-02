@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import it.unibo.common.Constants;
 import it.unibo.common.Pair;
 import it.unibo.controller.combat.api.CombatController;
 import it.unibo.controller.combat.impl.CombatControllerView;
@@ -25,6 +24,7 @@ import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.gameloop.impl.TurnManagerImpl;
 import it.unibo.model.gameprep.impl.GamePrepImpl;
 import it.unibo.model.hand.impl.HandImpl;
+import it.unibo.model.modelconstants.ModelConstants;
 import it.unibo.model.movement.impl.MovementImpl;
 import it.unibo.model.objective.api.GameObjective;
 import it.unibo.model.objective.api.Objective;
@@ -69,7 +69,7 @@ public class GameBoardImpl implements GameBoard {
     private void createPlayers() {
         final List<Player.Color> colors = Arrays.asList(Player.Color.values());
         Collections.shuffle(colors);
-        IntStream.range(0, Constants.MAX_PLAYERS)
+        IntStream.range(0, ModelConstants.MAX_PLAYERS)
                 .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>())
                         .playerHand(new HandImpl()).objective(new ObjectiveImpl()).color(colors.get(i))
                         .bonusTroops(0).build())
@@ -81,7 +81,7 @@ public class GameBoardImpl implements GameBoard {
      */
     private void createArmyDeck() {
         Arrays.stream(Army.ArmyType.values())
-                .forEach(armyType -> IntStream.range(0, Constants.MAX_CARDS_FOR_EACH_PLAYER / GameBoard.MAX_PLAYER)
+                .forEach(armyType -> IntStream.range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
                         .forEach(i -> this.armyDeck.addCard(new ArmyImpl(armyType))));
         this.armyDeck.shuffle();
     }
@@ -188,7 +188,7 @@ public class GameBoardImpl implements GameBoard {
     @Override
     public void defineBonusArmies(final Player player) {
         final int conquestsTroops = Long.valueOf(player.getTerritories().stream().count()).intValue()
-                / Constants.BONUS_TROOPS_DIVIDER;
+                / ModelConstants.BONUS_TROOPS_DIVIDER;
         final Set<BonusTroops> continentsTroops = Set.of(BonusTroops.values());
         continentsTroops.forEach(
                 t -> player.addTroops(player.getTerritories()

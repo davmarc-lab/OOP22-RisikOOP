@@ -25,9 +25,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import it.unibo.common.Constants;
 import it.unibo.controller.reader.impl.AbstractFileReader;
 import it.unibo.view.game_screen.impl.MainFrame;
+import it.unibo.view.viewconstants.ViewConstants;
 
 /**
  * The extension of JPanel which defines the main panel of the game with the
@@ -35,10 +35,10 @@ import it.unibo.view.game_screen.impl.MainFrame;
  */
 public class MainPanel extends JPanel {
 
-    private static final String RULES_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("instructions")
-            .append(Constants.PATH_SEPARATOR).append("rules.txt").toString();
-    private static final String WALLPAPER_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("images")
-            .append(Constants.PATH_SEPARATOR).append("MenuWallpaper.jpg").toString();
+    private static final String RULES_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("instructions")
+            .append(ViewConstants.PATH_SEPARATOR).append("rules.txt").toString();
+    private static final String WALLPAPER_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("images")
+            .append(ViewConstants.PATH_SEPARATOR).append("MenuWallpaper.jpg").toString();
 
     private static final String PLAY_LABEL = "Play";
     private static final String QUIT_LABEL = "Quit";

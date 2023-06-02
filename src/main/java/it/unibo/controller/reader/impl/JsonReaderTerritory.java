@@ -15,16 +15,16 @@ import org.json.simple.parser.ParseException;
 
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryImpl;
-import it.unibo.common.Constants;
 import it.unibo.common.Pair;
+import it.unibo.controller.controllerconstants.ControllerConstants;
 
 /**
  * Class that extends the abstract file reader to read from 'Territories.json'.
  */
 public class JsonReaderTerritory extends AbstractFileReader<Set<Pair<String, Set<Territory>>>> {
 
-    private static final String TERRITORIES_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("config")
-            .append(Constants.PATH_SEPARATOR).append("territory").append(Constants.PATH_SEPARATOR)
+    private static final String TERRITORIES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH).append("config")
+            .append(ControllerConstants.PATH_SEPARATOR).append("territory").append(ControllerConstants.PATH_SEPARATOR)
             .append("Territories.json").toString();
 
     private final Set<Pair<String, Set<Territory>>> territories;

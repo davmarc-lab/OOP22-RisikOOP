@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import it.unibo.common.Pair;
-import it.unibo.common.Constants;
+import it.unibo.controller.controllerconstants.ControllerConstants;
 
 /**
  * This class is used to read the coordinates for the squares that contain the
@@ -22,9 +22,9 @@ import it.unibo.common.Constants;
  */
 public class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pair<String, Pair<Double, Double>>>> {
 
-    private static final String SQUARES_PATH = new StringBuilder(Constants.RESOURCES_PATH).append("config")
-            .append(Constants.PATH_SEPARATOR)
-            .append("territory").append(Constants.PATH_SEPARATOR).append("SquareCoordinates.json").toString();
+    private static final String SQUARES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH).append("config")
+            .append(ControllerConstants.PATH_SEPARATOR)
+            .append("territory").append(ControllerConstants.PATH_SEPARATOR).append("SquareCoordinates.json").toString();
 
     private final Set<Pair<String, Pair<Double, Double>>> squares;
 
