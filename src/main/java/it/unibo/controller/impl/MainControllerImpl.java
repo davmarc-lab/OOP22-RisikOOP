@@ -95,7 +95,15 @@ public final class MainControllerImpl implements MainController {
 
     @Override
     public Player getPlayerFromTerritory(String territory) {
-        return this.loop.getPlayerFromTerritory(territory);
+        return this.loop.getBoard().getAllPlayers().stream()
+                .filter(p -> p.getTerritories()
+                        .contains(this.loop.getBoard().getGameTerritories().getTerritory(territory)))
+                        .findAny().get();
+    }
+
+    @Override
+    public Player getCurrentPlayer() {
+        return this.loop.getBoard().getPlayerFromId(this.loop.getTurnManager().getCurrentPlayerID());
     }
 
 }

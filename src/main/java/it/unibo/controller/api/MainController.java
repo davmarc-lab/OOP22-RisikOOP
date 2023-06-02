@@ -98,4 +98,9 @@ public interface MainController {
      */
     Player getPlayerFromTerritory(String territory);
 
+    /**
+     * @return the player that is currently playing
+     */
+    Player getCurrentPlayer();
+
 }
