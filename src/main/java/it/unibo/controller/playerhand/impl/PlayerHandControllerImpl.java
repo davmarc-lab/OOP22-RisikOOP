@@ -9,14 +9,18 @@ import it.unibo.model.army.api.Army;
 import it.unibo.model.army.api.Army.ArmyType;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.player.api.Player;
+import it.unibo.view.game_screen.api.CardZone;
 
 public class PlayerHandControllerImpl implements PlayerHandController {
 
     private final Player model;
+    private final CardZone view;
     private final List<Army> inputCards = new ArrayList<>();
+    private String message;
 
-    public PlayerHandControllerImpl(final Player model) {
+    public PlayerHandControllerImpl(final Player model, final CardZone view) {
         this.model = model;
+        this.view = view;
     }
 
     private ArmyType getArmyTypeFromString(String name) {
@@ -51,8 +55,13 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     @Override
     public void attemptPlayCards() {
         final int bonusTroops = this.model.getPlayerHand().playCards(this.inputCards);
-        this.model.addTroops(bonusTroops);
-        this.model.removeCardsToPlayerHand(this.inputCards);
+        if (bonusTroops > 0) {
+            this.message = new StringBuilder("Cards valid, added ").append(bonusTroops).append(" troops.").toString();
+            this.model.addTroops(bonusTroops);
+            this.model.removeCardsToPlayerHand(this.inputCards);
+        } else {
+            this.message = new StringBuilder("Cards invalid, operation aborted.").toString();
+        }
     }
 
     @Override
@@ -76,5 +85,15 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     public int getPlayerThirdCards() {
         return (int) this.model.getPlayerHand().getHand().stream()
                 .filter(c -> c.getArmyType().equals(ArmyType.ARTILLERY)).count();
+    }
+
+    @Override
+    public String getMessage() {
+        return this.message;
+    }
+
+    @Override
+    public CardZone getView() {
+        return this.view;
     }
 }
