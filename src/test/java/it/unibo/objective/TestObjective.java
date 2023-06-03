@@ -94,4 +94,24 @@ class TestObjective {
         assertEquals(conquerNumberObjective.getCheckObjectives().getY().size(), 2);
     }
 
+    @Test
+    void testCompletedObjective() {
+        final Objective conquerObjective = this.objectives.getSetObjectives().stream()
+                .filter(obj -> "Conquer Asia and Africa".equals(obj.getDescription())).findFirst().get();
+        final Objective conquerNumberObjective = this.objectives.getSetObjectives().stream()
+                .filter(obj -> "Conquer 18 territories with at least 2 troops".equals(obj.getDescription())).findFirst()
+                .get();
+        final Objective destroyObjective = this.objectives.getSetObjectives().stream()
+                .filter(obj -> "Destroy the RED army".equals(obj.getDescription())).findFirst().get();
+        assertEquals(conquerObjective.isComplete(), false);
+        assertEquals(conquerNumberObjective.isComplete(), false);
+        assertEquals(destroyObjective.isComplete(), false);
+        conquerObjective.setComplete();
+        conquerNumberObjective.setComplete();
+        destroyObjective.setComplete();
+        assertEquals(conquerObjective.isComplete(), true);
+        assertEquals(conquerNumberObjective.isComplete(), true);
+        assertEquals(destroyObjective.isComplete(), true);
+    }
+
 }
