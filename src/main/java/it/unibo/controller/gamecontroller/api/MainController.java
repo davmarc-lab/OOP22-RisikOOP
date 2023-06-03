@@ -15,9 +15,9 @@ public interface MainController {
     /**
      * Sends the input received from the board to the model.
      * 
-     * @param input
+     * @param input the name of the territory that was clicked
      */
-    void sendInput(Object input);
+    void sendInput(String input);
 
     /**
      * Sends a message to be displayed on the GUI.

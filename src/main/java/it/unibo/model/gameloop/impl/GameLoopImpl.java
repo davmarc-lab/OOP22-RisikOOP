@@ -28,10 +28,16 @@ import it.unibo.model.territory.api.Territory;
 public class GameLoopImpl implements GameLoop {
 
     private static final int PREPARATION_TROOPS = 3;
-    private static final String COMBAT_MESSAGE = "Select an adjacent enemy territory.\nIf you want to undo the attack and start another, press ATTACK";
-    private static final String RESET_COMBAT_MESSAGE = "You can attack again by selecting one of your territories.\nIf you don't want to attack press MOVE or END TURN";
-    private static final String MOVEMENT_MESSAGE = "Select an adjacent territory.\nIf you want to undo the movement and start another, press MOVE";
-    private static final String RESET_MOVEMENT_MESSAGE = "You can move again by selecting one of your territories.\nIf you don't want to move press END TURN";
+    private static final String COMBAT_MESSAGE = new StringBuilder("Select an adjacent enemy territory.")
+            .append("\nIf you want to undo your attack and start another, press ATTACK.").toString();
+    private static final String RESET_COMBAT_MESSAGE = new StringBuilder(
+            "You can attack again by selecting one of your territories.")
+            .append("\nIf you don't want to attack press MOVE or END TURN").toString();
+    private static final String MOVEMENT_MESSAGE = new StringBuilder("Select an adjacent territory.")
+            .append("\nIf you want to undo the movement and start another, press MOVE").toString();
+    private static final String RESET_MOVEMENT_MESSAGE = new StringBuilder(
+            "You can move again by selecting one of your territories.")
+            .append("\nIf you don't want to move press END TURN").toString();
     private static final int FIRST = 0;
     private static final int SECOND = 1;
 
@@ -60,6 +66,9 @@ public class GameLoopImpl implements GameLoop {
         this.gameState = new GameStateImpl(this.controller);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.controller.sendMessage(
@@ -69,12 +78,15 @@ public class GameLoopImpl implements GameLoop {
         this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void randomize() {
-        List<Territory> list = new ArrayList<>();
-        for (var p : this.board.getAllPlayers()) {
+        final List<Territory> list = new ArrayList<>();
+        for (final var p : this.board.getAllPlayers()) {
             list.addAll(p.getTerritories());
-            int troops = p.getTroops();
+            final int troops = p.getTroops();
             for (int i = 0; i < troops; i++) {
                 this.board.placeTroops(list.get(new Random().nextInt(list.size())), 1);
             }
@@ -133,15 +145,12 @@ public class GameLoopImpl implements GameLoop {
                 .count() == ModelConstants.MAX_PLAYERS;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void processInput(final Object input) {
-        Territory t;
-        if (input instanceof String) {
-            t = this.board.getGameTerritories().getTerritory((String) input);
-        } else {
-            // t = card
-            t = this.board.getGameTerritories().getTerritory((String) input);
-        }
+    public void processInput(final String input) {
+        final Territory t = this.board.getGameTerritories().getTerritory(input);
         if (this.prepare) {
             this.board.placeTroops(t, 1);
             this.updatePreparation(t);
@@ -168,7 +177,7 @@ public class GameLoopImpl implements GameLoop {
                             .collect(Collectors.toSet()));
                     this.controller.sendMessage(COMBAT_MESSAGE);
                 } else {
-                    var result = this.board.instanceCombat(
+                    final var result = this.board.instanceCombat(
                             new Pair<>(this.controller.getCurrentPlayer(), this.selectedTerritories.get(FIRST)),
                             new Pair<>(this.board.getAllPlayers().stream()
                                     .filter(p -> p.getTerritories().contains(this.selectedTerritories.get(SECOND)))
@@ -177,14 +186,14 @@ public class GameLoopImpl implements GameLoop {
                         this.controller.sendMessage("Canceled Combat, no modification applied.");
                     } else {
                         this.controller.sendMessage(new StringBuilder("The attacker lost ")
-                            .append(result.getX().getX())
-                            .append(" troop")
-                            .append(result.getX().getX() != 1 ? "s, " : ", ")
-                            .append("and the defender lost ")
-                            .append(result.getX().getY())
-                            .append(" troop")
-                            .append(result.getX().getY() != 1 ? "s." : '.')
-                            .toString());
+                                .append(result.getX().getX())
+                                .append(" troop")
+                                .append(result.getX().getX() != 1 ? "s, " : ", ")
+                                .append("and the defender lost ")
+                                .append(result.getX().getY())
+                                .append(" troop")
+                                .append(result.getX().getY() != 1 ? "s." : '.')
+                                .toString());
                     }
                     this.selectedTerritories
                             .forEach(terr -> this.controller.getGameZone().getBoard().updateTroopsView(terr.getName()));
@@ -234,6 +243,9 @@ public class GameLoopImpl implements GameLoop {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startCombat() {
         if (this.phaseManager.getCurrentPhase().equals(Phase.MOVEMENT)) {
@@ -247,6 +259,9 @@ public class GameLoopImpl implements GameLoop {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startMovement() {
         phaseManager.switchToPhase(Phase.MOVEMENT);
@@ -256,8 +271,16 @@ public class GameLoopImpl implements GameLoop {
         this.selectedTerritories.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void endPlayerTurn() {
+        if (this.prepare) {
+            this.controller
+                    .sendMessage("Can't end your turn now, you have to finish placing 3 troops on your territories");
+            return;
+        }
         this.phaseManager.switchToPhase(Phase.PREPARATION);
         this.turnManager.switchToNextPlayer();
         this.controller.getGameZone().getSideBar().getInfoPanel().updateView();
@@ -273,6 +296,9 @@ public class GameLoopImpl implements GameLoop {
         this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setAvailableTerritories(final Set<Territory> territories) {
         this.disabledTerritories.clear();
@@ -289,31 +315,48 @@ public class GameLoopImpl implements GameLoop {
      * @return disabled territories as a set of String
      */
     private Set<String> stringTerritories() {
-        Set<String> list = new HashSet<>();
+        final Set<String> list = new HashSet<>();
         this.disabledTerritories.forEach(t -> list.add(t.getName()));
         return list;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PhaseManager getPhaseManager() {
         return this.phaseManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameBoard getBoard() {
         return this.board;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MainController getController() {
         return this.controller;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TurnManager getTurnManager() {
         return new TurnManagerImpl(this.turnManager);
     }
 
+    /**
+     * Checks if the game is over.
+     * 
+     * @return true if any player completed his objective, false otherwise
+     */
     private boolean checkGameState() {
         if (this.gameState.isGameOver()) {
             this.controller.sendMessage(new StringBuilder("Player").append(this.gameState.getWinner().getId())
@@ -323,4 +366,5 @@ public class GameLoopImpl implements GameLoop {
         }
         return false;
     }
+
 }

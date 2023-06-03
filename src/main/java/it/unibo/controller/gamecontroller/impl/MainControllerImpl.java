@@ -20,7 +20,8 @@ public class MainControllerImpl implements MainController {
     private GameLoop loop;
 
     /**
-     * Empty constructor.
+     * Basic constructor that links the controller to the engine.
+     * @param engine the engine that starts the game
      */
     public MainControllerImpl(final Engine engine) {
         this.engine = engine;
@@ -54,7 +55,7 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
-    public void sendInput(final Object input) {
+    public void sendInput(final String input) {
         this.loop.processInput(input);
     }
 

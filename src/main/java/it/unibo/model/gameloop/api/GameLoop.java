@@ -20,9 +20,9 @@ public interface GameLoop {
     /**
      * Processes the input.
      * 
-     * @param input the value of the button that was clicked
+     * @param input the name of the territory that was clicked
      */
-    void processInput(Object input);
+    void processInput(String input);
 
     /**
      * Starts combat if the phase is PLAY_CARDS or COMBAT.
