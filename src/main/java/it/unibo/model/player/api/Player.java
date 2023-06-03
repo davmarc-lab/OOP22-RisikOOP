@@ -53,9 +53,9 @@ public interface Player {
          * Contsrutct a RGB color.
          * 
          * @param name color name
-         * @param r red value
-         * @param g green value
-         * @param b blue value
+         * @param r    red value
+         * @param g    green value
+         * @param b    blue value
          */
         Color(final String name, final int r, final int g, final int b) {
             this.name = name;
@@ -158,7 +158,7 @@ public interface Player {
      */
     Objective getObjective();
 
-        /**
+    /**
      * This method sets player's objective.
      * 
      * @param objective player objective
@@ -172,8 +172,18 @@ public interface Player {
      */
     Hand getPlayerHand();
 
+    /**
+     * Adds an armyCard to player's hand.
+     * 
+     * @param card card that will be added to player's hand
+     */
     void addCardToPlayerHand(Army card);
 
+    /**
+     * Removes a list of armyCards from the player's hand.
+     * 
+     * @param cards list of cards that will be removed from the player's hand
+     */
     void removeCardsToPlayerHand(List<Army> cards);
 
     /**

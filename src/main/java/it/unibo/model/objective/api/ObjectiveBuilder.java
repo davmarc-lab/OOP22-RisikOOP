@@ -2,6 +2,9 @@ package it.unibo.model.objective.api;
 
 import it.unibo.model.objective.api.Objective.ObjectiveType;
 
+/**
+ * Interface for the builder of the objective.
+ */
 public interface ObjectiveBuilder {
 
     /**

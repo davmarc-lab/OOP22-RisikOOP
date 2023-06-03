@@ -109,13 +109,19 @@ public class PlayerImpl implements Player {
         return this.playerHand;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void addCardToPlayerHand(Army card) {
+    public void addCardToPlayerHand(final Army card) {
         this.playerHand.addCard(card);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void removeCardsToPlayerHand(List<Army> cards) {
+    public void removeCardsToPlayerHand(final List<Army> cards) {
         this.playerHand.getHand().removeIf(cardInHand -> cards.stream()
                 .anyMatch(card -> card.getArmyType().getName().equals(cardInHand.getArmyType().getName())));
     }
@@ -166,6 +172,6 @@ public class PlayerImpl implements Player {
     @Override
     public String toString() {
         return new String(
-            new StringBuilder("ID -> ").append(this.getId()).append(", TROOPS -> ").append(this.bonusTroops));
-        }
+                new StringBuilder("ID -> ").append(this.getId()).append(", TROOPS -> ").append(this.bonusTroops));
+    }
 }
