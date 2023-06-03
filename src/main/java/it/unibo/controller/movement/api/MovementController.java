@@ -71,8 +71,17 @@ public interface MovementController {
      * @return the second field
      */
     Territory getSecondObject();
-    
+
+    /**
+     * Cancels movement.
+     */
     void cancelAction();
 
+    /**
+     * Checks if the movement has finished.
+     * 
+     * @return true if the movement hasn't finished yet, false otherwise
+     */
     boolean isActionRunnig();
+
 }

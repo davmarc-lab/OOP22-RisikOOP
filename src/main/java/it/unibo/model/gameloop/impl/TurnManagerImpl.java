@@ -13,7 +13,7 @@ import it.unibo.model.gameloop.api.TurnManager;
 /**
  * Simple implementation of TurnManager.
  */
-public final class TurnManagerImpl implements TurnManager {
+public class TurnManagerImpl implements TurnManager {
 
     private static final int DICE_FACES = 6;
     private final List<Integer> playersIDs;
@@ -23,6 +23,7 @@ public final class TurnManagerImpl implements TurnManager {
 
     /**
      * Creates an iterator to cycle through the player list and sets the turn order.
+     * 
      * @param playersIDs a list of playersIDs.
      */
     public TurnManagerImpl(final List<Integer> playersIDs) {
@@ -32,12 +33,20 @@ public final class TurnManagerImpl implements TurnManager {
         this.currentPlayerID = playerIterator.next();
     }
 
+    /**
+     * Constructor used for copies of TurnManagerImpl.
+     * 
+     * @param tm the turn manager from which we will copy its parameters
+     */
     public TurnManagerImpl(final TurnManager tm) {
         this.currentPlayerID = tm.getCurrentPlayerID();
         this.playersIDs = new ArrayList<>(tm.getPlayersId());
         this.playerIterator = tm.getIterator();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Iterator<Integer> getIterator() {
         final Iterator<Integer> copy = this.playersIDs.iterator();
@@ -49,6 +58,9 @@ public final class TurnManagerImpl implements TurnManager {
         throw new IllegalAccessError("Impossible to find player ID");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Integer> getPlayersId() {
         return new ArrayList<>(this.playersIDs);
@@ -59,21 +71,25 @@ public final class TurnManagerImpl implements TurnManager {
      */
     private void setRandomOrder() {
         final Dice d6 = new DiceImpl(DICE_FACES);
-        List<Pair<Integer, Integer>> list = new ArrayList<>();
-        for (int i = 0; i < playersIDs.size(); i++) {
-            list.add(new Pair<>(playersIDs.get(i), d6.roll()));
-        }
+        final List<Pair<Integer, Integer>> list = new ArrayList<>();
+        this.playersIDs.forEach(id -> list.add(new Pair<>(id, d6.roll())));
         list.sort((p1, p2) -> p1.getY() < p2.getY() ? 1 : -1);
         for (int i = 0; i < playersIDs.size(); i++) {
             playersIDs.set(i, list.get(i).getX());
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCurrentPlayerID() {
         return currentPlayerID;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void switchToNextPlayer() {
         if (!playerIterator.hasNext()) {
@@ -82,17 +98,21 @@ public final class TurnManagerImpl implements TurnManager {
         currentPlayerID = playerIterator.next();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-        Iterator<Integer> it = playersIDs.iterator();
-        String msg = "";
+        final Iterator<Integer> it = playersIDs.iterator();
+        final StringBuilder msg = new StringBuilder(50);
         final String separator = "----------------------\n";
         int i = 1;
         while (it.hasNext()) {
-            msg += separator + "TURN " + i + "\n" + it.next().toString() + "\n";
+            msg.append(separator).append("TURN ").append(String.valueOf(i)).append("\n\tPlayer")
+                    .append(it.next().toString()).append('\n');
             i++;
         }
-        return msg;
+        return msg.toString();
     }
 
 }

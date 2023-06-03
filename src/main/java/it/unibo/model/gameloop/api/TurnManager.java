@@ -8,6 +8,9 @@ import java.util.List;
  */
 public interface TurnManager {
 
+    /**
+     * @return the list of the players' IDs
+     */
     List<Integer> getPlayersId();
 
     /**
@@ -20,5 +23,9 @@ public interface TurnManager {
      */
     void switchToNextPlayer();
 
+    /**
+     * @return the iterator that cycles the list of players' IDs
+     */
     Iterator<Integer> getIterator();
+
 }

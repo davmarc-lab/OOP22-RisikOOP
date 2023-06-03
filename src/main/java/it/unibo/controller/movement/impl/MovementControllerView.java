@@ -9,7 +9,7 @@ import it.unibo.view.movement.api.MovementView;
 import it.unibo.view.movement.impl.MovementFrame;
 
 /**
- * Implemetnation of {@code MovementController}.
+ * Implementation of {@code MovementController}.
  */
 public class MovementControllerView implements MovementController {
 
@@ -111,13 +111,20 @@ public class MovementControllerView implements MovementController {
         this.frame = frame;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void cancelAction() {
         this.isActionRunnig = false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isActionRunnig() {
         return this.isActionRunnig;
     }
+
 }

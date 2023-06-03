@@ -70,7 +70,16 @@ public interface CombatController {
      */
     Territory getCombatTerritory();
 
+    /**
+     * Cancels combat.
+     */
     void cancelAction();
-    
+
+    /**
+     * Checks if the attack has finished or is still running.
+     * 
+     * @return true if the attack hasn't finished, false otherwise
+     */
     boolean isActionRunnig();
+
 }

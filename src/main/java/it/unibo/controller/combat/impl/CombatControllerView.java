@@ -11,7 +11,7 @@ import it.unibo.view.combat.api.CombatView;
 import it.unibo.view.combat.impl.CombatFrame;
 
 /**
- * The implementation of the CombatController interface.
+ * Implementation of {@code CombatController}.
  * It manages combat between players and their territories.
  */
 public class CombatControllerView implements CombatController {
@@ -27,7 +27,7 @@ public class CombatControllerView implements CombatController {
      * Constructs a CombatControllerView object.
      *
      * @param model the player and territory pair for the combat
-     * @param role the role of the player involved in combat
+     * @param role  the role of the player involved in combat
      */
     public CombatControllerView(final Pair<Player, Territory> model, final Role role) {
         this.model = model;
@@ -116,17 +116,32 @@ public class CombatControllerView implements CombatController {
         return this.model.getY();
     }
 
+    /**
+     * Checks if the selected troops can participate in combat by leaving at least
+     * one behind.
+     * 
+     * @param value the number of troops
+     * @return true if the territory would be left with at least one troop, false
+     *         otherwise
+     */
     private boolean checkStableTroops(final int value) {
         return value <= this.getCombatTerritory().getTroops() - this.role.getStableTroops();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void cancelAction() {
-        this.isActionRunnig = false;        
+        this.isActionRunnig = false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isActionRunnig() {
         return this.isActionRunnig;
     }
+
 }

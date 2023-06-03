@@ -5,7 +5,7 @@ import it.unibo.model.gameloop.api.PhaseManager;
 /**
  * Implementation of PhaseManager.
  */
-public final class PhaseManagerImpl implements PhaseManager {
+public class PhaseManagerImpl implements PhaseManager {
 
     private Phase currentPhase;
 
@@ -17,21 +17,33 @@ public final class PhaseManagerImpl implements PhaseManager {
         currentPhase = Phase.PREPARATION;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Phase getCurrentPhase() {
         return currentPhase;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void switchToNextPhase() {
-        currentPhase = Phase.values()[((currentPhase.ordinal() + 1) % Phase.values().length)];
+        currentPhase = Phase.values()[(currentPhase.ordinal() + 1) % Phase.values().length];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void switchToPhase(final Phase phase) {
         this.currentPhase = phase;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "[Current phase --> " + currentPhase + "]";
