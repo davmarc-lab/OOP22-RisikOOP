@@ -38,11 +38,11 @@ public class TestMovement {
         this.gameTerritory.getTerritory(t2).addTroops(DEFAULT_TROOPS);
         Movement m1 = new MovementImpl(this.gameTerritory.getTerritory(t1), this.gameTerritory.getTerritory(t2));
         Movement m2 = new MovementImpl(this.gameTerritory.getTerritory(t2), this.gameTerritory.getTerritory(t1));
-        m1.moveTroops(MOVING_TROOPS);
+        //m1.moveTroops(MOVING_TROOPS);
         final List<Integer> results = List.of(6, 14, 16, 4);
         assertEquals(this.gameTerritory.getTerritory(t1).getTroops(), results.get(0));
         assertEquals(this.gameTerritory.getTerritory(t2).getTroops(), results.get(1));
-        m2.moveTroops(RETURNING_TROOPS);
+        //m2.moveTroops(RETURNING_TROOPS);
         assertEquals(this.gameTerritory.getTerritory(t1).getTroops(), results.get(2));
         assertEquals(this.gameTerritory.getTerritory(t2).getTroops(), results.get(3));
     }

@@ -8,7 +8,7 @@ import it.unibo.model.objective.api.Objective;
 /**
  * Implementation of the Objective interface that represents a game objective.
  */
-public class ObjectiveImpl implements Objective {
+public class ObjectiveImpl implements Objective, Cloneable {
 
     private final String description;
     private final ObjectiveType objectiveType;
@@ -116,5 +116,19 @@ public class ObjectiveImpl implements Objective {
             return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
                     .append(this.secondContinent));
         }
+    }
+
+    @Override
+    public Objective getCopy() {
+        try {
+            return (Objective) this.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalAccessError("Cannot create a copy.");
+        }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

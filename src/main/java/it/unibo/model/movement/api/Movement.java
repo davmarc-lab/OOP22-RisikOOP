@@ -9,13 +9,6 @@ import it.unibo.model.territory.api.Territory;
 public interface Movement {
 
     /**
-     * Moves troops from a territory to another.
-     * 
-     * @param troops the amount of troops to be moved
-     */
-    void moveTroops(int troops);
-
-    /**
      * @return the territory that sends troops
      */
     Territory getSource();

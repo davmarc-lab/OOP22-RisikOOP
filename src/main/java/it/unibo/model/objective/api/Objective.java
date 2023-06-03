@@ -27,6 +27,8 @@ public interface Objective {
         NONE
     }
 
+    Objective getCopy();
+
     /**
      * Checks whether the objective has been completed.
      *

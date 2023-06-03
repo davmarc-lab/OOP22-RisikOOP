@@ -12,7 +12,7 @@ import it.unibo.model.objective.api.Objective;
 public class GameObjectiveImpl implements GameObjective {
 
     private final Set<Objective> objectives;
-    private final Objective defaultObjective;
+    private Objective defaultObjective;
 
     /**
      * Constructs a new instance of GameObjectiveImpl with the specified
@@ -23,7 +23,7 @@ public class GameObjectiveImpl implements GameObjective {
      */
     public GameObjectiveImpl(final Set<Objective> objectives, final Objective defaultObjective) {
         this.objectives = new HashSet<>(objectives);
-        this.defaultObjective = defaultObjective;
+        this.defaultObjective = defaultObjective.getCopy();
     }
 
     /**
@@ -39,6 +39,6 @@ public class GameObjectiveImpl implements GameObjective {
      */
     @Override
     public Objective getDefaultObjective() {
-        return this.defaultObjective;
+        return this.defaultObjective.getCopy();
     }
 }

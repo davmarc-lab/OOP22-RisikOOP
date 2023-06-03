@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import it.unibo.common.Pair;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
+import it.unibo.model.army.api.Army;
+import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.board.impl.GameBoardImpl;
 import it.unibo.model.gameloop.api.GameLoop;
@@ -125,7 +127,7 @@ public class GameLoopImpl implements GameLoop {
                 this.prepare = false;
                 this.phaseManager.switchToNextPhase();
                 this.controller.sendMessage("Player" + this.controller.getCurrentPlayer().getId()
-                        + ", you can now play your cards to gain bonus troops");
+                        + ", you can now play your cards to gain bonus troops");               
                 this.controller.getGameZone().getSideBar().getCardPanel()
                         .setController(new PlayerHandControllerImpl(this.controller.getCurrentPlayer(),
                                 this.controller.getGameZone().getSideBar().getCardPanel()));

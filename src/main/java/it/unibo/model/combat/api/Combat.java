@@ -2,6 +2,8 @@ package it.unibo.model.combat.api;
 
 import java.util.List;
 
+import it.unibo.model.territory.api.Territory;
+
 /**
  * This interface is used to istance a combat between two player.
  */
@@ -82,6 +84,6 @@ public interface Combat {
      * 
      * @return true if the territory is conquered, false otherwise
      */
-    boolean isTerritoryConquered();
+    boolean isTerritoryConquered(Territory defender);
 
 }

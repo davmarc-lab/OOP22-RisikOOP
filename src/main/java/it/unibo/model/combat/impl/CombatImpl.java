@@ -7,6 +7,7 @@ import it.unibo.model.combat.api.Combat;
 import it.unibo.model.dice.api.Dice;
 import it.unibo.model.dice.impl.DiceImpl;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
  * Implementation of Combat interface.
@@ -35,7 +36,7 @@ public class CombatImpl implements Combat {
      * @param tDefender      defender's territory
      * @param numberDefender defender's armies
      * 
-     * {
+     *                       {
      * @throws IllegalArgumentException} if the number of armies doesn't respect the
      *                                   rules (must be between 1 and 3)
      */
@@ -54,8 +55,8 @@ public class CombatImpl implements Combat {
      * @param tDefender defender's territories
      */
     public CombatImpl(final Territory tAttacker, final Territory tDefender) {
-        this.tAttacker = tAttacker;
-        this.tDefender = tDefender;
+        this.tAttacker = new TerritoryImpl(tAttacker);
+        this.tDefender = new TerritoryImpl(tDefender);
     }
 
     /**
@@ -125,23 +126,6 @@ public class CombatImpl implements Combat {
     }
 
     /**
-     * This method updates the territories values.
-     * 
-     * @param list list of combat result
-     */
-    private void applyCombatResult(final List<Result> list) {
-        list.stream().forEach(r -> {
-            if (r.equals(Result.WIN)) {
-                this.tDefender.addTroops(-1);
-            } else if (r.equals(Result.LOSE)) {
-                this.tAttacker.addTroops(-1);
-            } else {
-                throw new IllegalCallerException("Invalid combat result, aborted operation");
-            }
-        });
-    }
-
-    /**
      * This method checks the validity of the combat.
      * 
      * @return {@code true} if the combat is valid
@@ -158,20 +142,17 @@ public class CombatImpl implements Combat {
     public List<Result> attack(final int numAttacker, final int numDefender) {
         this.numberAttacker = numAttacker;
         this.numberDefender = numDefender;
-
-        if (!isNumberArmiesValid()) {
-            throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more than 3");
-        }
-
-        // only for test purpose
-        if (!checkAttackValidity()) {
-            return List.of(Result.NONE);
-        }
-
-        // only for test purpose
+        
         if (testFlag) {
+            if (!isNumberArmiesValid()) {
+                throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more than 3");
+            }
+
+            // only for test purpose
+            if (!checkAttackValidity()) {
+                return List.of(Result.NONE);
+            }
             final List<Result> res = this.computeAttack(attackers, defenders);
-            applyCombatResult(res);
             return res;
         }
 
@@ -179,7 +160,6 @@ public class CombatImpl implements Combat {
         final var defenders = declarePower(this.numberDefender);
         final var results = computeAttack(attackers, defenders);
         // removing armies from the territories
-        applyCombatResult(results);
         return results;
     }
 
@@ -187,8 +167,7 @@ public class CombatImpl implements Combat {
      * {@inheritDoc}
      */
     @Override
-    public boolean isTerritoryConquered() {
-        return this.tDefender.getTroops() == 0;
+    public boolean isTerritoryConquered(final Territory defender) {
+        return defender.getTroops() == 0;
     }
-
 }

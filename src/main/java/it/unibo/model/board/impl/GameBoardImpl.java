@@ -124,10 +124,17 @@ public class GameBoardImpl implements GameBoard {
         }
         final Combat combat = new CombatImpl(attacker.getY(), defender.getY());
         final List<Combat.Result> results = combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
+        results.stream().forEach(r -> {
+            if (r.equals(Combat.Result.WIN)) {
+                defender.getY().addTroops(-1);
+            } else if (r.equals(Combat.Result.LOSE)) {
+                attacker.getY().addTroops(-1);
+            }
+        });
         final Pair<Integer, Integer> p = new Pair<>(
                 (int) results.stream().filter(r -> r.equals(Combat.Result.LOSE)).count(),
                 (int) results.stream().filter(r -> r.equals(Combat.Result.WIN)).count());
-        return new Pair<>(p, combat.isTerritoryConquered());
+        return new Pair<>(p, combat.isTerritoryConquered(defender.getY()));
     }
 
     /**
@@ -138,7 +145,9 @@ public class GameBoardImpl implements GameBoard {
         final MovementController mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory));
         mc.startPopup();
         if (mc.isActionRunnig()) {
-            new MovementImpl(oldTerritory, newTerritory).moveTroops(mc.getFinalResult());
+            new MovementImpl(oldTerritory, newTerritory);
+            newTerritory.addTroops(mc.getFinalResult());
+            oldTerritory.addTroops(-mc.getFinalResult());
         }
     }
 

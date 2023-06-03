@@ -26,7 +26,7 @@ public class HandImpl implements Hand {
      * @param hand the initial hand
      */
     public HandImpl(final List<Army> hand) {
-        this.hand = hand;
+        this.hand = new ArrayList<>(hand);
     }
 
     /**
@@ -49,7 +49,7 @@ public class HandImpl implements Hand {
      */
     @Override
     public List<Army> getHand() {
-        return this.hand;
+        return new ArrayList<>(this.hand);
     }
 
     /**
@@ -57,7 +57,6 @@ public class HandImpl implements Hand {
      */
     @Override
     public int playCards(final List<Army> cards) {
-
         if (!checkPlayableCards(cards)) {
             return 0;
         }
@@ -96,7 +95,7 @@ public class HandImpl implements Hand {
     }
 
     private void removeFromHand(final List<Army> cards) {
-        this.hand.removeIf(cardInHand -> cards.stream()
-                .anyMatch(card -> card.getArmyType().getName().equals(cardInHand.getArmyType().getName())));
+        cards.forEach(c -> this.hand
+                .remove(this.hand.stream().filter(x -> x.getArmyType().equals(c.getArmyType())).findAny().get()));
     }
 }
