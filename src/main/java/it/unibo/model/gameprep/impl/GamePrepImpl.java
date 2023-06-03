@@ -50,8 +50,9 @@ public class GamePrepImpl implements GamePrep {
      * Assigns territories to the players.
      */
     private void assignTerritories() {
-        this.players.forEach(player -> IntStream.range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
-                .forEach(i -> player.addTerritory(territoryDeck.drawCard())));
+        this.players.forEach(
+                player -> IntStream.range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
+                        .forEach(i -> player.addTerritory(territoryDeck.drawCard())));
     }
 
     /**
@@ -59,14 +60,17 @@ public class GamePrepImpl implements GamePrep {
      */
     private void assignObjectives() {
         final List<String> colors = this.players.stream().map(p -> p.getColorPlayer().getName()).toList();
-        final List<Objective> unaviableColors = new ArrayList<>();
-        for (final Objective objective : objectives.getX().getDeck()) {
-            if (objective.getObjectiveType().equals(Objective.ObjectiveType.DESTROY)
-                    && !colors.contains(objective.getDescription())) {
-                unaviableColors.add(objective);
+        final List<Objective> aviableColors = new ArrayList<>();
+        for (String color : colors) {
+            for (final Objective objective : objectives.getX().getDeck()) {
+                if (objective.getObjectiveType().equals(Objective.ObjectiveType.DESTROY)
+                        && objective.getDescription().contains(color)) {
+                    aviableColors.add(objective);
+                }
             }
         }
-        unaviableColors.forEach(c -> objectives.getX().removeCard(c));
+        objectives.getX().getDeck().stream().filter(o -> o.getObjectiveType().equals(Objective.ObjectiveType.DESTROY))
+                .filter(o -> !aviableColors.contains(o)).forEach(o -> objectives.getX().removeCard(o));
         for (final Player player : this.players) {
             final Objective drawnObj = objectives.getX().drawCard();
             if (drawnObj.getDescription().equals(player.getColorPlayer().getName())) {
