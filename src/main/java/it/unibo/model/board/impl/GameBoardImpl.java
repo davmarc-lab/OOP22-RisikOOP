@@ -41,12 +41,13 @@ import it.unibo.model.territory.impl.TerritoryFactoryImpl;
  */
 public class GameBoardImpl implements GameBoard {
 
-    private List<Player> players = new ArrayList<>();
-    private GameTerritory gameTerritory = new TerritoryFactoryImpl().createTerritories();
-    private GameObjective gameObjective = new ObjectiveFactoryImpl().createObjectiveSet();
-    private Deck<Army> armyDeck = new DeckImpl<>();
+    private final List<Player> players = new ArrayList<>();
+    private final GameTerritory gameTerritory = new TerritoryFactoryImpl().createTerritories();
+    private final GameObjective gameObjective = new ObjectiveFactoryImpl().createObjectiveSet();
+    private final Deck<Army> armyDeck = new DeckImpl<>();
+    private final TurnManager turnManager;
+
     private Deck<Objective> objectiveDeck;
-    private TurnManager turnManager;
 
     /**
      * Constructor of {@code GameBoardImpl} that inizialize all fields.
@@ -114,16 +115,16 @@ public class GameBoardImpl implements GameBoard {
         final CombatController ccAttacker = new CombatControllerView(attacker, Role.ATTACKER);
         ccAttacker.startPopup();
         if (!ccAttacker.isActionRunnig()) {
-            return cancelCombat;
+            return CANCEL_COMBAT;
         }
         final CombatController ccDefender = new CombatControllerView(defender, Role.DEFENDER);
         ccDefender.startPopup();
         if (!ccDefender.isActionRunnig()) {
-            return cancelCombat;
+            return CANCEL_COMBAT;
         }
-        Combat combat = new CombatImpl(attacker.getY(), defender.getY());
-        List<Combat.Result> results = combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
-        Pair<Integer, Integer> p = new Pair<Integer, Integer>(
+        final Combat combat = new CombatImpl(attacker.getY(), defender.getY());
+        final List<Combat.Result> results = combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
+        final Pair<Integer, Integer> p = new Pair<>(
                 (int) results.stream().filter(r -> r.equals(Combat.Result.LOSE)).count(),
                 (int) results.stream().filter(r -> r.equals(Combat.Result.WIN)).count());
         return new Pair<>(p, combat.isTerritoryConquered());

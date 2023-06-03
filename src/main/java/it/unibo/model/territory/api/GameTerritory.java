@@ -3,6 +3,10 @@ package it.unibo.model.territory.api;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This interface models a class that manages all the territories and
+ * continents.
+ */
 public interface GameTerritory {
 
     /**
@@ -18,7 +22,7 @@ public interface GameTerritory {
      * Gets the map of all territories divided into continents.
      * 
      * @return the map of the continent and his set of territories
-    */
+     */
     Map<String, Set<Territory>> getTerritoryMap();
 
     /**
@@ -39,7 +43,7 @@ public interface GameTerritory {
      * Gets the territory by his name.
      * 
      * @param name
-     *          the territory name
+     *             the territory name
      * @return the territory whose name is the one given
      */
     Territory getTerritory(String name);
@@ -48,8 +52,9 @@ public interface GameTerritory {
      * Gets the set of all territories of a continent.
      * 
      * @param name
-     *              the name of the continent
+     *             the name of the continent
      * @return the set of all territories of the given continent.
      */
     Set<Territory> getTerritoryByContinent(String name);
+
 }

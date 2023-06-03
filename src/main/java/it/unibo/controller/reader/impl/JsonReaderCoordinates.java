@@ -27,7 +27,7 @@ public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<Str
             .append(ControllerConstants.PATH_SEPARATOR).append("territory").append(ControllerConstants.PATH_SEPARATOR)
             .append("Coordinates.json").toString();
 
-    private Set<Pair<String, List<Double>>> territories;
+    private final Set<Pair<String, List<Double>>> territories;
 
     /**
      * Basic constructor.
@@ -56,7 +56,7 @@ public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<Str
             for (final Object elem : array) {
                 obj = (JSONObject) elem;
                 final String name = obj.get("name").toString();
-                List<Double> values = new ArrayList<>();
+                final List<Double> values = new ArrayList<>();
                 values.add(Double.parseDouble(obj.get("x").toString()));
                 values.add(Double.parseDouble(obj.get("y").toString()));
                 values.add(Double.parseDouble(obj.get("width").toString()));

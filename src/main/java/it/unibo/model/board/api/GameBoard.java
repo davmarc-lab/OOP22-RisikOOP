@@ -12,12 +12,15 @@ import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * The {@code GameBoard} interface provide methods to interact with the game
+ * The {@code GameBoard} interface provides methods to interact with the game
  * board.
  */
 public interface GameBoard {
 
-    static final Pair<Pair<Integer, Integer>, Boolean> cancelCombat = new Pair<>(new Pair<>(0, 0), false);
+    /**
+     * Defines the result of a combat that was canceled.
+     */
+    Pair<Pair<Integer, Integer>, Boolean> CANCEL_COMBAT = new Pair<>(new Pair<>(0, 0), false);
 
     /**
      * Enumerating of bonus troops for each continent.

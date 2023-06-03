@@ -182,7 +182,7 @@ public class GameLoopImpl implements GameLoop {
                             new Pair<>(this.board.getAllPlayers().stream()
                                     .filter(p -> p.getTerritories().contains(this.selectedTerritories.get(SECOND)))
                                     .findAny().get(), this.selectedTerritories.get(SECOND)));
-                    if (result.equals(GameBoard.cancelCombat)) {
+                    if (result.equals(GameBoard.CANCEL_COMBAT)) {
                         this.controller.sendMessage("Canceled Combat, no modification applied.");
                     } else {
                         this.controller.sendMessage(new StringBuilder("The attacker lost ")

@@ -54,8 +54,8 @@ public class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pair<Str
             for (final Object elem : array) {
                 obj = (JSONObject) elem;
                 final String name = obj.get("name").toString();
-                double x = Double.parseDouble(obj.get("x").toString());
-                double y = Double.parseDouble(obj.get("y").toString());
+                final double x = Double.parseDouble(obj.get("x").toString());
+                final double y = Double.parseDouble(obj.get("y").toString());
                 this.squares.add(new Pair<>(name, new Pair<>(x, y)));
             }
             fileInputStream.close();
