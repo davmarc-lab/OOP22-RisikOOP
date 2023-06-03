@@ -48,6 +48,7 @@ public class GameLoopImpl implements GameLoop {
     private final GameState gameState;
     private final List<Territory> selectedTerritories;
     private final Set<Territory> disabledTerritories;
+    private final Random rand;
 
     private boolean prepare = true;
 
@@ -64,6 +65,7 @@ public class GameLoopImpl implements GameLoop {
         this.turnManager = this.board.getTurnManager();
         this.phaseManager = new PhaseManagerImpl();
         this.gameState = new GameStateImpl(this.controller);
+        this.rand = new Random();
     }
 
     /**
@@ -88,7 +90,7 @@ public class GameLoopImpl implements GameLoop {
             list.addAll(p.getTerritories());
             final int troops = p.getTroops();
             for (int i = 0; i < troops; i++) {
-                this.board.placeTroops(list.get(new Random().nextInt(list.size())), 1);
+                this.board.placeTroops(list.get(this.rand.nextInt(list.size())), 1);
             }
             list.clear();
         }

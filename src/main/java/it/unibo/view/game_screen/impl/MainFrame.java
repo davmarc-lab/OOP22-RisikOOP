@@ -11,9 +11,11 @@ import it.unibo.view.game_screen.api.MainView;
  */
 public class MainFrame extends JFrame implements MainView {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String FRAME_NAME = "RisikOOP";
 
-    private transient final Engine engine;
+    private final transient Engine engine;
 
     /**
      * Creates the main frame.

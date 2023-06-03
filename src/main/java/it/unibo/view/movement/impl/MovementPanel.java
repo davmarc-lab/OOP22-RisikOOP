@@ -17,6 +17,8 @@ import it.unibo.controller.movement.api.MovementController;
  */
 public class MovementPanel extends JPanel {
 
+    private static final long serialVersionUID = 1L;
+
     private static final int LEFT_RIGHT_BORDER = 5;
     private static final int TOP_BOTTOM_BORDER = 2;
 

@@ -11,7 +11,9 @@ import it.unibo.view.combat.api.CombatView;
  */
 public class CombatFrame extends JFrame implements CombatView {
 
-    private CombatController cc;
+    private static final long serialVersionUID = 1L;
+
+    private transient CombatController cc;
 
     /**
      * Constructs a CombatFrame object with the specified CombatController.
@@ -20,7 +22,7 @@ public class CombatFrame extends JFrame implements CombatView {
      */
     public CombatFrame(final CombatController cc) {
         this.cc = cc;
-        cc.setFrame(this);
+        this.cc.setFrame(this);
         this.setVisible(false);
     }
 

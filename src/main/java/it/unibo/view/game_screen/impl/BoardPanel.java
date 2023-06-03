@@ -30,6 +30,8 @@ import it.unibo.view.viewconstants.ViewConstants;
  */
 public final class BoardPanel extends JPanel implements BoardZone {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String MAP_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("images")
             .append(ViewConstants.PATH_SEPARATOR).append("RisikoMap.jpg").toString();
 
@@ -37,11 +39,12 @@ public final class BoardPanel extends JPanel implements BoardZone {
     private static final double HEIGHT_SCALING = 0.8;
     private static final int BUTTON_BORDER_SIZE = 2;
     private static final double LABEL_SCALING = 1.04;
+    private static final int FONT_SIZE = 14;
 
     private final Map<CustomButton, String> territories = new HashMap<>();
     private final Map<String, JLabel> squares = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
-    private MainController controller;
+    private transient MainController controller;
 
     /**
      * Panel that contains the map and the buttons over the names of the
@@ -86,6 +89,9 @@ public final class BoardPanel extends JPanel implements BoardZone {
 
     /**
      * Creates the JButtons that will contain the number of troops on a territory.
+     * 
+     * @param width map's width
+     * @param height map's height
      */
     private void loadButtons(final int width, final int height) {
         new JsonReaderCoordinates().readFromFile().forEach(p -> {
@@ -101,13 +107,13 @@ public final class BoardPanel extends JPanel implements BoardZone {
     /**
      * Creates the JLabels that will contain the number of troops on a territory.
      * 
-     * @param width  map width
-     * @param heigth map height
+     * @param width  map's width
+     * @param height map's height
      */
     private void loadLabels(final int width, final int height) {
         new JsonReaderSquareCoordinates().readFromFile().forEach(pair -> {
             final JLabel lab = new JLabel("1", SwingConstants.CENTER);
-            lab.setFont(new Font("Arial", Font.PLAIN, 14));
+            lab.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));
             lab.setForeground(Color.WHITE);
             lab.setBackground(Color.BLACK);
             lab.setOpaque(true);

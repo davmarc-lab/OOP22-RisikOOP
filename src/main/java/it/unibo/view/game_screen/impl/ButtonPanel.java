@@ -22,6 +22,8 @@ import java.awt.Insets;
  */
 public class ButtonPanel extends JPanel implements ButtonZone {
 
+    private static final long serialVersionUID = 1L;
+
     private static final double HEIGHT_SCALING = 0.15;
     private static final double BUTTON_SCALING = 0.08;
     private static final int FONT_SIZE = 12;
@@ -29,7 +31,7 @@ public class ButtonPanel extends JPanel implements ButtonZone {
     private static final int BORDER_SIZE = 4;
     private static final String TITLE_LABEL = "PLAYER ACTIONS";
 
-    private MainController controller;
+    private transient MainController controller;
 
     /**
      * Creates the panel with the action buttons inside the sidebar.

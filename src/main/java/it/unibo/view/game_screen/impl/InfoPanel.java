@@ -20,6 +20,8 @@ import it.unibo.view.game_screen.api.SideZone;
  */
 public class InfoPanel extends JPanel implements InfoZone {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String INFO_LABEL = "PLAYER INFO";
     private static final String OBJECTIVE_TITLE = "OBJECTIVE: ";
     private static final int BORDER_SIZE = 4;

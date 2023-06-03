@@ -20,26 +20,29 @@ import it.unibo.view.game_screen.api.SideZone;
 
 public class CardPanel extends JPanel implements CardZone {
 
+    private static final long serialVersionUID = 1L;
+
     private static final double HEIGHT_SCALING = 0.3;
     private static final String CARD_LABEL = "PLAYER HAND";
     private static final int BORDER_SIZE = 4;
+    private static final String DEFAUL_STRING = "NaN";
 
-    private final JLabel firstText = new JLabel("NaN");
-    private final JLabel secondText = new JLabel("NaN");
-    private final JLabel thirdText = new JLabel("NaN");
+    private final JLabel firstText = new JLabel(DEFAUL_STRING);
+    private final JLabel secondText = new JLabel(DEFAUL_STRING);
+    private final JLabel thirdText = new JLabel(DEFAUL_STRING);
 
     private final JButton firstCard = new JButton("Infantry");
     private final JButton secondCard = new JButton("Cavalry");
     private final JButton thirdCard = new JButton("Artillery");
-    
+
     private final JButton playCards = new JButton("Play");
     private final JButton resetCards = new JButton("Reset");
 
-    private final JLabel firstPlayed = new JLabel("NaN");
-    private final JLabel secondPlayed = new JLabel("NaN");
-    private final JLabel thirdPlayed = new JLabel("NaN");
+    private final JLabel firstPlayed = new JLabel(DEFAUL_STRING);
+    private final JLabel secondPlayed = new JLabel(DEFAUL_STRING);
+    private final JLabel thirdPlayed = new JLabel(DEFAUL_STRING);
 
-    private PlayerHandController phc;
+    private transient PlayerHandController phc;
 
     public CardPanel(final Dimension size, final SideZone parent) {
         super();
@@ -143,15 +146,15 @@ public class CardPanel extends JPanel implements CardZone {
     }
 
     @Override
-    public void setController(PlayerHandController controller) {
+    public void setController(final PlayerHandController controller) {
         this.phc = controller;
     }
 
     @Override
     public void updateView() {
-        this.firstCard.setEnabled(this.phc.isInputFull() ? false : true);
-        this.secondCard.setEnabled(this.phc.isInputFull() ? false : true);
-        this.thirdCard.setEnabled(this.phc.isInputFull() ? false : true);
+        this.firstCard.setEnabled(!this.phc.isInputFull());
+        this.secondCard.setEnabled(!this.phc.isInputFull());
+        this.thirdCard.setEnabled(!this.phc.isInputFull());
         this.playCards.setEnabled(this.phc.isInputFull());
         this.firstPlayed.setText(String.valueOf(this.phc.getNumberOfCards(firstCard.getText())));
         this.secondPlayed.setText(String.valueOf(this.phc.getNumberOfCards(secondCard.getText())));

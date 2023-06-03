@@ -13,6 +13,8 @@ import it.unibo.view.game_screen.api.CustomButton;
  */
 public final class CustomButtonImpl extends JButton implements CustomButton {
 
+    private static final long serialVersionUID = 1L;
+
     private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
     private Color hoverColor;

@@ -35,6 +35,8 @@ import it.unibo.view.viewconstants.ViewConstants;
  */
 public class MainPanel extends JPanel {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String RULES_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("instructions")
             .append(ViewConstants.PATH_SEPARATOR).append("rules.txt").toString();
     private static final String WALLPAPER_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("images")

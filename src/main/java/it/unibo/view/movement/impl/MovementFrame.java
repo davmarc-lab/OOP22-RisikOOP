@@ -12,7 +12,9 @@ import it.unibo.view.movement.api.MovementView;
  */
 public class MovementFrame extends JFrame implements MovementView {
 
-    private MovementController mc;
+    private static final long serialVersionUID = 1L;
+
+    private transient MovementController mc;
 
     /**
      * Constructor that creates a {@code MovementFrame} object.

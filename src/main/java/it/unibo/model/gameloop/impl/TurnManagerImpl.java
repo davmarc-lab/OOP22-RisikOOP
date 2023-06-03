@@ -1,6 +1,7 @@
 package it.unibo.model.gameloop.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class TurnManagerImpl implements TurnManager {
         final Dice d6 = new DiceImpl(DICE_FACES);
         final List<Pair<Integer, Integer>> list = new ArrayList<>();
         this.playersIDs.forEach(id -> list.add(new Pair<>(id, d6.roll())));
-        list.sort((p1, p2) -> p1.getY() < p2.getY() ? 1 : -1);
+        Collections.shuffle(list);
         for (int i = 0; i < playersIDs.size(); i++) {
             playersIDs.set(i, list.get(i).getX());
         }

@@ -17,6 +17,8 @@ import java.awt.BorderLayout;
  */
 public class SideBar extends JPanel implements SideZone {
 
+    private static final long serialVersionUID = 1L;
+
     private static final double WIDTH_SCALING = 0.08;
     private static final double INFO_PANEL_HEIGHT_SCALING = 0.3;
     private static final int VGAP = 2;

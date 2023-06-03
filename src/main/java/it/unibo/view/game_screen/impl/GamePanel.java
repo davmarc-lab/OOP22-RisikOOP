@@ -14,9 +14,11 @@ import it.unibo.view.game_screen.api.SideZone;
  */
 public final class GamePanel extends JPanel implements GameZone {
 
+    private static final long serialVersionUID = 1L;
+
     private final BoardZone board;
     private final SideZone side;
-    private final MainController controller;
+    private final transient MainController controller;
 
     /**
      * Sets up the controller and adds the board and the side bar.
@@ -30,8 +32,8 @@ public final class GamePanel extends JPanel implements GameZone {
         this.board.setController(this.controller);
         this.side.getButtonPanel().setController(this.controller);
         this.setLayout(new BorderLayout());
-        this.add(((JPanel) this.board), BorderLayout.CENTER);
-        this.add(((JPanel) this.side), BorderLayout.EAST);
+        this.add((JPanel) this.board, BorderLayout.CENTER);
+        this.add((JPanel) this.side, BorderLayout.EAST);
     }
 
     @Override
