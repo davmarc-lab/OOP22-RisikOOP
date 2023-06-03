@@ -38,8 +38,13 @@ public final class DeckImpl<T> implements Deck<T> {
     }
 
     @Override
+    public void removeCard(T card) {
+        this.deck.remove(card);
+    }
+
+    @Override
     public T drawCard() {
-        if (deck.isEmpty()) {
+        if (this.deck.isEmpty()) {
             throw new IllegalStateException("The deck is empty");
         }
         return this.deck.remove(0);
@@ -52,7 +57,7 @@ public final class DeckImpl<T> implements Deck<T> {
 
     @Override
     public List<T> getDeck() {
-        return this.deck;
+        return new ArrayList<>(this.deck);
     }
 
     @Override

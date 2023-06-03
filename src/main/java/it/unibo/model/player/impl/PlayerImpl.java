@@ -66,7 +66,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public void addTerritory(final Territory territory) {
-        this.territories.getDeck().add(territory);
+        this.territories.addCard(territory);
     }
 
     /**
@@ -74,7 +74,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public void removeTerritory(final Territory territory) {
-        this.territories.getDeck().remove(territory);
+        this.territories.removeCard(territory);
     }
 
     /**

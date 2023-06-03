@@ -16,6 +16,8 @@ public interface Deck<T> {
      */
     void addCard(T card);
 
+    void removeCard(T card);
+
     /**
      * Draws a card from the deck.
      * 

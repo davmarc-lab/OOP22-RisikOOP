@@ -66,7 +66,7 @@ public class GamePrepImpl implements GamePrep {
                 unaviableColors.add(objective);
             }
         }
-        objectives.getX().getDeck().removeAll(unaviableColors);
+        unaviableColors.forEach(c -> objectives.getX().removeCard(c));
         for (final Player player : this.players) {
             final Objective drawnObj = objectives.getX().drawCard();
             if (drawnObj.getDescription().equals(player.getColorPlayer().getName())) {
