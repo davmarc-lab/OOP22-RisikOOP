@@ -28,8 +28,8 @@ import it.unibo.model.modelconstants.ModelConstants;
 import it.unibo.model.movement.impl.MovementImpl;
 import it.unibo.model.objective.api.GameObjective;
 import it.unibo.model.objective.api.Objective;
+import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
 import it.unibo.model.objective.impl.ObjectiveFactoryImpl;
-import it.unibo.model.objective.impl.ObjectiveImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.player.impl.PlayerBuilderImpl;
 import it.unibo.model.territory.api.GameTerritory;
@@ -71,7 +71,7 @@ public class GameBoardImpl implements GameBoard {
         Collections.shuffle(colors);
         IntStream.range(0, ModelConstants.MAX_PLAYERS)
                 .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>())
-                        .playerHand(new HandImpl()).objective(new ObjectiveImpl()).color(colors.get(i))
+                        .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build()).color(colors.get(i))
                         .bonusTroops(0).build())
                 .forEach(this.players::add);
     }

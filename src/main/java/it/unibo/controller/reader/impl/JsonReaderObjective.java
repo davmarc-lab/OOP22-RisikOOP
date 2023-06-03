@@ -16,8 +16,8 @@ import org.json.simple.parser.ParseException;
 import it.unibo.common.Pair;
 import it.unibo.controller.controllerconstants.ControllerConstants;
 import it.unibo.model.objective.api.Objective;
-import it.unibo.model.objective.impl.ObjectiveImpl;
-
+import it.unibo.model.objective.api.Objective.ObjectiveType;
+import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
 /**
  * This class is used to read the objectives from the json file.
  */
@@ -39,11 +39,11 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public Pair<Objective, Set<Objective>> readFromFile() {
-        Objective defaultObjective = new ObjectiveImpl();
+        Objective defaultObjective = ObjectiveBuilderImpl.newBuilder().objectiveType(ObjectiveType.NONE).build();
         final JSONParser parser = new JSONParser();
         JSONObject obj;
 
@@ -57,30 +57,34 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
                 final JSONArray conquerArray = (JSONArray) obj.get("conquerObj");
                 final JSONArray defaultObj = (JSONArray) obj.get("defaultObj");
                 for (final Object destroyElem : destroyArray) {
-                    final ObjectiveImpl objective = new ObjectiveImpl(destroyElem.toString(),
-                            Objective.ObjectiveType.DESTROY);
+                    final Objective objective = ObjectiveBuilderImpl.newBuilder().armyColor(destroyElem.toString())
+                            .objectiveType(Objective.ObjectiveType.DESTROY).build();
                     this.objectives.add(objective);
                 }
                 for (final Object conquerElem : conquerArray) {
                     final JSONObject x = (JSONObject) conquerElem;
                     final JSONArray cArray = (JSONArray) x.get("scope");
                     if (cArray.size() == 2) {
-                        final ObjectiveImpl objective = new ObjectiveImpl(
-                                Integer.parseInt(cArray.get(0).toString()),
-                                Integer.parseInt(cArray.get(1).toString()), Objective.ObjectiveType.CONQUER);
+                        final Objective objective = ObjectiveBuilderImpl.newBuilder()
+                                .numTerritoriesToConquer(Integer.parseInt(cArray.get(0).toString()))
+                                .minNumArmies(Integer.parseInt(cArray.get(1).toString()))
+                                .objectiveType(Objective.ObjectiveType.CONQUER).build();
                         this.objectives.add(objective);
                     } else {
-                        final ObjectiveImpl objective = new ObjectiveImpl(cArray.get(0).toString(),
-                                cArray.get(1).toString(),
-                                Boolean.valueOf(cArray.get(2).toString()), Objective.ObjectiveType.CONQUER);
+                        final Objective objective = ObjectiveBuilderImpl.newBuilder()
+                                .firstContinent(cArray.get(0).toString()).secondContinent(cArray.get(1).toString())
+                                .thirdContinent(Boolean.valueOf(cArray.get(2).toString()))
+                                .objectiveType(Objective.ObjectiveType.CONQUER).build();
                         this.objectives.add(objective);
                     }
                 }
                 for (final Object defObj : defaultObj) {
                     final JSONObject z = (JSONObject) defObj;
                     final JSONArray dArray = (JSONArray) z.get("scope");
-                    defaultObjective = new ObjectiveImpl(Integer.parseInt(dArray.get(0).toString()),
-                            Integer.parseInt(dArray.get(1).toString()), Objective.ObjectiveType.CONQUER);
+                    defaultObjective = ObjectiveBuilderImpl.newBuilder()
+                            .numTerritoriesToConquer(Integer.parseInt(dArray.get(0).toString()))
+                            .minNumArmies(Integer.parseInt(dArray.get(1).toString()))
+                            .objectiveType(Objective.ObjectiveType.CONQUER).build();
                     this.objectives.add(defaultObjective);
 
                 }

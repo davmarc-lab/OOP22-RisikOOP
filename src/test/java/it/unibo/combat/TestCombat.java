@@ -10,7 +10,7 @@ import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.hand.impl.HandImpl;
-import it.unibo.model.objective.impl.ObjectiveImpl;
+import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.player.impl.PlayerBuilderImpl;
 import it.unibo.model.territory.api.GameTerritory;
@@ -27,8 +27,8 @@ class TestCombat {
     private static final List<Integer> ATTACKERS_INTEGERS = new ArrayList<>(List.of(6, 5));
     private static final List<Integer> DEFENDERS_INTEGERS = new ArrayList<>(List.of(5, 2, 1));
 
-    private final Player p1 = PlayerBuilderImpl.newBuilder().id(1).territoryDeck(new DeckImpl<>()).playerHand(new HandImpl()).objective(new ObjectiveImpl()).build();
-    private final Player p2 = PlayerBuilderImpl.newBuilder().id(2).territoryDeck(new DeckImpl<>()).playerHand(new HandImpl()).objective(new ObjectiveImpl()).build();
+    private final Player p1 = PlayerBuilderImpl.newBuilder().id(1).territoryDeck(new DeckImpl<>()).playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build()).build();
+    private final Player p2 = PlayerBuilderImpl.newBuilder().id(2).territoryDeck(new DeckImpl<>()).playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build()).build();
 
     private GameTerritory territories;
 

@@ -9,7 +9,7 @@ import it.unibo.model.deck.api.Deck;
 import it.unibo.model.hand.api.Hand;
 import it.unibo.model.hand.impl.HandImpl;
 import it.unibo.model.objective.api.Objective;
-import it.unibo.model.objective.impl.ObjectiveImpl;
+import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
@@ -40,7 +40,7 @@ public class PlayerImpl implements Player {
         this.id = id;
         this.territories = territories;
         this.playerHand = new HandImpl(playerHandDeck.getHand());
-        this.objective = new ObjectiveImpl(objective.getDescription(), objective.getObjectiveType());
+        this.objective = ObjectiveBuilderImpl.newBuilder().build();
         this.color = color;
         this.bonusTroops = bonusTroops;
     }

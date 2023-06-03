@@ -10,68 +10,41 @@ import it.unibo.model.objective.api.Objective;
  */
 public class ObjectiveImpl implements Objective {
 
-    private String description = "";
-    private ObjectiveType objectiveType;
-    private String armyColor = "";
-    private String firstContinent = "";
-    private String secondContinent = "";
-    private Boolean thirdContinent = false;
-    private int numTerritoriesToConquer;
-    private int minNumArmies;
+    private final String description;
+    private final ObjectiveType objectiveType;
+    private final String armyColor;
+    private final String firstContinent;
+    private final String secondContinent;
+    private final Boolean thirdContinent;
+    private final int numTerritoriesToConquer;
+    private final int minNumArmies;
     private Boolean complete = false;
     private Pair<ObjectiveType, List<String>> checkObjectives;
 
     /**
-     * Constructs a new ObjectiveImpl with the given armyColor and objective type for the destroy objective.
-     *
-     * @param armyColor     the armyColor of the objective
-     * @param objectiveType the type of the objective
-     */
-    public ObjectiveImpl(final String armyColor, final ObjectiveType objectiveType) {
-        this.armyColor = armyColor;
-        this.objectiveType = objectiveType;
-        this.description = createDescription();
-    }
-
-    /**
-     * Constructs a new ObjectiveImpl with the given firstContinent,
-     * secondContinent, thirdContinent and objective type for the conquer objective.
+     * Constructs a new ObjectiveImpl with the given armyColor, firstContinent,
+     * secondContinent, thirdContinent, numTerritoriesToConquer, minNumArmies and
+     * objective type for the conquer objective.
      * 
+     * @param armyColor
      * @param firstContinent
      * @param secondContinent
      * @param thirdContinent
-     * @param objectiveType
-     */
-    public ObjectiveImpl(final String firstContinent, final String secondContinent, final Boolean thirdContinent,
-            final ObjectiveType objectiveType) {
-        this.firstContinent = firstContinent;
-        this.secondContinent = secondContinent;
-        this.thirdContinent = thirdContinent;
-        this.objectiveType = objectiveType;
-        this.description = createDescription();
-    }
-
-    /**
-     * Constructs a new ObjectiveImpl with the given numTerritoriesToConquer with at
-     * least minNumArmies on it and objective type for the conquer objective.
-     * 
      * @param numTerritoriesToConquer
      * @param minNumArmies
      * @param objectiveType
      */
-    public ObjectiveImpl(final int numTerritoriesToConquer, final int minNumArmies, final ObjectiveType objectiveType) {
+    public ObjectiveImpl(final String armyColor, final String firstContinent, final String secondContinent,
+            final Boolean thirdContinent, final int numTerritoriesToConquer, final int minNumArmies,
+            final ObjectiveType objectiveType) {
+        this.armyColor = armyColor;
+        this.firstContinent = firstContinent;
+        this.secondContinent = secondContinent;
+        this.thirdContinent = thirdContinent;
         this.numTerritoriesToConquer = numTerritoriesToConquer;
         this.minNumArmies = minNumArmies;
         this.objectiveType = objectiveType;
         this.description = createDescription();
-    }
-
-    /**
-     * Constructs an empty ObjectiveImpl.
-     */
-    public ObjectiveImpl() {
-        this.description = "";
-        this.objectiveType = ObjectiveType.NONE;
     }
 
     /**
@@ -103,7 +76,7 @@ public class ObjectiveImpl implements Objective {
      */
     @Override
     public ObjectiveType getObjectiveType() {
-        return objectiveType;
+        return this.objectiveType;
     }
 
     /**
