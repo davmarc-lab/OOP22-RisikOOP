@@ -117,9 +117,9 @@ public class CardPanel extends JPanel implements CardZone {
             this.resetUserInput();
         });
 
-        final JPanel playPanel = new JPanel(new FlowLayout());
-        playPanel.add(playCards);
-        playPanel.add(resetCards);
+        final JPanel playPanel = new JPanel(new BorderLayout());
+        playPanel.add(playCards, BorderLayout.WEST);
+        playPanel.add(resetCards, BorderLayout.EAST);
 
         this.add(cardsPanel, BorderLayout.CENTER);
         this.add(playPanel, BorderLayout.SOUTH);
