@@ -45,6 +45,7 @@ public class MovementFrame extends JFrame implements MovementView {
             this.dispose();
         } else {
             this.dispose();
+            mc.cancelAction();
         }
     }
 

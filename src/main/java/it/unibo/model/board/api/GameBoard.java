@@ -17,6 +17,8 @@ import it.unibo.model.territory.api.Territory;
  */
 public interface GameBoard {
 
+    static final Pair<Pair<Integer, Integer>, Boolean> cancelCombat = new Pair<>(new Pair<>(0, 0), false);
+
     /**
      * Enumerating of bonus troops for each continent.
      */

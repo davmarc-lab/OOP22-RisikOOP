@@ -43,6 +43,7 @@ public class CombatFrame extends JFrame implements CombatView {
             cc.setCombatOutcome();
             this.dispose();
         } else {
+            cc.cancelAction();
             this.dispose();
         }
     }

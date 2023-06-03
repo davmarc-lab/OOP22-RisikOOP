@@ -21,6 +21,7 @@ public class CombatControllerView implements CombatController {
     private int value;
     private final Role role;
     private Optional<Integer> combatOutcome = Optional.empty();
+    private boolean isActionRunnig = true;
 
     /**
      * Constructs a CombatControllerView object.
@@ -117,5 +118,15 @@ public class CombatControllerView implements CombatController {
 
     private boolean checkStableTroops(final int value) {
         return value <= this.getCombatTerritory().getTroops() - this.role.getStableTroops();
+    }
+
+    @Override
+    public void cancelAction() {
+        this.isActionRunnig = false;        
+    }
+
+    @Override
+    public boolean isActionRunnig() {
+        return this.isActionRunnig;
     }
 }

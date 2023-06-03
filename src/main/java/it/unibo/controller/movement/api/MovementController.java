@@ -71,4 +71,8 @@ public interface MovementController {
      * @return the second field
      */
     Territory getSecondObject();
+    
+    void cancelAction();
+
+    boolean isActionRunnig();
 }

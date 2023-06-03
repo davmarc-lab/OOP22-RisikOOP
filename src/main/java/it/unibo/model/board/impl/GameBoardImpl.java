@@ -113,8 +113,14 @@ public class GameBoardImpl implements GameBoard {
             final Pair<Player, Territory> defender) {
         final CombatController ccAttacker = new CombatControllerView(attacker, Role.ATTACKER);
         ccAttacker.startPopup();
+        if (!ccAttacker.isActionRunnig()) {
+            return cancelCombat;
+        }
         final CombatController ccDefender = new CombatControllerView(defender, Role.DEFENDER);
         ccDefender.startPopup();
+        if (!ccDefender.isActionRunnig()) {
+            return cancelCombat;
+        }
         Combat combat = new CombatImpl(attacker.getY(), defender.getY());
         List<Combat.Result> results = combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
         Pair<Integer, Integer> p = new Pair<Integer, Integer>(
@@ -130,7 +136,9 @@ public class GameBoardImpl implements GameBoard {
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
         final MovementController mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory));
         mc.startPopup();
-        new MovementImpl(oldTerritory, newTerritory).moveTroops(mc.getFinalResult());
+        if (mc.isActionRunnig()) {
+            new MovementImpl(oldTerritory, newTerritory).moveTroops(mc.getFinalResult());
+        }
     }
 
     /**

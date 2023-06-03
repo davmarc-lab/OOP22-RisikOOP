@@ -17,6 +17,7 @@ public class MovementControllerView implements MovementController {
     private final Pair<Territory, Territory> model;
     private int value;
     private Optional<Integer> finalResult = Optional.empty();
+    private boolean isActionRunnig = true;
 
     /**
      * Constructor with the model parts.
@@ -89,7 +90,6 @@ public class MovementControllerView implements MovementController {
         if (this.finalResult.isPresent()) {
             return this.finalResult.get();
         }
-        // logger here
         return 0;
     }
 
@@ -109,5 +109,15 @@ public class MovementControllerView implements MovementController {
     @Override
     public void setFrame(final MovementView frame) {
         this.frame = frame;
+    }
+
+    @Override
+    public void cancelAction() {
+        this.isActionRunnig = false;
+    }
+
+    @Override
+    public boolean isActionRunnig() {
+        return this.isActionRunnig;
     }
 }

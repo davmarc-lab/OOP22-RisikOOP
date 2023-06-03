@@ -69,4 +69,8 @@ public interface CombatController {
      * @return the territory
      */
     Territory getCombatTerritory();
+
+    void cancelAction();
+    
+    boolean isActionRunnig();
 }
