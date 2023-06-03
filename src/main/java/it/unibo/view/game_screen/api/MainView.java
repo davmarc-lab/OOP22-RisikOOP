@@ -6,7 +6,12 @@ package it.unibo.view.game_screen.api;
 public interface MainView {
 
     /**
-     * Start the game engine.
+     * Starts the game engine.
      */
     void startGame();
+
+    /**
+     * Starts the main menu.
+     */
+    void startMainMenu();
 }

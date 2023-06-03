@@ -146,4 +146,12 @@ public class PlayerHandControllerImpl implements PlayerHandController {
         return this.view;
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateView() {
+        this.view.updateView();
+    }
 }

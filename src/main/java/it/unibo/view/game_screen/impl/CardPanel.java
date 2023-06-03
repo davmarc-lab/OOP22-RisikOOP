@@ -44,15 +44,16 @@ public class CardPanel extends JPanel implements CardZone {
     public CardPanel(final Dimension size, final SideZone parent) {
         super();
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(Double.valueOf(size.getWidth()).intValue(),
-                Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue()));
+        final Dimension dim = new Dimension(Double.valueOf(size.getWidth()).intValue(),
+        Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue());
+        this.setPreferredSize(dim);
         this.add(new JLabel(CARD_LABEL, SwingConstants.CENTER), BorderLayout.NORTH);
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
 
         final JPanel cardsPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints cnst = new GridBagConstraints();
         cnst.gridy = 0;
-        final int n = (int) (this.getPreferredSize().getHeight() * 0.05);
+        final int n = (int) (dim.getHeight() * 0.05);
         final Insets buttonInsets = new Insets(n, n, n, n);
         firstCard.setMargin(buttonInsets);
         secondCard.setMargin(buttonInsets);
@@ -84,7 +85,7 @@ public class CardPanel extends JPanel implements CardZone {
                 this.phc.addInputCard(firstCard.getText());
                 this.firstPlayed.setText(String.valueOf(this.phc.getNumberOfCards(firstCard.getText())));
             }
-            this.updateView();
+            this.phc.updateView();
         });
 
         secondCard.addActionListener(e -> {
@@ -92,7 +93,7 @@ public class CardPanel extends JPanel implements CardZone {
                 this.phc.addInputCard(secondCard.getText());
                 this.secondPlayed.setText(String.valueOf(this.phc.getNumberOfCards(secondCard.getText())));
             }
-            this.updateView();
+            this.phc.updateView();
         });
 
         thirdCard.addActionListener(e -> {
@@ -100,7 +101,7 @@ public class CardPanel extends JPanel implements CardZone {
                 this.phc.addInputCard(thirdCard.getText());
                 this.thirdPlayed.setText(String.valueOf(this.phc.getNumberOfCards(thirdCard.getText())));
             }
-            this.updateView();
+            this.phc.updateView();
         });
 
         playCards.addActionListener(e -> {
@@ -126,7 +127,7 @@ public class CardPanel extends JPanel implements CardZone {
         this.secondPlayed.setText("0");
         this.thirdPlayed.setText("0");
         this.phc.clearInputCards();
-        this.updateView();
+        this.phc.updateView();
     }
 
     private int getFirstCardCount() {

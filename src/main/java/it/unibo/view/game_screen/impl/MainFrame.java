@@ -13,7 +13,7 @@ public class MainFrame extends JFrame implements MainView {
 
     private static final String FRAME_NAME = "RisikOOP";
 
-    private final Engine engine;
+    private transient final Engine engine;
 
     /**
      * Creates the main frame.
@@ -23,11 +23,6 @@ public class MainFrame extends JFrame implements MainView {
     public MainFrame(final Engine engine) {
         super(FRAME_NAME);
         this.engine = engine;
-        this.getContentPane().add(new MainPanel(this));
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -42,4 +37,16 @@ public class MainFrame extends JFrame implements MainView {
         engine.startEngine();
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public void startMainMenu() {
+        this.getContentPane().add(new MainPanel(this));
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setVisible(true);
+    }
 }

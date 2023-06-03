@@ -11,7 +11,6 @@ import it.unibo.controller.reader.api.FileReader;
  */
 public abstract class AbstractFileReader<T> implements FileReader<T> {
 
-    private final Logger logger;
     private final String finalPath;
 
     /**
@@ -21,7 +20,6 @@ public abstract class AbstractFileReader<T> implements FileReader<T> {
      *                  the file path
      */
     public AbstractFileReader(final String pathToFile) {
-        this.logger = Logger.getLogger(AbstractFileReader.class.getName());
         this.finalPath = pathToFile;
     }
 
@@ -38,7 +36,7 @@ public abstract class AbstractFileReader<T> implements FileReader<T> {
      */
     @Override
     public Logger getLogger() {
-        return this.logger;
+        return Logger.getLogger(AbstractFileReader.class.getName());
     }
 
     /**
@@ -47,6 +45,6 @@ public abstract class AbstractFileReader<T> implements FileReader<T> {
      */
     @Override
     public String getFilePath() {
-        return this.finalPath;
+        return new StringBuilder(this.finalPath).toString();
     }
 }

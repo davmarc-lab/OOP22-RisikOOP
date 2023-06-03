@@ -91,4 +91,9 @@ public interface PlayerHandController {
      */
     CardZone getView();
 
+    /**
+     * Updates the view of the hand of the player.
+     */
+    void updateView();
+
 }

@@ -21,6 +21,7 @@ public final class Engine {
      */
     public Engine() {
         this.controller = new MainControllerImpl(this);
+        this.startApp();
     }
 
     /**
@@ -28,6 +29,7 @@ public final class Engine {
      */
     public void startApp() {
         this.frame = new MainFrame(this);
+        this.frame.startMainMenu();
     }
 
     /**
@@ -64,6 +66,9 @@ public final class Engine {
         this.controller.startLoop();
     }
 
+    /**
+     * Stops the game.
+     */
     public void stopEngine() {
         this.frame.dispose();
     }
@@ -73,7 +78,7 @@ public final class Engine {
      * @param args
      */
     public static void main(final String[] args) {
-        new Engine().startApp();
+        new Engine();
     }
 
 }

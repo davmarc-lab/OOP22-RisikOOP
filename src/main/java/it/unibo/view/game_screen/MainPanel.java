@@ -112,8 +112,7 @@ public class MainPanel extends JPanel {
         try {
             final String message;
             message = new AbstractFileReader<String>(RULES_PATH) {
-                private FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
-                private InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream,
+                private InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(RULES_PATH),
                         StandardCharsets.UTF_8);
                 private BufferedReader reader = new BufferedReader(inputStreamReader);
 
@@ -165,7 +164,6 @@ public class MainPanel extends JPanel {
 
         pane.add(panel, Integer.valueOf(1));
         this.add(pane);
-        this.updateUI();
     }
 
     private Image adjustImageSize(final ImageIcon map, final double width, final double height) {

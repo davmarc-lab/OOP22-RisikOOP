@@ -69,7 +69,6 @@ public class InfoPanel extends JPanel implements InfoZone {
         objectivePanel.add(this.objText, BorderLayout.CENTER);
 
         this.add(objectivePanel, BorderLayout.SOUTH);
-        this.updateUI();
     }
 
     /**
