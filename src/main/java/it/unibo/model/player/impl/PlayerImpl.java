@@ -6,6 +6,7 @@ import java.util.Set;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
+import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.hand.api.Hand;
 import it.unibo.model.hand.impl.HandImpl;
 import it.unibo.model.objective.api.Objective;
@@ -38,7 +39,7 @@ public class PlayerImpl implements Player {
     public PlayerImpl(final int id, final Deck<Territory> territories,
             final Hand playerHandDeck, final Objective objective, final Color color, final int bonusTroops) {
         this.id = id;
-        this.territories = territories;
+        this.territories = new DeckImpl<>(territories.getDeck());
         this.playerHand = new HandImpl(playerHandDeck.getHand());
         this.objective = ObjectiveBuilderImpl.newBuilder().build();
         this.color = color;
@@ -98,7 +99,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public Objective getObjective() {
-        return this.objective;
+        return this.objective.getCopy();
     }
 
     /**
@@ -106,7 +107,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public Hand getPlayerHand() {
-        return this.playerHand;
+        return new HandImpl(this.playerHand.getHand());
     }
 
     /**
@@ -131,7 +132,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public Deck<Territory> getTerritoryDeck() {
-        return this.territories;
+        return new DeckImpl<>(this.territories.getDeck());
     }
 
     /**
@@ -147,7 +148,7 @@ public class PlayerImpl implements Player {
      */
     @Override
     public void setObjective(final Objective objective) {
-        this.objective = objective;
+        this.objective = objective.getCopy();
     }
 
     /**

@@ -17,40 +17,22 @@ import it.unibo.model.territory.api.Territory;
  */
 public class GamePrepImpl implements GamePrep {
 
-    private final List<Player> players;
-    private final Deck<Territory> territoryDeck;
-    private final Pair<Deck<Objective>, Objective> objectives;
-
-    /**
-     * Constructs a GamePrepImpl object with the specified players, territories,
-     * objectives and armies.
-     * 
-     * @param players       the list of players
-     * @param territoryDeck the initial deck of territories
-     * @param objectives    the initial deck of objectives
-     */
-    public GamePrepImpl(final List<Player> players, final Deck<Territory> territoryDeck,
-            final Pair<Deck<Objective>, Objective> objectives) {
-        this.players = players;
-        this.territoryDeck = territoryDeck;
-        this.objectives = objectives;
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
-    public void preparePlayers() {
-        this.assignTerritories();
-        this.assignObjectives();
-        this.assignTroops();
+    public void preparePlayers(final List<Player> players, final Deck<Territory> territoryDeck,
+            final Pair<Deck<Objective>, Objective> objectives) {
+        this.assignTerritories(players, territoryDeck);
+        this.assignObjectives(players, objectives);
+        this.assignTroops(players);
     }
 
     /**
      * Assigns territories to the players.
      */
-    private void assignTerritories() {
-        this.players.forEach(
+    private void assignTerritories(final List<Player> players, final Deck<Territory> territoryDeck) {
+        players.forEach(
                 player -> IntStream.range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
                         .forEach(i -> player.addTerritory(territoryDeck.drawCard())));
     }
@@ -58,8 +40,8 @@ public class GamePrepImpl implements GamePrep {
     /**
      * Assigns objectives to the players.
      */
-    private void assignObjectives() {
-        final List<String> colors = this.players.stream().map(p -> p.getColorPlayer().getName()).toList();
+    private void assignObjectives(final List<Player> players, final Pair<Deck<Objective>, Objective> objectives) {
+        final List<String> colors = players.stream().map(p -> p.getColorPlayer().getName()).toList();
         final List<Objective> aviableColors = new ArrayList<>();
 
         colors.stream().forEach(color -> objectives.getX().getDeck().stream().filter(o -> o.getObjectiveType()
@@ -69,7 +51,7 @@ public class GamePrepImpl implements GamePrep {
         objectives.getX().getDeck().stream().filter(o -> o.getObjectiveType().equals(Objective.ObjectiveType.DESTROY))
                 .filter(o -> !aviableColors.contains(o)).forEach(o -> objectives.getX().removeCard(o));
 
-        this.players.stream().forEach(player -> {
+        players.stream().forEach(player -> {
             final Objective drawnObj = objectives.getX().drawCard();
             final Objective finalObs = drawnObj.getDescription().contains(player.getColorPlayer().getName())
                     ? objectives.getY()
@@ -81,8 +63,8 @@ public class GamePrepImpl implements GamePrep {
     /**
      * Assigns troops to the players.
      */
-    private void assignTroops() {
-        this.players.stream().forEach(p -> p.addTroops(ModelConstants.TROOPS));
-        this.players.stream().forEach(p -> p.getTerritories().forEach(t -> t.addTroops(1)));
+    private void assignTroops(final List<Player> players) {
+        players.stream().forEach(p -> p.addTroops(ModelConstants.TROOPS));
+        players.stream().forEach(p -> p.getTerritories().forEach(t -> t.addTroops(1)));
     }
 }

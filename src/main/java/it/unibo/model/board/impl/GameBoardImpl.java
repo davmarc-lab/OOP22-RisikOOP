@@ -58,8 +58,8 @@ public class GameBoardImpl implements GameBoard {
         createObjectiveDeck();
         final Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck,
                 this.gameObjective.getDefaultObjective());
-        new GamePrepImpl(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective)
-                .preparePlayers();
+        new GamePrepImpl().preparePlayers(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()),
+                pairObjective);
         this.objectiveDeck.setDeck(pairObjective.getX().getDeck());
         this.turnManager = new TurnManagerImpl(this.players.stream().map(Player::getId).toList());
     }
@@ -72,7 +72,8 @@ public class GameBoardImpl implements GameBoard {
         Collections.shuffle(colors);
         IntStream.range(0, ModelConstants.MAX_PLAYERS)
                 .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>())
-                        .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build()).color(colors.get(i))
+                        .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build())
+                        .color(colors.get(i))
                         .bonusTroops(0).build())
                 .forEach(this.players::add);
     }
@@ -82,7 +83,8 @@ public class GameBoardImpl implements GameBoard {
      */
     private void createArmyDeck() {
         Arrays.stream(Army.ArmyType.values())
-                .forEach(armyType -> IntStream.range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
+                .forEach(armyType -> IntStream
+                        .range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
                         .forEach(i -> this.armyDeck.addCard(new ArmyImpl(armyType))));
         this.armyDeck.shuffle();
     }
@@ -144,7 +146,8 @@ public class GameBoardImpl implements GameBoard {
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
         final MovementController mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory));
         mc.startPopup();
-        if (mc.isActionRunnig() && new MovementImpl(oldTerritory, newTerritory, mc.getFinalResult()).isMovementValid()) {
+        if (mc.isActionRunnig()
+                && new MovementImpl(oldTerritory, newTerritory, mc.getFinalResult()).isMovementValid()) {
             newTerritory.addTroops(mc.getFinalResult());
             oldTerritory.addTroops(-mc.getFinalResult());
         }

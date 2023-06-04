@@ -1,7 +1,9 @@
 package it.unibo.model.player.impl;
 
 import it.unibo.model.deck.api.Deck;
+import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.hand.api.Hand;
+import it.unibo.model.hand.impl.HandImpl;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.player.api.Player.Color;
@@ -43,7 +45,7 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
      */
     @Override
     public PlayerBuilder territoryDeck(final Deck<Territory> territoryDeck) {
-        this.territoryDeck = territoryDeck;
+        this.territoryDeck = new DeckImpl<>(territoryDeck.getDeck());
         return this;
     }
 
@@ -52,7 +54,7 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
      */
     @Override
     public PlayerBuilder playerHand(final Hand playerHand) {
-        this.playerHand = playerHand;
+        this.playerHand = new HandImpl(playerHand.getHand());
         return this;
     }
 
@@ -61,7 +63,7 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
      */
     @Override
     public PlayerBuilder objective(final Objective objective) {
-        this.objective = objective;
+        this.objective = objective.getCopy();
         return this;
     }
 
