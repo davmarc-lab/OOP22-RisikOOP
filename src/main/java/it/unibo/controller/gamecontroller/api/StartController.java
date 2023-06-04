@@ -8,7 +8,7 @@ public interface StartController {
     void closeView();
 
     void startGame();
-    
+
     MainView getView();
 
     MainController getMainController();

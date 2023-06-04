@@ -76,7 +76,7 @@ public class GameStateImpl implements GameState {
         if (players.stream()
                 .filter(p -> p.getColorPlayer().getName().equals(armyColor))
                 .findAny().get().getTerritories().isEmpty()) {
-            player.getObjective().setComplete();
+            player.setObjectiveComplete();;
             return true;
         }
         return false;
@@ -117,11 +117,11 @@ public class GameStateImpl implements GameState {
             if (this.mc.getGameLoop().getBoard().getGameTerritories().getTerritoryMap().keySet().stream()
                     .filter(c -> !c.equals(firstContinent) && !c.equals(secondContinent))
                     .anyMatch(continent -> isContinentConquered(player, continent))) {
-                player.getObjective().setComplete();
+                player.setObjectiveComplete();
                 return true;
             }
         } else if (isContinentConquered(player, firstContinent) && isContinentConquered(player, secondContinent)) {
-            player.getObjective().setComplete();
+            player.setObjectiveComplete();
             return true;
         }
 

@@ -52,12 +52,7 @@ public class MainFrame extends JFrame implements MainView {
 
     @Override
     public void changeToGamePanel() {
-        this.getContentPane().removeAll();
-        this.getContentPane().revalidate();
-        this.getContentPane().repaint();
-        this.getContentPane().add((JPanel) this.controller.getMainController().getGameZone());
-        this.pack();
-        this.setLocationRelativeTo(null);
+        this.changePanel((JPanel) this.controller.getMainController().getGameZone());
     }
 
     @Override
@@ -67,6 +62,16 @@ public class MainFrame extends JFrame implements MainView {
 
     @Override
     public void reveal() {
+        this.changePanel(new MainPanel(this));
         this.setVisible(true);
+    }
+
+    private void changePanel(final JPanel panel) {
+        this.getContentPane().removeAll();
+        this.getContentPane().revalidate();
+        this.getContentPane().repaint();
+        this.getContentPane().add(panel);
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
 }
