@@ -48,7 +48,6 @@ public class MainFrame extends JFrame implements MainView {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setVisible(true);
     }
 
     @Override
@@ -64,5 +63,10 @@ public class MainFrame extends JFrame implements MainView {
     @Override
     public void closeView() {
         this.dispose();
+    }
+
+    @Override
+    public void reveal() {
+        this.setVisible(true);
     }
 }

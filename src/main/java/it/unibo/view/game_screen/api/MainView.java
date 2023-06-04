@@ -18,4 +18,6 @@ public interface MainView {
     void changeToGamePanel();
 
     void closeView();
+
+    void reveal();
 }

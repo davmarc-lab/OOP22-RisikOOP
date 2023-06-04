@@ -11,12 +11,13 @@ public class StartControllerImpl implements StartController {
     private MainController mainController;
 
     public StartControllerImpl() {
+        this.view = new MainFrame(this);
+        this.view.startMainMenu();
     }
 
     @Override
     public void startView() {
-        this.view = new MainFrame(this);
-        this.view.startMainMenu();
+        this.view.reveal();
     }
 
     @Override
