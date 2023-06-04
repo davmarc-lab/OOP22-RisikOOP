@@ -61,24 +61,22 @@ public class GamePrepImpl implements GamePrep {
     private void assignObjectives() {
         final List<String> colors = this.players.stream().map(p -> p.getColorPlayer().getName()).toList();
         final List<Objective> aviableColors = new ArrayList<>();
-        for (String color : colors) {
-            for (final Objective objective : objectives.getX().getDeck()) {
-                if (objective.getObjectiveType().equals(Objective.ObjectiveType.DESTROY)
-                        && objective.getDescription().contains(color)) {
-                    aviableColors.add(objective);
-                }
-            }
-        }
+
+        colors.stream().forEach(color -> objectives.getX().getDeck().stream().filter(o -> o.getObjectiveType()
+                .equals(Objective.ObjectiveType.DESTROY) && o.getDescription().contains(color))
+                .forEach(obj -> aviableColors.add(obj)));
+
         objectives.getX().getDeck().stream().filter(o -> o.getObjectiveType().equals(Objective.ObjectiveType.DESTROY))
                 .filter(o -> !aviableColors.contains(o)).forEach(o -> objectives.getX().removeCard(o));
-        for (final Player player : this.players) {
+
+        this.players.stream().forEach(player -> {
             final Objective drawnObj = objectives.getX().drawCard();
-            if (drawnObj.getDescription().equals(player.getColorPlayer().getName())) {
-                player.setObjective(objectives.getY());
-            } else {
-                player.setObjective(drawnObj);
-            }
-        }
+            System.out.println(drawnObj.getDescription());
+            final Objective finalObs = drawnObj.getDescription().contains(player.getColorPlayer().getName())
+                    ? objectives.getY()
+                    : drawnObj;
+            player.setObjective(finalObs);
+        });
     }
 
     /**
