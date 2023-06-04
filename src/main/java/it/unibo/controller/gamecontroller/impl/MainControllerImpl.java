@@ -108,7 +108,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public GameLoop getGameLoop() {
-        return this.loop;
+        return new GameLoopImpl(loop);
     }
 
     /**
