@@ -74,20 +74,6 @@ public interface MainController {
     void startLoop();
 
     /**
-     * Sets the game loop.
-     * 
-     * @param loop
-     */
-    void setGameLoop(GameLoop loop);
-
-    /**
-     * Sets the game zone.
-     * 
-     * @param gui
-     */
-    void setGameZone(GameZone gui);
-
-    /**
      * Randomizes the distribution of troops on territories.
      */
     void randomize();

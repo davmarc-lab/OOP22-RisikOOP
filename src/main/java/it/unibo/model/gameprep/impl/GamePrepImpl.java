@@ -71,7 +71,6 @@ public class GamePrepImpl implements GamePrep {
 
         this.players.stream().forEach(player -> {
             final Objective drawnObj = objectives.getX().drawCard();
-            System.out.println(drawnObj.getDescription());
             final Objective finalObs = drawnObj.getDescription().contains(player.getColorPlayer().getName())
                     ? objectives.getY()
                     : drawnObj;

@@ -1,9 +1,11 @@
 package it.unibo.model.gameloop.api;
 
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.board.api.GameBoard;
+import it.unibo.model.gamestate.api.GameState;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -66,6 +68,12 @@ public interface GameLoop {
      * @return the turn manager
      */
     TurnManager getTurnManager();
+
+    List<Territory> getSelectedTerritories();
+
+    Set<Territory> getDisabledTerritories();
+
+    GameState getGameState();
 
     /**
      * Randomizes the distribution of troops on territories.

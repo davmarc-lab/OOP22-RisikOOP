@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 import it.unibo.common.Pair;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
-import it.unibo.model.army.api.Army;
-import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.board.impl.GameBoardImpl;
 import it.unibo.model.gameloop.api.GameLoop;
@@ -67,6 +65,17 @@ public class GameLoopImpl implements GameLoop {
         this.turnManager = this.board.getTurnManager();
         this.phaseManager = new PhaseManagerImpl();
         this.gameState = new GameStateImpl(this.controller);
+        this.rand = new Random();
+    }
+
+    public GameLoopImpl(final GameLoop loop) {
+        this.selectedTerritories = loop.getSelectedTerritories();
+        this.disabledTerritories = loop.getDisabledTerritories();
+        this.controller = loop.getController();
+        this.board = loop.getBoard();
+        this.turnManager = loop.getTurnManager();
+        this.phaseManager = loop.getPhaseManager();
+        this.gameState = loop.getGameState();
         this.rand = new Random();
     }
 
@@ -369,6 +378,21 @@ public class GameLoopImpl implements GameLoop {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Territory> getSelectedTerritories() {
+        return new ArrayList<>(this.selectedTerritories);
+    }
+
+    @Override
+    public Set<Territory> getDisabledTerritories() {
+        return new HashSet<>(this.disabledTerritories);
+    }
+
+    @Override
+    public GameState getGameState() {
+        return this.gameState;
     }
 
 }

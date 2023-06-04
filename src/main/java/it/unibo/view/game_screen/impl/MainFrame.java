@@ -1,8 +1,9 @@
 package it.unibo.view.game_screen.impl;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import it.unibo.start.Engine;
+import it.unibo.controller.gamecontroller.api.StartController;
 import it.unibo.view.game_screen.MainPanel;
 import it.unibo.view.game_screen.api.MainView;
 
@@ -15,16 +16,16 @@ public class MainFrame extends JFrame implements MainView {
 
     private static final String FRAME_NAME = "RisikOOP";
 
-    private final transient Engine engine;
+    private final transient StartController controller;
 
     /**
      * Creates the main frame.
      * 
      * @param engine the engine of the game
      */
-    public MainFrame(final Engine engine) {
+    public MainFrame(final StartController engine) {
         super(FRAME_NAME);
-        this.engine = engine;
+        this.controller = engine;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -34,9 +35,7 @@ public class MainFrame extends JFrame implements MainView {
      */
     @Override
     public void startGame() {
-        engine.createGameLoop();
-        engine.createGUI();
-        engine.startEngine();
+        controller.startGame();
     }
 
     /**
@@ -50,5 +49,20 @@ public class MainFrame extends JFrame implements MainView {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
+    }
+
+    @Override
+    public void changeToGamePanel() {
+        this.getContentPane().removeAll();
+        this.getContentPane().revalidate();
+        this.getContentPane().repaint();
+        this.getContentPane().add((JPanel) this.controller.getMainController().getGameZone());
+        this.pack();
+        this.setLocationRelativeTo(null);
+    }
+
+    @Override
+    public void closeView() {
+        this.dispose();
     }
 }

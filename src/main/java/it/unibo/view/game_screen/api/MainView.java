@@ -14,4 +14,8 @@ public interface MainView {
      * Starts the main menu.
      */
     void startMainMenu();
+
+    void changeToGamePanel();
+
+    void closeView();
 }

@@ -5,42 +5,30 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import it.unibo.controller.gamecontroller.api.MainController;
+import it.unibo.controller.gamecontroller.api.StartController;
 import it.unibo.model.gameloop.api.GameLoop;
+import it.unibo.model.gameloop.impl.GameLoopImpl;
 import it.unibo.model.player.api.Player;
-import it.unibo.start.Engine;
 import it.unibo.view.game_screen.api.GameZone;
+import it.unibo.view.game_screen.impl.GamePanel;
 
 /**
  * Implementation of MainController.
  */
 public class MainControllerImpl implements MainController {
 
-    private final Engine engine;
-    private GameZone gui;
-    private GameLoop loop;
+    private final StartController startController;
+    private final GameZone gui;
+    private final GameLoop loop;
 
     /**
      * Basic constructor that links the controller to the engine.
      * @param engine the engine that starts the game
      */
-    public MainControllerImpl(final Engine engine) {
-        this.engine = engine;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setGameLoop(final GameLoop loop) {
-        this.loop = loop;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setGameZone(final GameZone gui) {
-        this.gui = gui;
+    public MainControllerImpl(final StartController sc) {
+        this.startController = sc;
+        this.loop = new GameLoopImpl(this);
+        this.gui = new GamePanel(this);
     }
 
     /**
@@ -163,8 +151,8 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void restartApp() {
-        this.engine.stopEngine();
-        this.engine.startApp();
+        this.startController.closeView();
+        this.startController.startView();
     }
 
 }
