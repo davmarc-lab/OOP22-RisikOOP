@@ -4,6 +4,8 @@ import java.util.Set;
 
 import it.unibo.controller.gamecontroller.api.MainController;
 
+import java.awt.Dimension;
+
 /**
  * This interface models a basic view containing the game map and the buttons.
  */
@@ -27,13 +29,6 @@ public interface BoardZone {
     void disableAll();
 
     /**
-     * Sets the controller.
-     * 
-     * @param controller a MainController
-     */
-    void setController(MainController controller);
-
-    /**
      * @return MainController
      */
     MainController getController();
@@ -49,5 +44,7 @@ public interface BoardZone {
      * @param territory the territory name
      */
     void updateTroopsView(String territory);
+
+    Dimension getDimension();
 
 }

@@ -6,11 +6,20 @@ import javax.swing.JOptionPane;
 
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.gamecontroller.api.StartController;
+import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.gameloop.impl.GameLoopImpl;
 import it.unibo.model.player.api.Player;
+import it.unibo.view.game_screen.api.BoardZone;
+import it.unibo.view.game_screen.api.ButtonZone;
+import it.unibo.view.game_screen.api.CardZone;
 import it.unibo.view.game_screen.api.GameZone;
+import it.unibo.view.game_screen.api.InfoZone;
+import it.unibo.view.game_screen.impl.BoardPanel;
+import it.unibo.view.game_screen.impl.ButtonPanel;
+import it.unibo.view.game_screen.impl.CardPanel;
 import it.unibo.view.game_screen.impl.GamePanel;
+import it.unibo.view.game_screen.impl.InfoPanel;
 
 /**
  * Implementation of MainController.
@@ -18,8 +27,11 @@ import it.unibo.view.game_screen.impl.GamePanel;
 public class MainControllerImpl implements MainController {
 
     private final StartController startController;
-    private final GameZone gui;
     private final GameLoop loop;
+    private final BoardZone board;
+    private final InfoZone info;
+    private final CardZone card;
+    private final ButtonZone button;
 
     /**
      * Basic constructor that links the controller to the engine.
@@ -28,7 +40,10 @@ public class MainControllerImpl implements MainController {
     public MainControllerImpl(final StartController sc) {
         this.startController = sc;
         this.loop = new GameLoopImpl(this);
-        this.gui = new GamePanel(this);
+        this.board = new BoardPanel(this);
+        this.info = new InfoPanel(this.board.getDimension(), this);
+        this.card = new CardPanel(this.board.getDimension(), this);
+        this.button = new ButtonPanel(this.board.getDimension(), this);
     }
 
     /**
@@ -60,7 +75,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void disableTerritories(final Set<String> territories) {
-        this.gui.getBoard().disableButtons(territories);
+        this.board.disableButtons(territories);
     }
 
     /**
@@ -68,7 +83,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void enableAllTerritories() {
-        this.gui.getBoard().enableAll();
+        this.board.enableAll();
     }
 
     /**
@@ -76,7 +91,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void disableAllTerritories() {
-        this.gui.getBoard().disableAll();
+        this.board.disableAll();
     }
 
     /**
@@ -116,7 +131,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public GameZone getGameZone() {
-        return this.gui;
+        return new GamePanel(this.board, this.info, this.card, this.button);
     }
 
     /**
@@ -153,6 +168,31 @@ public class MainControllerImpl implements MainController {
     public void restartApp() {
         this.startController.closeView();
         this.startController.startView();
+    }
+
+    @Override
+    public void updateSquare(String name) {
+        this.board.updateTroopsView(name);
+    }
+
+    @Override
+    public void setSquares() {
+        this.board.setTroopsView();
+    }
+
+    @Override
+    public void updateInfo() {
+        this.info.updateView();
+    }
+
+    @Override
+    public void updateCards() {
+        this.card.updateView();
+    }
+
+    @Override
+    public void setCardController() {
+        this.card.setController(new PlayerHandControllerImpl(this.getCurrentPlayer(), this.card));
     }
 
 }

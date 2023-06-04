@@ -44,13 +44,14 @@ public final class BoardPanel extends JPanel implements BoardZone {
     private final Map<CustomButton, String> territories = new HashMap<>();
     private final Map<String, JLabel> squares = new HashMap<>();
     private final JLayeredPane pane = new JLayeredPane();
-    private transient MainController controller;
+    private final transient MainController controller;
 
     /**
      * Panel that contains the map and the buttons over the names of the
      * territories.
      */
-    public BoardPanel() {
+    public BoardPanel(final MainController controller) {
+        this.controller = controller;
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final ImageIcon map = new ImageIcon(adjustImageSize(new ImageIcon(MAP_PATH), (int) screenSize.getWidth(),
                 (int) screenSize.getHeight()));
@@ -175,11 +176,6 @@ public final class BoardPanel extends JPanel implements BoardZone {
     }
 
     @Override
-    public void setController(final MainController controller) {
-        this.controller = controller;
-    }
-
-    @Override
     public void setTroopsView() {
         this.controller.getGameLoop().getBoard().getAllPlayers().forEach(
                 p -> p.getTerritories().forEach(
@@ -203,6 +199,11 @@ public final class BoardPanel extends JPanel implements BoardZone {
         return new Color(this.controller.getPlayerFromTerritory(territory).getColorPlayer().getRedValue(),
                 this.controller.getPlayerFromTerritory(territory).getColorPlayer().getGreenValue(),
                 this.controller.getPlayerFromTerritory(territory).getColorPlayer().getBlueValue());
+    }
+
+    @Override
+    public Dimension getDimension() {
+        return this.getPreferredSize();
     }
 
 }

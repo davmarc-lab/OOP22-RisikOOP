@@ -6,13 +6,6 @@ package it.unibo.view.game_screen.api;
 public interface SideZone {
 
     /**
-     * Gets the parent entity to which it belongs.
-     * 
-     * @return the {@code GameZone} in which this zone is placed
-     */
-    GameZone getParentEntity();
-
-    /**
      * Gets action buttons zone.
      * 
      * @return the {@code ButtonZone} that is included in this zone

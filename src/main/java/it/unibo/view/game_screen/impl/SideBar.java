@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 
 import it.unibo.view.game_screen.api.ButtonZone;
 import it.unibo.view.game_screen.api.CardZone;
-import it.unibo.view.game_screen.api.GameZone;
 import it.unibo.view.game_screen.api.InfoZone;
 import it.unibo.view.game_screen.api.SideZone;
 
@@ -20,13 +19,11 @@ public class SideBar extends JPanel implements SideZone {
     private static final long serialVersionUID = 1L;
 
     private static final double WIDTH_SCALING = 0.08;
-    private static final double INFO_PANEL_HEIGHT_SCALING = 0.3;
     private static final int VGAP = 2;
 
     private final InfoZone ip;
     private final CardZone cp;
     private final ButtonZone bp;
-    private final GameZone parent;
 
     /**
      * Creates the side bar.
@@ -34,9 +31,8 @@ public class SideBar extends JPanel implements SideZone {
      * @param size   the size of the board zone
      * @param parent the parent entity
      */
-    public SideBar(final Dimension size, final GameZone parent) {
+    public SideBar(final Dimension size, final InfoZone info, final CardZone card, final ButtonZone button) {
         super();
-        this.parent = parent;
         final Dimension dim = new Dimension(Double.valueOf(size.getWidth() * WIDTH_SCALING).intValue(),
                 Double.valueOf(size.getHeight()).intValue());
         this.setPreferredSize(dim);
@@ -44,24 +40,12 @@ public class SideBar extends JPanel implements SideZone {
         final BorderLayout layout = new BorderLayout();
         layout.setVgap(VGAP);
         this.setLayout(layout);
-        this.ip = new InfoPanel(this);
-        ((InfoPanel) this.ip)
-                .setPreferredSize(new Dimension(Double.valueOf(dim.getWidth()).intValue(),
-                        Double.valueOf(dim.getHeight() * INFO_PANEL_HEIGHT_SCALING).intValue()));
-        this.add((InfoPanel) ip, BorderLayout.NORTH);
-        this.cp = new CardPanel(dim, this);
-        this.add((CardPanel) cp, BorderLayout.CENTER);
-        this.bp = new ButtonPanel(dim);
-        this.add((ButtonPanel) bp, BorderLayout.SOUTH);
-    }
-
-    /**
-     * 
-     * {@inheritDoc}
-     */
-    @Override
-    public GameZone getParentEntity() {
-        return this.parent;
+        this.ip = info;
+        this.cp = card;
+        this.bp = button;
+        this.add((InfoPanel) this.ip, BorderLayout.NORTH);
+        this.add((CardPanel) this.cp, BorderLayout.CENTER);
+        this.add((ButtonPanel) this.bp, BorderLayout.SOUTH);
     }
 
     /**

@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.api.PlayerHandController;
 import it.unibo.view.game_screen.api.CardZone;
-import it.unibo.view.game_screen.api.SideZone;
 
 public class CardPanel extends JPanel implements CardZone {
 
@@ -42,9 +42,11 @@ public class CardPanel extends JPanel implements CardZone {
     private final JLabel thirdPlayed = new JLabel(DEFAUL_STRING);
 
     private transient PlayerHandController phc;
+    private final transient MainController controller;
 
-    public CardPanel(final Dimension size, final SideZone parent) {
+    public CardPanel(final Dimension size, final MainController controller) {
         super();
+        this.controller = controller;
         this.setLayout(new BorderLayout());
         final Dimension dim = new Dimension(Double.valueOf(size.getWidth()).intValue(),
         Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue());
@@ -108,7 +110,7 @@ public class CardPanel extends JPanel implements CardZone {
 
         playCards.addActionListener(e -> {
             this.phc.attemptPlayCards();
-            parent.getParentEntity().getController().sendMessage(this.phc.getMessage());
+            this.controller.sendMessage(this.phc.getMessage());
             this.resetUserInput();
         });
 

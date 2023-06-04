@@ -31,14 +31,12 @@ public class ButtonPanel extends JPanel implements ButtonZone {
     private static final int BORDER_SIZE = 4;
     private static final String TITLE_LABEL = "PLAYER ACTIONS";
 
-    private transient MainController controller;
-
     /**
      * Creates the panel with the action buttons inside the sidebar.
      * 
      * @param size the size of the sidebar
      */
-    public ButtonPanel(final Dimension size) {
+    public ButtonPanel(final Dimension size, final MainController controller) {
         this.setLayout(new BorderLayout());
         final JLabel label = new JLabel(TITLE_LABEL, SwingConstants.CENTER);
         final JPanel panel = new JPanel();
@@ -67,16 +65,16 @@ public class ButtonPanel extends JPanel implements ButtonZone {
         panel.add(randJB, cnst);
 
         atkJB.addActionListener(e -> {
-            this.controller.switchToCombat();
+            controller.switchToCombat();
         });
         movJB.addActionListener(e -> {
-            this.controller.switchToMovement();
+            controller.switchToMovement();
         });
         endJB.addActionListener(e -> {
-            this.controller.endTurn();
+            controller.endTurn();
         });
         randJB.addActionListener(e -> {
-            this.controller.randomize();
+            controller.randomize();
             randJB.setEnabled(false);
         });
 
@@ -87,15 +85,6 @@ public class ButtonPanel extends JPanel implements ButtonZone {
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
     }
 
-    /**
-     * 
-     * {@inheritDoc}
-     */
-    @Override
-    public void setController(final MainController controller) {
-        this.controller = controller;
-    }
-
     private JButton createButton(final String name, final Dimension dim) {
         final JButton jb = new JButton(name);
         jb.setBounds(0, 0, Double.valueOf(dim.getWidth()).intValue(),
@@ -104,4 +93,5 @@ public class ButtonPanel extends JPanel implements ButtonZone {
 
         return jb;
     }
+
 }

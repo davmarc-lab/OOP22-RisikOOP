@@ -94,4 +94,14 @@ public interface MainController {
      */
     void restartApp();
 
+    void updateSquare(String name);
+
+    void setSquares();
+
+    void updateInfo();
+    
+    void updateCards();
+
+    void setCardController();
+
 }

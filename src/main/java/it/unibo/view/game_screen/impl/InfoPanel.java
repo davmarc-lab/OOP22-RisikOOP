@@ -2,6 +2,7 @@ package it.unibo.view.game_screen.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,8 +13,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.view.game_screen.api.InfoZone;
-import it.unibo.view.game_screen.api.SideZone;
 
 /**
  * Implementation of InfoZone interface.
@@ -25,8 +26,9 @@ public class InfoPanel extends JPanel implements InfoZone {
     private static final String INFO_LABEL = "PLAYER INFO";
     private static final String OBJECTIVE_TITLE = "OBJECTIVE: ";
     private static final int BORDER_SIZE = 4;
+    private static final double INFO_PANEL_HEIGHT_SCALING = 0.3;
 
-    private final SideZone parent;
+    private final transient MainController controller;
     private final JLabel pLabel;
     private final JLabel cLabel;
     private final JTextArea objText;
@@ -36,9 +38,11 @@ public class InfoPanel extends JPanel implements InfoZone {
      * 
      * @param parent the parent entity
      */
-    public InfoPanel(final SideZone parent) {
+    public InfoPanel(final Dimension dim, final MainController controller) {
         super();
-        this.parent = parent;
+        this.controller = controller;
+        this.setPreferredSize(new Dimension(Double.valueOf(dim.getWidth()).intValue(),
+                Double.valueOf(dim.getHeight() * INFO_PANEL_HEIGHT_SCALING).intValue()));
         this.setLayout(new BorderLayout());
         this.add(new JLabel(INFO_LABEL, SwingConstants.CENTER), BorderLayout.NORTH);
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
@@ -73,27 +77,16 @@ public class InfoPanel extends JPanel implements InfoZone {
         this.add(objectivePanel, BorderLayout.SOUTH);
     }
 
-    /**
-     * 
-     * {@inheritDoc}
-     */
-    @Override
-    public SideZone getParentEntity() {
-        return this.parent;
-    }
-
     private int getCurrentPlayerId() {
-        return this.parent.getParentEntity().getController().getCurrentPlayer().getId();
+        return this.controller.getCurrentPlayer().getId();
     }
 
     private String getCurrentPlayerColor() {
-        return this.parent.getParentEntity().getController().getCurrentPlayer()
-                .getColorPlayer().getName();
+        return this.controller.getCurrentPlayer().getColorPlayer().getName();
     }
 
     private String getCurrentPlayerObjective() {
-        return this.parent.getParentEntity().getController().getCurrentPlayer().getObjective()
-                .getDescription();
+        return this.controller.getCurrentPlayer().getObjective().getDescription();
     }
 
     /**
