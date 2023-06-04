@@ -206,4 +206,6 @@ public interface Player {
      * @return player bonus troops
      */
     int getTroops();
+
+    void setObjectiveComplete();
 }

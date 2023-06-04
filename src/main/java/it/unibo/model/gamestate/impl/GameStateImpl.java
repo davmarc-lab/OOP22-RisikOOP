@@ -96,7 +96,7 @@ public class GameStateImpl implements GameState {
                 .limit(numTerritoriesToConquer)
                 .count() >= numTerritoriesToConquer;
         if (isObjectiveComplete) {
-            player.getObjective().setComplete();
+            player.setObjectiveComplete();
             return true;
         }
         return false;

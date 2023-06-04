@@ -167,6 +167,11 @@ public class PlayerImpl implements Player {
         return this.bonusTroops;
     }
 
+    @Override
+    public void setObjectiveComplete() {
+        this.objective.setComplete();
+    }
+
     /**
      * {@inheritDoc}
      */
