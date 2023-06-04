@@ -29,27 +29,27 @@ public class CombatImpl implements Combat {
     private boolean testFlag;
 
     /**
-     * This constructor create a standard Combat object.
+     * This constructor create an object used in test classes only.
      * 
      * @param tAttacker      attacker's territory
      * @param numberAttacker attacker's armies
      * @param tDefender      defender's territory
      * @param numberDefender defender's armies
+     * @param testFlag       flag used for test purpose
      * 
-     *                       {
-     * @throws IllegalArgumentException} if the number of armies doesn't respect the
-     *                                   rules (must be between 1 and 3)
+     * @throws IllegalArgumentException if the number of armies doesn't respect the
+     *                                  rules (must be between 1 and 3)
      */
     public CombatImpl(final Territory tAttacker, final int numberAttacker,
-            final Territory tDefender, final int numberDefender) {
+            final Territory tDefender, final int numberDefender, final boolean testFlag) {
         this(tAttacker, tDefender);
         this.numberAttacker = numberAttacker;
         this.numberDefender = numberDefender;
+        this.testFlag = testFlag;
     }
 
     /**
-     * This constructor is used for test classes creating a situation with 0
-     * attackers and defenders.
+     * Constructs a basic comnbat between two territories.
      * 
      * @param tAttacker attacker's territories
      * @param tDefender defender's territories
@@ -61,8 +61,7 @@ public class CombatImpl implements Combat {
 
     /**
      * This constructor is used for test classes, it creates a situation with
-     * default number of armies.
-     * and default results of each dice.
+     * default number of armies and default results of each dice.
      * 
      * @param tAttacker      attacker's territory
      * @param numberAttacker attacker's armies
@@ -75,10 +74,9 @@ public class CombatImpl implements Combat {
     public CombatImpl(final Territory tAttacker, final int numberAttacker, final Territory tDefender,
             final int numberDefender, final List<Integer> attackers, final List<Integer> defenders,
             final boolean testFlag) {
-        this(tAttacker, numberAttacker, tDefender, numberDefender);
+        this(tAttacker, numberAttacker, tDefender, numberDefender, testFlag);
         this.attackers.addAll(attackers);
         this.defenders.addAll(defenders);
-        this.testFlag = testFlag;
     }
 
     /**
@@ -131,8 +129,7 @@ public class CombatImpl implements Combat {
      * @return {@code true} if the combat is valid
      */
     private boolean checkAttackValidity() {
-        return this.tAttacker.getAdjTerritories().contains(this.tDefender)
-                && this.tAttacker.getTroops() > 1;
+        return this.tAttacker.getAdjTerritories().stream().map(t -> t.getName()).toList().contains(tDefender.getName());
     }
 
     /**

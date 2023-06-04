@@ -14,7 +14,7 @@ import it.unibo.model.movement.impl.MovementImpl;
 /**
  * Tests the movement of troops between territories.
  */
-public class TestMovement {
+class TestMovement {
 
     private static final int DEFAULT_TROOPS = 10;
     private static final int MOVING_TROOPS = 4;
@@ -36,14 +36,14 @@ public class TestMovement {
         final String t2 = "Mongolia";
         this.board.getGameTerritories().getTerritory(t1).addTroops(DEFAULT_TROOPS);
         this.board.getGameTerritories().getTerritory(t2).addTroops(DEFAULT_TROOPS);
-        final Movement m1 = new MovementImpl(this.board.getGameTerritories().getTerritory(t1), this.board.getGameTerritories().getTerritory(t2),
-                MOVING_TROOPS);
-        final Movement m2 = new MovementImpl(this.board.getGameTerritories().getTerritory(t2), this.board.getGameTerritories().getTerritory(t1),
-                RETURNING_TROOPS);
-        final Movement m3 = new MovementImpl(this.board.getGameTerritories().getTerritory(t1), this.board.getGameTerritories().getTerritory(t2),
-                INVALID_TROOPS);
-        final Movement m4 = new MovementImpl(this.board.getGameTerritories().getTerritory(t2), this.board.getGameTerritories().getTerritory(t1),
-                INVALID_TROOPS);
+        final Movement m1 = new MovementImpl(this.board.getGameTerritories().getTerritory(t1),
+                this.board.getGameTerritories().getTerritory(t2), MOVING_TROOPS);
+        final Movement m2 = new MovementImpl(this.board.getGameTerritories().getTerritory(t2),
+                this.board.getGameTerritories().getTerritory(t1), RETURNING_TROOPS);
+        final Movement m3 = new MovementImpl(this.board.getGameTerritories().getTerritory(t1),
+                this.board.getGameTerritories().getTerritory(t2), INVALID_TROOPS);
+        final Movement m4 = new MovementImpl(this.board.getGameTerritories().getTerritory(t2),
+                this.board.getGameTerritories().getTerritory(t1), INVALID_TROOPS);
         assertTrue(m1.isMovementValid());
         assertTrue(m2.isMovementValid());
         assertFalse(m3.isMovementValid());
