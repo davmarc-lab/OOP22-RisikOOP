@@ -9,14 +9,21 @@ import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * Represents the game preparation phase.
+ * The {@link GamePrep} interface provide a method to prepare the player for the
+ * game.
  */
 public interface GamePrep {
+
     /**
      * Prepares each players assiging them a deck of territories, an objective, and
-     * troops.
+     * the number of troops.
+     * 
+     * @param players       game players
+     * @param territoryDeck deck with all territories
+     * @param objectives    {@code Pair} containing an objective deck and the
+     *                      default objectibe
      */
-    void preparePlayers(final List<Player> players, final Deck<Territory> territoryDeck,
-            final Pair<Deck<Objective>, Objective> objectives);
+    void preparePlayers(List<Player> players, Deck<Territory> territoryDeck,
+            Pair<Deck<Objective>, Objective> objectives);
 
 }

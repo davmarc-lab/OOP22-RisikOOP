@@ -183,8 +183,9 @@ public interface Player {
      * Removes a list of armyCards from the player's hand.
      * 
      * @param cards list of cards that will be removed from the player's hand
+     * @return the number of bonus troops acquired
      */
-    void removeCardsToPlayerHand(List<Army> cards);
+    int playCards(List<Army> cards);
 
     /**
      * Retrieves player's territory deck.
@@ -207,5 +208,8 @@ public interface Player {
      */
     int getTroops();
 
+    /**
+     * Sets the objective status to complete.
+     */
     void setObjectiveComplete();
 }

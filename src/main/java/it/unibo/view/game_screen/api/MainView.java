@@ -1,23 +1,33 @@
 package it.unibo.view.game_screen.api;
 
 /**
- * This interface defines the start of the game engine.
+ * This interface provides methods to start and close some view like the main
+ * menu and the game view.
  */
 public interface MainView {
 
     /**
-     * Starts the game engine.
+     * Starts the game.
      */
     void startGame();
 
     /**
-     * Starts the main menu.
+     * Instances the main menu.
      */
     void startMainMenu();
 
+    /**
+     * Changes the view.
+     */
     void changeToGamePanel();
 
+    /**
+     * Close the current view.
+     */
     void closeView();
 
+    /**
+     * Sets visible the main menu view.
+     */
     void reveal();
 }

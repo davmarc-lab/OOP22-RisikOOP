@@ -26,15 +26,14 @@ import it.unibo.view.game_screen.api.CustomButton;
 import it.unibo.view.viewconstants.ViewConstants;
 
 /**
- * This is where the player will be able to click on the territories.
+ * Implementation of {@link BoardPanel} interface, where the player will be able
+ * to click on the territories.
  */
 public final class BoardPanel extends JPanel implements BoardZone {
 
     private static final long serialVersionUID = 1L;
-
     private static final String MAP_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("images")
             .append(ViewConstants.PATH_SEPARATOR).append("RisikoMap.jpg").toString();
-
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;
     private static final int BUTTON_BORDER_SIZE = 2;
@@ -47,8 +46,10 @@ public final class BoardPanel extends JPanel implements BoardZone {
     private final transient MainController controller;
 
     /**
-     * Panel that contains the map and the buttons over the names of the
-     * territories.
+     * Constructs a {@code BoardPanel} containing the map and the buttons over the
+     * names of the territories.
+     * 
+     * @param controller the main controller
      */
     public BoardPanel(final MainController controller) {
         this.controller = controller;
@@ -62,16 +63,11 @@ public final class BoardPanel extends JPanel implements BoardZone {
         loadButtons(map.getIconWidth(), map.getIconHeight());
         loadLabels(map.getIconWidth(), map.getIconHeight());
         // Puts all buttons and labels on layer 1 (above the map)
-        for (final var jb : this.territories.keySet()) {
-            this.pane.add((JButton) jb, Integer.valueOf(1));
-        }
-        for (final var lb : this.squares.values()) {
-            this.pane.add(lb, Integer.valueOf(1));
-        }
+        this.territories.keySet().forEach(b -> this.pane.add((JButton) b, Integer.valueOf(1)));
+        this.squares.values().forEach(t -> this.pane.add(t, Integer.valueOf(1)));
 
         this.pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
         this.pane.setPreferredSize(new Dimension(map.getIconWidth(), map.getIconHeight()));
-
         this.add(this.pane);
     }
 
@@ -91,7 +87,7 @@ public final class BoardPanel extends JPanel implements BoardZone {
     /**
      * Creates the JButtons that will contain the number of troops on a territory.
      * 
-     * @param width map's width
+     * @param width  map's width
      * @param height map's height
      */
     private void loadButtons(final int width, final int height) {
@@ -143,6 +139,9 @@ public final class BoardPanel extends JPanel implements BoardZone {
         return b;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void disableButtons(final Set<String> territorySet) {
         this.territories.entrySet().forEach(e -> {
@@ -153,6 +152,9 @@ public final class BoardPanel extends JPanel implements BoardZone {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void enableAll() {
         this.territories.entrySet().forEach(e -> {
@@ -162,6 +164,9 @@ public final class BoardPanel extends JPanel implements BoardZone {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void disableAll() {
         this.territories.entrySet().forEach(e -> {
@@ -170,11 +175,17 @@ public final class BoardPanel extends JPanel implements BoardZone {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MainController getController() {
         return this.controller;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTroopsView() {
         this.controller.getGameLoop().getBoard().getAllPlayers().forEach(
@@ -183,6 +194,9 @@ public final class BoardPanel extends JPanel implements BoardZone {
                                 p.getColorPlayer().getGreenValue(), p.getColorPlayer().getBlueValue()))));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateTroopsView(final String territory) {
         final int troops = this.controller.getGameLoop().getBoard().getGameTerritories().getTerritories().stream()
@@ -201,6 +215,9 @@ public final class BoardPanel extends JPanel implements BoardZone {
                 this.controller.getPlayerFromTerritory(territory).getColorPlayer().getBlueValue());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Dimension getDimension() {
         return this.getPreferredSize();

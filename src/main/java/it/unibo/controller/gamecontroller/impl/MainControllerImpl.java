@@ -35,10 +35,11 @@ public class MainControllerImpl implements MainController {
 
     /**
      * Basic constructor that links the controller to the engine.
-     * @param engine the engine that starts the game
+     * 
+     * @param startController the start controller of the application
      */
-    public MainControllerImpl(final StartController sc) {
-        this.startController = sc;
+    public MainControllerImpl(final StartController startController) {
+        this.startController = startController;
         this.loop = new GameLoopImpl(this);
         this.board = new BoardPanel(this);
         this.info = new InfoPanel(this.board.getDimension(), this);
@@ -150,7 +151,7 @@ public class MainControllerImpl implements MainController {
         return this.loop.getBoard().getAllPlayers().stream()
                 .filter(p -> p.getTerritories()
                         .contains(this.loop.getBoard().getGameTerritories().getTerritory(territory)))
-                        .findAny().get();
+                .findAny().get();
     }
 
     /**
@@ -170,26 +171,41 @@ public class MainControllerImpl implements MainController {
         this.startController.startView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateSquare(String name) {
+    public void updateSquare(final String name) {
         this.board.updateTroopsView(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSquares() {
         this.board.setTroopsView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateInfo() {
         this.info.updateView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateCards() {
         this.card.updateView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setCardController() {
         this.card.setController(new PlayerHandControllerImpl(this.getCurrentPlayer(), this.card));

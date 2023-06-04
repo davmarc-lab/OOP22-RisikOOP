@@ -19,6 +19,7 @@ public class MovementImpl implements Movement {
      * 
      * @param oldTerritory the territory the troops are taken from
      * @param newTerritory the territory that will receive the troops
+     * @param troops       the number of troops to be sent
      */
     public MovementImpl(final Territory oldTerritory, final Territory newTerritory, final int troops) {
         this.source = new TerritoryImpl(oldTerritory);

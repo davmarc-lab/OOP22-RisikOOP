@@ -76,7 +76,7 @@ public class GameStateImpl implements GameState {
         if (players.stream()
                 .filter(p -> p.getColorPlayer().getName().equals(armyColor))
                 .findAny().get().getTerritories().isEmpty()) {
-            player.setObjectiveComplete();;
+            player.setObjectiveComplete();
             return true;
         }
         return false;

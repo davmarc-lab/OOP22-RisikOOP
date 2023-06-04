@@ -12,7 +12,7 @@ import it.unibo.view.game_screen.api.InfoZone;
 import it.unibo.view.game_screen.api.SideZone;
 
 /**
- * This class is used to contain the board and the side bar.
+ * Implemetation of {@link GameZone} interface. This class provides methods to interact with the views in the game UI.
  */
 public final class GamePanel extends JPanel implements GameZone {
 
@@ -22,9 +22,13 @@ public final class GamePanel extends JPanel implements GameZone {
     private final SideZone side;
 
     /**
-     * Sets up the controller and adds the board and the side bar.
+     * Constructs an instace of {@link GameZone} interface to interface with all
+     * thew views in the {@code GamePanel}.
      * 
-     * @param controller
+     * @param board  the game board view
+     * @param info   the info zone view
+     * @param card   the card zone view
+     * @param button the button zone view
      */
     public GamePanel(final BoardZone board, final InfoZone info, final CardZone card, final ButtonZone button) {
         this.board = board;
@@ -34,11 +38,17 @@ public final class GamePanel extends JPanel implements GameZone {
         this.add((JPanel) this.side, BorderLayout.EAST);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public BoardZone getBoard() {
         return this.board;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SideZone getSideBar() {
         return this.side;

@@ -142,25 +142,19 @@ public class CombatImpl implements Combat {
     public List<Result> attack(final int numAttacker, final int numDefender) {
         this.numberAttacker = numAttacker;
         this.numberDefender = numDefender;
-        
         if (testFlag) {
             if (!isNumberArmiesValid()) {
                 throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more than 3");
             }
-
             // only for test purpose
             if (!checkAttackValidity()) {
                 return List.of(Result.NONE);
             }
-            final List<Result> res = this.computeAttack(attackers, defenders);
-            return res;
+            return this.computeAttack(attackers, defenders);
         }
-
         final var attackers = declarePower(this.numberAttacker);
         final var defenders = declarePower(this.numberDefender);
-        final var results = computeAttack(attackers, defenders);
-        // removing armies from the territories
-        return results;
+        return computeAttack(attackers, defenders);
     }
 
     /**

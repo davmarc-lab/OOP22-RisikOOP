@@ -7,7 +7,7 @@ import it.unibo.controller.gamecontroller.api.MainController;
 import java.awt.Dimension;
 
 /**
- * This interface models a basic view containing the game map and the buttons.
+ * The {@code BoardZone} interface models a basic view containing the game map and the buttons.
  */
 public interface BoardZone {
 
@@ -29,12 +29,15 @@ public interface BoardZone {
     void disableAll();
 
     /**
-     * @return MainController
+     * Retrieves the main controller.
+     * 
+     * @return the main controller
      */
     MainController getController();
 
     /**
-     * Sets the text color in the label with the number of troops in all territories.
+     * Sets the text color in the label with the number of troops in all
+     * territories.
      */
     void setTroopsView();
 
@@ -45,6 +48,10 @@ public interface BoardZone {
      */
     void updateTroopsView(String territory);
 
+    /**
+     * Retrieves the dimension of the {@code BoardPanel}.
+     * 
+     * @return board panel dimension
+     */
     Dimension getDimension();
-
 }

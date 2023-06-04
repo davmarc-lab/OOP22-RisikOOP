@@ -7,13 +7,14 @@ import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.GameZone;
 
 /**
- * This interface models a controller that allows the board view to communicate
+ * This interface models the main controller that allows the {@link GameZone} to
+ * communicate
  * with the model.
  */
 public interface MainController {
 
     /**
-     * Sends the input received from the board to the model.
+     * Sends an input received from the board to the model.
      * 
      * @param input the name of the territory that was clicked
      */
@@ -59,11 +60,15 @@ public interface MainController {
     void endTurn();
 
     /**
+     * Retrieves the current {@link GameLoop}.
+     * 
      * @return the game loop
      */
     GameLoop getGameLoop();
 
     /**
+     * Retrieves the {@link GameZone} view.
+     * 
      * @return the area that contains the board and the side bar
      */
     GameZone getGameZone();
@@ -79,12 +84,16 @@ public interface MainController {
     void randomize();
 
     /**
+     * Retrieves the {@link Player} giving a {@code Territory} name.
+     * 
      * @param territory
      * @return the player that possesses that territory
      */
     Player getPlayerFromTerritory(String territory);
 
     /**
+     * Retrieves the current player.
+     * 
      * @return the player that is currently playing
      */
     Player getCurrentPlayer();
@@ -94,14 +103,31 @@ public interface MainController {
      */
     void restartApp();
 
+    /**
+     * Updates the number of armies in the territory provided.
+     * 
+     * @param name the name of the territory
+     */
     void updateSquare(String name);
 
+    /**
+     * Sets the text color in the label with the number of troops in all
+     * territories.
+     */
     void setSquares();
 
+    /**
+     * It updates the Info at the top of side bar.
+     */
     void updateInfo();
-    
+
+    /**
+     * It updates the cards of the current player at the centrer of side bar.
+     */
     void updateCards();
 
+    /**
+     * Sets the controller to interact with the player {@code Hand}.
+     */
     void setCardController();
-
 }

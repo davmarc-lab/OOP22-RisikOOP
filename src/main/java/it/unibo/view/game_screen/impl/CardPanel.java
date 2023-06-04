@@ -17,6 +17,10 @@ import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.api.PlayerHandController;
 import it.unibo.view.game_screen.api.CardZone;
 
+/**
+ * Implementation of {@link CardZone} interface, it provides method to update
+ * the view and set the {@link PlayerHandController}.
+ */
 public class CardPanel extends JPanel implements CardZone {
 
     private static final long serialVersionUID = 1L;
@@ -41,15 +45,22 @@ public class CardPanel extends JPanel implements CardZone {
     private final JLabel secondPlayed = new JLabel(DEFAUL_STRING);
     private final JLabel thirdPlayed = new JLabel(DEFAUL_STRING);
 
-    private transient PlayerHandController phc;
     private final transient MainController controller;
+    private transient PlayerHandController phc;
 
+    /**
+     * Constructs a {@code CardPanel} object providing the panel size and the main
+     * controller.
+     * 
+     * @param size       panel size
+     * @param controller main controller
+     */
     public CardPanel(final Dimension size, final MainController controller) {
         super();
         this.controller = controller;
         this.setLayout(new BorderLayout());
         final Dimension dim = new Dimension(Double.valueOf(size.getWidth()).intValue(),
-        Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue());
+                Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue());
         this.setPreferredSize(dim);
         this.add(new JLabel(CARD_LABEL, SwingConstants.CENTER), BorderLayout.NORTH);
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
@@ -93,7 +104,8 @@ public class CardPanel extends JPanel implements CardZone {
         });
 
         secondCard.addActionListener(e -> {
-            if (this.phc.isAddPossible(Integer.parseInt(secondText.getText()), Integer.parseInt(this.secondPlayed.getText()))) {
+            if (this.phc.isAddPossible(Integer.parseInt(secondText.getText()),
+                    Integer.parseInt(this.secondPlayed.getText()))) {
                 this.phc.addInputCard(secondCard.getText());
                 this.secondPlayed.setText(String.valueOf(this.phc.getNumberOfCards(secondCard.getText())));
             }
@@ -101,7 +113,8 @@ public class CardPanel extends JPanel implements CardZone {
         });
 
         thirdCard.addActionListener(e -> {
-            if (this.phc.isAddPossible(Integer.parseInt(thirdText.getText()), Integer.parseInt(this.thirdPlayed.getText()))) {
+            if (this.phc.isAddPossible(Integer.parseInt(thirdText.getText()),
+                    Integer.parseInt(this.thirdPlayed.getText()))) {
                 this.phc.addInputCard(thirdCard.getText());
                 this.thirdPlayed.setText(String.valueOf(this.phc.getNumberOfCards(thirdCard.getText())));
             }
@@ -146,11 +159,17 @@ public class CardPanel extends JPanel implements CardZone {
         return this.phc.getPlayerThirdCards();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setController(final PlayerHandController controller) {
         this.phc = controller;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateView() {
         this.firstCard.setEnabled(!this.phc.isInputFull());

@@ -38,7 +38,7 @@ public final class DeckImpl<T> implements Deck<T> {
     }
 
     @Override
-    public void removeCard(T card) {
+    public void removeCard(final T card) {
         this.deck.remove(card);
     }
 

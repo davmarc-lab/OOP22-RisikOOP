@@ -16,6 +16,11 @@ public interface Deck<T> {
      */
     void addCard(T card);
 
+    /**
+     * Removes a card from the {@code Deck}.
+     * 
+     * @param card the card to be removed
+     */
     void removeCard(T card);
 
     /**

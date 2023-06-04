@@ -18,7 +18,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 /**
- * Implementation of ButtonZone interface.
+ * Implementation of {@link ButtonZone} interface.
  */
 public class ButtonPanel extends JPanel implements ButtonZone {
 
@@ -32,9 +32,10 @@ public class ButtonPanel extends JPanel implements ButtonZone {
     private static final String TITLE_LABEL = "PLAYER ACTIONS";
 
     /**
-     * Creates the panel with the action buttons inside the sidebar.
+     * Constructs a {@code ButtonPanel} with the action buttons inside the sidebar.
      * 
-     * @param size the size of the sidebar
+     * @param size       the size of the sidebar
+     * @param controller the main controller
      */
     public ButtonPanel(final Dimension size, final MainController controller) {
         this.setLayout(new BorderLayout());

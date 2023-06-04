@@ -55,24 +55,45 @@ public interface GameLoop {
     PhaseManager getPhaseManager();
 
     /**
+     * Retrives the {@link GameBoard} of the game.
+     * 
      * @return the game board
      */
     GameBoard getBoard();
 
     /**
+     * Retrieves the {@link MainController} of the application.
+     * 
      * @return the controller
      */
     MainController getController();
 
     /**
+     * Retrieves the {@link TurnManager} of the game.
+     * 
      * @return the turn manager
      */
     TurnManager getTurnManager();
 
+    /**
+     * Retrieves the list of territories that the user can interface.
+     * 
+     * @return list of selectable territories
+     */
     List<Territory> getSelectedTerritories();
 
-    Set<Territory> getDisabledTerritories();
+    /**
+     * Retrieves the list of territories that the user cannot interface.
+     * 
+     * @return list of non selectable territories
+     */
+    List<Territory> getDisabledTerritories();
 
+    /**
+     * Retrieves the {@link GameState} of the game.
+     * 
+     * @return game state of the game
+     */
     GameState getGameState();
 
     /**

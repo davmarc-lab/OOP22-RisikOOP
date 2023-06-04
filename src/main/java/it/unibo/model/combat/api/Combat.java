@@ -5,7 +5,8 @@ import java.util.List;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * This interface is used to istance a combat between two player.
+ * The {@code Combat} interface provides methods to instance a combat between
+ * two players and some enum to check the results and roles of each player.
  */
 public interface Combat {
 
@@ -71,7 +72,7 @@ public interface Combat {
     }
 
     /**
-     * This method start and compute the attack between two territories.
+     * Starts and compute the attack between two territories.
      * 
      * @param numAttacker numer of attacker's armies
      * @param numDefender numer of defender's armies
@@ -82,6 +83,7 @@ public interface Combat {
     /**
      * Checks if a territory has been conquered.
      * 
+     * @param defender the defender territory
      * @return true if the territory is conquered, false otherwise
      */
     boolean isTerritoryConquered(Territory defender);

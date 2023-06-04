@@ -21,11 +21,11 @@ public class MainFrame extends JFrame implements MainView {
     /**
      * Creates the main frame.
      * 
-     * @param engine the engine of the game
+     * @param startController the start controller of the game
      */
-    public MainFrame(final StartController engine) {
+    public MainFrame(final StartController startController) {
         super(FRAME_NAME);
-        this.controller = engine;
+        this.controller = startController;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -50,16 +50,25 @@ public class MainFrame extends JFrame implements MainView {
         this.setResizable(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void changeToGamePanel() {
         this.changePanel((JPanel) this.controller.getMainController().getGameZone());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void closeView() {
         this.dispose();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reveal() {
         this.changePanel(new MainPanel(this));

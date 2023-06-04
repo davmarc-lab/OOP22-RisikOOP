@@ -12,7 +12,8 @@ import java.awt.Dimension;
 import java.awt.BorderLayout;
 
 /**
- * Implementation of SideZone interface.
+ * Implementation of {@link SideZone} interface, it provides methods to get all
+ * the component of itself.
  */
 public class SideBar extends JPanel implements SideZone {
 
@@ -26,10 +27,12 @@ public class SideBar extends JPanel implements SideZone {
     private final ButtonZone bp;
 
     /**
-     * Creates the side bar.
+     * Constructs a {@code SideBar} containing the different panels.
      * 
-     * @param size   the size of the board zone
-     * @param parent the parent entity
+     * @param size   the size of the sidebar
+     * @param info   the info panel
+     * @param card   the the card panel
+     * @param button the button panel
      */
     public SideBar(final Dimension size, final InfoZone info, final CardZone card, final ButtonZone button) {
         super();

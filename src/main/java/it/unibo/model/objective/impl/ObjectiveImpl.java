@@ -1,12 +1,15 @@
 package it.unibo.model.objective.impl;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.unibo.common.Pair;
 import it.unibo.model.objective.api.Objective;
 
 /**
- * Implementation of the Objective interface that represents a game objective.
+ * Implementation of {@link Objective} interface. It provides methods to set the
+ * status of the objective and all his attributes.
  */
 public class ObjectiveImpl implements Objective, Cloneable {
 
@@ -22,7 +25,7 @@ public class ObjectiveImpl implements Objective, Cloneable {
     private Pair<ObjectiveType, List<String>> checkObjectives;
 
     /**
-     * Constructs a new ObjectiveImpl with the given armyColor, firstContinent,
+     * Constructs an {@code Objective} object with the given armyColor, firstContinent,
      * secondContinent, thirdContinent, numTerritoriesToConquer, minNumArmies and
      * objective type for the conquer objective.
      * 
@@ -88,6 +91,27 @@ public class ObjectiveImpl implements Objective, Cloneable {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Objective getCopy() {
+        try {
+            return (Objective) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(ObjectiveImpl.class.getName()).log(Level.OFF, "Cannot create a copy of the Object.");
+            return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ObjectiveImpl clone() throws CloneNotSupportedException {
+        return (ObjectiveImpl) super.clone();
+    }
+ 
+    /**
      * Creates the description of the objective based on the objectiveType.
      * 
      * @return a string containing the description of the objective
@@ -116,19 +140,5 @@ public class ObjectiveImpl implements Objective, Cloneable {
             return new String(new StringBuilder("Conquer ").append(this.firstContinent).append(" and ")
                     .append(this.secondContinent));
         }
-    }
-
-    @Override
-    public Objective getCopy() {
-        try {
-            return (Objective) this.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalAccessError("Cannot create a copy.");
-        }
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
     }
 }

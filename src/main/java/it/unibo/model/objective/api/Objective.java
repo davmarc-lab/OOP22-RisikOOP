@@ -27,6 +27,11 @@ public interface Objective {
         NONE
     }
 
+    /**
+     * Retrieves a copy of the objective.
+     * 
+     * @return the copy of objective
+     */
     Objective getCopy();
 
     /**

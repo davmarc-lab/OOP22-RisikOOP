@@ -10,7 +10,6 @@ import it.unibo.model.deck.impl.DeckImpl;
 import it.unibo.model.hand.api.Hand;
 import it.unibo.model.hand.impl.HandImpl;
 import it.unibo.model.objective.api.Objective;
-import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
@@ -41,7 +40,7 @@ public class PlayerImpl implements Player {
         this.id = id;
         this.territories = new DeckImpl<>(territories.getDeck());
         this.playerHand = new HandImpl(playerHandDeck.getHand());
-        this.objective = ObjectiveBuilderImpl.newBuilder().build();
+        this.objective = objective.getCopy();
         this.color = color;
         this.bonusTroops = bonusTroops;
     }
@@ -122,9 +121,8 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public void removeCardsToPlayerHand(final List<Army> cards) {
-        this.playerHand.getHand().removeIf(cardInHand -> cards.stream()
-                .anyMatch(card -> card.getArmyType().getName().equals(cardInHand.getArmyType().getName())));
+    public int playCards(final List<Army> cards) {
+        return this.playerHand.playCards(cards);
     }
 
     /**
@@ -167,6 +165,9 @@ public class PlayerImpl implements Player {
         return this.bonusTroops;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setObjectiveComplete() {
         this.objective.setComplete();

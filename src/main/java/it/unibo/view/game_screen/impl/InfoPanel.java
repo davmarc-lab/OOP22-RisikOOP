@@ -17,7 +17,8 @@ import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.view.game_screen.api.InfoZone;
 
 /**
- * Implementation of InfoZone interface.
+ * Implementation of {@link InfoZone} interface, it provides a method to update
+ * the view.
  */
 public class InfoPanel extends JPanel implements InfoZone {
 
@@ -34,15 +35,17 @@ public class InfoPanel extends JPanel implements InfoZone {
     private final JTextArea objText;
 
     /**
-     * Creates the panel with the player's informations inside the sidebar.
+     * Constructs an {@code InfoPanel} with the player's informations inside the
+     * sidebar.
      * 
-     * @param parent the parent entity
+     * @param dimension  the panel dimension
+     * @param controller the main controller
      */
-    public InfoPanel(final Dimension dim, final MainController controller) {
+    public InfoPanel(final Dimension dimension, final MainController controller) {
         super();
         this.controller = controller;
-        this.setPreferredSize(new Dimension(Double.valueOf(dim.getWidth()).intValue(),
-                Double.valueOf(dim.getHeight() * INFO_PANEL_HEIGHT_SCALING).intValue()));
+        this.setPreferredSize(new Dimension(Double.valueOf(dimension.getWidth()).intValue(),
+                Double.valueOf(dimension.getHeight() * INFO_PANEL_HEIGHT_SCALING).intValue()));
         this.setLayout(new BorderLayout());
         this.add(new JLabel(INFO_LABEL, SwingConstants.CENTER), BorderLayout.NORTH);
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));

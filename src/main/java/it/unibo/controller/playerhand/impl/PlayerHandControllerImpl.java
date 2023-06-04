@@ -85,11 +85,10 @@ public class PlayerHandControllerImpl implements PlayerHandController {
      */
     @Override
     public void attemptPlayCards() {
-        final int bonusTroops = this.model.getPlayerHand().playCards(this.inputCards);
+        final int bonusTroops = this.model.playCards(this.inputCards);
         if (bonusTroops > 0) {
             this.message = new StringBuilder("Cards valid, added ").append(bonusTroops).append(" troops.").toString();
             this.model.addTroops(bonusTroops);
-            this.model.removeCardsToPlayerHand(this.inputCards);
         } else {
             this.message = new StringBuilder("Cards invalid, operation aborted.").toString();
         }

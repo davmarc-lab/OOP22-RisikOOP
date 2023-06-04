@@ -12,7 +12,7 @@ import it.unibo.model.objective.api.Objective;
 public class GameObjectiveImpl implements GameObjective {
 
     private final Set<Objective> objectives;
-    private Objective defaultObjective;
+    private final Objective defaultObjective;
 
     /**
      * Constructs a new instance of GameObjectiveImpl with the specified

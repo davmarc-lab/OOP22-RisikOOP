@@ -30,6 +30,9 @@ public class GamePrepImpl implements GamePrep {
 
     /**
      * Assigns territories to the players.
+     * 
+     * @param players       players in the game
+     * @param territoryDeck territory deck
      */
     private void assignTerritories(final List<Player> players, final Deck<Territory> territoryDeck) {
         players.forEach(
@@ -39,6 +42,9 @@ public class GamePrepImpl implements GamePrep {
 
     /**
      * Assigns objectives to the players.
+     * 
+     * @param players    players in the game
+     * @param objectives objectives of the game
      */
     private void assignObjectives(final List<Player> players, final Pair<Deck<Objective>, Objective> objectives) {
         final List<String> colors = players.stream().map(p -> p.getColorPlayer().getName()).toList();
@@ -62,6 +68,8 @@ public class GamePrepImpl implements GamePrep {
 
     /**
      * Assigns troops to the players.
+     * 
+     * @param players players in the game
      */
     private void assignTroops(final List<Player> players) {
         players.stream().forEach(p -> p.addTroops(ModelConstants.TROOPS));
