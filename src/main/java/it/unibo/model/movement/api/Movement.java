@@ -19,17 +19,11 @@ public interface Movement {
     Territory getDestination();
 
     /**
-     * Sets the territory that sends troops.
+     * Checks if the movement is possible
      * 
-     * @param source territory
+     * @return true if the source territory would have at least one troop after
+     *         movement, false otherwise
      */
-    void setSource(Territory source);
-
-    /**
-     * Sets the territory that receives troops.
-     * 
-     * @param destination territory
-     */
-    void setDestination(Territory destination);
+    boolean isMovementValid();
 
 }

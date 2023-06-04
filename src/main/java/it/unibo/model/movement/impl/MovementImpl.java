@@ -9,18 +9,21 @@ import it.unibo.model.territory.impl.TerritoryImpl;
  */
 public class MovementImpl implements Movement {
 
-    private Territory source;
-    private Territory destination;
+    private final Territory source;
+    private final Territory destination;
+    private final int troops;
 
     /**
-     * Constructor that prepares the movement by instantiating the territories involved.
+     * Constructor that prepares the movement by instantiating the territories
+     * involved.
      * 
      * @param oldTerritory the territory the troops are taken from
      * @param newTerritory the territory that will receive the troops
      */
-    public MovementImpl(final Territory oldTerritory, final Territory newTerritory) {
+    public MovementImpl(final Territory oldTerritory, final Territory newTerritory, final int troops) {
         this.source = new TerritoryImpl(oldTerritory);
         this.destination = new TerritoryImpl(newTerritory);
+        this.troops = troops;
     }
 
     /**
@@ -43,16 +46,8 @@ public class MovementImpl implements Movement {
      * {@inheritDoc}
      */
     @Override
-    public void setSource(final Territory source) {
-        this.source = new TerritoryImpl(source);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setDestination(final Territory destination) {
-        this.destination = new TerritoryImpl(destination);
+    public boolean isMovementValid() {
+        return this.source.getTroops() - this.troops >= 1;
     }
 
 }
