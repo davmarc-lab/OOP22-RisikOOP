@@ -2,7 +2,6 @@ package it.unibo.controller.combat.api;
 
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
-import it.unibo.view.combat.api.CombatView;
 
 /**
  * The interface for the {@code CombatController}.
@@ -14,13 +13,6 @@ public interface CombatController {
      * Starts the popup for combat.
      */
     void startPopup();
-
-    /**
-     * Gets the combat view frame.
-     *
-     * @return the combat view frame
-     */
-    CombatView getFrame();
 
     /**
      * Adds a number of troops to use in combat.

@@ -44,14 +44,6 @@ public class MovementControllerView implements MovementController {
      * {@inheritDoc}
      */
     @Override
-    public MovementView getFrame() {
-        return this.frame;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean isNumberValid(final int value) {
         return value <= this.getFirstTerritory().getTroops() - 1 && value >= 1;
     }

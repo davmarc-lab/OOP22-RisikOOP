@@ -1,7 +1,6 @@
 package it.unibo.controller.movement.api;
 
 import it.unibo.model.territory.api.Territory;
-import it.unibo.view.movement.api.MovementView;
 
 /**
  * Interface for the {@code MovementController}.
@@ -14,13 +13,6 @@ public interface MovementController {
      * Opens the movement popup.
      */
     void startPopup();
-
-    /**
-     * Retrieves the popup frame.
-     * 
-     * @return popup frame
-     */
-    MovementView getFrame();
 
     /**
      * Increments/decrements the current value of user input.

@@ -13,23 +13,11 @@ public class CombatFrame extends JFrame implements CombatView {
 
     private static final long serialVersionUID = 1L;
 
-    private transient CombatController cc;
-
-    /**
-     * Constructs a CombatFrame object with the specified CombatController.
-     *
-     * @param cc the CombatController associated with the frame
-     */
-    public CombatFrame(final CombatController cc) {
-        this.cc = cc;
-        this.setVisible(false);
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
-    public void startPopup() {
+    public void startPopup(final CombatController cc) {
         final String[] options = { "Confirm", "Cancel" };
         final int result = JOptionPane.showOptionDialog(
                 null,
@@ -47,13 +35,5 @@ public class CombatFrame extends JFrame implements CombatView {
             cc.cancelAction();
             this.dispose();
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setController(final CombatController controller) {
-        this.cc = controller;
     }
 }

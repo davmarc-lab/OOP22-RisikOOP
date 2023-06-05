@@ -33,7 +33,7 @@ public class CombatControllerView implements CombatController {
         this.model = model;
         this.value = 1;
         this.role = role;
-        this.frame = new CombatFrame(this);
+        this.frame = new CombatFrame();
     }
 
     /**
@@ -41,15 +41,7 @@ public class CombatControllerView implements CombatController {
      */
     @Override
     public void startPopup() {
-        this.frame.startPopup();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CombatView getFrame() {
-        return this.frame;
+        this.frame.startPopup(this);
     }
 
     /**
