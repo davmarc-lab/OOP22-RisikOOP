@@ -54,4 +54,7 @@ public interface BoardZone {
      * @return board panel dimension
      */
     Dimension getDimension();
+
+    BoardZone getCopy();
+
 }

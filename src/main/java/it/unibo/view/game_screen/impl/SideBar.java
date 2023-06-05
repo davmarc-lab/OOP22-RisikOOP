@@ -11,13 +11,15 @@ import it.unibo.view.game_screen.api.SideZone;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.BorderLayout;
 
 /**
  * Implementation of {@link SideZone} interface, it provides methods to get all
  * the component of itself.
  */
-public class SideBar extends JPanel implements SideZone {
+public class SideBar extends JPanel implements SideZone, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +30,7 @@ public class SideBar extends JPanel implements SideZone {
     private final CardZone cp;
     private final ButtonZone bp;
     private final transient MainController controller;
+    private final Dimension boardSize;
 
     /**
      * Constructs a {@code SideBar} containing the different panels.
@@ -37,6 +40,7 @@ public class SideBar extends JPanel implements SideZone {
      */
     public SideBar(final Dimension size, final MainController controller) {
         super();
+        this.boardSize = new Dimension(Double.valueOf(size.getWidth()).intValue(), Double.valueOf(size.getHeight()).intValue());
         this.controller = controller;
         final Dimension dim = new Dimension(Double.valueOf(size.getWidth() * WIDTH_SCALING).intValue(),
                 Double.valueOf(size.getHeight()).intValue());
@@ -106,4 +110,30 @@ public class SideBar extends JPanel implements SideZone {
     public void setCardController() {
         this.cp.setController(new PlayerHandControllerImpl(this.controller.getCurrentPlayer(), cp));
     }
+
+    @Override
+    public Dimension getBoardSize() {
+        return this.boardSize;
+    }
+
+    @Override
+    public MainController getController() {
+        return this.controller;
+    }
+
+    @Override
+    public SideBar clone() throws CloneNotSupportedException {
+        return (SideBar) super.clone();
+    }
+
+    @Override
+    public SideZone getCopy() {
+        try {
+            return (SideZone) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(SideBar.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
+        }
+        throw new IllegalCallerException("Cannot create a copy");
+    }
+
 }

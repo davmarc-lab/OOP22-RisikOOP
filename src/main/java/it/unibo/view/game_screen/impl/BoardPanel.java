@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,7 +31,7 @@ import it.unibo.view.viewconstants.ViewConstants;
  * Implementation of {@link BoardPanel} interface, where the player will be able
  * to click on the territories.
  */
-public final class BoardPanel extends JPanel implements BoardZone {
+public class BoardPanel extends JPanel implements BoardZone, Cloneable {
 
     private static final long serialVersionUID = 1L;
     private static final String MAP_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("images")
@@ -205,10 +207,22 @@ public final class BoardPanel extends JPanel implements BoardZone {
         this.getLabel(territory).setForeground(this.getPlayerColor(territory));
     }
 
+    /**
+     * Retrieves the label relative to a certain territory
+     * 
+     * @param t the name of the territory
+     * @return the label
+     */
     private JLabel getLabel(final String t) {
         return this.squares.get(t);
     }
 
+    /**
+     * Retrievs the color of the player that possesses a certain territory.
+     * 
+     * @param territory the name of the territory
+     * @return the color of the player
+     */
     private Color getPlayerColor(final String territory) {
         return new Color(this.controller.getPlayerFromTerritory(territory).getColorPlayer().getRedValue(),
                 this.controller.getPlayerFromTerritory(territory).getColorPlayer().getGreenValue(),
@@ -221,6 +235,27 @@ public final class BoardPanel extends JPanel implements BoardZone {
     @Override
     public Dimension getDimension() {
         return this.getPreferredSize();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BoardPanel clone() throws CloneNotSupportedException {
+        return (BoardPanel) super.clone();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BoardZone getCopy() {
+        try {
+            return (BoardZone) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(SideBar.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
+        }
+        throw new IllegalCallerException("Cannot create a copy");
     }
 
 }

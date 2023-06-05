@@ -26,11 +26,11 @@ public final class GamePanel extends JPanel implements GameZone {
      * @param side the sidebar
      */
     public GamePanel(final BoardZone board, final SideZone side) {
-        this.board = board;
-        this.side = side;
+        this.board = board.getCopy();
+        this.side = side.getCopy();
         this.setLayout(new BorderLayout());
-        this.add((JPanel) this.board, BorderLayout.CENTER);
-        this.add((JPanel) this.side, BorderLayout.EAST);
+        this.add((JPanel) board, BorderLayout.CENTER);
+        this.add((JPanel) side, BorderLayout.EAST);
     }
 
     /**
@@ -38,7 +38,7 @@ public final class GamePanel extends JPanel implements GameZone {
      */
     @Override
     public BoardZone getBoard() {
-        return this.board;
+        return this.board.getCopy();
     }
 
     /**
@@ -46,7 +46,7 @@ public final class GamePanel extends JPanel implements GameZone {
      */
     @Override
     public SideZone getSideBar() {
-        return this.side;
+        return this.side.getCopy();
     }
 
 }
