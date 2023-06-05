@@ -47,38 +47,6 @@ public class CustomButtonImpl extends JButton implements CustomButton {
      * {@inheritDoc}
      */
     @Override
-    public void setPressedColor(final Color c) {
-        this.pressedColor = c;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setHoverColor(final Color c) {
-        this.hoverColor = c;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Color getPressedColor() {
-        return this.pressedColor;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Color getHoverColor() {
-        return this.hoverColor;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     protected void paintComponent(final Graphics g) {
         if (getModel().isPressed()) {
             g.setColor(pressedColor);

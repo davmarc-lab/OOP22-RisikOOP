@@ -134,5 +134,4 @@ public interface MainController {
      * @return a copy of MainController
      */
     MainController getCopy();
-
 }

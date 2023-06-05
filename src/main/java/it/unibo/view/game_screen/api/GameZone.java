@@ -6,13 +6,4 @@ package it.unibo.view.game_screen.api;
  */
 public interface GameZone {
 
-    /**
-     * @return the board gui
-     */
-    BoardZone getBoard();
-
-    /**
-     * @return sidebar gui
-     */
-    SideZone getSideBar();
 }

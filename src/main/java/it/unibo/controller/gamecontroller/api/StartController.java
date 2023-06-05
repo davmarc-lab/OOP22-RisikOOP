@@ -1,7 +1,5 @@
 package it.unibo.controller.gamecontroller.api;
 
-import it.unibo.view.game_screen.api.MainView;
-
 /**
  * It provides method to control the Main Menu
  * of the application, it also permit to start the game.
@@ -21,13 +19,6 @@ public interface StartController {
      * Initialize the {@link MainController} of the application and starts the game.
      */
     void startGame();
-
-    /**
-     * Retrives the Main Menu view.
-     * 
-     * @return main manu view.
-     */
-    MainView getView();
 
     /**
      * Retrieves the {@link MainController} of the application.

@@ -1,6 +1,8 @@
 package it.unibo.controller.combat.impl;
 
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.unibo.model.combat.api.Combat.Role;
 import it.unibo.common.Pair;
@@ -80,7 +82,7 @@ public class CombatControllerView implements CombatController {
         if (this.combatOutcome.isPresent()) {
             return this.combatOutcome.get();
         }
-        // logger here
+        Logger.getLogger(CombatControllerView.class.getName()).log(Level.WARNING, "Cannot use the input given by the user because is not valid.");
         return 0;
     }
 

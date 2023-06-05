@@ -10,8 +10,6 @@ import it.unibo.view.game_screen.api.SideZone;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.awt.BorderLayout;
 
 /**
@@ -56,30 +54,6 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public ButtonZone getButtonPanel() {
-        return this.bp;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CardZone getCardPanel() {
-        return this.cp.getCopy();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public InfoZone getInfoPanel() {
-        return this.ip;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void updateInfo() {
         this.ip.updateView();
     }
@@ -106,18 +80,5 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     @Override
     public SideBar clone() throws CloneNotSupportedException {
         return (SideBar) super.clone();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SideZone getCopy() {
-        try {
-            return (SideZone) this.clone();
-        } catch (CloneNotSupportedException e) {
-            Logger.getLogger(SideBar.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
-        }
-        throw new IllegalCallerException("Cannot create a copy");
     }
 }

@@ -16,9 +16,6 @@ public final class GamePanel extends JPanel implements GameZone {
 
     private static final long serialVersionUID = 1L;
 
-    private final BoardZone board;
-    private final SideZone side;
-
     /**
      * Constructs an instace of {@link GameZone} interface to interface with all
      * thew views in the {@code GamePanel}.
@@ -27,26 +24,8 @@ public final class GamePanel extends JPanel implements GameZone {
      * @param side  the sidebar
      */
     public GamePanel(final BoardZone board, final SideZone side) {
-        this.board = board.getCopy();
-        this.side = side.getCopy();
         this.setLayout(new BorderLayout());
         this.add((JPanel) board, BorderLayout.CENTER);
         this.add((JPanel) side, BorderLayout.EAST);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public BoardZone getBoard() {
-        return this.board.getCopy();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SideZone getSideBar() {
-        return this.side.getCopy();
     }
 }

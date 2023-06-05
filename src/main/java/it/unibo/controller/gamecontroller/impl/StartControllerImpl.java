@@ -53,14 +53,6 @@ public class StartControllerImpl implements StartController {
      * {@inheritDoc}
      */
     @Override
-    public MainView getView() {
-        return this.view.getCopy();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public MainController getMainController() {
         return this.mainController.getCopy();
     }
