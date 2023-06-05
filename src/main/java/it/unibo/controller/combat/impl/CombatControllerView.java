@@ -82,7 +82,8 @@ public class CombatControllerView implements CombatController {
         if (this.combatOutcome.isPresent()) {
             return this.combatOutcome.get();
         }
-        Logger.getLogger(CombatControllerView.class.getName()).log(Level.WARNING, "Cannot use the input given by the user because is not valid.");
+        Logger.getLogger(CombatControllerView.class.getName()).log(Level.WARNING,
+                "Cannot use the input given by the user because is not valid.");
         return 0;
     }
 

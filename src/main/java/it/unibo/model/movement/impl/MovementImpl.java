@@ -1,5 +1,7 @@
 package it.unibo.model.movement.impl;
 
+import java.util.stream.Collectors;
+
 import it.unibo.model.movement.api.Movement;
 import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryImpl;
@@ -32,6 +34,7 @@ public class MovementImpl implements Movement {
      */
     @Override
     public boolean isMovementValid() {
-        return this.source.getTroops() - this.troops >= 1;
+        return this.source.getTroops() - this.troops >= 1 && this.source.getAdjTerritories().stream()
+                .map(t -> t.getName()).collect(Collectors.toSet()).contains(this.destination.getName());
     }
 }

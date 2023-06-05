@@ -25,7 +25,6 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
 
     private final InfoZone ip;
     private final CardZone cp;
-    private final ButtonZone bp;
 
     /**
      * Constructs a {@code SideBar} containing the different panels.
@@ -44,10 +43,10 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
         this.setLayout(layout);
         this.ip = new InfoPanel(dim, controller);
         this.cp = new CardPanel(dim, controller);
-        this.bp = new ButtonPanel(dim, controller);
+        final ButtonZone bp = new ButtonPanel(dim, controller);
         this.add((InfoPanel) this.ip, BorderLayout.NORTH);
         this.add((CardPanel) this.cp, BorderLayout.CENTER);
-        this.add((ButtonPanel) this.bp, BorderLayout.SOUTH);
+        this.add((ButtonPanel) bp, BorderLayout.SOUTH);
     }
 
     /**

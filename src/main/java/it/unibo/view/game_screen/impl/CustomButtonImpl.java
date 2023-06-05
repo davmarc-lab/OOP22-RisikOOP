@@ -18,8 +18,8 @@ public class CustomButtonImpl extends JButton implements CustomButton {
 
     private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
-    private Color hoverColor;
-    private Color pressedColor;
+    private final Color hoverColor;
+    private final Color pressedColor;
 
     /**
      * Basic constructor.
