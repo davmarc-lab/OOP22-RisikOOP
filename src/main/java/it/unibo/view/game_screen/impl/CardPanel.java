@@ -96,7 +96,7 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
         firstCard.setEnabled(false);
         secondCard.setEnabled(false);
         thirdCard.setEnabled(false);
-        playCards.setEnabled(true);
+        playCards.setEnabled(false);
         resetCards.setEnabled(false);
 
         firstCard.addActionListener(e -> {
@@ -104,6 +104,7 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
                 this.phc.addInputCard(firstCard.getText());
                 this.firstPlayed.setText(String.valueOf(this.phc.getNumberOfCards(firstCard.getText())));
             }
+            this.updateButtons();
         });
 
         secondCard.addActionListener(e -> {
@@ -112,6 +113,7 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
                 this.phc.addInputCard(secondCard.getText());
                 this.secondPlayed.setText(String.valueOf(this.phc.getNumberOfCards(secondCard.getText())));
             }
+            this.updateButtons();
         });
 
         thirdCard.addActionListener(e -> {
@@ -120,16 +122,19 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
                 this.phc.addInputCard(thirdCard.getText());
                 this.thirdPlayed.setText(String.valueOf(this.phc.getNumberOfCards(thirdCard.getText())));
             }
+            this.updateButtons();
         });
 
         playCards.addActionListener(e -> {
             this.phc.attemptPlayCards();
             this.controller.sendMessage(this.phc.getMessage());
             this.resetUserInput();
+            this.updateButtons();
         });
 
         resetCards.addActionListener(e -> {
             this.resetUserInput();
+            this.updateButtons();
         });
 
         final JPanel playPanel = new JPanel(new BorderLayout());
@@ -159,7 +164,6 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
         this.firstPlayed.setText(String.valueOf(this.phc.getNumberOfCards(firstCard.getText())));
         this.secondPlayed.setText(String.valueOf(this.phc.getNumberOfCards(secondCard.getText())));
         this.thirdPlayed.setText(String.valueOf(this.phc.getNumberOfCards(thirdCard.getText())));
-        this.resetCards.setEnabled(true);
         this.firstText.setText(String.valueOf(this.getFirstCardCount()));
         this.secondText.setText(String.valueOf(this.getSecondCardCount()));
         this.thirdText.setText(String.valueOf(this.getThirdCardCount()));
@@ -184,6 +188,14 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
             Logger.getLogger(CardPanel.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
         }
         throw new IllegalCallerException("Cannot create a copy");
+    }
+
+    /**
+     * Updates the confirm and reset buttons.
+     */
+    private void updateButtons() {
+        this.resetCards.setEnabled(true);
+        this.playCards.setEnabled(this.phc.isInputFull());
     }
 
     /**
