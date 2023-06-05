@@ -2,8 +2,6 @@ package it.unibo.view.game_screen.api;
 
 import java.util.Set;
 
-import it.unibo.controller.gamecontroller.api.MainController;
-
 import java.awt.Dimension;
 
 /**
@@ -27,13 +25,6 @@ public interface BoardZone {
      * Disables all buttons.
      */
     void disableAll();
-
-    /**
-     * Retrieves the main controller.
-     * 
-     * @return the main controller
-     */
-    MainController getController();
 
     /**
      * Sets the text color in the label with the number of troops in all

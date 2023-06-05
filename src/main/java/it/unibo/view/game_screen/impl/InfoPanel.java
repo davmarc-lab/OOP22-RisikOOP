@@ -43,7 +43,7 @@ public class InfoPanel extends JPanel implements InfoZone {
      */
     public InfoPanel(final Dimension dimension, final MainController controller) {
         super();
-        this.controller = controller;
+        this.controller = controller.getCopy();
         this.setPreferredSize(new Dimension(Double.valueOf(dimension.getWidth()).intValue(),
                 Double.valueOf(dimension.getHeight() * INFO_PANEL_HEIGHT_SCALING).intValue()));
         this.setLayout(new BorderLayout());

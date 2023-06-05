@@ -14,26 +14,14 @@ public class MovementFrame extends JFrame implements MovementView {
 
     private static final long serialVersionUID = 1L;
 
-    private transient MovementController mc;
-
-    /**
-     * Constructor that creates a {@code MovementFrame} object.
-     * 
-     * @param mc movement controller
-     */
-    public MovementFrame(final MovementController mc) {
-        this.mc = mc;
-        this.setVisible(false);
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
-    public void startPopup() {
+    public void startPopup(final MovementController mc) {
         final String[] options = { "Confirm", "Cancel" };
         final int result = JOptionPane.showOptionDialog(
-                null,
+                this,
                 new MovementPanel(mc),
                 new StringBuilder("Move troops from ").append(mc.getFirstTerritory().getName()).toString(),
                 JOptionPane.YES_NO_OPTION,
@@ -49,13 +37,4 @@ public class MovementFrame extends JFrame implements MovementView {
             mc.cancelAction();
         }
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setController(final MovementController controller) {
-        this.mc = controller;
-    }
-
 }

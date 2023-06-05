@@ -10,12 +10,5 @@ public interface MovementView {
     /**
      * Start the movement view.
      */
-    void startPopup();
-
-    /**
-     * Sets the movement controller.
-     * 
-     * @param controller movement controller
-     */
-    void setController(MovementController controller);
+    void startPopup(MovementController mc);
 }

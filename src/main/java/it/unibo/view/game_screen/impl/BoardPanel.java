@@ -54,7 +54,7 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
      * @param controller the main controller
      */
     public BoardPanel(final MainController controller) {
-        this.controller = controller;
+        this.controller = controller.getCopy();
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final ImageIcon map = new ImageIcon(adjustImageSize(new ImageIcon(MAP_PATH), (int) screenSize.getWidth(),
                 (int) screenSize.getHeight()));
@@ -175,14 +175,6 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
             ((JButton) e.getKey()).setEnabled(false);
             ((JButton) e.getKey()).setBorderPainted(false);
         });
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public MainController getController() {
-        return this.controller;
     }
 
     /**

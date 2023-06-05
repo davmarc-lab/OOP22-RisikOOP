@@ -29,7 +29,7 @@ public class MovementControllerView implements MovementController {
     public MovementControllerView(final Pair<Territory, Territory> model) {
         this.model = model;
         this.value = 1;
-        this.frame = new MovementFrame(this);
+        this.frame = new MovementFrame();
     }
 
     /**
@@ -37,7 +37,7 @@ public class MovementControllerView implements MovementController {
      */
     @Override
     public void startPopup() {
-        this.frame.startPopup();
+        this.frame.startPopup(this);
     }
 
     /**
