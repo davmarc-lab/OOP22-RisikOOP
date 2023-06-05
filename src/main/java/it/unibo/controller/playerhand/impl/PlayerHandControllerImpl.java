@@ -28,8 +28,8 @@ public class PlayerHandControllerImpl implements PlayerHandController {
      * @param view  the view that will contain the player's hand
      */
     public PlayerHandControllerImpl(final Player model, final CardZone view) {
-        this.model = model;
-        this.view = view;
+        this.model = model.getCopy();
+        this.view = view.getCopy();
     }
 
     /**
@@ -69,7 +69,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
      */
     @Override
     public boolean isAddPossible(final int currentNumber, final int input) {
-        return input + 1 <= currentNumber;
+        return input + 1 <= currentNumber && !isInputFull();
     }
 
     /**
@@ -84,6 +84,8 @@ public class PlayerHandControllerImpl implements PlayerHandController {
         } else {
             this.message = new StringBuilder("Cards invalid, operation aborted.").toString();
         }
+        this.clearInputCards();
+        this.updateView();
     }
 
     /**

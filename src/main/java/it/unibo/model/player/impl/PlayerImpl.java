@@ -3,6 +3,8 @@ package it.unibo.model.player.impl;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.unibo.model.army.api.Army;
 import it.unibo.model.deck.api.Deck;
@@ -17,7 +19,7 @@ import it.unibo.model.territory.api.Territory;
  * Implementation of {@link Player} interface.
  * Provides method to interact with the player.
  */
-public class PlayerImpl implements Player {
+public class PlayerImpl implements Player, Cloneable {
 
     private int id;
     private final Deck<Territory> territories;
@@ -181,5 +183,28 @@ public class PlayerImpl implements Player {
     public String toString() {
         return new String(
                 new StringBuilder("ID -> ").append(this.getId()).append(", TROOPS -> ").append(this.bonusTroops));
+    }
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public PlayerImpl clone() throws CloneNotSupportedException {
+        return (PlayerImpl) super.clone();
+    }
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public Player getCopy() {
+        try {
+            return (Player) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(PlayerImpl.class.getName()).log(Level.SEVERE, "Cannot create the copy of the object.");
+        }
+        throw new IllegalCallerException("Cannot create a copy.");
     }
 }

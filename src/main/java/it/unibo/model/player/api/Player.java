@@ -212,4 +212,11 @@ public interface Player {
      * Sets the objective status to complete.
      */
     void setObjectiveComplete();
+
+    /**
+     * Retrieves the copy of the player.
+     * 
+     * @return the copy of the player
+     */
+    Player getCopy();
 }
