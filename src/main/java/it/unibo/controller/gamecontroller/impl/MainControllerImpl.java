@@ -1,6 +1,8 @@
 package it.unibo.controller.gamecontroller.impl;
 
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -21,7 +23,7 @@ import it.unibo.view.game_screen.impl.SideBar;
  * It models the main controller that allows the {@link GameZone} to
  * communicate with the model.
  */
-public class MainControllerImpl implements MainController {
+public class MainControllerImpl implements MainController, Cloneable {
 
     private final StartController startController;
     private final GameLoop loop;
@@ -202,5 +204,20 @@ public class MainControllerImpl implements MainController {
     @Override
     public void setCardController() {
         this.side.setCardController();
+    }
+
+    @Override
+    public MainControllerImpl clone() throws CloneNotSupportedException {
+        return (MainControllerImpl) super.clone();
+    }
+
+    @Override
+    public MainController getCopy() {
+        try {
+            return (MainController) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(MainControllerImpl.class.getName()).log(Level.SEVERE, "Cannot create the copy of the object.");
+        }
+        throw new IllegalCallerException("Cannot create a copy");
     }
 }

@@ -129,4 +129,6 @@ public interface MainController {
      * Sets the controller to interact with the player {@code Hand}.
      */
     void setCardController();
+
+    MainController getCopy();
 }

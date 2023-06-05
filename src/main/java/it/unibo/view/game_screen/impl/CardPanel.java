@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.api.PlayerHandController;
+import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.view.game_screen.api.CardZone;
 
 /**
@@ -57,7 +58,7 @@ public class CardPanel extends JPanel implements CardZone {
      */
     public CardPanel(final Dimension size, final MainController controller) {
         super();
-        this.controller = controller;
+        this.controller = controller.getCopy();
         this.setLayout(new BorderLayout());
         final Dimension dim = new Dimension(Double.valueOf(size.getWidth()).intValue(),
                 Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue());
@@ -164,7 +165,7 @@ public class CardPanel extends JPanel implements CardZone {
      */
     @Override
     public void setController(final PlayerHandController controller) {
-        this.phc = controller;
+        this.phc = new PlayerHandControllerImpl(this.controller.getCurrentPlayer(), controller.getView());
     }
 
     /**
