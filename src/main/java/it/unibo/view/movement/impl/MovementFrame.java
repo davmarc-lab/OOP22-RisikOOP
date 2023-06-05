@@ -23,7 +23,6 @@ public class MovementFrame extends JFrame implements MovementView {
      */
     public MovementFrame(final MovementController mc) {
         this.mc = mc;
-        mc.setFrame(this);
         this.setVisible(false);
     }
 
@@ -36,7 +35,7 @@ public class MovementFrame extends JFrame implements MovementView {
         final int result = JOptionPane.showOptionDialog(
                 null,
                 new MovementPanel(mc),
-                new StringBuilder("Move troops from ").append(mc.getFirstObject().getName()).toString(),
+                new StringBuilder("Move troops from ").append(mc.getFirstTerritory().getName()).toString(),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null, // icon

@@ -18,12 +18,14 @@ import it.unibo.controller.controllerconstants.ControllerConstants;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.api.Objective.ObjectiveType;
 import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
-/**
- * This class is used to read the objectives from the json file.
- */
-public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<Objective>>> {
 
-    private static final String OBJECTIVES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH).append("config")
+/**
+ * Json reader for the objectives.
+ */
+public final class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<Objective>>> {
+
+    private static final String OBJECTIVES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
+            .append("config")
             .append(ControllerConstants.PATH_SEPARATOR)
             .append("objective").append(ControllerConstants.PATH_SEPARATOR).append("Objectives.json").toString();
 
@@ -39,7 +41,9 @@ public class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<
     }
 
     /**
-     * {@inheritDoc}
+     * Read objectives from json file and creates a set of objectives and the default objective.
+     * 
+     * @return a pair containing the default objective and the set of objectives.
      */
     @Override
     public Pair<Objective, Set<Objective>> readFromFile() {

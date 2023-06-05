@@ -25,4 +25,19 @@ public interface SideZone {
      * @return the {@code InfoZone} that is included in this zone
      */
     InfoZone getInfoPanel();
+
+    /**
+     * Update the {@code InfoZone}.
+     */
+    void updateInfo();
+
+    /**
+     * Update the {@code CardZone}.
+     */
+    void updateCards();
+
+    /**
+     * Set the {@code PlayerHandController} for {@code CardZone}.
+     */
+    void setCardController();
 }

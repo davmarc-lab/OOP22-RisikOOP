@@ -5,10 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import it.unibo.view.game_screen.api.BoardZone;
-import it.unibo.view.game_screen.api.ButtonZone;
-import it.unibo.view.game_screen.api.CardZone;
 import it.unibo.view.game_screen.api.GameZone;
-import it.unibo.view.game_screen.api.InfoZone;
 import it.unibo.view.game_screen.api.SideZone;
 
 /**
@@ -25,14 +22,12 @@ public final class GamePanel extends JPanel implements GameZone {
      * Constructs an instace of {@link GameZone} interface to interface with all
      * thew views in the {@code GamePanel}.
      * 
-     * @param board  the game board view
-     * @param info   the info zone view
-     * @param card   the card zone view
-     * @param button the button zone view
+     * @param board the game board view
+     * @param side the sidebar
      */
-    public GamePanel(final BoardZone board, final InfoZone info, final CardZone card, final ButtonZone button) {
+    public GamePanel(final BoardZone board, final SideZone side) {
         this.board = board;
-        this.side = new SideBar(((JPanel) this.board).getPreferredSize(), info, card, button);
+        this.side = side;
         this.setLayout(new BorderLayout());
         this.add((JPanel) this.board, BorderLayout.CENTER);
         this.add((JPanel) this.side, BorderLayout.EAST);

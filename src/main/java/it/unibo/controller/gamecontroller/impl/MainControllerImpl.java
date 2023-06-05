@@ -6,32 +6,27 @@ import javax.swing.JOptionPane;
 
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.gamecontroller.api.StartController;
-import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.model.gameloop.api.GameLoop;
 import it.unibo.model.gameloop.impl.GameLoopImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.BoardZone;
-import it.unibo.view.game_screen.api.ButtonZone;
-import it.unibo.view.game_screen.api.CardZone;
 import it.unibo.view.game_screen.api.GameZone;
-import it.unibo.view.game_screen.api.InfoZone;
+import it.unibo.view.game_screen.api.SideZone;
 import it.unibo.view.game_screen.impl.BoardPanel;
-import it.unibo.view.game_screen.impl.ButtonPanel;
-import it.unibo.view.game_screen.impl.CardPanel;
 import it.unibo.view.game_screen.impl.GamePanel;
-import it.unibo.view.game_screen.impl.InfoPanel;
+import it.unibo.view.game_screen.impl.SideBar;
 
 /**
- * Implementation of MainController.
+ * Implementation of {@link MainController}.
+ * It models the main controller that allows the {@link GameZone} to
+ * communicate with the model.
  */
 public class MainControllerImpl implements MainController {
 
     private final StartController startController;
     private final GameLoop loop;
     private final BoardZone board;
-    private final InfoZone info;
-    private final CardZone card;
-    private final ButtonZone button;
+    private final SideZone side;
 
     /**
      * Basic constructor that links the controller to the engine.
@@ -42,9 +37,7 @@ public class MainControllerImpl implements MainController {
         this.startController = startController;
         this.loop = new GameLoopImpl(this);
         this.board = new BoardPanel(this);
-        this.info = new InfoPanel(this.board.getDimension(), this);
-        this.card = new CardPanel(this.board.getDimension(), this);
-        this.button = new ButtonPanel(this.board.getDimension(), this);
+        this.side = new SideBar(this.board.getDimension(), this);
     }
 
     /**
@@ -132,7 +125,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public GameZone getGameZone() {
-        return new GamePanel(this.board, this.info, this.card, this.button);
+        return new GamePanel(this.board, this.side);
     }
 
     /**
@@ -192,7 +185,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void updateInfo() {
-        this.info.updateView();
+        this.side.updateInfo();
     }
 
     /**
@@ -200,7 +193,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void updateCards() {
-        this.card.updateView();
+        this.side.updateCards();
     }
 
     /**
@@ -208,7 +201,6 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void setCardController() {
-        this.card.setController(new PlayerHandControllerImpl(this.getCurrentPlayer(), this.card));
+        this.side.setCardController();
     }
-
 }

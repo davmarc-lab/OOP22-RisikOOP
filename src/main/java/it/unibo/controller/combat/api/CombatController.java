@@ -5,7 +5,7 @@ import it.unibo.model.territory.api.Territory;
 import it.unibo.view.combat.api.CombatView;
 
 /**
- * The interface for the CombatController.
+ * The interface for the {@code CombatController}.
  * It provides methods to manage combat between players and territories.
  */
 public interface CombatController {
@@ -23,13 +23,6 @@ public interface CombatController {
     CombatView getFrame();
 
     /**
-     * Sets the combat view frame.
-     *
-     * @param frame the combat view frame
-     */
-    void setFrame(CombatView frame);
-
-    /**
      * Adds a number of troops to use in combat.
      *
      * @param n the value to be added
@@ -40,7 +33,7 @@ public interface CombatController {
      * Checks if a given number is valid.
      *
      * @param value the number to be validated
-     * @return true if the number is valid, false otherwise
+     * @return {@code true} if the number is valid, false otherwise
      */
     boolean isNumberValid(int value);
 
@@ -78,8 +71,7 @@ public interface CombatController {
     /**
      * Checks if the attack has finished or is still running.
      * 
-     * @return true if the attack hasn't finished, false otherwise
+     * @return {@code true} if the attack hasn't finished, false otherwise
      */
     boolean isActionRunnig();
-
 }

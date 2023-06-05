@@ -7,6 +7,8 @@ import it.unibo.view.game_screen.impl.MainFrame;
 
 /**
  * Implementation of {@link StartController} interface.
+ * It provides method to control the Main Menu
+ * of the application, it also permit to start the game.
  */
 public class StartControllerImpl implements StartController {
 

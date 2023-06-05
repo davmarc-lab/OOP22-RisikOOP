@@ -3,7 +3,7 @@ package it.unibo.controller.reader.api;
 import java.util.logging.Logger;
 
 /**
- * The generic interface to read from file.
+ * Generic interface that reads from file.
  * 
  * @param <T> the return type of reading method
  */

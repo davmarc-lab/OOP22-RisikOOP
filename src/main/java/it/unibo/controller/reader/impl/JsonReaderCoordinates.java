@@ -23,7 +23,8 @@ import it.unibo.controller.controllerconstants.ControllerConstants;
  */
 public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<String, List<Double>>>> {
 
-    private static final String COORDINATES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH).append("config")
+    private static final String COORDINATES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
+            .append("config")
             .append(ControllerConstants.PATH_SEPARATOR).append("territory").append(ControllerConstants.PATH_SEPARATOR)
             .append("Coordinates.json").toString();
 
@@ -42,8 +43,8 @@ public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<Str
      * territory's name and his list of coordinates and sizes, following the
      * Coordinates.json pattern.
      * 
-     * @return the set of pairs of territory's name and his list of coordinates and
-     *         sizes
+     * @return the set of pairs of territory's name and
+     *         his list of coordinates and sizes
      */
     @Override
     public Set<Pair<String, List<Double>>> readFromFile() {
@@ -72,5 +73,4 @@ public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<Str
         }
         return Set.copyOf(this.territories);
     }
-
 }

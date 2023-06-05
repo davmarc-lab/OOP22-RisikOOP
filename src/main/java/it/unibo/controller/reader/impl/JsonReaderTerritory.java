@@ -21,9 +21,10 @@ import it.unibo.controller.controllerconstants.ControllerConstants;
 /**
  * Class that extends the abstract file reader to read from 'Territories.json'.
  */
-public class JsonReaderTerritory extends AbstractFileReader<Set<Pair<String, Set<Territory>>>> {
+public final class JsonReaderTerritory extends AbstractFileReader<Set<Pair<String, Set<Territory>>>> {
 
-    private static final String TERRITORIES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH).append("config")
+    private static final String TERRITORIES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
+            .append("config")
             .append(ControllerConstants.PATH_SEPARATOR).append("territory").append(ControllerConstants.PATH_SEPARATOR)
             .append("Territories.json").toString();
 
@@ -43,8 +44,7 @@ public class JsonReaderTerritory extends AbstractFileReader<Set<Pair<String, Set
      * continent's name and his set of territories, following the Territories.json
      * pattern.
      * 
-     * @return the
-     *         {@code set of pairs of continent's name and his set of territories}
+     * @return the set of pairs of continent's name and his set of territories
      */
     @Override
     public Set<Pair<String, Set<Territory>>> readFromFile() {

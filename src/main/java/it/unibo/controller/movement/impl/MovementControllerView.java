@@ -10,14 +10,16 @@ import it.unibo.view.movement.impl.MovementFrame;
 
 /**
  * Implementation of {@code MovementController}.
+ * It use as field a {@code Pair} containig the source and the
+ * destination of the troops.
  */
 public class MovementControllerView implements MovementController {
 
-    private MovementView frame;
+    private final MovementView frame;
     private final Pair<Territory, Territory> model;
     private int value;
     private Optional<Integer> finalResult = Optional.empty();
-    private boolean isActionRunnig = true;
+    private boolean isActionRunning = true;
 
     /**
      * Constructor with the model parts.
@@ -26,10 +28,8 @@ public class MovementControllerView implements MovementController {
      */
     public MovementControllerView(final Pair<Territory, Territory> model) {
         this.model = model;
-        if (this.model.getX().getTroops() > 1) {
-            this.value = 1;
-            this.frame = new MovementFrame(this);
-        }
+        this.value = 1;
+        this.frame = new MovementFrame(this);
     }
 
     /**
@@ -53,14 +53,14 @@ public class MovementControllerView implements MovementController {
      */
     @Override
     public boolean isNumberValid(final int value) {
-        return value <= this.getFirstObject().getTroops() - 1 && value >= 1;
+        return value <= this.getFirstTerritory().getTroops() - 1 && value >= 1;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Territory getFirstObject() {
+    public Territory getFirstTerritory() {
         return this.model.getX();
     }
 
@@ -68,7 +68,7 @@ public class MovementControllerView implements MovementController {
      * {@inheritDoc}
      */
     @Override
-    public Territory getSecondObject() {
+    public Territory getSecondTerritory() {
         return this.model.getY();
     }
 
@@ -107,24 +107,15 @@ public class MovementControllerView implements MovementController {
      * {@inheritDoc}
      */
     @Override
-    public void setFrame(final MovementView frame) {
-        this.frame = frame;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void cancelAction() {
-        this.isActionRunnig = false;
+        this.isActionRunning = false;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean isActionRunnig() {
-        return this.isActionRunnig;
+    public boolean isActionRunning() {
+        return this.isActionRunning;
     }
-
 }

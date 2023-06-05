@@ -6,12 +6,12 @@ import it.unibo.model.army.api.Army;
 import it.unibo.view.game_screen.api.CardZone;
 
 /**
- * This interface models a controller used for the player's hand.
+ * Models a controller used for the player's hand.
  */
 public interface PlayerHandController {
 
     /**
-     * @return the list of the cards' types (player's hand)
+     * @return the list of the cards' types in player's hand
      */
     List<Army> getInputCards();
 
@@ -30,8 +30,8 @@ public interface PlayerHandController {
     /**
      * Checks if the player has already selected 3 cards to play.
      * 
-     * @return true if the player selected 3 cards, false if he selected 2 or less
-     *         cards so far
+     * @return {@code true} if the player selected 3 cards, {@code false} if he
+     *         selected 2 or less cards so far
      */
     boolean isInputFull();
 
@@ -40,7 +40,8 @@ public interface PlayerHandController {
      * 
      * @param input         the number of cards added so far
      * @param currentNumber the number of cards that a player possesses
-     * @return true if the player can select another card, false otherwise
+     * @return {@code true} if the player can select another card, {@code false}
+     *         otherwise
      */
     boolean isAddPossible(int input, int currentNumber);
 
@@ -58,26 +59,27 @@ public interface PlayerHandController {
     int getNumberOfCards(String cardType);
 
     /**
-     * Counts how many cards of the first type (INFANTRY) are in the player's hand.
+     * Counts how many cards of type {@code INFANTRY} are in the player's
+     * hand.
      * 
-     * @return the number of cards in the player's hand whose type is the first
-     *         (INFANTRY)
+     * @return the number of cards in the player's hand whose type is
+     *         {@code INFANTRY}
      */
     int getPlayerFirstCards();
 
     /**
-     * Counts how many cards of the second type (CAVALRY) are in the player's hand.
+     * Counts how many cards of type {@code CAVALRY} are in the player's hand.
      * 
-     * @return the number of cards in the player's hand whose type is the second
-     *         (CAVALRY)
+     * @return the number of cards in the player's hand whose type is
+     *         {@code CAVALRY}
      */
     int getPlayerSecondCards();
 
     /**
-     * Counts how many cards of the third type (ARTILLERY) are in the player's hand.
+     * Counts how many cards oF type {@code ARTILLERY} are in the player's hand.
      * 
-     * @return the number of cards in the player's hand whose type is the third
-     *         (ARTILLERY)
+     * @return the number of cards in the player's hand whose type is
+     *         {@code ARTILLERY}
      */
     int getPlayerThirdCards();
 
@@ -95,5 +97,4 @@ public interface PlayerHandController {
      * Updates the view of the hand of the player.
      */
     void updateView();
-
 }

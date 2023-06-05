@@ -20,9 +20,10 @@ import it.unibo.controller.controllerconstants.ControllerConstants;
  * This class is used to read the coordinates for the squares that contain the
  * troops on the territories.
  */
-public class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pair<String, Pair<Double, Double>>>> {
+public final class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pair<String, Pair<Double, Double>>>> {
 
-    private static final String SQUARES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH).append("config")
+    private static final String SQUARES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
+            .append("config")
             .append(ControllerConstants.PATH_SEPARATOR)
             .append("territory").append(ControllerConstants.PATH_SEPARATOR).append("SquareCoordinates.json").toString();
 
@@ -67,5 +68,4 @@ public class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pair<Str
         }
         return Set.copyOf(this.squares);
     }
-
 }

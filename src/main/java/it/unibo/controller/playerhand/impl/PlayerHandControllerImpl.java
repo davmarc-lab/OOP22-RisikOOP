@@ -12,7 +12,7 @@ import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.CardZone;
 
 /**
- * Implementation of the controller for the player's hand.
+ * Implementation of {@link PlayerHandController} for the player's hand.
  */
 public class PlayerHandControllerImpl implements PlayerHandController {
 
@@ -30,14 +30,6 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     public PlayerHandControllerImpl(final Player model, final CardZone view) {
         this.model = model;
         this.view = view;
-    }
-
-    /**
-     * @param name the name of the card's type
-     * @return the card type
-     */
-    private ArmyType getArmyTypeFromString(final String name) {
-        return Arrays.stream(ArmyType.values()).filter(t -> t.getName().equals(name)).findAny().get();
     }
 
     /**
@@ -152,5 +144,13 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     @Override
     public void updateView() {
         this.view.updateView();
+    }
+
+    /**
+     * @param name the name of the card's type
+     * @return the card type
+     */
+    private ArmyType getArmyTypeFromString(final String name) {
+        return Arrays.stream(ArmyType.values()).filter(t -> t.getName().equals(name)).findAny().get();
     }
 }

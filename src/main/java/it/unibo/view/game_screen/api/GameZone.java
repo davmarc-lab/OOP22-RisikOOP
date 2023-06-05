@@ -2,7 +2,7 @@ package it.unibo.view.game_screen.api;
 
 /**
  * This interface models the zone (in our case a JPanel) that contains the board
- * and the side bar.
+ * and the sidebar.
  */
 public interface GameZone {
 
@@ -12,7 +12,7 @@ public interface GameZone {
     BoardZone getBoard();
 
     /**
-     * @return side bar gui
+     * @return sidebar gui
      */
     SideZone getSideBar();
 

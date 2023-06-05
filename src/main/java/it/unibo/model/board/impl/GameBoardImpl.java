@@ -146,7 +146,7 @@ public class GameBoardImpl implements GameBoard {
     public void instanceMovement(final Territory oldTerritory, final Territory newTerritory) {
         final MovementController mc = new MovementControllerView(new Pair<>(oldTerritory, newTerritory));
         mc.startPopup();
-        if (mc.isActionRunnig()
+        if (mc.isActionRunning()
                 && new MovementImpl(oldTerritory, newTerritory, mc.getFinalResult()).isMovementValid()) {
             newTerritory.addTroops(mc.getFinalResult());
             oldTerritory.addTroops(-mc.getFinalResult());

@@ -11,12 +11,12 @@ import it.unibo.view.combat.api.CombatView;
 import it.unibo.view.combat.impl.CombatFrame;
 
 /**
- * Implementation of {@code CombatController}.
+ * Implementation of {@link CombatController}.
  * It manages combat between players and their territories.
  */
 public class CombatControllerView implements CombatController {
 
-    private CombatView frame;
+    private final CombatView frame;
     private final Pair<Player, Territory> model;
     private int value;
     private final Role role;
@@ -50,14 +50,6 @@ public class CombatControllerView implements CombatController {
     @Override
     public CombatView getFrame() {
         return this.frame;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setFrame(final CombatView frame) {
-        this.frame = frame;
     }
 
     /**
@@ -117,18 +109,6 @@ public class CombatControllerView implements CombatController {
     }
 
     /**
-     * Checks if the selected troops can participate in combat by leaving at least
-     * one behind.
-     * 
-     * @param value the number of troops
-     * @return true if the territory would be left with at least one troop, false
-     *         otherwise
-     */
-    private boolean checkStableTroops(final int value) {
-        return value <= this.getCombatTerritory().getTroops() - this.role.getStableTroops();
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -144,4 +124,16 @@ public class CombatControllerView implements CombatController {
         return this.isActionRunnig;
     }
 
+    /**
+     * Checks if the selected troops can participate in combat by leaving at least
+     * one behind.
+     * 
+     * @param value the number of troops
+     * @return {@code true} if the territory would be left with at least one troop,
+     *         {@code false}
+     *         otherwise
+     */
+    private boolean checkStableTroops(final int value) {
+        return value <= this.getCombatTerritory().getTroops() - this.role.getStableTroops();
+    }
 }

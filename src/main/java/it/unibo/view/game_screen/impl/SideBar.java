@@ -2,6 +2,8 @@ package it.unibo.view.game_screen.impl;
 
 import javax.swing.JPanel;
 
+import it.unibo.controller.gamecontroller.api.MainController;
+import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.view.game_screen.api.ButtonZone;
 import it.unibo.view.game_screen.api.CardZone;
 import it.unibo.view.game_screen.api.InfoZone;
@@ -25,17 +27,17 @@ public class SideBar extends JPanel implements SideZone {
     private final InfoZone ip;
     private final CardZone cp;
     private final ButtonZone bp;
+    private final transient MainController controller;
 
     /**
      * Constructs a {@code SideBar} containing the different panels.
      * 
      * @param size   the size of the sidebar
-     * @param info   the info panel
-     * @param card   the the card panel
-     * @param button the button panel
+     * @param controller the main controller
      */
-    public SideBar(final Dimension size, final InfoZone info, final CardZone card, final ButtonZone button) {
+    public SideBar(final Dimension size, final MainController controller) {
         super();
+        this.controller = controller;
         final Dimension dim = new Dimension(Double.valueOf(size.getWidth() * WIDTH_SCALING).intValue(),
                 Double.valueOf(size.getHeight()).intValue());
         this.setPreferredSize(dim);
@@ -43,9 +45,9 @@ public class SideBar extends JPanel implements SideZone {
         final BorderLayout layout = new BorderLayout();
         layout.setVgap(VGAP);
         this.setLayout(layout);
-        this.ip = info;
-        this.cp = card;
-        this.bp = button;
+        this.ip = new InfoPanel(dim, this.controller);
+        this.cp = new CardPanel(dim, this.controller);
+        this.bp = new ButtonPanel(dim, this.controller);
         this.add((InfoPanel) this.ip, BorderLayout.NORTH);
         this.add((CardPanel) this.cp, BorderLayout.CENTER);
         this.add((ButtonPanel) this.bp, BorderLayout.SOUTH);
@@ -76,5 +78,32 @@ public class SideBar extends JPanel implements SideZone {
     @Override
     public InfoZone getInfoPanel() {
         return this.ip;
+    }
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateInfo() {
+        this.ip.updateView();
+    }
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateCards() {
+        this.cp.updateView();
+    }
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCardController() {
+        this.cp.setController(new PlayerHandControllerImpl(this.controller.getCurrentPlayer(), cp));
     }
 }

@@ -24,8 +24,9 @@ public class ButtonPanel extends JPanel implements ButtonZone {
 
     private static final long serialVersionUID = 1L;
 
-    private static final double HEIGHT_SCALING = 0.15;
+    private static final double HEIGHT_SCALING = 0.20;
     private static final double BUTTON_SCALING = 0.08;
+    private static final double BUTTON_INSETS_SCALING = 0.015;
     private static final int FONT_SIZE = 12;
     private static final int NUM_OF_BUTTONS = 3;
     private static final int BORDER_SIZE = 4;
@@ -41,13 +42,13 @@ public class ButtonPanel extends JPanel implements ButtonZone {
         this.setLayout(new BorderLayout());
         final JLabel label = new JLabel(TITLE_LABEL, SwingConstants.CENTER);
         final JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(Double.valueOf(size.getWidth()).intValue(),
-                Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue()));
+        final Dimension dim = new Dimension(Double.valueOf(size.getWidth()).intValue(),
+                Double.valueOf(size.getHeight() * HEIGHT_SCALING).intValue());
+        panel.setPreferredSize(dim);
         panel.setLayout(new GridBagLayout());
         final GridBagConstraints cnst = new GridBagConstraints();
-        final int n1 = 2;
-        final int n2 = 5;
-        cnst.insets = new Insets(n1, n2, n1, n2);
+        final int n = (int) (dim.getHeight() * BUTTON_INSETS_SCALING);
+        cnst.insets = new Insets(n, n, n, n);
         cnst.gridy = 0;
         cnst.ipadx = Double.valueOf(panel.getPreferredSize().getWidth() * BUTTON_SCALING).intValue();
         cnst.ipady = Double.valueOf(panel.getPreferredSize().getHeight() * BUTTON_SCALING).intValue();

@@ -7,9 +7,8 @@ import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.GameZone;
 
 /**
- * This interface models the main controller that allows the {@link GameZone} to
- * communicate
- * with the model.
+ * It models the main controller that allows the {@link GameZone} to
+ * communicate with the model.
  */
 public interface MainController {
 
@@ -69,7 +68,7 @@ public interface MainController {
     /**
      * Retrieves the {@link GameZone} view.
      * 
-     * @return the area that contains the board and the side bar
+     * @return the area that contains the board and the sidebar
      */
     GameZone getGameZone();
 
@@ -117,12 +116,12 @@ public interface MainController {
     void setSquares();
 
     /**
-     * It updates the Info at the top of side bar.
+     * It updates the Info at the top of sidebar.
      */
     void updateInfo();
 
     /**
-     * It updates the cards of the current player at the centrer of side bar.
+     * It updates the cards of the current player at the centrer of sidebar.
      */
     void updateCards();
 

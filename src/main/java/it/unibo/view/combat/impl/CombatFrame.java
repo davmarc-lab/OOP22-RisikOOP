@@ -22,7 +22,6 @@ public class CombatFrame extends JFrame implements CombatView {
      */
     public CombatFrame(final CombatController cc) {
         this.cc = cc;
-        this.cc.setFrame(this);
         this.setVisible(false);
     }
 
