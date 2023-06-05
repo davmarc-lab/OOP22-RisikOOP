@@ -3,7 +3,6 @@ package it.unibo.model.gameloop.api;
 import java.util.List;
 import java.util.Set;
 
-import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.gamestate.api.GameState;
 import it.unibo.model.territory.api.Territory;
@@ -62,13 +61,6 @@ public interface GameLoop {
     GameBoard getBoard();
 
     /**
-     * Retrieves the {@link MainController} of the application.
-     * 
-     * @return the controller
-     */
-    MainController getController();
-
-    /**
      * Retrieves the {@link TurnManager} of the game.
      * 
      * @return the turn manager
@@ -107,4 +99,5 @@ public interface GameLoop {
      * @return a copy of the current game loop
      */
     GameLoop getCopy();
+
 }

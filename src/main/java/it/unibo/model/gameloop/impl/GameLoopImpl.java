@@ -293,14 +293,6 @@ public class GameLoopImpl implements GameLoop, Cloneable{
      * {@inheritDoc}
      */
     @Override
-    public MainController getController() {
-        return this.controller;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public TurnManager getTurnManager() {
         return new TurnManagerImpl(this.turnManager);
     }
@@ -417,4 +409,5 @@ public class GameLoopImpl implements GameLoop, Cloneable{
         }
         return false;
     }
+
 }

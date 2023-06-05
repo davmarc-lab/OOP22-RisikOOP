@@ -206,11 +206,17 @@ public class MainControllerImpl implements MainController, Cloneable {
         this.side.setCardController();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MainControllerImpl clone() throws CloneNotSupportedException {
         return (MainControllerImpl) super.clone();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MainController getCopy() {
         try {
