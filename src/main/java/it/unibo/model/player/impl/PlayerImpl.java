@@ -186,7 +186,6 @@ public class PlayerImpl implements Player, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -195,7 +194,6 @@ public class PlayerImpl implements Player, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
