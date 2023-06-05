@@ -7,6 +7,7 @@ import it.unibo.controller.combat.api.CombatController;
 import it.unibo.view.combat.api.CombatView;
 
 /**
+ * Implementation of the {@link CombatView} interface.
  * Represents the frame for the combat phase.
  */
 public class CombatFrame extends JFrame implements CombatView {

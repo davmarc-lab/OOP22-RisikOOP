@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import it.unibo.controller.movement.api.MovementController;
 
 /**
- * The {@code MovementPanel} class represent a graphical panel to move the
+ * Represents a graphical panel to move the
  * troops between territories.
  */
 public class MovementPanel extends JPanel {
@@ -73,16 +73,36 @@ public class MovementPanel extends JPanel {
         this.add(currentTerritoryStatus, BorderLayout.SOUTH);
     }
 
+    /**
+     * Updates the view based on the MovementController's state.
+     * Enables or disables the increment and decrement buttons based on the
+     * validity.
+     * 
+     * @param mc the MovementController associated with this panel.
+     */
     private void updateView(final MovementController mc) {
         buttonUp.setEnabled(mc.isNumberValid(Integer.parseInt(number.getText()) + 1));
         buttonDown.setEnabled(mc.isNumberValid(Integer.parseInt(number.getText()) - 1));
         currentTerritoryStatus.setText(getCurrentStatus(mc));
     }
 
+    /**
+     * Calculates the incremented value by adding the offset to the given value.
+     * 
+     * @param val    The original value.
+     * @param offset The offset value to be added.
+     * @return the incremented value.
+     */
     private int getIncrementedValue(final int val, final int offset) {
         return val + offset;
     }
 
+    /**
+     * Gets the current status of the movement.
+     * 
+     * @param mc the MovementController associated with this panel.
+     * @return the current status of the movement.
+     */
     private String getCurrentStatus(final MovementController mc) {
         return new StringBuilder(mc.getFirstTerritory().getName())
                 .append(" troops remaining: ").append(this.source - Integer.parseInt(this.number.getText())).toString();

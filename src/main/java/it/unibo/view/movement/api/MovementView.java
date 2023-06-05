@@ -13,5 +13,4 @@ public interface MovementView {
      * @param mc the controller linked to the popup
      */
     void startPopup(MovementController mc);
-
 }

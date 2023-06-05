@@ -1,7 +1,7 @@
 package it.unibo.view.game_screen.api;
 
 /**
- * The interface that defines the side zone.
+ * Defines the side zone.
  */
 public interface SideZone {
 
@@ -45,5 +45,4 @@ public interface SideZone {
      * @return a copy of SideZone
      */
     SideZone getCopy();
-
 }

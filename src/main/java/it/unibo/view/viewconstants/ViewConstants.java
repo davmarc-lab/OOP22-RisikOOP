@@ -1,7 +1,7 @@
 package it.unibo.view.viewconstants;
 
 /**
- * Class that contains the constants used by the view.
+ * This utility class that contains the constants used by the view.
  */
 public final class ViewConstants {
 

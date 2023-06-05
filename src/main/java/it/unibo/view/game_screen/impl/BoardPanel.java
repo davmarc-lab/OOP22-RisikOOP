@@ -28,8 +28,8 @@ import it.unibo.view.game_screen.api.CustomButton;
 import it.unibo.view.viewconstants.ViewConstants;
 
 /**
- * Implementation of {@link BoardPanel} interface, where the player will be able
- * to click on the territories.
+ * Implementation of {@link BoardPanel} interface.
+ * The player will be able to click on the territories.
  */
 public class BoardPanel extends JPanel implements BoardZone, Cloneable {
 
@@ -71,6 +71,93 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
         this.pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
         this.pane.setPreferredSize(new Dimension(map.getIconWidth(), map.getIconHeight()));
         this.add(this.pane);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void disableButtons(final Set<String> territorySet) {
+        this.territories.entrySet().forEach(e -> {
+            if (territorySet.contains(e.getValue())) {
+                ((JButton) e.getKey()).setEnabled(false);
+                ((JButton) e.getKey()).setBorderPainted(false);
+            }
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void enableAll() {
+        this.territories.entrySet().forEach(e -> {
+            ((JButton) e.getKey()).setEnabled(true);
+            ((JButton) e.getKey()).setBorder(new LineBorder(Color.WHITE, BUTTON_BORDER_SIZE));
+            ((JButton) e.getKey()).setBorderPainted(true);
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void disableAll() {
+        this.territories.entrySet().forEach(e -> {
+            ((JButton) e.getKey()).setEnabled(false);
+            ((JButton) e.getKey()).setBorderPainted(false);
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setTroopsView() {
+        this.controller.getGameLoop().getBoard().getAllPlayers().forEach(
+                p -> p.getTerritories().forEach(
+                        t -> this.getLabel(t.getName()).setForeground(new Color(p.getColorPlayer().getRedValue(),
+                                p.getColorPlayer().getGreenValue(), p.getColorPlayer().getBlueValue()))));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateTroopsView(final String territory) {
+        final int troops = this.controller.getGameLoop().getBoard().getGameTerritories().getTerritories().stream()
+                .filter(t -> t.getName().equals(territory)).findAny().get().getTroops();
+        this.getLabel(territory).setText(String.valueOf(troops));
+        this.getLabel(territory).setForeground(this.getPlayerColor(territory));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Dimension getDimension() {
+        return this.getPreferredSize();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BoardPanel clone() throws CloneNotSupportedException {
+        return (BoardPanel) super.clone();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BoardZone getCopy() {
+        try {
+            return (BoardZone) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(SideBar.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
+        }
+        throw new IllegalCallerException("Cannot create a copy");
     }
 
     /**
@@ -142,64 +229,6 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void disableButtons(final Set<String> territorySet) {
-        this.territories.entrySet().forEach(e -> {
-            if (territorySet.contains(e.getValue())) {
-                ((JButton) e.getKey()).setEnabled(false);
-                ((JButton) e.getKey()).setBorderPainted(false);
-            }
-        });
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void enableAll() {
-        this.territories.entrySet().forEach(e -> {
-            ((JButton) e.getKey()).setEnabled(true);
-            ((JButton) e.getKey()).setBorder(new LineBorder(Color.WHITE, BUTTON_BORDER_SIZE));
-            ((JButton) e.getKey()).setBorderPainted(true);
-        });
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void disableAll() {
-        this.territories.entrySet().forEach(e -> {
-            ((JButton) e.getKey()).setEnabled(false);
-            ((JButton) e.getKey()).setBorderPainted(false);
-        });
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setTroopsView() {
-        this.controller.getGameLoop().getBoard().getAllPlayers().forEach(
-                p -> p.getTerritories().forEach(
-                        t -> this.getLabel(t.getName()).setForeground(new Color(p.getColorPlayer().getRedValue(),
-                                p.getColorPlayer().getGreenValue(), p.getColorPlayer().getBlueValue()))));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void updateTroopsView(final String territory) {
-        final int troops = this.controller.getGameLoop().getBoard().getGameTerritories().getTerritories().stream()
-                .filter(t -> t.getName().equals(territory)).findAny().get().getTroops();
-        this.getLabel(territory).setText(String.valueOf(troops));
-        this.getLabel(territory).setForeground(this.getPlayerColor(territory));
-    }
-
-    /**
      * Retrieves the label relative to a certain territory.
      * 
      * @param t the name of the territory
@@ -220,34 +249,4 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
                 this.controller.getPlayerFromTerritory(territory).getColorPlayer().getGreenValue(),
                 this.controller.getPlayerFromTerritory(territory).getColorPlayer().getBlueValue());
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Dimension getDimension() {
-        return this.getPreferredSize();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public BoardPanel clone() throws CloneNotSupportedException {
-        return (BoardPanel) super.clone();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public BoardZone getCopy() {
-        try {
-            return (BoardZone) this.clone();
-        } catch (CloneNotSupportedException e) {
-            Logger.getLogger(SideBar.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
-        }
-        throw new IllegalCallerException("Cannot create a copy");
-    }
-
 }

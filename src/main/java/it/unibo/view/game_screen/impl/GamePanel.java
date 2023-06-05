@@ -9,7 +9,8 @@ import it.unibo.view.game_screen.api.GameZone;
 import it.unibo.view.game_screen.api.SideZone;
 
 /**
- * Implemetation of {@link GameZone} interface. This class provides methods to interact with the views in the game UI.
+ * Implemetation of {@link GameZone} interface.
+ * This class provides methods to interact with the views in the game UI.
  */
 public final class GamePanel extends JPanel implements GameZone {
 
@@ -23,7 +24,7 @@ public final class GamePanel extends JPanel implements GameZone {
      * thew views in the {@code GamePanel}.
      * 
      * @param board the game board view
-     * @param side the sidebar
+     * @param side  the sidebar
      */
     public GamePanel(final BoardZone board, final SideZone side) {
         this.board = board.getCopy();
@@ -48,5 +49,4 @@ public final class GamePanel extends JPanel implements GameZone {
     public SideZone getSideBar() {
         return this.side.getCopy();
     }
-
 }

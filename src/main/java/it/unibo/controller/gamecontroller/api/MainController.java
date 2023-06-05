@@ -22,14 +22,14 @@ public interface MainController {
     /**
      * Sends a message to be displayed on the GUI.
      * 
-     * @param message
+     * @param message the message to be displayed
      */
     void sendMessage(String message);
 
     /**
      * Disables the specified territories in the GUI.
      * 
-     * @param territories
+     * @param territories the territories to be disabled
      */
     void disableTerritories(Set<String> territories);
 
@@ -85,7 +85,7 @@ public interface MainController {
     /**
      * Retrieves the {@link Player} giving a {@code Territory} name.
      * 
-     * @param territory
+     * @param territory the name of the territory
      * @return the player that possesses that territory
      */
     Player getPlayerFromTerritory(String territory);

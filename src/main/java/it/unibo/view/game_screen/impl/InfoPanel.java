@@ -17,8 +17,8 @@ import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.view.game_screen.api.InfoZone;
 
 /**
- * Implementation of {@link InfoZone} interface, it provides a method to update
- * the view.
+ * Implementation of {@link InfoZone} interface.
+ * It provides a method to update the view.
  */
 public class InfoPanel extends JPanel implements InfoZone {
 
@@ -80,20 +80,7 @@ public class InfoPanel extends JPanel implements InfoZone {
         this.add(objectivePanel, BorderLayout.SOUTH);
     }
 
-    private int getCurrentPlayerId() {
-        return this.controller.getCurrentPlayer().getId();
-    }
-
-    private String getCurrentPlayerColor() {
-        return this.controller.getCurrentPlayer().getColorPlayer().getName();
-    }
-
-    private String getCurrentPlayerObjective() {
-        return this.controller.getCurrentPlayer().getObjective().getDescription();
-    }
-
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -102,5 +89,32 @@ public class InfoPanel extends JPanel implements InfoZone {
                 .setText(new StringBuilder("Player ").append(Integer.toString(this.getCurrentPlayerId())).toString());
         this.cLabel.setText(new StringBuilder("Color : ").append(this.getCurrentPlayerColor()).toString());
         this.objText.setText(this.getCurrentPlayerObjective());
+    }
+
+    /**
+     * Retrieves the current player id.
+     * 
+     * @return the current player id
+     */
+    private int getCurrentPlayerId() {
+        return this.controller.getCurrentPlayer().getId();
+    }
+
+    /**
+     * Retrieves the current player color.
+     * 
+     * @return the current player color
+     */
+    private String getCurrentPlayerColor() {
+        return this.controller.getCurrentPlayer().getColorPlayer().getName();
+    }
+
+    /**
+     * Retrieves the current player objective.
+     * 
+     * @return the current player objective
+     */
+    private String getCurrentPlayerObjective() {
+        return this.controller.getCurrentPlayer().getObjective().getDescription();
     }
 }

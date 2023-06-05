@@ -1,6 +1,5 @@
 package it.unibo.model.gameloop.api;
 
-import java.util.List;
 import java.util.Set;
 
 import it.unibo.controller.gamecontroller.api.MainController;
@@ -44,7 +43,7 @@ public interface GameLoop {
     /**
      * Sets the territories to be displayed on the GUI.
      * 
-     * @param territories
+     * @param territories the territories to be displayed
      */
     void setAvailableTerritories(Set<Territory> territories);
 
@@ -66,20 +65,6 @@ public interface GameLoop {
      * @return the turn manager
      */
     TurnManager getTurnManager();
-
-    /**
-     * Retrieves the list of territories that the user can interface.
-     * 
-     * @return list of selectable territories
-     */
-    List<Territory> getSelectedTerritories();
-
-    /**
-     * Retrieves the list of territories that the user cannot interface.
-     * 
-     * @return list of non selectable territories
-     */
-    List<Territory> getDisabledTerritories();
 
     /**
      * Randomizes the distribution of troops on territories.

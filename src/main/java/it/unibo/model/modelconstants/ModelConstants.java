@@ -1,7 +1,7 @@
 package it.unibo.model.modelconstants;
 
 /**
- * This class contains all the constants used in the model.
+ * This utility class contains the constants used in the model.
  */
 public final class ModelConstants {
 

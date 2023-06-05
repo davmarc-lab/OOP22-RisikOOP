@@ -3,8 +3,7 @@ package it.unibo.view.game_screen.api;
 import it.unibo.controller.playerhand.api.PlayerHandController;
 
 /**
- * The {@link CardZone} interface provide methods to set the
- * {@link PlayerHandController} to update the view.
+ * Provides methods to set the {@link PlayerHandController} to update the view.
  */
 public interface CardZone {
 
@@ -22,5 +21,4 @@ public interface CardZone {
      * @return a copy of CardZone
      */
     CardZone getCopy();
-
 }

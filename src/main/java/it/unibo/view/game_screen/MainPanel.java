@@ -30,8 +30,7 @@ import it.unibo.view.game_screen.impl.MainFrame;
 import it.unibo.view.viewconstants.ViewConstants;
 
 /**
- * The extension of JPanel which defines the main panel of the game with the
- * start menu.
+ * Defines the main panel of the game with the start menu.
  */
 public class MainPanel extends JPanel {
 
@@ -58,8 +57,7 @@ public class MainPanel extends JPanel {
     /**
      * Creates the main panel with the start menu.
      * 
-     * @param frame
-     *              the main frame.
+     * @param frame the main frame.
      */
     public MainPanel(final MainFrame frame) {
         final JPanel panel;
@@ -168,12 +166,27 @@ public class MainPanel extends JPanel {
         this.add(pane);
     }
 
+    /**
+     * Adjusts the image size.
+     * 
+     * @param map    the image to be adjusted
+     * @param width  the width of the image
+     * @param height the height of the image
+     * @return the adjusted image
+     */
     private Image adjustImageSize(final ImageIcon map, final double width, final double height) {
         return map.getImage().getScaledInstance(Double.valueOf(width * WIDTH_PERC).intValue(),
                 Double.valueOf(height * HEIGHT_PERC).intValue(),
                 Image.SCALE_SMOOTH);
     }
 
+    /**
+     * Creates a button with the given name and dimension.
+     * 
+     * @param name the name of the button
+     * @param dim  the dimension of the button
+     * @return the button
+     */
     private JButton createButton(final String name, final Dimension dim) {
         final JButton jb = new JButton(name);
         jb.setPreferredSize(dim);
@@ -186,12 +199,22 @@ public class MainPanel extends JPanel {
         return jb;
     }
 
+    /**
+     * Gets the dimension of the button.
+     * 
+     * @return the dimension of the button
+     */
     private Dimension getButtonDimension() {
         return new Dimension(
                 Double.valueOf(this.dimension.getWidth() * BUTTON_WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * BUTTON_HEIGHT_PERC).intValue());
     }
 
+    /**
+     * Gets the dimension of the inner panel.
+     * 
+     * @return the dimension of the inner panel
+     */
     private Dimension getInnerPanelDimension() {
         return new Dimension(Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * INNER_PANEL_HEIGHT_PERC).intValue());

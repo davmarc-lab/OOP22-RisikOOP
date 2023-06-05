@@ -7,7 +7,8 @@ import it.unibo.controller.movement.api.MovementController;
 import it.unibo.view.movement.api.MovementView;
 
 /**
- * Implementation of {@link MovementView} class represent a graphical frame displaying the
+ * Implementation of {@link MovementView} interface.
+ * Represents a graphical frame displaying the
  * movement view.
  */
 public class MovementFrame extends JFrame implements MovementView {

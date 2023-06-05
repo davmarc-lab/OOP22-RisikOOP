@@ -5,7 +5,7 @@ import java.util.Set;
 import java.awt.Dimension;
 
 /**
- * The {@code BoardZone} interface models a basic view containing the game map and the buttons.
+ * Models a basic view containing the game map and the buttons.
  */
 public interface BoardZone {
 
@@ -50,5 +50,4 @@ public interface BoardZone {
      * @return a copy of BoardZone
      */
     BoardZone getCopy();
-
 }

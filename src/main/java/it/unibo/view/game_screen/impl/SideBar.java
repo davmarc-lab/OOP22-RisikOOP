@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 import java.awt.BorderLayout;
 
 /**
- * Implementation of {@link SideZone} interface, it provides methods to get all
- * the component of itself.
+ * Implementation of {@link SideZone} interface
+ * It provides methods to get all of its components.
  */
 public class SideBar extends JPanel implements SideZone, Cloneable {
 
@@ -120,5 +120,4 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
         }
         throw new IllegalCallerException("Cannot create a copy");
     }
-
 }

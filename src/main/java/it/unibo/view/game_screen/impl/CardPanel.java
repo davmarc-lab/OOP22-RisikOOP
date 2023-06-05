@@ -21,8 +21,9 @@ import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.view.game_screen.api.CardZone;
 
 /**
- * Implementation of {@link CardZone} interface, it provides method to update
- * the view and set the {@link PlayerHandController}.
+ * Implementation of {@link CardZone} interface.
+ * It provides method to update the view and set the
+ * {@link PlayerHandController}.
  */
 public class CardPanel extends JPanel implements CardZone, Cloneable {
 
@@ -95,7 +96,7 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
         firstCard.setEnabled(false);
         secondCard.setEnabled(false);
         thirdCard.setEnabled(false);
-        playCards.setEnabled(false);
+        playCards.setEnabled(true);
         resetCards.setEnabled(false);
 
         firstCard.addActionListener(e -> {
@@ -103,7 +104,6 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
                 this.phc.addInputCard(firstCard.getText());
                 this.firstPlayed.setText(String.valueOf(this.phc.getNumberOfCards(firstCard.getText())));
             }
-            this.phc.updateView();
         });
 
         secondCard.addActionListener(e -> {
@@ -112,7 +112,6 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
                 this.phc.addInputCard(secondCard.getText());
                 this.secondPlayed.setText(String.valueOf(this.phc.getNumberOfCards(secondCard.getText())));
             }
-            this.phc.updateView();
         });
 
         thirdCard.addActionListener(e -> {
@@ -121,7 +120,6 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
                 this.phc.addInputCard(thirdCard.getText());
                 this.thirdPlayed.setText(String.valueOf(this.phc.getNumberOfCards(thirdCard.getText())));
             }
-            this.phc.updateView();
         });
 
         playCards.addActionListener(e -> {
@@ -142,26 +140,6 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
         this.add(playPanel, BorderLayout.SOUTH);
     }
 
-    private void resetUserInput() {
-        this.firstPlayed.setText("0");
-        this.secondPlayed.setText("0");
-        this.thirdPlayed.setText("0");
-        this.phc.clearInputCards();
-        this.phc.updateView();
-    }
-
-    private int getFirstCardCount() {
-        return this.phc.getPlayerFirstCards();
-    }
-
-    private int getSecondCardCount() {
-        return this.phc.getPlayerSecondCards();
-    }
-
-    private int getThirdCardCount() {
-        return this.phc.getPlayerThirdCards();
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -178,7 +156,6 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
         this.firstCard.setEnabled(!this.phc.isInputFull());
         this.secondCard.setEnabled(!this.phc.isInputFull());
         this.thirdCard.setEnabled(!this.phc.isInputFull());
-        this.playCards.setEnabled(this.phc.isInputFull());
         this.firstPlayed.setText(String.valueOf(this.phc.getNumberOfCards(firstCard.getText())));
         this.secondPlayed.setText(String.valueOf(this.phc.getNumberOfCards(secondCard.getText())));
         this.thirdPlayed.setText(String.valueOf(this.phc.getNumberOfCards(thirdCard.getText())));
@@ -207,6 +184,43 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
             Logger.getLogger(CardPanel.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
         }
         throw new IllegalCallerException("Cannot create a copy");
+    }
+
+    /**
+     * Resets the played cards.
+     */
+    private void resetUserInput() {
+        this.firstPlayed.setText("0");
+        this.secondPlayed.setText("0");
+        this.thirdPlayed.setText("0");
+        this.phc.clearInputCards();
+    }
+
+    /**
+     * Counts how many cards of type {@code INFANTRY} are in the player hand.
+     * 
+     * @return the number of cards of the specified type
+     */
+    private int getFirstCardCount() {
+        return this.phc.getPlayerFirstCards();
+    }
+
+    /**
+     * Counts how many cards of type {@code CAVALRY} are in the player hand.
+     * 
+     * @return the number of cards of the specified type
+     */
+    private int getSecondCardCount() {
+        return this.phc.getPlayerSecondCards();
+    }
+
+    /**
+     * Counts how many cards of type {@code ARTILLERY} are in the player hand.
+     * 
+     * @return the number of cards of the specified type
+     */
+    private int getThirdCardCount() {
+        return this.phc.getPlayerThirdCards();
     }
 
 }

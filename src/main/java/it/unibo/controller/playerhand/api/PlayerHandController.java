@@ -75,7 +75,7 @@ public interface PlayerHandController {
     int getPlayerSecondCards();
 
     /**
-     * Counts how many cards oF type {@code ARTILLERY} are in the player's hand.
+     * Counts how many cards of type {@code ARTILLERY} are in the player's hand.
      * 
      * @return the number of cards in the player's hand whose type is
      *         {@code ARTILLERY}

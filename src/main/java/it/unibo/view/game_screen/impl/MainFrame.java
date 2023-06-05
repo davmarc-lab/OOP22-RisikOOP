@@ -11,7 +11,8 @@ import it.unibo.view.game_screen.MainPanel;
 import it.unibo.view.game_screen.api.MainView;
 
 /**
- * This class extends JFrame and defines the main frame of the game.
+ * Implementation of {@link MainView} interface.
+ * Defines the main frame of the game.
  */
 public class MainFrame extends JFrame implements MainView, Cloneable {
 
@@ -33,7 +34,6 @@ public class MainFrame extends JFrame implements MainView, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -42,7 +42,6 @@ public class MainFrame extends JFrame implements MainView, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -78,15 +77,6 @@ public class MainFrame extends JFrame implements MainView, Cloneable {
         this.setVisible(true);
     }
 
-    private void changePanel(final JPanel panel) {
-        this.getContentPane().removeAll();
-        this.getContentPane().revalidate();
-        this.getContentPane().repaint();
-        this.getContentPane().add(panel);
-        this.pack();
-        this.setLocationRelativeTo(null);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -106,6 +96,20 @@ public class MainFrame extends JFrame implements MainView, Cloneable {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Cannot create the copy of the object.");
         }
         throw new IllegalCallerException("Cannot create a copy");
+    }
+
+    /**
+     * Changes the current panel with the given one.
+     * 
+     * @param panel the panel to be shown
+     */
+    private void changePanel(final JPanel panel) {
+        this.getContentPane().removeAll();
+        this.getContentPane().revalidate();
+        this.getContentPane().repaint();
+        this.getContentPane().add(panel);
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
 
 }

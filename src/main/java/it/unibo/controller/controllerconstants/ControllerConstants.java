@@ -1,8 +1,7 @@
 package it.unibo.controller.controllerconstants;
 
 /**
- * This class is used to store constants that will be used by other classes
- * (mainly the json readers).
+ * This utility class contains the constants used by the controllers.
  */
 public final class ControllerConstants {
 
@@ -23,5 +22,4 @@ public final class ControllerConstants {
      */
     private ControllerConstants() {
     }
-
 }

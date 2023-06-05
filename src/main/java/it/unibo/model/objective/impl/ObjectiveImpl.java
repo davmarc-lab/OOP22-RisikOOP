@@ -9,7 +9,8 @@ import it.unibo.model.objective.api.Objective;
 
 /**
  * Implementation of {@link Objective} interface.
- * It provides methods to set the status of the objective and all his attributes.
+ * It provides methods to set the status of the objective and all his
+ * attributes.
  */
 public class ObjectiveImpl implements Objective, Cloneable {
 
@@ -29,13 +30,13 @@ public class ObjectiveImpl implements Objective, Cloneable {
      * secondContinent, thirdContinent, numTerritoriesToConquer, minNumArmies and
      * objective type for the conquer objective.
      * 
-     * @param armyColor
-     * @param firstContinent
-     * @param secondContinent
-     * @param thirdContinent
-     * @param numTerritoriesToConquer
-     * @param minNumArmies
-     * @param objectiveType
+     * @param armyColor               the color of the army to conquer
+     * @param firstContinent          the first continent to conquer
+     * @param secondContinent         the second continent to conquer
+     * @param thirdContinent          whether the third continent is to conquer
+     * @param numTerritoriesToConquer the number of territories to conquer
+     * @param minNumArmies            the minimum number of troops that must be in the territories
+     * @param objectiveType           the type of the objective
      */
     public ObjectiveImpl(final String armyColor, final String firstContinent, final String secondContinent,
             final Boolean thirdContinent, final int numTerritoriesToConquer, final int minNumArmies,
@@ -110,7 +111,7 @@ public class ObjectiveImpl implements Objective, Cloneable {
     public ObjectiveImpl clone() throws CloneNotSupportedException {
         return (ObjectiveImpl) super.clone();
     }
- 
+
     /**
      * Creates the description of the objective based on the objectiveType.
      * 

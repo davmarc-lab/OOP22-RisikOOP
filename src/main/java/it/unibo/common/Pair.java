@@ -1,7 +1,7 @@
 package it.unibo.common;
 
 /**
- * A standard generic Pair<X,Y>, with getters, hashCode, equals, and toString
+ * A standard generic Pair&lt;X,Y&gt;, with getters, hashCode, equals, and toString
  * well implemented.
  * 
  * @param <X> the first value's type
@@ -15,8 +15,8 @@ public final class Pair<X, Y> {
     /**
      * Sets the values.
      * 
-     * @param x
-     * @param y
+     * @param x the first value
+     * @param y the second value
      */
     public Pair(final X x, final Y y) {
         super();

@@ -19,6 +19,8 @@ import java.awt.Insets;
 
 /**
  * Implementation of {@link ButtonZone} interface.
+ * Defines the area inside the side zone where action
+ * buttons are placed.
  */
 public class ButtonPanel extends JPanel implements ButtonZone {
 
@@ -87,13 +89,18 @@ public class ButtonPanel extends JPanel implements ButtonZone {
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
     }
 
+    /**
+     * Creates a button with the specified name and dimension.
+     * 
+     * @param name the name of the button
+     * @param dim  the dimension of the button
+     * @return the button
+     */
     private JButton createButton(final String name, final Dimension dim) {
         final JButton jb = new JButton(name);
         jb.setBounds(0, 0, Double.valueOf(dim.getWidth()).intValue(),
                 Double.valueOf(dim.getHeight() / NUM_OF_BUTTONS).intValue());
         jb.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
-
         return jb;
     }
-
 }

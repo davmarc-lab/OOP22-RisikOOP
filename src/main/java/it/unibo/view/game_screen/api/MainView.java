@@ -1,8 +1,7 @@
 package it.unibo.view.game_screen.api;
 
 /**
- * This interface provides methods to start and close some view like the main
- * menu and the game view.
+ * Provides methods to start and close views.
  */
 public interface MainView {
 
@@ -35,5 +34,4 @@ public interface MainView {
      * @return a copy of the MainView
      */
     MainView getCopy();
-
 }

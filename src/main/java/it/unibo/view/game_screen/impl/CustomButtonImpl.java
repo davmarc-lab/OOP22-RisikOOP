@@ -9,9 +9,10 @@ import javax.swing.JButton;
 import it.unibo.view.game_screen.api.CustomButton;
 
 /**
- * Implementation of CustomButton.
+ * Implementation of {@link CustomButton}.
+ * Models a custom button.
  */
-public final class CustomButtonImpl extends JButton implements CustomButton {
+public class CustomButtonImpl extends JButton implements CustomButton {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,12 +22,13 @@ public final class CustomButtonImpl extends JButton implements CustomButton {
     private Color pressedColor;
 
     /**
-     * Basic constructor. Creates a button with the specified values
+     * Basic constructor.
+     * Creates a button with the specified values
      * 
      * @param x      x position
      * @param y      y position
-     * @param width
-     * @param height
+     * @param width  width of the button
+     * @param height height of the button
      */
     public CustomButtonImpl(final int x, final int y, final int width, final int height) {
         super();
@@ -41,26 +43,41 @@ public final class CustomButtonImpl extends JButton implements CustomButton {
         this.setBackground(hoverColor);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPressedColor(final Color c) {
         this.pressedColor = c;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setHoverColor(final Color c) {
         this.hoverColor = c;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Color getPressedColor() {
         return this.pressedColor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Color getHoverColor() {
         return this.hoverColor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void paintComponent(final Graphics g) {
         if (getModel().isPressed()) {
@@ -73,5 +90,4 @@ public final class CustomButtonImpl extends JButton implements CustomButton {
         g.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g);
     }
-
 }

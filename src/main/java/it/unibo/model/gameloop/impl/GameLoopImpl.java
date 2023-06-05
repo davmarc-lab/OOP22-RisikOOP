@@ -96,6 +96,7 @@ public class GameLoopImpl implements GameLoop, Cloneable {
         }
         this.prepare = false;
         this.selectedTerritories.clear();
+        this.phaseManager.switchToPhase(Phase.PREPARATION);
         this.phaseManager.switchToNextPhase();
         this.controller.setCardController();
         this.controller.updateCards();
@@ -118,6 +119,7 @@ public class GameLoopImpl implements GameLoop, Cloneable {
         }
         switch (this.phaseManager.getCurrentPhase()) {
             case PREPARATION:
+                this.controller.setCardController();
                 this.board.placeTroops(t, 1);
                 this.checkGameState();
                 this.controller.updateSquare(t.getName());
@@ -291,22 +293,6 @@ public class GameLoopImpl implements GameLoop, Cloneable {
     @Override
     public TurnManager getTurnManager() {
         return new TurnManagerImpl(this.turnManager);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Territory> getSelectedTerritories() {
-        return new ArrayList<>(this.selectedTerritories);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Territory> getDisabledTerritories() {
-        return new ArrayList<>(this.disabledTerritories);
     }
 
     /**
