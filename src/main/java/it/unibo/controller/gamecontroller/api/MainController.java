@@ -130,5 +130,9 @@ public interface MainController {
      */
     void setCardController();
 
+    /**
+     * @return a copy of MainController
+     */
     MainController getCopy();
+
 }

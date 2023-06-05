@@ -200,7 +200,7 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
     }
 
     /**
-     * Retrieves the label relative to a certain territory
+     * Retrieves the label relative to a certain territory.
      * 
      * @param t the name of the territory
      * @return the label

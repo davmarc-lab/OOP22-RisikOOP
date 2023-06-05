@@ -3,8 +3,8 @@ package it.unibo.model.gameloop.api;
 import java.util.List;
 import java.util.Set;
 
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.board.api.GameBoard;
-import it.unibo.model.gamestate.api.GameState;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -82,13 +82,6 @@ public interface GameLoop {
     List<Territory> getDisabledTerritories();
 
     /**
-     * Retrieves the {@link GameState} of the game.
-     * 
-     * @return game state of the game
-     */
-    GameState getGameState();
-
-    /**
      * Randomizes the distribution of troops on territories.
      */
     void randomize();
@@ -99,5 +92,12 @@ public interface GameLoop {
      * @return a copy of the current game loop
      */
     GameLoop getCopy();
+
+    /**
+     * Sets the controller.
+     * 
+     * @param controller the controller
+     */
+    void setController(MainController controller);
 
 }

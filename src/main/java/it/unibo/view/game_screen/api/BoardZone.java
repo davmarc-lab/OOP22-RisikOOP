@@ -46,6 +46,9 @@ public interface BoardZone {
      */
     Dimension getDimension();
 
+    /**
+     * @return a copy of BoardZone
+     */
     BoardZone getCopy();
 
 }

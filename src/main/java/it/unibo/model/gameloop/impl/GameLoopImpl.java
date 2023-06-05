@@ -28,7 +28,7 @@ import it.unibo.model.territory.api.Territory;
  * Processes the input received from the view
  * and tell the view what to render.
  */
-public class GameLoopImpl implements GameLoop, Cloneable{
+public class GameLoopImpl implements GameLoop, Cloneable {
 
     private static final int PREPARATION_TROOPS = 3;
     private static final String COMBAT_MESSAGE = new StringBuilder("Select an adjacent enemy territory.")
@@ -47,28 +47,24 @@ public class GameLoopImpl implements GameLoop, Cloneable{
     private final PhaseManager phaseManager;
     private final GameBoard board;
     private final TurnManager turnManager;
-    private final MainController controller;
     private final GameState gameState;
     private final List<Territory> selectedTerritories;
     private final List<Territory> disabledTerritories;
     private final Random rand;
+    private MainController controller = null;
 
     private boolean prepare = true;
 
     /**
-     * Constructs an instance of {@link GameLoop} providing the
-     * {@code MainController} of the application.
-     * 
-     * @param controller main controller of application
+     * Constructs an instance of {@link GameLoop}.
      */
-    public GameLoopImpl(final MainController controller) {
+    public GameLoopImpl() {
         this.selectedTerritories = new ArrayList<>();
         this.disabledTerritories = new ArrayList<>();
-        this.controller = controller;
         this.board = new GameBoardImpl();
         this.turnManager = this.board.getTurnManager();
         this.phaseManager = new PhaseManagerImpl();
-        this.gameState = new GameStateImpl(this.controller);
+        this.gameState = new GameStateImpl();
         this.rand = new Random();
     }
 
@@ -317,14 +313,6 @@ public class GameLoopImpl implements GameLoop, Cloneable{
      * {@inheritDoc}
      */
     @Override
-    public GameState getGameState() {
-        return this.gameState;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public GameLoopImpl clone() throws CloneNotSupportedException {
         return (GameLoopImpl) super.clone();
     }
@@ -408,6 +396,15 @@ public class GameLoopImpl implements GameLoop, Cloneable{
             return true;
         }
         return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setController(final MainController controller) {
+        this.controller = controller.getCopy();
+        this.gameState.setController(this.controller);
     }
 
 }

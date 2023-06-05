@@ -41,6 +41,9 @@ public interface SideZone {
      */
     void setCardController();
 
+    /**
+     * @return a copy of SideZone
+     */
     SideZone getCopy();
 
 }

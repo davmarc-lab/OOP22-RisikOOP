@@ -37,7 +37,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     public MainControllerImpl(final StartController startController) {
         this.startController = startController;
-        this.loop = new GameLoopImpl(this);
+        this.loop = new GameLoopImpl();
         this.board = new BoardPanel(this);
         this.side = new SideBar(this.board.getDimension(), this);
     }
@@ -47,6 +47,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public void startLoop() {
+        this.loop.setController(this);
         this.loop.start();
     }
 

@@ -15,16 +15,12 @@ import it.unibo.model.player.api.Player;
  */
 public class GameStateImpl implements GameState {
 
-    private final MainController mc;
+    private MainController mc = null;
 
     /**
-     * Constructs a new instance of GameStateImpl with the specified
-     * {@link MainController}.
-     *
-     * @param mc the main controller
+     * Constructs a new instance of GameStateImpl.
      */
-    public GameStateImpl(final MainController mc) {
-        this.mc = mc;
+    public GameStateImpl() {
     }
 
     /**
@@ -147,4 +143,13 @@ public class GameStateImpl implements GameState {
         return player.getTerritories().containsAll(this.mc.getGameLoop().getBoard().getGameTerritories()
                 .getTerritoryMap().get(continent));
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setController(final MainController controller) {
+        this.mc = controller.getCopy();
+    }
+
 }

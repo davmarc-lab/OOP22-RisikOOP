@@ -9,9 +9,7 @@ import it.unibo.controller.playerhand.api.PlayerHandController;
 public interface CardZone {
 
     /**
-     * Sets the {@link PlayerHandController}.
-     * 
-     * @param controller
+     * Sets a new {@link PlayerHandController}.
      */
     void setController();
 
@@ -20,6 +18,9 @@ public interface CardZone {
      */
     void updateView();
 
+    /**
+     * @return a copy of CardZone
+     */
     CardZone getCopy();
 
 }

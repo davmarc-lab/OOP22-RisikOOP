@@ -1,5 +1,6 @@
 package it.unibo.model.gamestate.api;
 
+import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.player.api.Player;
 
 /**
@@ -20,4 +21,12 @@ public interface GameState {
      * @return the player who won the game
      */
     Player getWinner();
+
+    /**
+     * Sets the controller.
+     * 
+     * @param controller the controller
+     */
+    void setController(MainController controller);
+
 }
