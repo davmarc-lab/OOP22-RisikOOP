@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
+/**
+ * Tests the combat between two territories.
+ */
 class TestCombat {
 
     private static final List<Integer> ATTACKERS_INTEGERS = new ArrayList<>(List.of(6, 5));
@@ -49,7 +52,6 @@ class TestCombat {
                 .forEach(t -> p1.addTerritory(t));
         Stream.of(territories.getTerritory(BRAZIL_NAME), territories.getTerritory(UKRAINE_NAME))
                 .forEach(t -> p2.addTerritory(t));
-
     }
 
     @Test
@@ -77,7 +79,6 @@ class TestCombat {
                 .forEach(t -> p2.addTerritory(t));
         assertEquals(Set.of(territories.getTerritory(BRAZIL_NAME), territories.getTerritory(EGYPT_NAME),
                 territories.getTerritory(UKRAINE_NAME)), p2.getTerritories());
-
     }
 
     @Test

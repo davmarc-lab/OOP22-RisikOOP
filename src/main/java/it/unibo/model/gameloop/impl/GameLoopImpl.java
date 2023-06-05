@@ -96,8 +96,7 @@ public class GameLoopImpl implements GameLoop, Cloneable {
         }
         this.prepare = false;
         this.selectedTerritories.clear();
-        this.phaseManager.switchToPhase(Phase.PREPARATION);
-        this.phaseManager.switchToNextPhase();
+        this.endPlayerTurn();
         this.controller.setCardController();
         this.controller.updateCards();
         this.controller.updateInfo();
