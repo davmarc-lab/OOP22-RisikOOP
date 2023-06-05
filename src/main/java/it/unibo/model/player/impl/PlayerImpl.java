@@ -21,7 +21,7 @@ import it.unibo.model.territory.api.Territory;
  */
 public class PlayerImpl implements Player, Cloneable {
 
-    private int id;
+    private final int id;
     private final Deck<Territory> territories;
     private final Hand playerHand;
     private Objective objective;
@@ -54,14 +54,6 @@ public class PlayerImpl implements Player, Cloneable {
     @Override
     public int getId() {
         return this.id;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getArmy(final Territory t) {
-        return this.territories.getDeck().stream().filter(x -> x.equals(t)).findFirst().get().getTroops();
     }
 
     /**
@@ -126,22 +118,6 @@ public class PlayerImpl implements Player, Cloneable {
     @Override
     public int playCards(final List<Army> cards) {
         return this.playerHand.playCards(cards);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Deck<Territory> getTerritoryDeck() {
-        return new DeckImpl<>(this.territories.getDeck());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setId(final int id) {
-        this.id = id;
     }
 
     /**

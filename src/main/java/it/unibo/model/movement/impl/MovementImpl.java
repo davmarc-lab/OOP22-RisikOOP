@@ -31,22 +31,6 @@ public class MovementImpl implements Movement {
      * {@inheritDoc}
      */
     @Override
-    public Territory getSource() {
-        return new TerritoryImpl(this.source);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Territory getDestination() {
-        return new TerritoryImpl(this.destination);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean isMovementValid() {
         return this.source.getTroops() - this.troops >= 1;
     }

@@ -123,30 +123,6 @@ public class GameBoardImpl implements GameBoard {
      * {@inheritDoc}
      */
     @Override
-    public Deck<Army> getArmyDeck() {
-        return new DeckImpl<>(this.armyDeck.getDeck());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Deck<Objective> getObjectives() {
-        return new DeckImpl<>(this.objectiveDeck.getDeck());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Deck<Territory> getTerritoryDeck() {
-        return new DeckImpl<>(this.gameTerritory.getTerritories());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public GameTerritory getGameTerritories() {
         return this.gameTerritory;
     }

@@ -3,10 +3,7 @@ package it.unibo.model.board.api;
 import java.util.List;
 
 import it.unibo.common.Pair;
-import it.unibo.model.army.api.Army;
-import it.unibo.model.deck.api.Deck;
 import it.unibo.model.gameloop.api.TurnManager;
-import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
@@ -106,27 +103,6 @@ public interface GameBoard {
      * @param newTerritory arrival territory
      */
     void instanceMovement(Territory oldTerritory, Territory newTerritory);
-
-    /**
-     * Retrieves the army deck.
-     * 
-     * @return the army deck's data structure
-     */
-    Deck<Army> getArmyDeck();
-
-    /**
-     * Retrieves the objective deck.
-     * 
-     * @return the objectives' data structure
-     */
-    Deck<Objective> getObjectives();
-
-    /**
-     * Retrieves the territory deck.
-     * 
-     * @return territory deck data structure
-     */
-    Deck<Territory> getTerritoryDeck();
 
     /**
      * Retrieves a list of all player in the game.

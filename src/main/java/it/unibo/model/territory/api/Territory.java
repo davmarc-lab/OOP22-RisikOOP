@@ -41,12 +41,4 @@ public interface Territory {
      * @param n number of troops to add
      */
     void addTroops(int n);
-
-    /**
-     * Gets a copy of a territory.
-     * 
-     * @param t the territory to copy
-     * @return a copy of the territory given
-     */
-    Territory getCopyOfTerritory(Territory t);
 }

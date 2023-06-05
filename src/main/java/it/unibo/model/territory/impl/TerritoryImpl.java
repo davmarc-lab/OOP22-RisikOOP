@@ -11,7 +11,7 @@ import it.unibo.model.territory.api.Territory;
  */
 public class TerritoryImpl implements Territory {
 
-    private String name;
+    private final String name;
     private final Set<Territory> adjTerritories;
     private int numTroops;
 
@@ -75,14 +75,6 @@ public class TerritoryImpl implements Territory {
     @Override
     public void addTroops(final int n) {
         this.numTroops += n;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Territory getCopyOfTerritory(final Territory t) {
-        return new TerritoryImpl(t);
     }
 
     /**

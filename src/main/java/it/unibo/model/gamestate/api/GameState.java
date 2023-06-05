@@ -28,5 +28,4 @@ public interface GameState {
      * @param controller the controller
      */
     void setController(MainController controller);
-
 }

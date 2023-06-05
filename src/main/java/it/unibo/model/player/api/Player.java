@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.army.api.Army;
-import it.unibo.model.deck.api.Deck;
 import it.unibo.model.hand.api.Hand;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.territory.api.Territory;
@@ -26,7 +25,7 @@ public interface Player {
         /**
          * Blue color.
          */
-        BLUE("BLUE", 0, 0, 255),
+        BLUE("BLUE", 0, 153, 255),
         /**
          * Red color.
          */
@@ -109,21 +108,6 @@ public interface Player {
     int getId();
 
     /**
-     * Sets player's id.
-     * 
-     * @param id player id
-     */
-    void setId(int id);
-
-    /**
-     * Retrieves the number of armies in a {@code Territory}.
-     * 
-     * @param t territory
-     * @return the number of armies in the territory
-     */
-    int getArmy(Territory t);
-
-    /**
      * Adds a {@code Territory} to player's territory.
      * 
      * @param territory stream of territories that will be added to player
@@ -186,13 +170,6 @@ public interface Player {
      * @return the number of bonus troops acquired
      */
     int playCards(List<Army> cards);
-
-    /**
-     * Retrieves player's territory deck.
-     * 
-     * @return player's territory deck
-     */
-    Deck<Territory> getTerritoryDeck();
 
     /**
      * Adds bonustroops to the player.

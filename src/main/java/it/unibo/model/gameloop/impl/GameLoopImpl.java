@@ -274,14 +274,6 @@ public class GameLoopImpl implements GameLoop, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public PhaseManager getPhaseManager() {
-        return this.phaseManager;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public GameBoard getBoard() {
         return this.board;
     }

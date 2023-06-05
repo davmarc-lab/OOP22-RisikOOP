@@ -48,11 +48,6 @@ public interface GameLoop {
     void setAvailableTerritories(Set<Territory> territories);
 
     /**
-     * @return the phase manager
-     */
-    PhaseManager getPhaseManager();
-
-    /**
      * Retrives the {@link GameBoard} of the game.
      * 
      * @return the game board
@@ -84,5 +79,4 @@ public interface GameLoop {
      * @param controller the controller
      */
     void setController(MainController controller);
-
 }

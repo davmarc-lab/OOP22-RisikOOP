@@ -41,12 +41,4 @@ public interface Army {
      * @return the type of the Army card.
      */
     ArmyType getArmyType();
-
-    /**
-     * Gets the string representation of the Army card.
-     * 
-     * @return the string representation of the Army card.
-     */
-    @Override
-    String toString();
 }
