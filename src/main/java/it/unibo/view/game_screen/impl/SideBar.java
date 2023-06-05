@@ -30,18 +30,16 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     private final CardZone cp;
     private final ButtonZone bp;
     private final transient MainController controller;
-    private final Dimension boardSize;
 
     /**
      * Constructs a {@code SideBar} containing the different panels.
      * 
-     * @param size   the size of the sidebar
+     * @param size       the size of the sidebar
      * @param controller the main controller
      */
     public SideBar(final Dimension size, final MainController controller) {
         super();
-        this.boardSize = new Dimension(Double.valueOf(size.getWidth()).intValue(), Double.valueOf(size.getHeight()).intValue());
-        this.controller = controller;
+        this.controller = controller.getCopy();
         final Dimension dim = new Dimension(Double.valueOf(size.getWidth() * WIDTH_SCALING).intValue(),
                 Double.valueOf(size.getHeight()).intValue());
         this.setPreferredSize(dim);
@@ -58,7 +56,6 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -67,16 +64,14 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
     public CardZone getCardPanel() {
-        return this.cp;
+        return this.cp.getCopy();
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -85,7 +80,6 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -94,7 +88,6 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -103,7 +96,6 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -111,21 +103,17 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
         this.cp.setController(new PlayerHandControllerImpl(this.controller.getCurrentPlayer(), cp));
     }
 
-    @Override
-    public Dimension getBoardSize() {
-        return this.boardSize;
-    }
-
-    @Override
-    public MainController getController() {
-        return this.controller;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SideBar clone() throws CloneNotSupportedException {
         return (SideBar) super.clone();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SideZone getCopy() {
         try {

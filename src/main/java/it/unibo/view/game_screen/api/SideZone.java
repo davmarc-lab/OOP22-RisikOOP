@@ -1,9 +1,5 @@
 package it.unibo.view.game_screen.api;
 
-import java.awt.Dimension;
-
-import it.unibo.controller.gamecontroller.api.MainController;
-
 /**
  * The interface that defines the side zone.
  */
@@ -44,10 +40,6 @@ public interface SideZone {
      * Set the {@code PlayerHandController} for {@code CardZone}.
      */
     void setCardController();
-
-    Dimension getBoardSize();
-
-    MainController getController();
 
     SideZone getCopy();
 

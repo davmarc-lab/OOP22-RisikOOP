@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,7 +24,7 @@ import it.unibo.view.game_screen.api.CardZone;
  * Implementation of {@link CardZone} interface, it provides method to update
  * the view and set the {@link PlayerHandController}.
  */
-public class CardPanel extends JPanel implements CardZone {
+public class CardPanel extends JPanel implements CardZone, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
@@ -185,4 +187,26 @@ public class CardPanel extends JPanel implements CardZone {
         this.secondText.setText(String.valueOf(this.getSecondCardCount()));
         this.thirdText.setText(String.valueOf(this.getThirdCardCount()));
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CardPanel clone() throws CloneNotSupportedException {
+        return (CardPanel) super.clone();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CardZone getCopy() {
+        try {
+            return (CardZone) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(CardPanel.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
+        }
+        throw new IllegalCallerException("Cannot create a copy");
+    }
+
 }

@@ -19,4 +19,7 @@ public interface CardZone {
      * Updates the view with newer values.
      */
     void updateView();
+
+    CardZone getCopy();
+
 }
