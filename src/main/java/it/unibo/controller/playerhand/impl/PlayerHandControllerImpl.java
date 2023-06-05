@@ -37,7 +37,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
      */
     @Override
     public List<Army> getInputCards() {
-        return this.inputCards;
+        return new ArrayList<>(this.inputCards);
     }
 
     /**
@@ -127,14 +127,6 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     @Override
     public String getMessage() {
         return this.message;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CardZone getView() {
-        return this.view;
     }
 
     /**

@@ -166,8 +166,8 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public void setController(final PlayerHandController controller) {
-        this.phc = new PlayerHandControllerImpl(this.controller.getCurrentPlayer(), controller.getView());
+    public void setController() {
+        this.phc = new PlayerHandControllerImpl(this.controller.getCurrentPlayer(), this);
     }
 
     /**

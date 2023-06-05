@@ -3,7 +3,6 @@ package it.unibo.controller.playerhand.api;
 import java.util.List;
 
 import it.unibo.model.army.api.Army;
-import it.unibo.view.game_screen.api.CardZone;
 
 /**
  * Models a controller used for the player's hand.
@@ -87,11 +86,6 @@ public interface PlayerHandController {
      * @return the message that contains the result of an attempt to play cards
      */
     String getMessage();
-
-    /**
-     * @return the GUI that manages the cards
-     */
-    CardZone getView();
 
     /**
      * Updates the view of the hand of the player.

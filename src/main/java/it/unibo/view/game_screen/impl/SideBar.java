@@ -3,7 +3,6 @@ package it.unibo.view.game_screen.impl;
 import javax.swing.JPanel;
 
 import it.unibo.controller.gamecontroller.api.MainController;
-import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
 import it.unibo.view.game_screen.api.ButtonZone;
 import it.unibo.view.game_screen.api.CardZone;
 import it.unibo.view.game_screen.api.InfoZone;
@@ -100,7 +99,7 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
      */
     @Override
     public void setCardController() {
-        this.cp.setController(new PlayerHandControllerImpl(this.controller.getCurrentPlayer(), cp));
+        this.cp.setController();
     }
 
     /**

@@ -13,7 +13,7 @@ public interface CardZone {
      * 
      * @param controller
      */
-    void setController(PlayerHandController controller);
+    void setController();
 
     /**
      * Updates the view with newer values.
