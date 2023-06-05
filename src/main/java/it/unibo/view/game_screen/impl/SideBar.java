@@ -28,7 +28,6 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     private final InfoZone ip;
     private final CardZone cp;
     private final ButtonZone bp;
-    private final transient MainController controller;
 
     /**
      * Constructs a {@code SideBar} containing the different panels.
@@ -38,7 +37,6 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
      */
     public SideBar(final Dimension size, final MainController controller) {
         super();
-        this.controller = controller.getCopy();
         final Dimension dim = new Dimension(Double.valueOf(size.getWidth() * WIDTH_SCALING).intValue(),
                 Double.valueOf(size.getHeight()).intValue());
         this.setPreferredSize(dim);
@@ -46,9 +44,9 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
         final BorderLayout layout = new BorderLayout();
         layout.setVgap(VGAP);
         this.setLayout(layout);
-        this.ip = new InfoPanel(dim, this.controller);
-        this.cp = new CardPanel(dim, this.controller);
-        this.bp = new ButtonPanel(dim, this.controller);
+        this.ip = new InfoPanel(dim, controller);
+        this.cp = new CardPanel(dim, controller);
+        this.bp = new ButtonPanel(dim, controller);
         this.add((InfoPanel) this.ip, BorderLayout.NORTH);
         this.add((CardPanel) this.cp, BorderLayout.CENTER);
         this.add((ButtonPanel) this.bp, BorderLayout.SOUTH);

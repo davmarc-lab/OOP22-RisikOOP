@@ -15,13 +15,7 @@ import it.unibo.model.player.api.Player;
  */
 public class GameStateImpl implements GameState {
 
-    private MainController mc = null;
-
-    /**
-     * Constructs a new instance of GameStateImpl.
-     */
-    public GameStateImpl() {
-    }
+    private MainController mc;
 
     /**
      * {@inheritDoc}

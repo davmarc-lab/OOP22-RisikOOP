@@ -51,7 +51,7 @@ public class GameLoopImpl implements GameLoop, Cloneable {
     private final List<Territory> selectedTerritories;
     private final List<Territory> disabledTerritories;
     private final Random rand;
-    private MainController controller = null;
+    private MainController controller;
 
     private boolean prepare = true;
 
