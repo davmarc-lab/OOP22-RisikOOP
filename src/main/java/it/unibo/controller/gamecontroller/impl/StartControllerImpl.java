@@ -13,7 +13,7 @@ import it.unibo.view.game_screen.impl.MainFrame;
 public class StartControllerImpl implements StartController {
 
     private final MainView view;
-    private MainController mainController;
+    private final MainController mainController;
 
     /**
      * Construct an instance of StartControllerImpl.
@@ -21,6 +21,7 @@ public class StartControllerImpl implements StartController {
     public StartControllerImpl() {
         this.view = new MainFrame(this);
         this.view.startMainMenu();
+        this.mainController = new MainControllerImpl(this);
     }
 
     /**
@@ -44,7 +45,6 @@ public class StartControllerImpl implements StartController {
      */
     @Override
     public void startGame() {
-        this.mainController = new MainControllerImpl(this);
         this.view.changeToGamePanel();
         this.mainController.startLoop();
     }
@@ -54,7 +54,7 @@ public class StartControllerImpl implements StartController {
      */
     @Override
     public MainView getView() {
-        return this.view;
+        return this.view.getCopy();
     }
 
     /**
@@ -62,6 +62,6 @@ public class StartControllerImpl implements StartController {
      */
     @Override
     public MainController getMainController() {
-        return this.mainController;
+        return this.mainController.getCopy();
     }
 }

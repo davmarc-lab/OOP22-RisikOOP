@@ -30,4 +30,10 @@ public interface MainView {
      * Sets visible the main menu view.
      */
     void reveal();
+
+    /**
+     * @return a copy of the MainView
+     */
+    MainView getCopy();
+
 }

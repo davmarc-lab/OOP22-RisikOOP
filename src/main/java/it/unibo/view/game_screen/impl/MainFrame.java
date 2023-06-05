@@ -1,5 +1,8 @@
 package it.unibo.view.game_screen.impl;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -10,7 +13,7 @@ import it.unibo.view.game_screen.api.MainView;
 /**
  * This class extends JFrame and defines the main frame of the game.
  */
-public class MainFrame extends JFrame implements MainView {
+public class MainFrame extends JFrame implements MainView, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
@@ -83,4 +86,26 @@ public class MainFrame extends JFrame implements MainView {
         this.pack();
         this.setLocationRelativeTo(null);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MainFrame clone() throws CloneNotSupportedException {
+        return (MainFrame) super.clone();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MainView getCopy() {
+        try {
+            return (MainView) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Cannot create the copy of the object.");
+        }
+        throw new IllegalCallerException("Cannot create a copy");
+    }
+
 }
