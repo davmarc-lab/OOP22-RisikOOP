@@ -5,7 +5,7 @@ import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
- * Implementation of Movement.
+ * Implementation of {@link Movement}.
  */
 public class MovementImpl implements Movement {
 
@@ -50,5 +50,4 @@ public class MovementImpl implements Movement {
     public boolean isMovementValid() {
         return this.source.getTroops() - this.troops >= 1;
     }
-
 }

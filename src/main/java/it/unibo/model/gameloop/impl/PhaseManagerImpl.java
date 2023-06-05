@@ -3,14 +3,15 @@ package it.unibo.model.gameloop.impl;
 import it.unibo.model.gameloop.api.PhaseManager;
 
 /**
- * Implementation of PhaseManager.
+ * Implementation of {@link PhaseManager}.
+ * Used to manage all the phases of a turn.
  */
 public class PhaseManagerImpl implements PhaseManager {
 
     private Phase currentPhase;
 
     /**
-     * The constructor sets the current phase to PREPARATION because it's the first
+     * Constructor that sets the current phase to PREPARATION because it's the first
      * phase of a turn.
      */
     public PhaseManagerImpl() {
@@ -48,5 +49,4 @@ public class PhaseManagerImpl implements PhaseManager {
     public String toString() {
         return "[Current phase --> " + currentPhase + "]";
     }
-
 }

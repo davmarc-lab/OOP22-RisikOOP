@@ -10,7 +10,7 @@ import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * The class that implements GameTerritory.
+ * Implementation of {@link GameTerritory} interface.
  * It manages the territories created by the factory.
  */
 public class GameTerritoryImpl implements GameTerritory {
@@ -20,15 +20,13 @@ public class GameTerritoryImpl implements GameTerritory {
     /**
      * Creates a copy of the territories given and operates on them.
      * 
-     * @param t
-     *          the {@code map of string and set of territories}
+     * @param t the map of string and set of territories
      */
     public GameTerritoryImpl(final Map<String, Set<Territory>> t) {
         this.territories = new HashMap<>(t);
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -37,7 +35,6 @@ public class GameTerritoryImpl implements GameTerritory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -46,7 +43,6 @@ public class GameTerritoryImpl implements GameTerritory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -55,7 +51,6 @@ public class GameTerritoryImpl implements GameTerritory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -66,7 +61,6 @@ public class GameTerritoryImpl implements GameTerritory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -75,7 +69,6 @@ public class GameTerritoryImpl implements GameTerritory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -84,7 +77,6 @@ public class GameTerritoryImpl implements GameTerritory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override

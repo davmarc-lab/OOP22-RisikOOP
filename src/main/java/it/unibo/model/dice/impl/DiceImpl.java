@@ -8,9 +8,9 @@ import java.util.stream.IntStream;
 import it.unibo.model.dice.api.Dice;
 
 /**
- * Implementation of the Dice interface.
+ * Implementation of the {@link Dice} interface.
  */
-public final class DiceImpl implements Dice {
+public class DiceImpl implements Dice {
     private final int numFaces;
     private int currentValue;
     private final Random random;
@@ -26,12 +26,18 @@ public final class DiceImpl implements Dice {
         this.currentValue = 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int roll() {
         this.currentValue = random.nextInt(this.numFaces) + 1;
         return this.currentValue;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Integer> rollMultiple(final int numDice) {
         return IntStream.range(0, numDice)

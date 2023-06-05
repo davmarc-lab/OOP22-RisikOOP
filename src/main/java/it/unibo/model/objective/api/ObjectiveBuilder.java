@@ -69,5 +69,4 @@ public interface ObjectiveBuilder {
      * @return the objective
      */
     Objective build();
-
 }

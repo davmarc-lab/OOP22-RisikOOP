@@ -119,7 +119,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public GameLoop getGameLoop() {
-        return new GameLoopImpl(loop);
+        return this.loop.getCopy();
     }
 
     /**

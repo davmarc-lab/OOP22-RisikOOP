@@ -12,7 +12,7 @@ import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * The {@code GameBoard} interface provides methods to interact with the game
+ * Provides methods to interact with the game
  * board.
  */
 public interface GameBoard {
@@ -60,9 +60,9 @@ public interface GameBoard {
         private final int bonusTroops;
 
         /**
-         * Constructor to create the enum values.
+         * Constructor that creates the enum values.
          * 
-         * @param continent the continetn's name
+         * @param continent the continent's name
          * @param number    the number of bonus troops.
          */
         BonusTroops(final String continent, final int number) {
@@ -90,7 +90,7 @@ public interface GameBoard {
     }
 
     /**
-     * Initiate a combat between two territories.
+     * Initiate combat between two territories.
      * 
      * @param attacker attacker territory
      * @param defender defender territory
@@ -156,14 +156,14 @@ public interface GameBoard {
     TurnManager getTurnManager();
 
     /**
-     * Make a player draw a card.
+     * Makes a player draw a card.
      * 
      * @param player the player that draws a card
      */
     void playerDrawArmyCard(Player player);
 
     /**
-     * Define the current player bonus troops depending on the territories he
+     * Defines the current player bonus troops depending on the territories he
      * controls.
      * 
      * @param player the player that will get the bonus troops
@@ -171,11 +171,10 @@ public interface GameBoard {
     void defineBonusArmies(Player player);
 
     /**
-     * Place troops on a territory.
+     * Places troops on a territory.
      * 
      * @param territory the territory that will receive the troops
      * @param troops    the number of troops to be placed
      */
     void placeTroops(Territory territory, int troops);
-
 }

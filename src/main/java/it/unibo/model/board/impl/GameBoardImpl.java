@@ -38,6 +38,8 @@ import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 /**
  * Implementation of {@link GameBoard} interface.
+ * Provides methods to interact with the game
+ * board.
  */
 public class GameBoardImpl implements GameBoard {
 
@@ -50,7 +52,7 @@ public class GameBoardImpl implements GameBoard {
     private Deck<Objective> objectiveDeck;
 
     /**
-     * Constructor of {@code GameBoardImpl} that inizialize all fields.
+     * Constructor that inizialize all fields.
      */
     public GameBoardImpl() {
         createPlayers();
@@ -65,43 +67,7 @@ public class GameBoardImpl implements GameBoard {
     }
 
     /**
-     * Creates all players.
-     */
-    private void createPlayers() {
-        final List<Player.Color> colors = Arrays.asList(Player.Color.values());
-        Collections.shuffle(colors);
-        IntStream.range(0, ModelConstants.MAX_PLAYERS)
-                .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>())
-                        .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build())
-                        .color(colors.get(i))
-                        .bonusTroops(0).build())
-                .forEach(this.players::add);
-    }
-
-    /**
-     * Creates the army deck.
-     */
-    private void createArmyDeck() {
-        Arrays.stream(Army.ArmyType.values())
-                .forEach(armyType -> IntStream
-                        .range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
-                        .forEach(i -> this.armyDeck.addCard(new ArmyImpl(armyType))));
-        this.armyDeck.shuffle();
-    }
-
-    /**
-     * Creates the objective deck.
-     */
-    private void createObjectiveDeck() {
-        this.objectiveDeck = new DeckImpl<>(this.gameObjective.getSetObjectives());
-        this.objectiveDeck.shuffle();
-    }
-
-    /**
-     * Retrieves a player from an id.
-     * 
-     * @param id players's id
-     * @return player
+     * {@inheritDoc}
      */
     @Override
     public Player getPlayerFromId(final int id) {
@@ -232,5 +198,38 @@ public class GameBoardImpl implements GameBoard {
     public void placeTroops(final Territory territory, final int troops) {
         territory.addTroops(troops);
         this.players.stream().filter(p -> p.getTerritories().contains(territory)).findAny().get().addTroops(-troops);
+    }
+
+    /**
+     * Creates all players.
+     */
+    private void createPlayers() {
+        final List<Player.Color> colors = Arrays.asList(Player.Color.values());
+        Collections.shuffle(colors);
+        IntStream.range(0, ModelConstants.MAX_PLAYERS)
+                .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>())
+                        .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build())
+                        .color(colors.get(i))
+                        .bonusTroops(0).build())
+                .forEach(this.players::add);
+    }
+
+    /**
+     * Creates the army deck.
+     */
+    private void createArmyDeck() {
+        Arrays.stream(Army.ArmyType.values())
+                .forEach(armyType -> IntStream
+                        .range(0, ModelConstants.MAX_CARDS_FOR_EACH_PLAYER / ModelConstants.MAX_PLAYERS)
+                        .forEach(i -> this.armyDeck.addCard(new ArmyImpl(armyType))));
+        this.armyDeck.shuffle();
+    }
+
+    /**
+     * Creates the objective deck.
+     */
+    private void createObjectiveDeck() {
+        this.objectiveDeck = new DeckImpl<>(this.gameObjective.getSetObjectives());
+        this.objectiveDeck.shuffle();
     }
 }

@@ -8,8 +8,8 @@ import it.unibo.common.Pair;
 import it.unibo.model.objective.api.Objective;
 
 /**
- * Implementation of {@link Objective} interface. It provides methods to set the
- * status of the objective and all his attributes.
+ * Implementation of {@link Objective} interface.
+ * It provides methods to set the status of the objective and all his attributes.
  */
 public class ObjectiveImpl implements Objective, Cloneable {
 

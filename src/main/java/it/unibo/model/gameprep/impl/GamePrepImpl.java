@@ -13,7 +13,8 @@ import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * Implementation of the GamePrep interface.
+ * Implementation of {@link GamePrep} interface.
+ * Provides a method to prepare the player for the game.
  */
 public class GamePrepImpl implements GamePrep {
 

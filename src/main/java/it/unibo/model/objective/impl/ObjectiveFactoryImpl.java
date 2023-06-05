@@ -9,8 +9,8 @@ import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.api.ObjectiveFactory;
 
 /**
- * Implementation of the ObjectiveFactory interface that creates objectives from
- * a JSON file.
+ * Implementation of {@link ObjectiveFactory} interface.
+ * Creates objectives from a JSON file.
  */
 public class ObjectiveFactoryImpl implements ObjectiveFactory {
     /**

@@ -5,13 +5,14 @@ import java.util.List;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * The {@code Combat} interface provides methods to instance a combat between
- * two players and some enum to check the results and roles of each player.
+ * Provides methods to instance a combat
+ * between two players and enums to check the results and
+ * roles of each player.
  */
 public interface Combat {
 
     /**
-     * This enum is used for calculating the comabt between two dices.
+     * Used to calculate the combat between two dices.
      * The possible values are:
      * {@link #WIN},
      * {@link #LOSE},
@@ -19,12 +20,12 @@ public interface Combat {
      */
     enum Result {
         /**
-         * The attacker win fight.
+         * The attacker wins fight.
          */
         WIN,
 
         /**
-         * The attacker lose fight.
+         * The attacker loses fight.
          */
         LOSE,
 
@@ -41,21 +42,21 @@ public interface Combat {
     enum Role {
         /**
          * Attacker role.
-         * Has to leave at least 1 troop on the territory he attacks from
+         * Has to leave at least 1 troop on the territory he attacks from.
          */
         ATTACKER(1),
 
         /**
          * Defender role.
          * Doesn't need to leave any troops on his territory, as he can only try to
-         * survive an attack
+         * survive an attack.
          */
         DEFENDER(0);
 
         private final int stableTroops;
 
         /**
-         * @param stableTroops the numbero of troops that have to remain in the
+         * @param stableTroops the number of troops that have to remain in the
          *                     territory
          */
         Role(final int stableTroops) {
@@ -74,8 +75,8 @@ public interface Combat {
     /**
      * Starts and compute the attack between two territories.
      * 
-     * @param numAttacker numer of attacker's armies
-     * @param numDefender numer of defender's armies
+     * @param numAttacker number of attacker's troops
+     * @param numDefender number of defender's troops
      * @return a list of {@code Combat.Results} indicating the combat results
      */
     List<Result> attack(int numAttacker, int numDefender);
@@ -84,8 +85,7 @@ public interface Combat {
      * Checks if a territory has been conquered.
      * 
      * @param defender the defender territory
-     * @return true if the territory is conquered, false otherwise
+     * @return {@code true} if the territory is conquered, {@code false} otherwise
      */
     boolean isTerritoryConquered(Territory defender);
-
 }

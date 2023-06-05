@@ -1,8 +1,9 @@
 package it.unibo.model.objective.api;
 
 import java.util.Set;
+
 /**
- * The GameObjective interface represents the set of objectives of the game.
+ * Represents the set of objectives of the game.
  */
 public interface GameObjective {
 

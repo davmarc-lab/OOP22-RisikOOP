@@ -10,7 +10,7 @@ import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
- * Implementation of Combat interface.
+ * Implementation of {@link Combat} interface.
  */
 public class CombatImpl implements Combat {
 
@@ -29,15 +29,15 @@ public class CombatImpl implements Combat {
     private boolean testFlag;
 
     /**
-     * This constructor create an object used in test classes only.
+     * Constructor that creates an object used in test classes only.
      * 
      * @param tAttacker      attacker's territory
-     * @param numberAttacker attacker's armies
+     * @param numberAttacker attacker's troops
      * @param tDefender      defender's territory
-     * @param numberDefender defender's armies
+     * @param numberDefender defender's troops
      * @param testFlag       flag used for test purpose
      * 
-     * @throws IllegalArgumentException if the number of armies doesn't respect the
+     * @throws IllegalArgumentException if the number of troops doesn't respect the
      *                                  rules (must be between 1 and 3)
      */
     public CombatImpl(final Territory tAttacker, final int numberAttacker,
@@ -49,7 +49,7 @@ public class CombatImpl implements Combat {
     }
 
     /**
-     * Constructs a basic comnbat between two territories.
+     * Constructs a basic combat between two territories.
      * 
      * @param tAttacker attacker's territories
      * @param tDefender defender's territories
@@ -61,14 +61,14 @@ public class CombatImpl implements Combat {
 
     /**
      * This constructor is used for test classes, it creates a situation with
-     * default number of armies and default results of each dice.
+     * default number of troops and default results of each dice.
      * 
      * @param tAttacker      attacker's territory
-     * @param numberAttacker attacker's armies
+     * @param numberAttacker attacker's troops
      * @param tDefender      defender's territory
-     * @param numberDefender defender's armies
-     * @param attackers      results of the dice for attacker's armies
-     * @param defenders      results of the dice for defender's armies
+     * @param numberDefender defender's troops
+     * @param attackers      results of the dice for attacker's troops
+     * @param defenders      results of the dice for defender's troops
      * @param testFlag       flag used in test classes
      */
     public CombatImpl(final Territory tAttacker, final int numberAttacker, final Territory tDefender,
@@ -80,12 +80,42 @@ public class CombatImpl implements Combat {
     }
 
     /**
-     * This method is used to check the number of armies for each side.
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Result> attack(final int numAttacker, final int numDefender) {
+        this.numberAttacker = numAttacker;
+        this.numberDefender = numDefender;
+        if (testFlag) {
+            if (!isNumberTroopsValid()) {
+                throw new IllegalArgumentException("The number of troops cannot be less or equal 0 or more than 3");
+            }
+            // only for test purpose
+            if (!checkAttackValidity()) {
+                return List.of(Result.NONE);
+            }
+            return this.computeAttack(attackers, defenders);
+        }
+        final var attackers = declarePower(this.numberAttacker);
+        final var defenders = declarePower(this.numberDefender);
+        return computeAttack(attackers, defenders);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isTerritoryConquered(final Territory defender) {
+        return defender.getTroops() == 0;
+    }
+
+    /**
+     * This method is used to check the number of troops for each side.
      * 
      * @return a {@code boolean} value indicating if the numbers of defenders and
      *         attackers are correct
      */
-    private boolean isNumberArmiesValid() {
+    private boolean isNumberTroopsValid() {
         return this.numberDefender <= MAX_ATTACK_DEFEND_ARMY && this.numberDefender >= MIN_ATTACK_DEFEND_ARMY
                 && this.numberAttacker <= MAX_ATTACK_DEFEND_ARMY && this.numberAttacker >= MIN_ATTACK_DEFEND_ARMY;
     }
@@ -93,7 +123,7 @@ public class CombatImpl implements Combat {
     /**
      * Calculate the values of each army throwing a dice.
      * 
-     * @param numberOfDice number of armies used in combat
+     * @param numberOfDice number of troops used in combat
      * @return a {@code List<Integer>} containing the sorted values of each army
      */
     private List<Integer> declarePower(final int numberOfDice) {
@@ -130,35 +160,5 @@ public class CombatImpl implements Combat {
      */
     private boolean checkAttackValidity() {
         return this.tAttacker.getAdjTerritories().stream().map(t -> t.getName()).toList().contains(tDefender.getName());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Result> attack(final int numAttacker, final int numDefender) {
-        this.numberAttacker = numAttacker;
-        this.numberDefender = numDefender;
-        if (testFlag) {
-            if (!isNumberArmiesValid()) {
-                throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more than 3");
-            }
-            // only for test purpose
-            if (!checkAttackValidity()) {
-                return List.of(Result.NONE);
-            }
-            return this.computeAttack(attackers, defenders);
-        }
-        final var attackers = declarePower(this.numberAttacker);
-        final var defenders = declarePower(this.numberDefender);
-        return computeAttack(attackers, defenders);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isTerritoryConquered(final Territory defender) {
-        return defender.getTroops() == 0;
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import it.unibo.common.Pair;
 
 /**
- * Interface representing a game objective.
+ * Implementation of the {@link Objective} interface.
  */
 public interface Objective {
 
@@ -37,7 +37,7 @@ public interface Objective {
     /**
      * Checks whether the objective has been completed.
      *
-     * @return true if the objective is complete, false otherwise
+     * @return {@code true} if the objective is complete, {@code false} otherwise
      */
     Boolean isComplete();
 

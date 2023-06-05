@@ -9,8 +9,8 @@ import it.unibo.model.gamestate.api.GameState;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * This interface models a game loop, its job is to take input, process it and
- * then update the GUI.
+ * Processes the input received from the view
+ * and tell the view what to render.
  */
 public interface GameLoop {
 
@@ -101,4 +101,10 @@ public interface GameLoop {
      */
     void randomize();
 
+    /**
+     * Retrieves a copy of the current {@link GameLoop}.
+     * 
+     * @return a copy of the current game loop
+     */
+    GameLoop getCopy();
 }

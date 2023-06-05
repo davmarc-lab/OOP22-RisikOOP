@@ -49,5 +49,4 @@ public interface Army {
      */
     @Override
     String toString();
-
 }

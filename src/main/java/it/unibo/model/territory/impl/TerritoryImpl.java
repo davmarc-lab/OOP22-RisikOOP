@@ -6,7 +6,8 @@ import java.util.Set;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * Implementation of Territory.
+ * Implementation of {@link Territory} interface.
+ * Defines a Territory.
  */
 public class TerritoryImpl implements Territory {
 
@@ -17,8 +18,7 @@ public class TerritoryImpl implements Territory {
     /**
      * Creates a new territory with the name given.
      * 
-     * @param name
-     *          the territory's name
+     * @param name the territory's name
      */
     public TerritoryImpl(final String name) {
         this.name = name;
@@ -29,8 +29,7 @@ public class TerritoryImpl implements Territory {
     /**
      * Creates a new territory as a copy of an existing one.
      * 
-     * @param t
-     *          the territory to copy
+     * @param t the territory to copy
      */
     public TerritoryImpl(final Territory t) {
         this(t.getName());
@@ -39,7 +38,6 @@ public class TerritoryImpl implements Territory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -48,7 +46,6 @@ public class TerritoryImpl implements Territory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -57,7 +54,6 @@ public class TerritoryImpl implements Territory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -66,7 +62,6 @@ public class TerritoryImpl implements Territory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -75,7 +70,6 @@ public class TerritoryImpl implements Territory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -84,7 +78,6 @@ public class TerritoryImpl implements Territory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -93,14 +86,14 @@ public class TerritoryImpl implements Territory {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
     public String toString() {
         return new String(new StringBuilder("NAME = ").append(this.getName()).append(", ADJ = [").append(
                 this.getAdjTerritories().stream()
-                .map(t -> t.getName())
-                .reduce((s1, s2) -> s1 + ", " + s2).get()).append(']'));
+                        .map(t -> t.getName())
+                        .reduce((s1, s2) -> s1 + ", " + s2).get())
+                .append(']'));
     }
 }

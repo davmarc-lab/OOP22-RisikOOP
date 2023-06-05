@@ -11,7 +11,9 @@ import it.unibo.model.player.api.PlayerBuilder;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * Implementation of {@link PlayerBuilder} that creates a pllayer object.
+ * Implementation of {@link PlayerBuilder}.
+ * Represents a builder that creates a player object.
+ * It provides methods to set each {@link Player} fields.
  */
 public final class PlayerBuilderImpl implements PlayerBuilder {
 
@@ -93,5 +95,4 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
         return new PlayerImpl(this.id, this.territoryDeck, this.playerHand, this.objective, this.color,
                 this.bonusTroops);
     }
-
 }

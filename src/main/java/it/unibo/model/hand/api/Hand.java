@@ -34,7 +34,7 @@ public interface Hand {
      * Checks if the given list of cards is playable.
      * 
      * @param cards the list of cards to check
-     * @return true if the cards are playable, false otherwise
+     * @return {@code true} if the cards are playable, {@code false} otherwise
      */
     boolean checkPlayableCards(List<Army> cards);
 }

@@ -3,8 +3,8 @@ package it.unibo.model.movement.api;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * The {@code Movement} interface provides methods to instance troops movements
- * between the territories of a player nad checks the validity of the movement.
+ * Provides methods to instance troops movements between the territories of a
+ * player and checks the validity of the movement.
  */
 public interface Movement {
 
@@ -25,9 +25,8 @@ public interface Movement {
     /**
      * Checks if the movement is possible.
      * 
-     * @return true if the source territory would have at least one troop after
-     *         movement, false otherwise
+     * @return {@code true} if the source territory would have at least one troop
+     *         after movement, {@code false} otherwise
      */
     boolean isMovementValid();
-
 }

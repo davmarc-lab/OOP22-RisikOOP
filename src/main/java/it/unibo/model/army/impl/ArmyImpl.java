@@ -3,9 +3,10 @@ package it.unibo.model.army.impl;
 import it.unibo.model.army.api.Army;
 
 /**
+ * Implementation of {@link Army}.
  * Represents an Army card.
  */
-public final class ArmyImpl implements Army {
+public class ArmyImpl implements Army {
 
     private final ArmyType armyType;
 
@@ -18,11 +19,17 @@ public final class ArmyImpl implements Army {
         this.armyType = armyType;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArmyType getArmyType() {
         return armyType;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return this.armyType.toString();

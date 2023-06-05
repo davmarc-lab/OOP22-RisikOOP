@@ -1,12 +1,12 @@
 package it.unibo.model.gameloop.api;
 
 /**
- * This class is used to manage all the phases of a turn.
+ * Used to manage all the phases of a turn.
  */
 public interface PhaseManager {
 
     /**
-     * This enum is used to determine the phase of a turn.
+     * Determine the phase of a turn.
      */
     enum Phase {
         /**
@@ -47,5 +47,4 @@ public interface PhaseManager {
      * @param phase the phase
      */
     void switchToPhase(Phase phase);
-
 }

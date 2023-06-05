@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * This class manages the players and the turn order.
+ * Manages the players and the turn order.
  */
 public interface TurnManager {
 
@@ -27,5 +27,4 @@ public interface TurnManager {
      * @return the iterator that cycles the list of players' IDs
      */
     Iterator<Integer> getIterator();
-
 }

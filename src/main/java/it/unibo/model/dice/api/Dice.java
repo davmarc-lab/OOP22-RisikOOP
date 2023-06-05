@@ -15,7 +15,7 @@ public interface Dice {
     int roll();
 
     /**
-     * Rolls multiple dice and returns the results in a List.
+     * Rolls multiple dice and returns the results in a {@code List}.
      *
      * @param numDice the number of dice to roll.
      * @return a list of results from rolling the dice.

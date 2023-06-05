@@ -10,7 +10,7 @@ import it.unibo.model.objective.api.Objective;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * The {@code Player} interface provide method to interact with the player.
+ * Provides method to interact with the player.
  */
 public interface Player {
 
@@ -50,7 +50,7 @@ public interface Player {
         private final int b;
 
         /**
-         * Contsrutct a RGB color.
+         * Construct a RGB color.
          * 
          * @param name color name
          * @param r    red value
@@ -159,7 +159,7 @@ public interface Player {
     Objective getObjective();
 
     /**
-     * This method sets player's objective.
+     * Sets player's objective.
      * 
      * @param objective player objective
      */

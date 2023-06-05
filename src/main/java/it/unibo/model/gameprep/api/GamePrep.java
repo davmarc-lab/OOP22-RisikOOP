@@ -9,8 +9,7 @@ import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * The {@link GamePrep} interface provide a method to prepare the player for the
- * game.
+ * Provides a method to prepare the player for the game.
  */
 public interface GamePrep {
 
@@ -25,5 +24,4 @@ public interface GamePrep {
      */
     void preparePlayers(List<Player> players, Deck<Territory> territoryDeck,
             Pair<Deck<Objective>, Objective> objectives);
-
 }

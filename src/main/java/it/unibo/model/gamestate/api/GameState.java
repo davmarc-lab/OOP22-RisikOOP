@@ -3,7 +3,7 @@ package it.unibo.model.gamestate.api;
 import it.unibo.model.player.api.Player;
 
 /**
- * The GameState interface represents the current state of a game.
+ * Represents the current state of a game.
  */
 public interface GameState {
 

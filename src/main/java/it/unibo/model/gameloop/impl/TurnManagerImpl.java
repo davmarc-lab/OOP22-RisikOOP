@@ -12,7 +12,8 @@ import it.unibo.model.dice.impl.DiceImpl;
 import it.unibo.model.gameloop.api.TurnManager;
 
 /**
- * Simple implementation of TurnManager.
+ * Implementation of {@link TurnManager}.
+ * Manages the players and the turn order.
  */
 public class TurnManagerImpl implements TurnManager {
 
@@ -23,7 +24,8 @@ public class TurnManagerImpl implements TurnManager {
     private Integer currentPlayerID;
 
     /**
-     * Creates an iterator to cycle through the player list and sets the turn order.
+     * Constructor that creates an iterator to cycle through the player list and
+     * sets the turn order.
      * 
      * @param playersIDs a list of playersIDs.
      */
@@ -68,19 +70,6 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
-     * Randomizes the order of playersIDs based on the dice throw.
-     */
-    private void setRandomOrder() {
-        final Dice d6 = new DiceImpl(DICE_FACES);
-        final List<Pair<Integer, Integer>> list = new ArrayList<>();
-        this.playersIDs.forEach(id -> list.add(new Pair<>(id, d6.roll())));
-        Collections.shuffle(list);
-        for (int i = 0; i < playersIDs.size(); i++) {
-            playersIDs.set(i, list.get(i).getX());
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -116,4 +105,16 @@ public class TurnManagerImpl implements TurnManager {
         return msg.toString();
     }
 
+    /**
+     * Randomizes the order of playersIDs based on the dice throw.
+     */
+    private void setRandomOrder() {
+        final Dice d6 = new DiceImpl(DICE_FACES);
+        final List<Pair<Integer, Integer>> list = new ArrayList<>();
+        this.playersIDs.forEach(id -> list.add(new Pair<>(id, d6.roll())));
+        Collections.shuffle(list);
+        for (int i = 0; i < playersIDs.size(); i++) {
+            playersIDs.set(i, list.get(i).getX());
+        }
+    }
 }

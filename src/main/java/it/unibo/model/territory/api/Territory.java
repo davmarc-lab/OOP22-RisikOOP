@@ -3,7 +3,7 @@ package it.unibo.model.territory.api;
 import java.util.Set;
 
 /**
- * Interface of territory.
+ * Defines a Territory.
  */
 public interface Territory {
 
@@ -24,8 +24,7 @@ public interface Territory {
     /**
      * Add a territory to the set of the adjacents.
      * 
-     * @param t
-     *          the territory
+     * @param t the territory
      */
     void addAdjTerritory(Territory t);
 
@@ -39,16 +38,14 @@ public interface Territory {
     /**
      * Add the given number of troops.
      * 
-     * @param n 
-     *          number of troops to add
+     * @param n number of troops to add
      */
     void addTroops(int n);
 
     /**
      * Gets a copy of a territory.
      * 
-     * @param t
-     *          the territory to copy
+     * @param t the territory to copy
      * @return a copy of the territory given
      */
     Territory getCopyOfTerritory(Territory t);

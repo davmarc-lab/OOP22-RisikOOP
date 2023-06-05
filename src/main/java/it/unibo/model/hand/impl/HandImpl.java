@@ -7,8 +7,8 @@ import it.unibo.model.army.api.Army;
 import it.unibo.model.hand.api.Hand;
 
 /**
- * Implementation of the {@link Hand} interface representing the hand of a
- * player.
+ * Implementation of the {@link Hand} interface.
+ * Represents the hand of a player.
  */
 public class HandImpl implements Hand {
 
@@ -88,12 +88,23 @@ public class HandImpl implements Hand {
         return cards.size() == PLAYABLE_CARDS && this.checkIfInHand(cards);
     }
 
+    /**
+     * Checks if the given list of cards is in the hand.
+     * 
+     * @param cards the list of cards to check
+     * @return {@code true} if the cards are in the hand, {@code false} otherwise
+     */
     private boolean checkIfInHand(final List<Army> cards) {
         return cards.stream()
                 .map(Army::getArmyType)
                 .anyMatch(cardInHand -> hand.stream().anyMatch(card -> card.getArmyType().equals(cardInHand)));
     }
 
+    /**
+     * Removes the given list of cards from the hand.
+     * 
+     * @param cards the list of cards to remove
+     */
     private void removeFromHand(final List<Army> cards) {
         cards.forEach(c -> this.hand
                 .remove(this.hand.stream().filter(x -> x.getArmyType().equals(c.getArmyType())).findAny().get()));

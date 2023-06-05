@@ -1,7 +1,7 @@
 package it.unibo.model.territory.api;
 
 /**
- * Interface of the factory of territories.
+ * Represents a factory that creates territories from a JSON file.
  */
 public interface TerritoryFactory {
 

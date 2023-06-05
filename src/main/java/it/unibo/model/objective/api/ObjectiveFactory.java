@@ -1,7 +1,7 @@
 package it.unibo.model.objective.api;
 
 /**
- * Interface representing a factory for creating objectives from a JSON file..
+ * Represents a factory that creates objectives from a JSON file.
  */
 public interface ObjectiveFactory {
 

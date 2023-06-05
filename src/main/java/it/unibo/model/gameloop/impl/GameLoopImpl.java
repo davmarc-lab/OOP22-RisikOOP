@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import it.unibo.common.Pair;
@@ -21,10 +23,12 @@ import it.unibo.model.modelconstants.ModelConstants;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * This class is used to process the input received from the view
+ * Implementation of {@link GameLoop} interface.
+ * 
+ * Processes the input received from the view
  * and tell the view what to render.
  */
-public class GameLoopImpl implements GameLoop {
+public class GameLoopImpl implements GameLoop, Cloneable{
 
     private static final int PREPARATION_TROOPS = 3;
     private static final String COMBAT_MESSAGE = new StringBuilder("Select an adjacent enemy territory.")
@@ -69,22 +73,6 @@ public class GameLoopImpl implements GameLoop {
     }
 
     /**
-     * Constructs a copy of the {@link GameLoop}.
-     * 
-     * @param loop
-     */
-    public GameLoopImpl(final GameLoop loop) {
-        this.selectedTerritories = loop.getSelectedTerritories();
-        this.disabledTerritories = loop.getDisabledTerritories();
-        this.controller = loop.getController();
-        this.board = loop.getBoard();
-        this.turnManager = loop.getTurnManager();
-        this.phaseManager = loop.getPhaseManager();
-        this.gameState = loop.getGameState();
-        this.rand = new Random();
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -119,46 +107,6 @@ public class GameLoopImpl implements GameLoop {
         this.board.getGameTerritories().getTerritories()
                 .forEach(t -> this.controller.updateSquare(t.getName()));
         this.controller.sendMessage(new StringBuilder("You can now play your cards to gain bonus troops").toString());
-    }
-
-    /**
-     * Adds a territory to the list of selected territories.
-     * Places the troops if there are [PREPARATION_TROOPS] territories in it.
-     * 
-     * @param t the selected territory
-     */
-    private void updatePreparation(final Territory t) {
-        this.selectedTerritories.add(t);
-        this.controller.updateSquare(t.getName());
-        if (this.selectedTerritories.size() == PREPARATION_TROOPS) {
-            this.turnManager.switchToNextPlayer();
-            this.selectedTerritories.clear();
-            this.controller.updateInfo();
-            this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories());
-            if (this.checkAllInitialTroops()) {
-                this.prepare = false;
-                this.phaseManager.switchToNextPhase();
-                this.controller.sendMessage(new StringBuilder("Player ")
-                        .append(this.controller.getCurrentPlayer().getId())
-                        .append(", you can now play your cards to gain bonus troops").toString());
-                this.controller.setCardController();
-                this.controller.updateCards();
-            } else {
-                this.controller.sendMessage(new StringBuilder("Player ")
-                        .append(this.controller.getCurrentPlayer().getId())
-                        .append(", it's your turn to place 3 troops on your territories").toString());
-            }
-        }
-    }
-
-    /**
-     * Checks if the players have placed all their initial troops.
-     * 
-     * @return true or false
-     */
-    private boolean checkAllInitialTroops() {
-        return this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0)
-                .count() == ModelConstants.MAX_PLAYERS;
     }
 
     /**
@@ -326,18 +274,6 @@ public class GameLoopImpl implements GameLoop {
     }
 
     /**
-     * Transforms the disabledTerritories to a list of Strings which are the name of
-     * the territories.
-     * 
-     * @return disabled territories as a set of String
-     */
-    private Set<String> stringTerritories() {
-        final Set<String> list = new HashSet<>();
-        this.disabledTerritories.forEach(t -> list.add(t.getName()));
-        return list;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -370,21 +306,6 @@ public class GameLoopImpl implements GameLoop {
     }
 
     /**
-     * Checks if the game is over.
-     * 
-     * @return true if any player completed his objective, false otherwise
-     */
-    private boolean checkGameState() {
-        if (this.gameState.isGameOver()) {
-            this.controller.sendMessage(new StringBuilder("Player").append(this.gameState.getWinner().getId())
-                    .append(" has won!").toString());
-            this.controller.restartApp();
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -406,5 +327,94 @@ public class GameLoopImpl implements GameLoop {
     @Override
     public GameState getGameState() {
         return this.gameState;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GameLoopImpl clone() throws CloneNotSupportedException {
+        return (GameLoopImpl) super.clone();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GameLoop getCopy() {
+        try {
+            return (GameLoop) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(GameLoopImpl.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
+        }
+        throw new IllegalCallerException("Cannot create a copy");
+    }
+
+    /**
+     * Adds a territory to the list of selected territories.
+     * Places the troops if there are [PREPARATION_TROOPS] territories in it.
+     * 
+     * @param t the selected territory
+     */
+    private void updatePreparation(final Territory t) {
+        this.selectedTerritories.add(t);
+        this.controller.updateSquare(t.getName());
+        if (this.selectedTerritories.size() == PREPARATION_TROOPS) {
+            this.turnManager.switchToNextPlayer();
+            this.selectedTerritories.clear();
+            this.controller.updateInfo();
+            this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories());
+            if (this.checkAllInitialTroops()) {
+                this.prepare = false;
+                this.phaseManager.switchToNextPhase();
+                this.controller.sendMessage(new StringBuilder("Player ")
+                        .append(this.controller.getCurrentPlayer().getId())
+                        .append(", you can now play your cards to gain bonus troops").toString());
+                this.controller.setCardController();
+                this.controller.updateCards();
+            } else {
+                this.controller.sendMessage(new StringBuilder("Player ")
+                        .append(this.controller.getCurrentPlayer().getId())
+                        .append(", it's your turn to place 3 troops on your territories").toString());
+            }
+        }
+    }
+
+    /**
+     * Checks if the players have placed all their initial troops.
+     * 
+     * @return {@code true} or {@code false}
+     */
+    private boolean checkAllInitialTroops() {
+        return this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0)
+                .count() == ModelConstants.MAX_PLAYERS;
+    }
+
+    /**
+     * Transforms the disabledTerritories to a list of Strings which are the name of
+     * the territories.
+     * 
+     * @return disabled territories as a set of String
+     */
+    private Set<String> stringTerritories() {
+        final Set<String> list = new HashSet<>();
+        this.disabledTerritories.forEach(t -> list.add(t.getName()));
+        return list;
+    }
+
+    /**
+     * Checks if the game is over.
+     * 
+     * @return {@code true} if any player completed his objective, {@code false}
+     *         otherwise
+     */
+    private boolean checkGameState() {
+        if (this.gameState.isGameOver()) {
+            this.controller.sendMessage(new StringBuilder("Player").append(this.gameState.getWinner().getId())
+                    .append(" has won!").toString());
+            this.controller.restartApp();
+            return true;
+        }
+        return false;
     }
 }

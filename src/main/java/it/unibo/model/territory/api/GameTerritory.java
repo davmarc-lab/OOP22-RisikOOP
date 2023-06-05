@@ -4,16 +4,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This interface models a class that manages all the territories and
- * continents.
+ * Manages all the territories and continents.
  */
 public interface GameTerritory {
 
     /**
      * Gets the name of the continent of the given territory.
      * 
-     * @param t
-     *          the territory
+     * @param t the territory
      * @return the name of the continent of the given territory
      */
     String getContinentNameFromTerritory(Territory t);
@@ -42,8 +40,7 @@ public interface GameTerritory {
     /**
      * Gets the territory by his name.
      * 
-     * @param name
-     *             the territory name
+     * @param name the territory name
      * @return the territory whose name is the one given
      */
     Territory getTerritory(String name);
@@ -51,10 +48,8 @@ public interface GameTerritory {
     /**
      * Gets the set of all territories of a continent.
      * 
-     * @param name
-     *             the name of the continent
+     * @param name the name of the continent
      * @return the set of all territories of the given continent.
      */
     Set<Territory> getTerritoryByContinent(String name);
-
 }

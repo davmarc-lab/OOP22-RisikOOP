@@ -7,8 +7,8 @@ import it.unibo.model.player.api.Player.Color;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * The {@code PlayerBuild} interface represent a builder to create a player
- * object. It provides methods to set each {@link Player} fields.
+ * Represents a builder that creates a player object.
+ * It provides methods to set each {@link Player} fields.
  */
 public interface PlayerBuilder {
     /**
