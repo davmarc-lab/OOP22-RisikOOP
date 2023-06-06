@@ -1,5 +1,6 @@
 package it.unibo.model.deck.api;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,6 +15,13 @@ public interface Deck<T> {
      * @param card the card to be added
      */
     void addCard(T card);
+
+    /**
+     * Removes a card from the {@code Deck}.
+     * 
+     * @param card the card to be removed
+     */
+    void removeCard(T card);
 
     /**
      * Draws a card from the deck.
@@ -33,4 +41,11 @@ public interface Deck<T> {
      * @return the deck
      */
     List<T> getDeck();
+
+    /**
+     * Sets the deck.
+     * 
+     * @param deck the deck to set
+     */
+    void setDeck(Collection<T> deck);
 }

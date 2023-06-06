@@ -1,21 +1,14 @@
 package it.unibo.model.objective.api;
 
-import java.util.Set;
-
 /**
- * Interface representing a factory for creating objectives.
+ * Represents a factory that creates objectives from a JSON file.
  */
 public interface ObjectiveFactory {
 
     /**
-     * Creates a new set of objectives.
+     * Creates a set of objectives from a JSON file.
+     * 
+     * @return a new set of objectives
      */
-    void createObjectiveSet();
-
-    /**
-     * Gets the set of objectives created by this factory.
-     *
-     * @return the set of objectives
-     */
-    Set<Objective> getSetObjectives();
+    GameObjective createObjectiveSet();
 }

@@ -3,41 +3,42 @@ package it.unibo.model.territory.api;
 import java.util.Set;
 
 /**
- * 
+ * Defines a Territory.
  */
 public interface Territory {
 
     /**
+     * Gets territory's name.
      * 
      * @return territory's name
      */
     String getName();
 
     /**
+     * Gets the set of all territory's adjacent territories.
      * 
      * @return adjacent territories' set
      */
     Set<Territory> getAdjTerritories();
 
     /**
-     * Add the given territory to the adjacents.
+     * Add a territory to the set of the adjacents.
      * 
-     * @param t
-     *          the territory
+     * @param t the territory
      */
     void addAdjTerritory(Territory t);
 
     /**
+     * Gets the number of troops in the territory.
      * 
-     * @return the number of army in the territory
+     * @return the number of troops in the territory
      */
-    int getArmy();
+    int getTroops();
 
     /**
-     * Add the given number of armies to the territory.
+     * Add the given number of troops.
      * 
-     * @param n
-     *          number of armies to add
+     * @param n number of troops to add
      */
-    void addArmy(int n);
+    void addTroops(int n);
 }

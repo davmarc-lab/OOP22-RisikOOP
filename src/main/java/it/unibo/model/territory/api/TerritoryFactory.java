@@ -1,34 +1,14 @@
 package it.unibo.model.territory.api;
 
-import java.util.Set;
-
 /**
- * 
+ * Represents a factory that creates territories from a JSON file.
  */
 public interface TerritoryFactory {
 
     /**
-     * Creates the set of all territories.
-     */
-    void createTerritorySet();
-
-    /**
+     * Creates the map of all territories.
      * 
-     * @return the set of all territories
+     * @return the map of all territories
      */
-    Set<Territory> getTerritories();
-
-    /**
-     * 
-     * @return the set of all territory names
-     */
-    Set<String> getNameSet();
-
-    /**
-     * 
-     * @param name
-     *          the territory name
-     * @return the territory whose name is the one given
-     */
-    Territory getTerritory(String name);
+    GameTerritory createTerritories();
 }

@@ -1,4 +1,4 @@
-package it.unibo.model.deck.api;
+package it.unibo.model.army.api;
 
 /**
  * Represents an Army card.
@@ -11,15 +11,28 @@ public interface Army {
         /**
          * Represents the Infantry Army card.
          */
-        INFANTRY,
+        INFANTRY("Infantry"),
         /**
          * Represents the Cavalry Army card.
          */
-        CAVALRY,
+        CAVALRY("Cavalry"),
         /**
          * Represents the Artillery Army card.
          */
-        ARTILLERY
+        ARTILLERY("Artillery");
+
+        private final String name;
+
+        ArmyType(final String name) {
+            this.name = name;
+        }
+
+        /**
+         * @return the name of the type
+         */
+        public String getName() {
+            return this.name;
+        }
     }
 
     /**
@@ -28,13 +41,4 @@ public interface Army {
      * @return the type of the Army card.
      */
     ArmyType getArmyType();
-
-    /**
-     * Gets the string representation of the Army card.
-     * 
-     * @return the string representation of the Army card.
-     */
-    @Override
-    String toString();
-
 }

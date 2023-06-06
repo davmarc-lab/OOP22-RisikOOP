@@ -1,0 +1,42 @@
+HOW TO PLAY
+
+1) Setup:
+    a) At the start of the game each player rolls a dice to decide the order in which they play (highest=first, lowest=last);
+        players that roll the same number will roll again to decide who goes first between them. Each player is assigned a color.
+    b) After shuffling the deck of objectives, each player is given one card, the first player to complete his objective wins.
+    c) After shuffling the deck of territories, 42 cards are distributed one by one to the players. These are the territories
+        the players start with.
+    c) Players take turns (following the order determined at 1a) placing 3 troops at a time on their territories. The players can 
+        place them however they want: all in one territory or distributed between their territories. This process continues
+        until there are no more troops. NOTE: each territory MUST have at least one troop.
+
+2) Player turns:
+    a) At the start of his turn, the player gains a number of troops based on the number of territories he owns:
+        number_of_territories / 3 (rounded down). If the player owns all the territories of a continent he also gains more troops
+        based on the continent:
+        Oceania => 2 troops          Europe => 5 troops
+        South America => 2 troops    North America => 5 troops
+        Africa => 3 troops           Asia => 7 troops
+    b) The player can play a combination of 3 army cards to gain more troops:
+        3 cannons => 4 troops
+        3 infantry => 6 troops       
+        3 knights => 8 troops
+        1 infantry, 1 cannon, 1 knight => 10 troops
+        How the cards are drawn is explained at 1c.
+    c) After deploying new troops in his territories, the player can attack or move his troops. To attack he has to choose
+        a neighboring enemy territory and declare how many troops he wants to deploy for the attack (remember there has to be
+        at least one tank not in combat that stays in the territory). Both the attacking player and the defending player throw 
+        dices based on the number of troops deployed (max 3). The dices with the highest result are confronted in pairs, the 
+        losing dice indicates that the owner has to remove it from his territory; in case of a draw, the defender wins.
+        Each time a territory is conquered, the attacking player draws a card from the deck of army cards.
+        If the defending player lost all his troops in his territory, the attacking player can move his troops from the territory
+        e.g. p1 attacks p2 by using 3 troops, p2 has 5 troops on his territory but decides to defend with two:
+             p1 rolls 3, 1, 5
+             p2 rolls 6, 2
+             6 > 5 => p1 loses a tank
+             3 > 2 => p2 loses a tank
+             by using only 2 troops p2 avoided the risk of losing 2 troops and instead lost only 1, but if he had deployed
+             another he would have won, since any result would have been higher or equal 1, also if the third dice resulted
+             in a 6 he wouldn't have lost a single tank. Using more dices can increase the chances of winning.
+    d) During his turn, the player can attack as many times as he wants (as long as he has enough troops). He can also move his
+        troops between his territories (leaving minimum 1 tank), but after this his turn ends.

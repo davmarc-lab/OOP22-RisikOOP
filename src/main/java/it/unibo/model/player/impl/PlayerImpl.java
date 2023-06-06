@@ -1,51 +1,51 @@
 package it.unibo.model.player.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import it.unibo.model.player.api.ColorPlayer;
+import it.unibo.model.army.api.Army;
+import it.unibo.model.deck.api.Deck;
+import it.unibo.model.deck.impl.DeckImpl;
+import it.unibo.model.hand.api.Hand;
+import it.unibo.model.hand.impl.HandImpl;
+import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * Implementation of Player interface.
+ * Implementation of {@link Player} interface.
+ * Provides method to interact with the player.
  */
-public class PlayerImpl implements Player {
+public class PlayerImpl implements Player, Cloneable {
 
-    private int id;
-    private Set<Territory> territories = new HashSet<>();
-    private ColorPlayer color = new ColorPlayerImpl();
+    private final int id;
+    private final Deck<Territory> territories;
+    private final Hand playerHand;
+    private Objective objective;
+    private final Color color;
+    private int bonusTroops;
 
     /**
-     * Create a player from an specified id.
+     * Full constructor of {@code Player}.
      * 
-     * @param id player's id
+     * @param id             player's id
+     * @param territories    player's territories
+     * @param playerHandDeck player's personal deck
+     * @param objective      player's objective
+     * @param color          player's color
+     * @param bonusTroops    player's bonus troops
      */
-    public PlayerImpl(final int id) {
+    public PlayerImpl(final int id, final Deck<Territory> territories,
+            final Hand playerHandDeck, final Objective objective, final Color color, final int bonusTroops) {
         this.id = id;
-    }
-
-    /**
-     * This constructor creates a player giving an id and {@code ColorPlayer}.
-     * 
-     * @param id player's id
-     * @param color player's color
-     */
-    public PlayerImpl(final int id, final ColorPlayer color) {
-        this(id);
+        this.territories = new DeckImpl<>(territories.getDeck());
+        this.playerHand = new HandImpl(playerHandDeck.getHand());
+        this.objective = objective.getCopy();
         this.color = color;
-    }
-
-    /**
-     * Create a player form an id and Set of territories.
-     * 
-     * @param id player's id
-     * @param territories set of territories
-     */
-    public PlayerImpl(final int id, final Set<Territory> territories) {
-        this(id);
-        this.territories = territories;
+        this.bonusTroops = bonusTroops;
     }
 
     /**
@@ -60,24 +60,16 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public int getArmy(final Territory t) {
-        return this.territories.stream().filter(x -> x.equals(t)).findFirst().get().getArmy();
+    public void addTerritory(final Territory territory) {
+        this.territories.addCard(territory);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addTerritory(final Stream<Territory> territory) {
-        this.territories.addAll(territory.toList());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeTerritory(final Stream<Territory> territory) {
-        this.territories.removeAll(territory.toList());
+    public void removeTerritory(final Territory territory) {
+        this.territories.removeCard(territory);
     }
 
     /**
@@ -85,15 +77,79 @@ public class PlayerImpl implements Player {
      */
     @Override
     public Set<Territory> getTerritories() {
-        return this.territories;
+        return new HashSet<>(this.territories.getDeck());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public ColorPlayer getColorPlayer() {
-        return new ColorPlayerImpl(this.color);
+    public Color getColorPlayer() {
+        return this.color;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Objective getObjective() {
+        return this.objective.getCopy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Hand getPlayerHand() {
+        return new HandImpl(this.playerHand.getHand());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addCardToPlayerHand(final Army card) {
+        this.playerHand.addCard(card);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int playCards(final List<Army> cards) {
+        return this.playerHand.playCards(cards);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setObjective(final Objective objective) {
+        this.objective = objective.getCopy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addTroops(final int numberTroops) {
+        this.bonusTroops += numberTroops;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getTroops() {
+        return this.bonusTroops;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setObjectiveComplete() {
+        this.objective.setComplete();
     }
 
     /**
@@ -101,7 +157,28 @@ public class PlayerImpl implements Player {
      */
     @Override
     public String toString() {
-        return new String("ID -> " + this.getId() + "\nNumTerritory -> " + this.getTerritories().size()
-            + "\nTerritories -> " + this.getTerritories());
+        return new String(
+                new StringBuilder("ID -> ").append(this.getId()).append(", TROOPS -> ").append(this.bonusTroops));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PlayerImpl clone() throws CloneNotSupportedException {
+        return (PlayerImpl) super.clone();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Player getCopy() {
+        try {
+            return (Player) this.clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(PlayerImpl.class.getName()).log(Level.SEVERE, "Cannot create the copy of the object.");
+        }
+        throw new IllegalCallerException("Cannot create a copy.");
     }
 }

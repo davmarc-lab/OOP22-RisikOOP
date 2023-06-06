@@ -1,90 +1,107 @@
 package it.unibo.combat;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import it.unibo.common.Pair;
 import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.impl.CombatImpl;
+import it.unibo.model.deck.impl.DeckImpl;
+import it.unibo.model.hand.impl.HandImpl;
+import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
 import it.unibo.model.player.api.Player;
-import it.unibo.model.player.impl.PlayerImpl;
-import it.unibo.model.territory.api.TerritoryFactory;
+import it.unibo.model.player.impl.PlayerBuilderImpl;
+import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.impl.TerritoryFactoryImpl;
 
 import java.util.List;
+
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
+/**
+ * Tests the combat between two territories.
+ */
 class TestCombat {
 
-    final Player p1 = new PlayerImpl(1);
-    final Player p2 = new PlayerImpl(2);
+    private static final List<Integer> ATTACKERS_INTEGERS = new ArrayList<>(List.of(6, 5));
+    private static final List<Integer> DEFENDERS_INTEGERS = new ArrayList<>(List.of(5, 2, 1));
+    private static final String SOUTHERN_EUROPE_NAME = "Southern Europe";
+    private static final String EGYPT_NAME = "Egypt";
+    private static final String BRAZIL_NAME = "Brazil";
+    private static final String UKRAINE_NAME = "Ukraine";
+    private static final String VENEZUELA_NAME = "Venezuela";
+    private static final String SCANDINAVIA_NAME = "Scandinavia";
 
-    private TerritoryFactory factory;
+    private final Player p1 = PlayerBuilderImpl.newBuilder().id(1).territoryDeck(new DeckImpl<>())
+            .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build()).build();
+    private final Player p2 = PlayerBuilderImpl.newBuilder().id(2).territoryDeck(new DeckImpl<>())
+            .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build()).build();
 
-    public void defaultSetUp() {
-        this.factory = new TerritoryFactoryImpl();
-        this.factory.createTerritorySet();
-        p1.removeTerritory(p1.getTerritories().stream());
-        p2.removeTerritory(p2.getTerritories().stream());
-    }
+    private GameTerritory territories;
 
-    private void assignDefaultTerritories() {
-        defaultSetUp();
-        p1.addTerritory(Stream.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela"),
-            factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")));
-        p2.addTerritory(Stream.of(factory.getTerritory("Brazil"), factory.getTerritory("Ukraine")));
-    }
+    @BeforeEach
+    void startSetUp() {
+        this.territories = new TerritoryFactoryImpl().createTerritories();
 
-    @Test
-    public void attempSetUpTest() {
-        assertEquals(0, p1.getTerritories().size());
-        assertEquals(0, p2.getTerritories().size());
+        Stream.of(territories.getTerritory(SOUTHERN_EUROPE_NAME), territories.getTerritory(VENEZUELA_NAME),
+                territories.getTerritory(EGYPT_NAME), territories.getTerritory(SCANDINAVIA_NAME))
+                .forEach(t -> p1.addTerritory(t));
+        Stream.of(territories.getTerritory(BRAZIL_NAME), territories.getTerritory(UKRAINE_NAME))
+                .forEach(t -> p2.addTerritory(t));
     }
 
     @Test
     void testCreationTerritories() {
-        defaultSetUp();
-        assertEquals(this.factory.getTerritory("Alaska").getName(), "Alaska");
+        assertEquals(this.territories.getTerritory("Alaska").getName(), "Alaska");
     }
 
     @Test
-    public void addFirstTerritoryTest() {
-        assignDefaultTerritories();
-        assertEquals(Set.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela"),
-            factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")), p1.getTerritories());
-        assertEquals(Set.of(factory.getTerritory("Brazil"), factory.getTerritory("Ukraine")), p2.getTerritories());
+    void addFirstTerritoryTest() {
+        assertEquals(Set.of(territories.getTerritory(SOUTHERN_EUROPE_NAME), territories.getTerritory(VENEZUELA_NAME),
+                territories.getTerritory(EGYPT_NAME), territories.getTerritory(SCANDINAVIA_NAME)), p1.getTerritories());
+        assertEquals(Set.of(territories.getTerritory(BRAZIL_NAME), territories.getTerritory(UKRAINE_NAME)),
+                p2.getTerritories());
     }
 
     @Test
-    public void removeTerritoriesTest() {
-        assignDefaultTerritories();
-        p1.removeTerritory(Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Scandinavia")));
-        assertEquals(Set.of(factory.getTerritory("Southern Europe"), factory.getTerritory("Venezuela")), p1.getTerritories());
-        p2.removeTerritory(Stream.of(factory.getTerritory("Ukraine")));
-        assertEquals(Set.of(factory.getTerritory("Brazil")), p2.getTerritories());
-        p2.addTerritory(Stream.of(factory.getTerritory("Egypt"), factory.getTerritory("Ukraine")));
-        assertEquals(Set.of(factory.getTerritory("Brazil"), factory.getTerritory("Egypt"), factory.getTerritory("Ukraine")), p2.getTerritories());
-
+    void removeTerritoriesTest() {
+        Stream.of(territories.getTerritory(EGYPT_NAME), territories.getTerritory(SCANDINAVIA_NAME))
+                .forEach(t -> p1.removeTerritory(t));
+        assertEquals(Set.of(territories.getTerritory(SOUTHERN_EUROPE_NAME), territories.getTerritory(VENEZUELA_NAME)),
+                p1.getTerritories());
+        Stream.of(territories.getTerritory(UKRAINE_NAME)).forEach(t -> p2.removeTerritory(t));
+        assertEquals(Set.of(territories.getTerritory(BRAZIL_NAME)), p2.getTerritories());
+        Stream.of(territories.getTerritory(EGYPT_NAME), territories.getTerritory(UKRAINE_NAME))
+                .forEach(t -> p2.addTerritory(t));
+        assertEquals(Set.of(territories.getTerritory(BRAZIL_NAME), territories.getTerritory(EGYPT_NAME),
+                territories.getTerritory(UKRAINE_NAME)), p2.getTerritories());
     }
 
     @Test
-    public void combatTestWithForcedResults() {
-        assignDefaultTerritories();
-        var s = factory.getTerritory("Southern Europe");
-        var d = factory.getTerritory("Ukraine");
-        Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(List.of(6, 4)), new ArrayList<>(List.of(5, 2, 1)));
-        assertEquals(List.of(Combat.Results.WIN, Combat.Results.WIN), c1.attack());
+    void combatTestWithForcedResults() {
+        final var s = territories.getTerritory(SOUTHERN_EUROPE_NAME);
+        s.addTroops(2);
+        final var d = territories.getTerritory(UKRAINE_NAME);
+        d.addTroops(3);
+        final Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS),
+                true);
+        assertEquals(new Pair<>(0, 2), c1.attack(2, 3));
+        d.addTroops(-(int) List.of(Combat.Result.WIN, Combat.Result.WIN).stream()
+                .filter(r -> r.equals(Combat.Result.WIN)).count());
+        assertEquals(List.of(2, 1), List.of(s.getTroops(), d.getTroops()));
     }
 
     @Test
-    public void throwingExceptionForNumberStrikerNotValid() {
-        assignDefaultTerritories();
-        var s = factory.getTerritory("Southern Europe");
-        var d = factory.getTerritory("Ukraine");
+    void throwingExceptionForNumberAttackerNotValid() {
+        final var s = territories.getTerritory(SOUTHERN_EUROPE_NAME);
+        final var d = territories.getTerritory(UKRAINE_NAME);
         assertThrows(IllegalArgumentException.class, () -> {
-            new CombatImpl(s, 0, d, 3).attack();
+            new CombatImpl(s, 0, d, 3, true).attack(0, 3);
         });
     }
 }

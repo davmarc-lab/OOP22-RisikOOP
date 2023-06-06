@@ -1,7 +1,11 @@
 package it.unibo.model.objective.api;
 
+import java.util.List;
+
+import it.unibo.common.Pair;
+
 /**
- * Interface representing a game objective.
+ * Implementation of the {@link Objective} interface.
  */
 public interface Objective {
 
@@ -16,13 +20,24 @@ public interface Objective {
         /**
          * Objective to destroy another player.
          */
-        DESTROY
+        DESTROY,
+        /**
+         * No objective.
+         */
+        NONE
     }
+
+    /**
+     * Retrieves a copy of the objective.
+     * 
+     * @return the copy of objective
+     */
+    Objective getCopy();
 
     /**
      * Checks whether the objective has been completed.
      *
-     * @return true if the objective is complete, false otherwise
+     * @return {@code true} if the objective is complete, {@code false} otherwise
      */
     Boolean isComplete();
 
@@ -39,17 +54,17 @@ public interface Objective {
     String getDescription();
 
     /**
+     * Gets the check objectives which are used to check if the objective is
+     * complete.
+     * 
+     * @return a pair containing the type of the objective and a list of strings
+     */
+    Pair<ObjectiveType, List<String>> getCheckObjectives();
+
+    /**
      * Gets the type of the objective.
      *
      * @return the type of the objective
      */
     ObjectiveType getObjectiveType();
-
-    /**
-     * Gets the string representation of the objective.
-     *
-     * @return a string representation of the objective
-     */
-    @Override
-    String toString();
 }

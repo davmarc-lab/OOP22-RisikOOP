@@ -2,154 +2,165 @@ package it.unibo.model.combat.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import it.unibo.common.Pair;
 import it.unibo.model.combat.api.Combat;
+import it.unibo.model.dice.api.Dice;
+import it.unibo.model.dice.impl.DiceImpl;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
- * Implementation of Combat interface.
+ * Implementation of {@link Combat} interface.
  */
 public class CombatImpl implements Combat {
 
     private static final int MAX_DICE_NUMBER = 6;
     private static final int MAX_ATTACK_DEFEND_ARMY = 3;
     private static final int MIN_ATTACK_DEFEND_ARMY = 1;
+    private static final Pair<Integer, Integer> INVALID_COMBAT = new Pair<>(0, 0);
 
-    private final List<Integer> strikers = new ArrayList<>();       // used for testing purpose
-    private final List<Integer> defenders = new ArrayList<>();      // used for testing purpose
-    private final Territory tStriker;
+    private final List<Integer> attackers = new ArrayList<>();
+    private final List<Integer> defenders = new ArrayList<>();
+    private final Territory tAttacker;
     private final Territory tDefender;
-    private int numberStriker = 0;
-    private int numberDefender = 0;
+    private final Dice dice = new DiceImpl(MAX_DICE_NUMBER);
+    // fields used for test purpose
+    private int numberAttacker;
+    private int numberDefender;
+    private boolean testFlag;
 
     /**
-     * This constructor create a standard Combat object.
+     * Constructor that creates an object used in test classes only.
      * 
-     * @param tStriker striker's territory
-     * @param numberStriker striker's armies
-     * @param tDefender defender's territory
-     * @param numberDefender defender's armies
+     * @param tAttacker      attacker's territory
+     * @param numberAttacker attacker's troops
+     * @param tDefender      defender's territory
+     * @param numberDefender defender's troops
+     * @param testFlag       flag used for test purpose
      * 
-     * {@throws IllegalArgumentException} if the number of armies doesn't respect the rules (must be between 1 and 3)
+     * @throws IllegalArgumentException if the number of troops doesn't respect the
+     *                                  rules (must be between 1 and 3)
      */
-    public CombatImpl(final Territory tStriker, final int numberStriker,
-        final Territory tDefender, final int numberDefender) {
-        this.tStriker  = tStriker;
-        this.tDefender = tDefender;
-        this.numberStriker = numberStriker;
+    public CombatImpl(final Territory tAttacker, final int numberAttacker,
+            final Territory tDefender, final int numberDefender, final boolean testFlag) {
+        this(tAttacker, tDefender);
+        this.numberAttacker = numberAttacker;
         this.numberDefender = numberDefender;
-        if (!isNumberArmiesValid()) {
-            throw new IllegalArgumentException("The number of armies cannot be less or equal 0 or more then 3");
-        }
+        this.testFlag = testFlag;
     }
 
     /**
-     * This constructor is used for test classes creating a situation with 0 strikers and defenders.
+     * Constructs a basic combat between two territories.
      * 
-     * @param tStriker striker's territories
+     * @param tAttacker attacker's territories
      * @param tDefender defender's territories
      */
-    public CombatImpl(final Territory tStriker, final Territory tDefender) {
-        this(tStriker, 0, tDefender, 0);
+    public CombatImpl(final Territory tAttacker, final Territory tDefender) {
+        this.tAttacker = new TerritoryImpl(tAttacker);
+        this.tDefender = new TerritoryImpl(tDefender);
     }
 
     /**
-     * This constructor is used for test classes, it creates a situation with default number of armies.
-     * and default results of each dice
+     * This constructor is used for test classes, it creates a situation with
+     * default number of troops and default results of each dice.
      * 
-     * @param tStriker striker's territory
-     * @param numberStriker striker's armies
-     * @param tDefender defender's territory
-     * @param numberDefender defender's armies
-     * @param strikers results of the dice for striker's armies
-     * @param defenders results of the dice for defender's armies
+     * @param tAttacker      attacker's territory
+     * @param numberAttacker attacker's troops
+     * @param tDefender      defender's territory
+     * @param numberDefender defender's troops
+     * @param attackers      results of the dice for attacker's troops
+     * @param defenders      results of the dice for defender's troops
+     * @param testFlag       flag used in test classes
      */
-    public CombatImpl(final Territory tStriker, final int numberStriker, final Territory tDefender,
-        final int numberDefender, final List<Integer> strikers, final List<Integer> defenders) {
-        this(tStriker, numberStriker, tDefender, numberDefender);
-        this.strikers.addAll(strikers);
+    public CombatImpl(final Territory tAttacker, final int numberAttacker, final Territory tDefender,
+            final int numberDefender, final List<Integer> attackers, final List<Integer> defenders,
+            final boolean testFlag) {
+        this(tAttacker, numberAttacker, tDefender, numberDefender, testFlag);
+        this.attackers.addAll(attackers);
         this.defenders.addAll(defenders);
-    }
-
-    /**
-     * This method is used to check the number of armies for each side.
-     * 
-     * @return a {@code boolean} value indicating if the numbers of defenders and strikers are correct
-     */
-    private boolean isNumberArmiesValid() {
-        return this.numberDefender <= MAX_ATTACK_DEFEND_ARMY && this.numberDefender >= MIN_ATTACK_DEFEND_ARMY
-            && this.numberStriker <= MAX_ATTACK_DEFEND_ARMY && this.numberStriker >= MIN_ATTACK_DEFEND_ARMY;
-    }
-
-    /**
-     * Simulate the behavior of a dice, giving a random number between 1 and 6.
-     * 
-     * @return a random dice number
-     */
-    private int rollDice() {
-        return new Random().nextInt(MAX_DICE_NUMBER) + 1;
-    }
-
-    /**
-     * Calculate the values of each army throwing a dice.
-     * 
-     * @param numberOfDice number of armies used in combat
-     * @return a {@code List<Integer>} containing the sorted values of each army 
-     */
-    private List<Integer> declarePower(final int numberOfDice) {
-        final List<Integer> l = new ArrayList<>();
-        for (int i = 0; i < numberOfDice; i++) {
-            l.add(rollDice());
-        }
-        l.sort((x, y) ->  y - x);
-        return l;
-    }
-
-    /**
-     * Calculate the result of the combat comparing the values obtained.
-     * 
-     * @param strikers values of each striker army
-     * @param defenders values of each defender army
-     * @return a {@code List<Results>} containing the result of each fight between armies
-     */
-    private List<Results> computeAttack(final List<Integer> strikers, final List<Integer> defenders) {
-        List<Results> r = new ArrayList<>();
-        while (!(strikers.isEmpty() || defenders.isEmpty())) {
-            var s = strikers.get(0);
-            var d = defenders.get(0);
-            r.add((s > d ? Results.WIN : Results.LOSE));
-            strikers.remove(0);
-            defenders.remove(0);
-        }
-        return r;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Results> attack() {
-        // only for test purpose
-        if (this.numberStriker != 0 && this.numberDefender != 0) {
-            var r = this.computeAttack(strikers, defenders);
-            return r;
-        }
-
-        var strikers = declarePower(numberStriker);
-        var defenders = declarePower(numberDefender);
-        System.out.println(strikers + "\n" + defenders);
-        var r = computeAttack(strikers, defenders);
-        System.out.println(r);
-
-        // removing armies from the territories
-        for (var x: r) {
-            if (x.equals(Combat.Results.WIN)) {
-                tDefender.addArmy(-1);
-            } else if (x.equals(Combat.Results.LOSE)) {
-                tStriker.addArmy(-1);
+    public Pair<Integer, Integer> attack(final int numAttacker, final int numDefender) {
+        this.numberAttacker = numAttacker;
+        this.numberDefender = numDefender;
+        if (testFlag) {
+            if (!isNumberTroopsValid()) {
+                throw new IllegalArgumentException("The number of troops cannot be less or equal 0 or more than 3");
             }
+            // only for test purpose
+            if (!checkAttackValidity()) {
+                return INVALID_COMBAT;
+            }
+            return this.computeAttack(attackers, defenders);
         }
-        return r;
+        final var attackers = declarePower(this.numberAttacker);
+        final var defenders = declarePower(this.numberDefender);
+        return computeAttack(attackers, defenders);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isTerritoryConquered(final Territory defender) {
+        return defender.getTroops() == 0;
+    }
+
+    /**
+     * This method is used to check the number of troops for each side.
+     * 
+     * @return a {@code boolean} value indicating if the numbers of defenders and
+     *         attackers are correct
+     */
+    private boolean isNumberTroopsValid() {
+        return this.numberDefender <= MAX_ATTACK_DEFEND_ARMY && this.numberDefender >= MIN_ATTACK_DEFEND_ARMY
+                && this.numberAttacker <= MAX_ATTACK_DEFEND_ARMY && this.numberAttacker >= MIN_ATTACK_DEFEND_ARMY;
+    }
+
+    /**
+     * Calculate the values of each army throwing a dice.
+     * 
+     * @param numberOfDice number of troops used in combat
+     * @return a {@code List<Integer>} containing the sorted values of each army
+     */
+    private List<Integer> declarePower(final int numberOfDice) {
+        final List<Integer> diceResults = new ArrayList<>();
+        diceResults.addAll(dice.rollMultiple(numberOfDice));
+        diceResults.sort((x, y) -> y - x);
+        return diceResults;
+    }
+
+    /**
+     * Calculate the result of the combat comparing the values obtained.
+     * 
+     * @param attackers values of each attacker army
+     * @param defenders values of each defender army
+     * @return a {@code Pair<Integer, Integer>} containing the number of troops each
+     *         territory has lost (attacker, defender)
+     */
+    private Pair<Integer, Integer> computeAttack(final List<Integer> attackers, final List<Integer> defenders) {
+        final List<Result> results = new ArrayList<>();
+        while (!(attackers.isEmpty() || defenders.isEmpty())) {
+            results.add(attackers.get(0) > defenders.get(0) ? Result.WIN : Result.LOSE);
+            attackers.remove(0);
+            defenders.remove(0);
+        }
+        return new Pair<>(
+                (int) results.stream().filter(r -> r.equals(Combat.Result.LOSE)).count(),
+                (int) results.stream().filter(r -> r.equals(Combat.Result.WIN)).count());
+    }
+
+    /**
+     * This method checks the validity of the combat.
+     * 
+     * @return {@code true} if the combat is valid
+     */
+    private boolean checkAttackValidity() {
+        return this.tAttacker.getAdjTerritories().stream().map(t -> t.getName()).toList().contains(tDefender.getName());
     }
 }

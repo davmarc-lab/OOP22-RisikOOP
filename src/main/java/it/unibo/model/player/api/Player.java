@@ -1,55 +1,199 @@
 package it.unibo.model.player.api;
 
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
+import it.unibo.model.army.api.Army;
+import it.unibo.model.hand.api.Hand;
+import it.unibo.model.objective.api.Objective;
 import it.unibo.model.territory.api.Territory;
 
 /**
- * This interface instace a player of the game.
+ * Provides method to interact with the player.
  */
 public interface Player {
 
     /**
-     * This method returns player's id.
+     * Enumerating of player color.
+     */
+    enum Color {
+
+        /**
+         * Purple color.
+         */
+        PURPLE("PURPLE", 166, 77, 255),
+        /**
+         * Blue color.
+         */
+        BLUE("BLUE", 0, 153, 255),
+        /**
+         * Red color.
+         */
+        RED("RED", 255, 0, 0),
+        /**
+         * Green color.
+         */
+        GREEN("GREEN", 0, 255, 0),
+        /**
+         * Orange color.
+         */
+        ORANGE("ORANGE", 255, 133, 51),
+        /**
+         * White color.
+         */
+        WHITE("WHITE", 255, 255, 255);
+
+        private final String name;
+        private final int r;
+        private final int g;
+        private final int b;
+
+        /**
+         * Construct a RGB color.
+         * 
+         * @param name color name
+         * @param r    red value
+         * @param g    green value
+         * @param b    blue value
+         */
+        Color(final String name, final int r, final int g, final int b) {
+            this.name = name;
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+
+        /**
+         * Retrieves the color name.
+         * 
+         * @return color name
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        /**
+         * Retrieves the color red value.
+         * 
+         * @return red value
+         */
+        public int getRedValue() {
+            return this.r;
+        }
+
+        /**
+         * Retrieves the color green value.
+         * 
+         * @return green value
+         */
+        public int getGreenValue() {
+            return this.g;
+        }
+
+        /**
+         * Retrieves the color blue value.
+         * 
+         * @return blue value
+         */
+        public int getBlueValue() {
+            return this.b;
+        }
+    }
+
+    /**
+     * Retrieves the player's id.
      * 
      * @return player's id
      */
     int getId();
 
     /**
-     * This method return the number of armies in a {@code Territory}.
-     * 
-     * @param t territory
-     * @return the number of armies in the territory
-     */
-    int getArmy(Territory t);
-
-    /**
-     * This method adds a {@code Stream<Territory>} to player's territory.
+     * Adds a {@code Territory} to player's territory.
      * 
      * @param territory stream of territories that will be added to player
      */
-    void addTerritory(Stream<Territory> territory);
+    void addTerritory(Territory territory);
 
     /**
-     * This method removes a {@code Stream<Territory>} from player's territory.
+     * Removes a {@code Territory} from player's territory.
      * 
      * @param territory stream of territories that will be removed from player
      */
-    void removeTerritory(Stream<Territory> territory);
+    void removeTerritory(Territory territory);
 
     /**
-     * This method return the territories of player.
+     * Retrieves the territories of player.
      * 
      * @return set of territories owned by player
      */
     Set<Territory> getTerritories();
 
     /**
-     * This method gets player's color.
+     * Retrieves player's color.
      * 
-     * @return player's color
+     * @return player color
      */
-    ColorPlayer getColorPlayer();
+    Color getColorPlayer();
+
+    /**
+     * Retrieves player's current objective.
+     * 
+     * @return player objective
+     */
+    Objective getObjective();
+
+    /**
+     * Sets player's objective.
+     * 
+     * @param objective player objective
+     */
+    void setObjective(Objective objective);
+
+    /**
+     * Retrieves player's {@code Hand}.
+     * 
+     * @return player hand
+     */
+    Hand getPlayerHand();
+
+    /**
+     * Adds an armyCard to player's hand.
+     * 
+     * @param card card that will be added to player's hand
+     */
+    void addCardToPlayerHand(Army card);
+
+    /**
+     * Removes a list of armyCards from the player's hand.
+     * 
+     * @param cards list of cards that will be removed from the player's hand
+     * @return the number of bonus troops acquired
+     */
+    int playCards(List<Army> cards);
+
+    /**
+     * Adds bonustroops to the player.
+     * 
+     * @param numberTroops bonus troops
+     */
+    void addTroops(int numberTroops);
+
+    /**
+     * Retrieves the number of bonus troops of the player.
+     * 
+     * @return player bonus troops
+     */
+    int getTroops();
+
+    /**
+     * Sets the objective status to complete.
+     */
+    void setObjectiveComplete();
+
+    /**
+     * Retrieves the copy of the player.
+     * 
+     * @return the copy of the player
+     */
+    Player getCopy();
 }
