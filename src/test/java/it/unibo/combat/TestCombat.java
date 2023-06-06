@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import it.unibo.common.Pair;
 import it.unibo.model.combat.api.Combat;
 import it.unibo.model.combat.impl.CombatImpl;
 import it.unibo.model.deck.impl.DeckImpl;
@@ -89,7 +90,7 @@ class TestCombat {
         d.addTroops(3);
         final Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS),
                 true);
-        assertEquals(List.of(Combat.Result.WIN, Combat.Result.WIN), c1.attack(2, 3));
+        assertEquals(new Pair<>(0, 2), c1.attack(2, 3));
         d.addTroops(-(int) List.of(Combat.Result.WIN, Combat.Result.WIN).stream()
                 .filter(r -> r.equals(Combat.Result.WIN)).count());
         assertEquals(List.of(2, 1), List.of(s.getTroops(), d.getTroops()));

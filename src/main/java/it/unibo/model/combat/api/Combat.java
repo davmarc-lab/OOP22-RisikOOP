@@ -2,6 +2,7 @@ package it.unibo.model.combat.api;
 
 import java.util.List;
 
+import it.unibo.common.Pair;
 import it.unibo.model.territory.api.Territory;
 
 /**
@@ -77,9 +78,10 @@ public interface Combat {
      * 
      * @param numAttacker number of attacker's troops
      * @param numDefender number of defender's troops
-     * @return a list of {@code Combat.Results} indicating the combat results
+     * @return a {@code Pair<Integer, Integer>} containing the number of lost troops
+     *         by attacker and defender
      */
-    List<Result> attack(int numAttacker, int numDefender);
+    Pair<Integer, Integer> attack(int numAttacker, int numDefender);
 
     /**
      * Checks if a territory has been conquered.

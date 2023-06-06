@@ -91,18 +91,10 @@ public class GameBoardImpl implements GameBoard {
             return CANCEL_COMBAT;
         }
         final Combat combat = new CombatImpl(attacker.getY(), defender.getY());
-        final List<Combat.Result> results = combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
-        results.stream().forEach(r -> {
-            if (r.equals(Combat.Result.WIN)) {
-                defender.getY().addTroops(-1);
-            } else if (r.equals(Combat.Result.LOSE)) {
-                attacker.getY().addTroops(-1);
-            }
-        });
-        final Pair<Integer, Integer> p = new Pair<>(
-                (int) results.stream().filter(r -> r.equals(Combat.Result.LOSE)).count(),
-                (int) results.stream().filter(r -> r.equals(Combat.Result.WIN)).count());
-        return new Pair<>(p, combat.isTerritoryConquered(defender.getY()));
+        final Pair<Integer, Integer> results = combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
+        attacker.getY().addTroops(-results.getX());
+        defender.getY().addTroops(-results.getY());
+        return new Pair<>(results, combat.isTerritoryConquered(defender.getY()));
     }
 
     /**

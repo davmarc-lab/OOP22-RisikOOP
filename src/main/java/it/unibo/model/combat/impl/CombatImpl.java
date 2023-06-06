@@ -3,6 +3,7 @@ package it.unibo.model.combat.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.common.Pair;
 import it.unibo.model.combat.api.Combat;
 import it.unibo.model.dice.api.Dice;
 import it.unibo.model.dice.impl.DiceImpl;
@@ -17,6 +18,7 @@ public class CombatImpl implements Combat {
     private static final int MAX_DICE_NUMBER = 6;
     private static final int MAX_ATTACK_DEFEND_ARMY = 3;
     private static final int MIN_ATTACK_DEFEND_ARMY = 1;
+    private static final Pair<Integer, Integer> INVALID_COMBAT = new Pair<>(0, 0);
 
     private final List<Integer> attackers = new ArrayList<>();
     private final List<Integer> defenders = new ArrayList<>();
@@ -83,7 +85,7 @@ public class CombatImpl implements Combat {
      * {@inheritDoc}
      */
     @Override
-    public List<Result> attack(final int numAttacker, final int numDefender) {
+    public Pair<Integer, Integer> attack(final int numAttacker, final int numDefender) {
         this.numberAttacker = numAttacker;
         this.numberDefender = numDefender;
         if (testFlag) {
@@ -92,7 +94,7 @@ public class CombatImpl implements Combat {
             }
             // only for test purpose
             if (!checkAttackValidity()) {
-                return List.of(Result.NONE);
+                return INVALID_COMBAT;
             }
             return this.computeAttack(attackers, defenders);
         }
@@ -127,10 +129,10 @@ public class CombatImpl implements Combat {
      * @return a {@code List<Integer>} containing the sorted values of each army
      */
     private List<Integer> declarePower(final int numberOfDice) {
-        final List<Integer> l = new ArrayList<>();
-        l.addAll(dice.rollMultiple(numberOfDice));
-        l.sort((x, y) -> y - x);
-        return l;
+        final List<Integer> diceResults = new ArrayList<>();
+        diceResults.addAll(dice.rollMultiple(numberOfDice));
+        diceResults.sort((x, y) -> y - x);
+        return diceResults;
     }
 
     /**
@@ -138,19 +140,19 @@ public class CombatImpl implements Combat {
      * 
      * @param attackers values of each attacker army
      * @param defenders values of each defender army
-     * @return a {@code List<Results>} containing the result of each fight between
-     *         armies
+     * @return a {@code Pair<Integer, Integer>} containing the number of troops each
+     *         territory has lost (attacker, defender)
      */
-    private List<Result> computeAttack(final List<Integer> attackers, final List<Integer> defenders) {
-        final List<Result> r = new ArrayList<>();
+    private Pair<Integer, Integer> computeAttack(final List<Integer> attackers, final List<Integer> defenders) {
+        final List<Result> results = new ArrayList<>();
         while (!(attackers.isEmpty() || defenders.isEmpty())) {
-            final var s = attackers.get(0);
-            final var d = defenders.get(0);
-            r.add(s > d ? Result.WIN : Result.LOSE);
+            results.add(attackers.get(0) > defenders.get(0) ? Result.WIN : Result.LOSE);
             attackers.remove(0);
             defenders.remove(0);
         }
-        return r;
+        return new Pair<>(
+                (int) results.stream().filter(r -> r.equals(Combat.Result.LOSE)).count(),
+                (int) results.stream().filter(r -> r.equals(Combat.Result.WIN)).count());
     }
 
     /**
