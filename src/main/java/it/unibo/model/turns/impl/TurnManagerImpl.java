@@ -1,4 +1,4 @@
-package it.unibo.model.gameloop.impl;
+package it.unibo.model.turns.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.util.List;
 import it.unibo.common.Pair;
 import it.unibo.model.dice.api.Dice;
 import it.unibo.model.dice.impl.DiceImpl;
-import it.unibo.model.gameloop.api.TurnManager;
+import it.unibo.model.turns.api.TurnManager;
 
 /**
  * Implementation of {@link TurnManager}.
@@ -116,5 +116,14 @@ public class TurnManagerImpl implements TurnManager {
         for (int i = 0; i < playersIDs.size(); i++) {
             playersIDs.set(i, list.get(i).getX());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetTurns() {
+        this.playerIterator = this.playersIDs.iterator();
+        this.currentPlayerID = playerIterator.next();
     }
 }

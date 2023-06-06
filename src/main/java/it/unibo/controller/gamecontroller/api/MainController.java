@@ -2,7 +2,7 @@ package it.unibo.controller.gamecontroller.api;
 
 import java.util.Set;
 
-import it.unibo.model.gameloop.api.GameLoop;
+import it.unibo.gameengine.api.GameEngine;
 import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.GameZone;
 
@@ -59,11 +59,11 @@ public interface MainController {
     void endTurn();
 
     /**
-     * Retrieves the current {@link GameLoop}.
+     * Retrieves the current {@link GameEngine}.
      * 
-     * @return the game loop
+     * @return the game engine
      */
-    GameLoop getGameLoop();
+    GameEngine getGameEngine();
 
     /**
      * Retrieves the {@link GameZone} view.
@@ -73,9 +73,9 @@ public interface MainController {
     GameZone getGameZone();
 
     /**
-     * Starts game loop.
+     * Starts game engine.
      */
-    void startLoop();
+    void startEngine();
 
     /**
      * Randomizes the distribution of troops on territories.

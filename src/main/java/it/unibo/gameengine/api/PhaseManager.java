@@ -1,4 +1,4 @@
-package it.unibo.model.gameloop.api;
+package it.unibo.gameengine.api;
 
 /**
  * Used to manage all the phases of a turn.
@@ -12,12 +12,7 @@ public interface PhaseManager {
         /**
          * The player is given troops based on the territories he owns.
          */
-        PREPARATION,
-
-        /**
-         * The player can play his cards to gain bonus troops.
-         */
-        PLAY_CARDS,
+        REINFORCEMENTS,
 
         /**
          * The player can attack another player's territory to conquer it.

@@ -1,4 +1,4 @@
-package it.unibo.model.gameloop.impl;
+package it.unibo.gameengine.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,26 +11,29 @@ import java.util.stream.Collectors;
 
 import it.unibo.common.Pair;
 import it.unibo.controller.gamecontroller.api.MainController;
+import it.unibo.gameengine.api.GameEngine;
+import it.unibo.gameengine.api.GameState;
+import it.unibo.gameengine.api.PhaseManager;
+import it.unibo.gameengine.api.PhaseManager.Phase;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.board.impl.GameBoardImpl;
-import it.unibo.model.gameloop.api.GameLoop;
-import it.unibo.model.gameloop.api.PhaseManager;
-import it.unibo.model.gameloop.api.TurnManager;
-import it.unibo.model.gameloop.api.PhaseManager.Phase;
-import it.unibo.model.gamestate.api.GameState;
-import it.unibo.model.gamestate.impl.GameStateImpl;
 import it.unibo.model.modelconstants.ModelConstants;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.model.turns.api.TurnManager;
+import it.unibo.model.turns.impl.TurnManagerImpl;
 
 /**
- * Implementation of {@link GameLoop} interface.
+ * Implementation of {@link GameEngine} interface.
  * 
  * Processes the input received from the view
- * and tell the view what to render.
+ * and tells the view what to render.
  */
-public class GameLoopImpl implements GameLoop, Cloneable {
+public class GameEngineImpl implements GameEngine, Cloneable {
 
     private static final int PREPARATION_TROOPS = 3;
+    private static final String COMBAT_START_MESSAGE = new StringBuilder("You can now attack other territories.")
+            .append("\nSelect one of your territory you want to attack from.")
+            .append("\nIf you want to undo your attack and start another, press ATTACK.").toString();
     private static final String COMBAT_MESSAGE = new StringBuilder("Select an adjacent enemy territory.")
             .append("\nIf you want to undo your attack and start another, press ATTACK.").toString();
     private static final String RESET_COMBAT_MESSAGE = new StringBuilder(
@@ -56,9 +59,9 @@ public class GameLoopImpl implements GameLoop, Cloneable {
     private boolean prepare = true;
 
     /**
-     * Constructs an instance of {@link GameLoop}.
+     * Constructs an instance of {@link GameEngine}.
      */
-    public GameLoopImpl() {
+    public GameEngineImpl() {
         this.selectedTerritories = new ArrayList<>();
         this.disabledTerritories = new ArrayList<>();
         this.board = new GameBoardImpl();
@@ -96,13 +99,16 @@ public class GameLoopImpl implements GameLoop, Cloneable {
         }
         this.prepare = false;
         this.selectedTerritories.clear();
-        this.endPlayerTurn();
+        this.turnManager.resetTurns();
         this.controller.setCardController();
         this.controller.updateCards();
         this.controller.updateInfo();
-        this.board.getGameTerritories().getTerritories()
-                .forEach(t -> this.controller.updateSquare(t.getName()));
-        this.controller.sendMessage(new StringBuilder("You can now play your cards to gain bonus troops").toString());
+        this.board.defineBonusArmies(this.controller.getCurrentPlayer());
+        this.controller.sendMessage(new StringBuilder("It's Player").append(this.controller.getCurrentPlayer().getId())
+                .append("'s turn.\nYou can now assign your bonus troops to your territories.\nBonus troops: ")
+                .append(this.board.getPlayerFromId(this.turnManager.getCurrentPlayerID()).getTroops()).toString());
+        this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories());
+        this.board.getGameTerritories().getTerritories().forEach(t -> this.controller.updateSquare(t.getName()));
     }
 
     /**
@@ -117,7 +123,7 @@ public class GameLoopImpl implements GameLoop, Cloneable {
             return;
         }
         switch (this.phaseManager.getCurrentPhase()) {
-            case PREPARATION:
+            case REINFORCEMENTS:
                 this.controller.setCardController();
                 this.board.placeTroops(t, 1);
                 this.checkGameState();
@@ -125,11 +131,8 @@ public class GameLoopImpl implements GameLoop, Cloneable {
                 if (this.controller.getCurrentPlayer().getTroops() == 0) {
                     this.selectedTerritories.clear();
                     this.phaseManager.switchToNextPhase();
-                    this.controller.sendMessage(
-                            new StringBuilder("You can now play your cards to gain bonus troops").toString());
+                    this.controller.sendMessage(COMBAT_START_MESSAGE);
                 }
-                break;
-            case PLAY_CARDS:
                 break;
             case COMBAT:
                 this.selectedTerritories.add(t);
@@ -245,7 +248,7 @@ public class GameLoopImpl implements GameLoop, Cloneable {
                             .toString());
             return;
         }
-        this.phaseManager.switchToPhase(Phase.PREPARATION);
+        this.phaseManager.switchToPhase(Phase.REINFORCEMENTS);
         this.turnManager.switchToNextPlayer();
         this.controller.updateInfo();
         this.board.defineBonusArmies(this.controller.getCurrentPlayer());
@@ -290,19 +293,19 @@ public class GameLoopImpl implements GameLoop, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public GameLoopImpl clone() throws CloneNotSupportedException {
-        return (GameLoopImpl) super.clone();
+    public GameEngineImpl clone() throws CloneNotSupportedException {
+        return (GameEngineImpl) super.clone();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public GameLoop getCopy() {
+    public GameEngine getCopy() {
         try {
-            return (GameLoop) this.clone();
+            return (GameEngine) this.clone();
         } catch (CloneNotSupportedException e) {
-            Logger.getLogger(GameLoopImpl.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
+            Logger.getLogger(GameEngineImpl.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
         }
         throw new IllegalCallerException("Cannot create a copy");
     }

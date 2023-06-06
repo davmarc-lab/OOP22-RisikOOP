@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.gamecontroller.api.StartController;
-import it.unibo.model.gameloop.api.GameLoop;
-import it.unibo.model.gameloop.impl.GameLoopImpl;
+import it.unibo.gameengine.api.GameEngine;
+import it.unibo.gameengine.impl.GameEngineImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.BoardZone;
 import it.unibo.view.game_screen.api.GameZone;
@@ -26,7 +26,7 @@ import it.unibo.view.game_screen.impl.SideBar;
 public class MainControllerImpl implements MainController, Cloneable {
 
     private final StartController startController;
-    private final GameLoop loop;
+    private final GameEngine engine;
     private final BoardZone board;
     private final SideZone side;
 
@@ -37,7 +37,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     public MainControllerImpl(final StartController startController) {
         this.startController = startController;
-        this.loop = new GameLoopImpl();
+        this.engine = new GameEngineImpl();
         this.board = new BoardPanel(this);
         this.side = new SideBar(this.board.getDimension(), this);
     }
@@ -46,9 +46,9 @@ public class MainControllerImpl implements MainController, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public void startLoop() {
-        this.loop.setController(this);
-        this.loop.start();
+    public void startEngine() {
+        this.engine.setController(this);
+        this.engine.start();
     }
 
     /**
@@ -56,7 +56,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public void sendInput(final String input) {
-        this.loop.processInput(input);
+        this.engine.processInput(input);
     }
 
     /**
@@ -96,7 +96,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public void switchToCombat() {
-        this.loop.startCombat();
+        this.engine.startCombat();
     }
 
     /**
@@ -104,7 +104,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public void switchToMovement() {
-        this.loop.startMovement();
+        this.engine.startMovement();
     }
 
     /**
@@ -112,15 +112,15 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public void endTurn() {
-        this.loop.endPlayerTurn();
+        this.engine.endPlayerTurn();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public GameLoop getGameLoop() {
-        return this.loop.getCopy();
+    public GameEngine getGameEngine() {
+        return this.engine.getCopy();
     }
 
     /**
@@ -136,7 +136,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public void randomize() {
-        this.loop.randomize();
+        this.engine.randomize();
     }
 
     /**
@@ -144,9 +144,9 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public Player getPlayerFromTerritory(final String territory) {
-        return this.loop.getBoard().getAllPlayers().stream()
+        return this.engine.getBoard().getAllPlayers().stream()
                 .filter(p -> p.getTerritories()
-                        .contains(this.loop.getBoard().getGameTerritories().getTerritory(territory)))
+                        .contains(this.engine.getBoard().getGameTerritories().getTerritory(territory)))
                 .findAny().get();
     }
 
@@ -155,7 +155,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      */
     @Override
     public Player getCurrentPlayer() {
-        return this.loop.getBoard().getPlayerFromId(this.loop.getTurnManager().getCurrentPlayerID());
+        return this.engine.getBoard().getPlayerFromId(this.engine.getTurnManager().getCurrentPlayerID());
     }
 
     /**

@@ -1,7 +1,5 @@
 package it.unibo.model.combat.api;
 
-import java.util.List;
-
 import it.unibo.common.Pair;
 import it.unibo.model.territory.api.Territory;
 

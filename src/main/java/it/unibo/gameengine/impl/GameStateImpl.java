@@ -1,11 +1,11 @@
-package it.unibo.model.gamestate.impl;
+package it.unibo.gameengine.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.common.Pair;
 import it.unibo.controller.gamecontroller.api.MainController;
-import it.unibo.model.gamestate.api.GameState;
+import it.unibo.gameengine.api.GameState;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.player.api.Player;
 
@@ -30,7 +30,7 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public Player getWinner() {
-        return this.mc.getGameLoop().getBoard().getAllPlayers().stream()
+        return this.mc.getGameEngine().getBoard().getAllPlayers().stream()
                 .filter(p -> p.getObjective().isComplete())
                 .findAny().get();
     }
@@ -41,7 +41,7 @@ public class GameStateImpl implements GameState {
      * @return {@code true} if a player has won the game, {@code false} otherwise
      */
     private boolean checkIfPlayerWon() {
-        final List<Player> players = this.mc.getGameLoop().getBoard().getAllPlayers();
+        final List<Player> players = this.mc.getGameEngine().getBoard().getAllPlayers();
         final List<Pair<Integer, Boolean>> results = new ArrayList<>();
         for (final Player player : players) {
             final String armyColor = player.getObjective().getCheckObjectives().getY().get(0);
@@ -111,7 +111,7 @@ public class GameStateImpl implements GameState {
 
         if (thirdContinent && isContinentConquered(player, firstContinent)
                 && isContinentConquered(player, secondContinent)) {
-            if (this.mc.getGameLoop().getBoard().getGameTerritories().getTerritoryMap().keySet().stream()
+            if (this.mc.getGameEngine().getBoard().getGameTerritories().getTerritoryMap().keySet().stream()
                     .filter(c -> !c.equals(firstContinent) && !c.equals(secondContinent))
                     .anyMatch(continent -> isContinentConquered(player, continent))) {
                 player.setObjectiveComplete();
@@ -134,7 +134,7 @@ public class GameStateImpl implements GameState {
      *         otherwise
      */
     private boolean isContinentConquered(final Player player, final String continent) {
-        return player.getTerritories().containsAll(this.mc.getGameLoop().getBoard().getGameTerritories()
+        return player.getTerritories().containsAll(this.mc.getGameEngine().getBoard().getGameTerritories()
                 .getTerritoryMap().get(continent));
     }
 

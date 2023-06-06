@@ -3,10 +3,10 @@ package it.unibo.model.board.api;
 import java.util.List;
 
 import it.unibo.common.Pair;
-import it.unibo.model.gameloop.api.TurnManager;
 import it.unibo.model.player.api.Player;
 import it.unibo.model.territory.api.GameTerritory;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.model.turns.api.TurnManager;
 
 /**
  * Provides methods to interact with the game

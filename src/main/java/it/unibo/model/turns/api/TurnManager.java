@@ -1,4 +1,4 @@
-package it.unibo.model.gameloop.api;
+package it.unibo.model.turns.api;
 
 import java.util.Iterator;
 import java.util.List;
@@ -27,4 +27,9 @@ public interface TurnManager {
      * @return the iterator that cycles the list of players' IDs
      */
     Iterator<Integer> getIterator();
+
+    /**
+     * Restarts the turn cycle.
+     */
+    void resetTurns();
 }

@@ -46,7 +46,7 @@ public class StartControllerImpl implements StartController {
     @Override
     public void startGame() {
         this.view.changeToGamePanel();
-        this.mainController.startLoop();
+        this.mainController.startEngine();
     }
 
     /**

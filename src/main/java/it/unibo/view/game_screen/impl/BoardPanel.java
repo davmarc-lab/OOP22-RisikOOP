@@ -126,7 +126,7 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
      */
     @Override
     public void setTroopsView() {
-        this.controller.getGameLoop().getBoard().getAllPlayers().forEach(
+        this.controller.getGameEngine().getBoard().getAllPlayers().forEach(
                 p -> p.getTerritories().forEach(
                         t -> this.getLabel(t.getName()).setForeground(new Color(p.getColorPlayer().getRedValue(),
                                 p.getColorPlayer().getGreenValue(), p.getColorPlayer().getBlueValue()))));
@@ -137,7 +137,7 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
      */
     @Override
     public void updateTroopsView(final String territory) {
-        final int troops = this.controller.getGameLoop().getBoard().getGameTerritories().getTerritories().stream()
+        final int troops = this.controller.getGameEngine().getBoard().getGameTerritories().getTerritories().stream()
                 .filter(t -> t.getName().equals(territory)).findAny().get().getTroops();
         this.getLabel(territory).setText(String.valueOf(troops));
         this.getLabel(territory).setForeground(this.getPlayerColor(territory));

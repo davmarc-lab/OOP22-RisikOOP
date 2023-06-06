@@ -1,6 +1,6 @@
-package it.unibo.model.gameloop.impl;
+package it.unibo.gameengine.impl;
 
-import it.unibo.model.gameloop.api.PhaseManager;
+import it.unibo.gameengine.api.PhaseManager;
 
 /**
  * Implementation of {@link PhaseManager}.
@@ -15,7 +15,7 @@ public class PhaseManagerImpl implements PhaseManager {
      * phase of a turn.
      */
     public PhaseManagerImpl() {
-        currentPhase = Phase.PREPARATION;
+        currentPhase = Phase.REINFORCEMENTS;
     }
 
     /**

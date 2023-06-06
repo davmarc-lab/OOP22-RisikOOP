@@ -1,16 +1,17 @@
-package it.unibo.model.gameloop.api;
+package it.unibo.gameengine.api;
 
 import java.util.Set;
 
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.model.board.api.GameBoard;
 import it.unibo.model.territory.api.Territory;
+import it.unibo.model.turns.api.TurnManager;
 
 /**
  * Processes the input received from the view
  * and tell the view what to render.
  */
-public interface GameLoop {
+public interface GameEngine {
 
     /**
      * Starts game loop.
@@ -62,16 +63,17 @@ public interface GameLoop {
     TurnManager getTurnManager();
 
     /**
-     * Randomizes the distribution of troops on territories.
+     * Randomizes the distribution of troops on territories and jumps to the first
+     * player's turn, giving him bonus troops.
      */
     void randomize();
 
     /**
-     * Retrieves a copy of the current {@link GameLoop}.
+     * Retrieves a copy of the current {@link GameEngine}.
      * 
      * @return a copy of the current game loop
      */
-    GameLoop getCopy();
+    GameEngine getCopy();
 
     /**
      * Sets the controller.
