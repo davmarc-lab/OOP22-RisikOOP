@@ -23,7 +23,14 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
     private static final double WIDTH_SCALING = 0.08;
     private static final int VGAP = 2;
 
+    /**
+     * The panel containing the player's information.
+     */
     private final InfoZone ip;
+
+    /**
+     * The panel containing the player's cards.
+     */
     private final CardZone cp;
 
     /**

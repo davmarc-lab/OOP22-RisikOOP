@@ -33,20 +33,59 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
     private static final String CARD_LABEL = "PLAYER HAND";
     private static final int BORDER_SIZE = 4;
     private static final String DEFAUL_STRING = "NaN";
-
+    /**
+     * Label that shows the number of the obtained cards of type {@code INFANTRY}.
+     */
     private final JLabel firstText = new JLabel(DEFAUL_STRING);
+
+    /**
+     * Label that shows the number of the obtained cards of type {@code CAVALRY}.
+     */
     private final JLabel secondText = new JLabel(DEFAUL_STRING);
+
+    /**
+     * Label that shows the number of the obtained cards of type {@code ARTILLERY}.
+     */
     private final JLabel thirdText = new JLabel(DEFAUL_STRING);
 
+    /**
+     * Button of type {@code INFANTRY}.
+     */
     private final JButton firstCard = new JButton("Infantry");
+
+    /**
+     * Button of type {@code CAVALRY}.
+     */
     private final JButton secondCard = new JButton("Cavalry");
+
+    /**
+     * Button of type {@code ARTILLERY}.
+     */
     private final JButton thirdCard = new JButton("Artillery");
 
+    /**
+     * Button to confirm the cards played.
+     */
     private final JButton playCards = new JButton("Play");
+
+    /**
+     * Button to reset the cards played.
+     */
     private final JButton resetCards = new JButton("Reset");
 
+    /**
+     * Label that shows the number of cards of type {@code INFANTRY} played.
+     */
     private final JLabel firstPlayed = new JLabel(DEFAUL_STRING);
+
+    /**
+     * Label that shows the number of cards of type {@code CAVALRY} played.
+     */
     private final JLabel secondPlayed = new JLabel(DEFAUL_STRING);
+
+    /**
+     * Label that shows the number of cards of type {@code ARTILLERY} played.
+     */
     private final JLabel thirdPlayed = new JLabel(DEFAUL_STRING);
 
     private final transient MainController controller;

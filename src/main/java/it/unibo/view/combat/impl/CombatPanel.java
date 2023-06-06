@@ -25,8 +25,19 @@ public class CombatPanel extends JPanel {
     private static final int TOP_BOTTOM_BORDER = 2;
     private static final int LEFT_RIGHT_BORDER = 5;
 
+    /**
+     * Increment button.
+     */
     private final JButton buttonUp = new JButton("+");
+
+    /**
+     * Decrement button.
+     */
     private final JButton buttonDown = new JButton("-");
+
+    /**
+     * Label displaying the current number of troops.
+     */
     private final JLabel number = new JLabel(String.valueOf(1));
 
     /**

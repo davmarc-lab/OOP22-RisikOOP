@@ -1,7 +1,7 @@
 package it.unibo.common;
 
 /**
- * A standard generic Pair&lt;X,Y&gt;, with getters, hashCode, equals, and toString
+ * A standard generic {@code Pair<X, Y>}, with getters, hashCode, equals, and toString
  * well implemented.
  * 
  * @param <X> the first value's type

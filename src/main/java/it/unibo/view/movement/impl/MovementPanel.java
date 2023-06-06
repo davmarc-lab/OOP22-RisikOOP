@@ -22,10 +22,29 @@ public class MovementPanel extends JPanel {
     private static final int LEFT_RIGHT_BORDER = 5;
     private static final int TOP_BOTTOM_BORDER = 2;
 
+    /**
+     * The number of troops in the source territory.
+     */
     private final int source;
+
+    /**
+     * Increment button.
+     */
     private final JButton buttonUp = new JButton("+");
+
+    /**
+     * Decrement button.
+     */
     private final JButton buttonDown = new JButton("-");
+
+    /**
+     * Label displaying the current number of troops.
+     */
     private final JLabel number = new JLabel(String.valueOf(1));
+
+    /**
+     * Label displaying the current status of the movement.
+     */
     private final JLabel currentTerritoryStatus = new JLabel();
 
     /**

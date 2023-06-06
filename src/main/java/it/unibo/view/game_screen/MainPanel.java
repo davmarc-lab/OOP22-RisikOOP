@@ -52,6 +52,9 @@ public class MainPanel extends JPanel {
     private static final int FONT_SIZE = 35;
     private static final int BUTTON_BORDER_SIZE = 3;
 
+    /**
+     * The dimension of the screen.
+     */
     private final Dimension dimension;
 
     /**

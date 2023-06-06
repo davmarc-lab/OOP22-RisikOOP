@@ -30,8 +30,19 @@ public class InfoPanel extends JPanel implements InfoZone {
     private static final double INFO_PANEL_HEIGHT_SCALING = 0.3;
 
     private final transient MainController controller;
+    /**
+     * Label containing the player's ID.
+     */
     private final JLabel pLabel;
+
+    /**
+     * Label containing the player's color.
+     */
     private final JLabel cLabel;
+
+    /**
+     * Text area containing the player's objective.
+     */
     private final JTextArea objText;
 
     /**

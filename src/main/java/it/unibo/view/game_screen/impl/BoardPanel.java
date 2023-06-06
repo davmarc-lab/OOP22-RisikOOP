@@ -42,9 +42,21 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
     private static final double LABEL_SCALING = 1.04;
     private static final int FONT_SIZE = 14;
 
+    /**
+     * Map that associates a button to a territory.
+     */
     private final Map<CustomButton, String> territories = new HashMap<>();
+
+    /**
+     * Map of labels that contains the number of troops on a territory.
+     */
     private final Map<String, JLabel> squares = new HashMap<>();
+
+    /**
+     * The layered pane that contains the map and the buttons.
+     */
     private final JLayeredPane pane = new JLayeredPane();
+
     private final transient MainController controller;
 
     /**

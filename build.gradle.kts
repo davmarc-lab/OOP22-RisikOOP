@@ -34,7 +34,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.start.App")
+    mainClass.set("it.unibo.start.GameStart")
 }
 
 tasks.test {
