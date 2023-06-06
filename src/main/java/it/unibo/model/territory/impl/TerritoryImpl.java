@@ -82,10 +82,10 @@ public class TerritoryImpl implements Territory {
      */
     @Override
     public String toString() {
-        return new String(new StringBuilder("NAME = ").append(this.getName()).append(", ADJ = [").append(
+        return new String(new StringBuilder("NAME = ").append(this.getName()).append(", ADJ = (").append(
                 this.getAdjTerritories().stream()
-                        .map(t -> t.getName())
-                        .reduce((s1, s2) -> s1 + ", " + s2).get())
-                .append(']'));
+                        .map(Territory::getName)
+                        .reduce((s1, s2) -> s1 + "; " + s2).get())
+                .append(')'));
     }
 }

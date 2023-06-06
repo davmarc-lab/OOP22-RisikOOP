@@ -47,7 +47,7 @@ public class GameTerritoryImpl implements GameTerritory {
      */
     @Override
     public Set<String> getTerritoryNameSet() {
-        return this.getTerritories().stream().map(t -> t.getName()).collect(Collectors.toSet());
+        return this.getTerritories().stream().map(Territory::getName).collect(Collectors.toSet());
     }
 
     /**

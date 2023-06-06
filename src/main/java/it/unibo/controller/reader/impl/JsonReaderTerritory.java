@@ -55,12 +55,12 @@ public final class JsonReaderTerritory extends AbstractFileReader<Set<Pair<Strin
             final FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
             final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
-            for (final Object elem : array) {
+            for (final Object elem: array) {
                 obj = (JSONObject) elem;
                 final String continentName = obj.get("continent").toString();
                 final JSONArray terrArray = (JSONArray) obj.get("territories");
                 this.territories.add(new Pair<>(continentName, new HashSet<>()));
-                for (final var t : terrArray) {
+                for (final Object t: terrArray) {
                     final JSONObject tObj = (JSONObject) t;
                     final String tName = tObj.get("name").toString();
                     this.territories.stream()
@@ -69,14 +69,14 @@ public final class JsonReaderTerritory extends AbstractFileReader<Set<Pair<Strin
                             .add(new TerritoryImpl(tName));
                 }
             }
-            for (final var elem : array) {
+            for (final Object elem: array) {
                 obj = (JSONObject) elem;
                 final JSONArray terrArray = (JSONArray) obj.get("territories");
-                for (final var t : terrArray) {
+                for (final Object t: terrArray) {
                     final JSONObject tObj = (JSONObject) t;
                     final String tName = tObj.get("name").toString();
                     final JSONArray adjArray = (JSONArray) tObj.get("adj");
-                    for (final var adjT : adjArray) {
+                    for (final Object adjT: adjArray) {
                         this.getTerritory(tName).addAdjTerritory(this.getTerritory(adjT.toString()));
                     }
                 }
