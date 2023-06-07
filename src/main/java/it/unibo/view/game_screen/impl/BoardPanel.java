@@ -39,7 +39,7 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;
     private static final int BUTTON_BORDER_SIZE = 2;
-    private static final double LABEL_SCALING = 1.04;
+    private static final double LABEL_SCALING = 1.3;
     private static final int FONT_SIZE = 14;
 
     /**

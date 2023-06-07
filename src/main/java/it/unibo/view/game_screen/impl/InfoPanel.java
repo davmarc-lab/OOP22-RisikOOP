@@ -76,6 +76,7 @@ public class InfoPanel extends JPanel implements InfoZone {
         playerPanel.add(this.pLabel, cnst);
         cnst.gridy++;
         playerPanel.add(this.cLabel, cnst);
+        playerPanel.setBackground(Color.WHITE);
         this.add(playerPanel, BorderLayout.CENTER);
 
         objectivePanel = new JPanel(new BorderLayout());

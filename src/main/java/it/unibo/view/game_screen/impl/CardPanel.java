@@ -118,6 +118,7 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
         playPanel.add(playCards, BorderLayout.WEST);
         playPanel.add(resetCards, BorderLayout.EAST);
 
+        cardsPanel.setBackground(Color.WHITE);
         this.add(cardsPanel, BorderLayout.CENTER);
         this.add(playPanel, BorderLayout.SOUTH);
     }
