@@ -3,6 +3,7 @@ package it.unibo.controller.playerhand.api;
 import java.util.List;
  
 import it.unibo.model.army.api.Army;
+import it.unibo.model.army.api.Army.ArmyType;
  
 /**
  * Models a controller used for the player's hand.
