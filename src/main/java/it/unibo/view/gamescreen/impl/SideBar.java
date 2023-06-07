@@ -1,12 +1,12 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import javax.swing.JPanel;
 
 import it.unibo.controller.gamecontroller.api.MainController;
-import it.unibo.view.game_screen.ButtonPanel;
-import it.unibo.view.game_screen.api.CardZone;
-import it.unibo.view.game_screen.api.InfoZone;
-import it.unibo.view.game_screen.api.SideZone;
+import it.unibo.view.gamescreen.ButtonPanel;
+import it.unibo.view.gamescreen.api.CardZone;
+import it.unibo.view.gamescreen.api.InfoZone;
+import it.unibo.view.gamescreen.api.SideZone;
 
 import java.awt.Color;
 import java.awt.Dimension;

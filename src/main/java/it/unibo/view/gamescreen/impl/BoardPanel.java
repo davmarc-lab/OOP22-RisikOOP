@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,8 +23,8 @@ import javax.swing.border.LineBorder;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.reader.impl.JsonReaderCoordinates;
 import it.unibo.controller.reader.impl.JsonReaderSquareCoordinates;
-import it.unibo.view.game_screen.CustomButton;
-import it.unibo.view.game_screen.api.BoardZone;
+import it.unibo.view.gamescreen.CustomButton;
+import it.unibo.view.gamescreen.api.BoardZone;
 import it.unibo.view.viewconstants.ViewConstants;
 
 /**

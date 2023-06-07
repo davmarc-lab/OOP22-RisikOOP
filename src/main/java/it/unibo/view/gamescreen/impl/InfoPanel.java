@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.gamecontroller.api.MainController;
-import it.unibo.view.game_screen.api.InfoZone;
+import it.unibo.view.gamescreen.api.InfoZone;
 
 /**
  * Implementation of {@link InfoZone} interface.

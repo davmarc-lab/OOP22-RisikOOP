@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,7 +23,7 @@ import it.unibo.common.Pair;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.api.PlayerHandController;
 import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
-import it.unibo.view.game_screen.api.CardZone;
+import it.unibo.view.gamescreen.api.CardZone;
 
 /**
  * Implementation of {@link CardZone} interface.

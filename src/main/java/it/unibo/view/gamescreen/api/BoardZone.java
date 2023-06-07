@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.api;
+package it.unibo.view.gamescreen.api;
 
 import java.util.Set;
 

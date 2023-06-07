@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import it.unibo.controller.gamecontroller.api.StartController;
-import it.unibo.view.game_screen.MainPanel;
-import it.unibo.view.game_screen.api.MainView;
+import it.unibo.view.gamescreen.MainPanel;
+import it.unibo.view.gamescreen.api.MainView;
 
 /**
  * Implementation of {@link MainView} interface.

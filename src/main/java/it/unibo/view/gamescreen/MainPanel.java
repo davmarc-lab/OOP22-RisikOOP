@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen;
+package it.unibo.view.gamescreen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.reader.impl.AbstractFileReader;
-import it.unibo.view.game_screen.impl.MainFrame;
+import it.unibo.view.gamescreen.impl.MainFrame;
 import it.unibo.view.viewconstants.ViewConstants;
 
 /**

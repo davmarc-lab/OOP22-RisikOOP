@@ -11,11 +11,11 @@ import it.unibo.controller.gamecontroller.api.StartController;
 import it.unibo.gameengine.api.GameEngine;
 import it.unibo.gameengine.impl.GameEngineImpl;
 import it.unibo.model.player.api.Player;
-import it.unibo.view.game_screen.api.BoardZone;
-import it.unibo.view.game_screen.api.SideZone;
-import it.unibo.view.game_screen.impl.BoardPanel;
-import it.unibo.view.game_screen.impl.GamePanel;
-import it.unibo.view.game_screen.impl.SideBar;
+import it.unibo.view.gamescreen.GamePanel;
+import it.unibo.view.gamescreen.api.BoardZone;
+import it.unibo.view.gamescreen.api.SideZone;
+import it.unibo.view.gamescreen.impl.BoardPanel;
+import it.unibo.view.gamescreen.impl.SideBar;
 
 /**
  * Implementation of {@link MainController}.

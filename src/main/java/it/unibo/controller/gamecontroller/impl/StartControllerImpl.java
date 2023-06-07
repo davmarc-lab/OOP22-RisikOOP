@@ -2,8 +2,8 @@ package it.unibo.controller.gamecontroller.impl;
 
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.gamecontroller.api.StartController;
-import it.unibo.view.game_screen.api.MainView;
-import it.unibo.view.game_screen.impl.MainFrame;
+import it.unibo.view.gamescreen.api.MainView;
+import it.unibo.view.gamescreen.impl.MainFrame;
 
 /**
  * Implementation of {@link StartController} interface.

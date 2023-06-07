@@ -9,7 +9,7 @@ import it.unibo.model.army.api.Army;
 import it.unibo.model.army.api.Army.ArmyType;
 import it.unibo.model.army.impl.ArmyImpl;
 import it.unibo.model.player.api.Player;
-import it.unibo.view.game_screen.api.CardZone;
+import it.unibo.view.gamescreen.api.CardZone;
 
 /**
  * Implementation of {@link PlayerHandController} for the player's hand.

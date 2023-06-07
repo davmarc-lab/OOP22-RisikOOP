@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.api;
+package it.unibo.view.gamescreen.api;
 
 /**
  * Defines the side zone where the player's information and cards are displayed.

@@ -1,11 +1,11 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-import it.unibo.view.game_screen.api.BoardZone;
-import it.unibo.view.game_screen.api.SideZone;
+import it.unibo.view.gamescreen.api.BoardZone;
+import it.unibo.view.gamescreen.api.SideZone;
 
 /**
  * Implemetation of {@link GameZone} interface.

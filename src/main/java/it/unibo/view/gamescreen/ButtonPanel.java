@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen;
+package it.unibo.view.gamescreen;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
