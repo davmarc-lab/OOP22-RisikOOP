@@ -98,9 +98,12 @@ public class InfoPanel extends JPanel implements InfoZone {
      */
     @Override
     public void updateView() {
-        this.pLabel
-                .setText(new StringBuilder("Player ").append(Integer.toString(this.getCurrentPlayerId())).toString());
-        this.cLabel.setText(new StringBuilder("Color : ").append(this.getCurrentPlayerColor()).toString());
+        this.pLabel.setText(new StringBuilder("Player ")
+                .append(Integer.toString(this.getCurrentPlayerId()))
+                .toString());
+        this.cLabel.setText(new StringBuilder("Color : ")
+                .append(this.getCurrentPlayerColor())
+                .toString());
         this.objText.setText(this.getCurrentPlayerObjective());
     }
 

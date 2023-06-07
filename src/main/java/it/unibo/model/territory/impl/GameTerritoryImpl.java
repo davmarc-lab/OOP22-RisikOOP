@@ -31,7 +31,11 @@ public class GameTerritoryImpl implements GameTerritory {
      */
     @Override
     public String getContinentNameFromTerritory(final Territory t) {
-        return this.territories.entrySet().stream().filter(x -> x.getValue().contains(t)).findFirst().get().getKey();
+        return this.territories.entrySet().stream()
+                .filter(x -> x.getValue().contains(t))
+                .findFirst()
+                .get()
+                .getKey();
     }
 
     /**
@@ -47,7 +51,9 @@ public class GameTerritoryImpl implements GameTerritory {
      */
     @Override
     public Set<String> getTerritoryNameSet() {
-        return this.getTerritories().stream().map(Territory::getName).collect(Collectors.toSet());
+        return this.getTerritories().stream()
+                .map(Territory::getName)
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -56,7 +62,8 @@ public class GameTerritoryImpl implements GameTerritory {
     @Override
     public Set<Territory> getTerritories() {
         final Set<Territory> set = new HashSet<>();
-        this.territories.values().stream().forEach(s -> set.addAll(s));
+        this.territories.values().stream()
+                .forEach(s -> set.addAll(s));
         return set;
     }
 
@@ -65,7 +72,10 @@ public class GameTerritoryImpl implements GameTerritory {
      */
     @Override
     public Territory getTerritory(final String name) {
-        return this.getTerritories().stream().filter(t -> t.getName().equalsIgnoreCase(name)).findAny().get();
+        return this.getTerritories().stream()
+                .filter(t -> t.getName().equalsIgnoreCase(name))
+                .findAny()
+                .get();
     }
 
     /**

@@ -17,7 +17,6 @@ import it.unibo.view.gamescreen.api.MainView;
 public class MainFrame extends JFrame implements MainView, Cloneable {
 
     private static final long serialVersionUID = 1L;
-
     private static final String FRAME_NAME = "RisikOOP";
 
     private final transient StartController controller;
@@ -93,7 +92,8 @@ public class MainFrame extends JFrame implements MainView, Cloneable {
         try {
             return (MainView) this.clone();
         } catch (CloneNotSupportedException e) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Cannot create the copy of the object.");
+            Logger.getLogger(MainFrame.class.getName())
+                    .log(Level.SEVERE, "Cannot create the copy of the object.");
         }
         throw new IllegalCallerException("Cannot create a copy");
     }

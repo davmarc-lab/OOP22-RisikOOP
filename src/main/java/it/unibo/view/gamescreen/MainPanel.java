@@ -36,10 +36,16 @@ public class MainPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String RULES_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("instructions")
-            .append(ViewConstants.PATH_SEPARATOR).append("rules.txt").toString();
-    private static final String WALLPAPER_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("images")
-            .append(ViewConstants.PATH_SEPARATOR).append("MenuWallpaper.jpg").toString();
+    private static final String RULES_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH)
+            .append("instructions")
+            .append(ViewConstants.PATH_SEPARATOR)
+            .append("rules.txt")
+            .toString();
+    private static final String WALLPAPER_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH)
+            .append("images")
+            .append(ViewConstants.PATH_SEPARATOR)
+            .append("MenuWallpaper.jpg")
+            .toString();
 
     private static final String PLAY_LABEL = "Play";
     private static final String QUIT_LABEL = "Quit";
@@ -79,9 +85,8 @@ public class MainPanel extends JPanel {
         panel.setLayout(new BorderLayout());
 
         this.dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(
-                new Dimension(Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
-                        Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue()));
+        this.setPreferredSize(new Dimension(Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
+                Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue()));
 
         wallpaper = new ImageIcon(adjustImageSize(new ImageIcon(WALLPAPER_PATH),
                 dimension.getWidth(), this.dimension.getHeight()));
@@ -126,7 +131,8 @@ public class MainPanel extends JPanel {
                     try {
                         line = reader.readLine();
                         while (line != null) {
-                            sBuilder.append(line).append('\n');
+                            sBuilder.append(line)
+                                    .append('\n');
                             line = reader.readLine();
                         }
                         reader.close();
@@ -141,7 +147,8 @@ public class MainPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, message);
             });
         } catch (FileNotFoundException e) {
-            Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, "File not found in the path given", e);
+            Logger.getLogger(MainPanel.class.getName())
+                    .log(Level.SEVERE, "File not found in the path given", e);
         }
 
         pane.add(label, Integer.valueOf(0));
@@ -158,8 +165,7 @@ public class MainPanel extends JPanel {
         southPanel.setBounds(0, 0, Double.valueOf(this.getInnerPanelDimension().getWidth()).intValue(),
                 Double.valueOf(this.getInnerPanelDimension().getHeight()).intValue());
 
-        panel.setBounds(0, 0,
-                Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
+        panel.setBounds(0, 0, Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue());
         panel.add(northPanel, BorderLayout.NORTH);
         panel.add(southPanel, BorderLayout.SOUTH);
@@ -208,8 +214,7 @@ public class MainPanel extends JPanel {
      * @return the dimension of the button
      */
     private Dimension getButtonDimension() {
-        return new Dimension(
-                Double.valueOf(this.dimension.getWidth() * BUTTON_WIDTH_PERC).intValue(),
+        return new Dimension(Double.valueOf(this.dimension.getWidth() * BUTTON_WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * BUTTON_HEIGHT_PERC).intValue());
     }
 

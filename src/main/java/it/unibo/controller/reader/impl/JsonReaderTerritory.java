@@ -25,8 +25,11 @@ public final class JsonReaderTerritory extends AbstractFileReader<Set<Pair<Strin
 
     private static final String TERRITORIES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
             .append("config")
-            .append(ControllerConstants.PATH_SEPARATOR).append("territory").append(ControllerConstants.PATH_SEPARATOR)
-            .append("Territories.json").toString();
+            .append(ControllerConstants.PATH_SEPARATOR)
+            .append("territory")
+            .append(ControllerConstants.PATH_SEPARATOR)
+            .append("Territories.json")
+            .toString();
 
     private final Set<Pair<String, Set<Territory>>> territories;
 
@@ -65,7 +68,9 @@ public final class JsonReaderTerritory extends AbstractFileReader<Set<Pair<Strin
                     final String tName = tObj.get("name").toString();
                     this.territories.stream()
                             .filter(x -> continentName.equals(x.getX()))
-                            .findAny().get().getY()
+                            .findAny()
+                            .get()
+                            .getY()
                             .add(new TerritoryImpl(tName));
                 }
             }
@@ -98,7 +103,10 @@ public final class JsonReaderTerritory extends AbstractFileReader<Set<Pair<Strin
      * @return the territory with the given name
      */
     private Territory getTerritory(final String name) {
-        return this.getTerritories().stream().filter(t -> t.getName().equalsIgnoreCase(name)).findAny().get();
+        return this.getTerritories().stream()
+                .filter(t -> t.getName().equalsIgnoreCase(name))
+                .findAny()
+                .get();
     }
 
     /**
@@ -108,7 +116,8 @@ public final class JsonReaderTerritory extends AbstractFileReader<Set<Pair<Strin
      */
     private Set<Territory> getTerritories() {
         final Set<Territory> set = new HashSet<>();
-        this.territories.stream().forEach(p -> set.addAll(p.getY()));
+        this.territories.stream()
+                .forEach(p -> set.addAll(p.getY()));
         return set;
     }
 }

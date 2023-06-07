@@ -14,8 +14,11 @@ public final class ControllerConstants {
      * Path of "resources" folder.
      */
     public static final String RESOURCES_PATH = new String(new StringBuilder("src")
-            .append(PATH_SEPARATOR).append("main")
-            .append(PATH_SEPARATOR).append("resources").append(PATH_SEPARATOR));
+            .append(PATH_SEPARATOR)
+            .append("main")
+            .append(PATH_SEPARATOR)
+            .append("resources")
+            .append(PATH_SEPARATOR));
 
     /**
      * Empty constructor.
