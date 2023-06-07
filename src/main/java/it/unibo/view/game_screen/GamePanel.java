@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import it.unibo.view.game_screen.api.BoardZone;
-import it.unibo.view.game_screen.api.GameZone;
 import it.unibo.view.game_screen.api.SideZone;
 
 /**
@@ -13,7 +12,7 @@ import it.unibo.view.game_screen.api.SideZone;
  * Models the zone {@code JPanel} that contains the board
  * and the sidebar.
  */
-public final class GamePanel extends JPanel implements GameZone {
+public final class GamePanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
 

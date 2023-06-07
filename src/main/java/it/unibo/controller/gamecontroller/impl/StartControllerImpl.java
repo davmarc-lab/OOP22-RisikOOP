@@ -13,7 +13,7 @@ import it.unibo.view.game_screen.impl.MainFrame;
 public class StartControllerImpl implements StartController {
 
     private final MainView view;
-    private final MainController mainController;
+    private MainController mainController;
 
     /**
      * Construct an instance of StartControllerImpl.
@@ -45,6 +45,7 @@ public class StartControllerImpl implements StartController {
      */
     @Override
     public void startGame() {
+        this.mainController = new MainControllerImpl(this);
         this.view.changeToGamePanel();
         this.mainController.startEngine();
     }

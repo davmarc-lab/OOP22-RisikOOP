@@ -3,7 +3,7 @@ package it.unibo.view.game_screen.impl;
 import javax.swing.JPanel;
 
 import it.unibo.controller.gamecontroller.api.MainController;
-import it.unibo.view.game_screen.api.ButtonZone;
+import it.unibo.view.game_screen.ButtonPanel;
 import it.unibo.view.game_screen.api.CardZone;
 import it.unibo.view.game_screen.api.InfoZone;
 import it.unibo.view.game_screen.api.SideZone;
@@ -50,10 +50,10 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
         this.setLayout(layout);
         this.ip = new InfoPanel(dim, controller);
         this.cp = new CardPanel(dim, controller);
-        final ButtonZone bp = new ButtonPanel(dim, controller);
+        final ButtonPanel bp = new ButtonPanel(dim, controller);
         this.add((InfoPanel) this.ip, BorderLayout.NORTH);
         this.add((CardPanel) this.cp, BorderLayout.CENTER);
-        this.add((ButtonPanel) bp, BorderLayout.SOUTH);
+        this.add(bp, BorderLayout.SOUTH);
     }
 
     /**

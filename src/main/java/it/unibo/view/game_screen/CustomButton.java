@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.game_screen;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -6,13 +6,11 @@ import java.awt.Graphics;
 
 import javax.swing.JButton;
 
-import it.unibo.view.game_screen.api.CustomButton;
-
 /**
  * Implementation of {@link CustomButton}.
  * Models a custom button.
  */
-public class CustomButtonImpl extends JButton implements CustomButton {
+public class CustomButton extends JButton {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +35,7 @@ public class CustomButtonImpl extends JButton implements CustomButton {
      * @param width  width of the button
      * @param height height of the button
      */
-    public CustomButtonImpl(final int x, final int y, final int width, final int height) {
+    public CustomButton(final int x, final int y, final int width, final int height) {
         super();
         this.hoverColor = TRANSPARENT;
         this.pressedColor = Color.DARK_GRAY;

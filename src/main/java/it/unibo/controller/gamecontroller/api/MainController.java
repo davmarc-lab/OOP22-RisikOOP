@@ -4,7 +4,7 @@ import java.util.Set;
 
 import it.unibo.gameengine.api.GameEngine;
 import it.unibo.model.player.api.Player;
-import it.unibo.view.game_screen.api.GameZone;
+import it.unibo.view.game_screen.impl.GamePanel;
 
 /**
  * It models the main controller that allows the {@link GameZone} to
@@ -70,7 +70,7 @@ public interface MainController {
      * 
      * @return the area that contains the board and the sidebar
      */
-    GameZone getGameZone();
+    GamePanel getGamePanel();
 
     /**
      * Starts game engine.

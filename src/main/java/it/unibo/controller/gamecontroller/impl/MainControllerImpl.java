@@ -12,7 +12,6 @@ import it.unibo.gameengine.api.GameEngine;
 import it.unibo.gameengine.impl.GameEngineImpl;
 import it.unibo.model.player.api.Player;
 import it.unibo.view.game_screen.api.BoardZone;
-import it.unibo.view.game_screen.api.GameZone;
 import it.unibo.view.game_screen.api.SideZone;
 import it.unibo.view.game_screen.impl.BoardPanel;
 import it.unibo.view.game_screen.impl.GamePanel;
@@ -127,7 +126,7 @@ public class MainControllerImpl implements MainController, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public GameZone getGameZone() {
+    public GamePanel getGamePanel() {
         return new GamePanel(this.board, this.side);
     }
 

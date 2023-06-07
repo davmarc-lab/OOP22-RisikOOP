@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.game_screen;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -7,7 +7,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.gamecontroller.api.MainController;
-import it.unibo.view.game_screen.api.ButtonZone;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,7 +21,7 @@ import java.awt.Insets;
  * Defines the area inside the side zone where action
  * buttons are placed.
  */
-public class ButtonPanel extends JPanel implements ButtonZone {
+public class ButtonPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
 

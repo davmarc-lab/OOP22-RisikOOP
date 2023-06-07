@@ -57,7 +57,7 @@ public class MainFrame extends JFrame implements MainView, Cloneable {
      */
     @Override
     public void changeToGamePanel() {
-        this.changePanel((JPanel) this.controller.getMainController().getGameZone());
+        this.changePanel(this.controller.getMainController().getGamePanel());
     }
 
     /**
