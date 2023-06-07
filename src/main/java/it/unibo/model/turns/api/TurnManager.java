@@ -16,7 +16,7 @@ public interface TurnManager {
     List<Integer> getPlayersId();
 
     /**
-     * Retrieves the current player ID
+     * Retrieves the current player ID.
      * 
      * @return the current player ID
      */
