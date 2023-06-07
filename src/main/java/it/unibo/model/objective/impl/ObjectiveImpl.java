@@ -100,8 +100,8 @@ public class ObjectiveImpl implements Objective, Cloneable {
             return (Objective) this.clone();
         } catch (CloneNotSupportedException e) {
             Logger.getLogger(ObjectiveImpl.class.getName()).log(Level.OFF, "Cannot create a copy of the Object.");
-            return null;
         }
+        throw new IllegalCallerException("Impossible to create a copy.");
     }
 
     /**
