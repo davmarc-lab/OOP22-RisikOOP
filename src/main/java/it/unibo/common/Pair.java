@@ -1,5 +1,7 @@
 package it.unibo.common;
 
+import java.io.Serializable;
+
 /**
  * A standard generic {@code Pair<X, Y>}, with getters, hashCode, equals, and toString
  * well implemented.
@@ -7,7 +9,9 @@ package it.unibo.common;
  * @param <X> the first value's type
  * @param <Y> the second value's type
  */
-public final class Pair<X, Y> {
+public final class Pair<X, Y> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final X x;
     private final Y y;

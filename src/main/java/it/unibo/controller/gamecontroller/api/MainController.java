@@ -98,6 +98,13 @@ public interface MainController {
     Player getCurrentPlayer();
 
     /**
+     * Adds troops to the current player's bonus troops.
+     * 
+     * @param troops number of troops
+     */
+    void addBonustTroops(int troops);
+
+    /**
      * Restarts application.
      */
     void restartApp();

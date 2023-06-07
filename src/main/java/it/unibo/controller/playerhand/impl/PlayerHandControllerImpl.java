@@ -76,7 +76,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
      * {@inheritDoc}
      */
     @Override
-    public void attemptPlayCards() {
+    public int attemptPlayCards() {
         final int bonusTroops = this.model.playCards(this.inputCards);
         if (bonusTroops > 0) {
             this.message = new StringBuilder("Cards valid, added ").append(bonusTroops).append(" troops.").toString();
@@ -86,6 +86,15 @@ public class PlayerHandControllerImpl implements PlayerHandController {
         }
         this.clearInputCards();
         this.updateView();
+        return bonusTroops;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getCardName(final int index) {
+        return Army.ArmyType.values()[index].getName();
     }
 
     /**
@@ -93,34 +102,16 @@ public class PlayerHandControllerImpl implements PlayerHandController {
      */
     @Override
     public int getNumberOfCards(final String cardType) {
-        return (int) this.inputCards.stream().filter(c -> c.getArmyType().getName().equals(cardType)).count();
+        return (int) this.model.getPlayerHand().getHand().stream()
+                .filter(c -> c.getArmyType().getName().equals(cardType)).count();
     }
-
+ 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getPlayerFirstCards() {
-        return (int) this.model.getPlayerHand().getHand().stream()
-                .filter(c -> c.getArmyType().equals(ArmyType.INFANTRY)).count();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getPlayerSecondCards() {
-        return (int) this.model.getPlayerHand().getHand().stream()
-                .filter(c -> c.getArmyType().equals(ArmyType.CAVALRY)).count();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getPlayerThirdCards() {
-        return (int) this.model.getPlayerHand().getHand().stream()
-                .filter(c -> c.getArmyType().equals(ArmyType.ARTILLERY)).count();
+    public int getInputCards(final String name) {
+        return (int) this.inputCards.stream().filter(c -> c.getArmyType().getName().equals(name)).count();
     }
 
     /**
@@ -141,6 +132,8 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
+     * Retrievesd the {@link ArmyType} from a String.
+     * 
      * @param name the name of the card's type
      * @return the card type
      */

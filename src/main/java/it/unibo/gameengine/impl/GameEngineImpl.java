@@ -81,6 +81,7 @@ public class GameEngineImpl implements GameEngine, Cloneable {
         this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories());
         this.controller.setSquares();
         this.controller.updateInfo();
+        this.controller.setCardController();
     }
 
     /**
