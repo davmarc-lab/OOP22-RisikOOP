@@ -162,6 +162,14 @@ public class MainControllerImpl implements MainController, Cloneable {
      * {@inheritDoc}
      */
     @Override
+    public void addBonustTroops(final int troops) {
+        this.getCurrentPlayer().addTroops(troops);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void restartApp() {
         this.startController.closeView();
         this.startController.startView();
