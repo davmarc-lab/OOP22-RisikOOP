@@ -37,6 +37,8 @@ public class MovementImpl implements Movement {
     @Override
     public boolean isMovementValid() {
         return this.source.getTroops() - this.troops >= 1 && this.source.getAdjTerritories().stream()
-                .map(t -> t.getName()).collect(Collectors.toSet()).contains(this.destination.getName());
+                .map(t -> t.getName())
+                .collect(Collectors.toSet())
+                .contains(this.destination.getName());
     }
 }

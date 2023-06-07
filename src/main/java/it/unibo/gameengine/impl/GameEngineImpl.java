@@ -147,7 +147,9 @@ public class GameEngineImpl implements GameEngine, Cloneable {
                             new Pair<>(this.controller.getCurrentPlayer(), this.selectedTerritories.get(FIRST)),
                             new Pair<>(this.board.getAllPlayers().stream()
                                     .filter(p -> p.getTerritories().contains(this.selectedTerritories.get(SECOND)))
-                                    .findAny().get(), this.selectedTerritories.get(SECOND)));
+                                    .findAny()
+                                    .get(), 
+                                    this.selectedTerritories.get(SECOND)));
                     if (result.equals(GameBoard.CANCEL_COMBAT)) {
                         this.controller
                                 .sendMessage(new StringBuilder("Canceled Combat, no modification applied.").toString());
@@ -174,7 +176,8 @@ public class GameEngineImpl implements GameEngine, Cloneable {
                                 this.selectedTerritories.get(SECOND));
                         this.selectedTerritories.forEach(terr -> this.controller.updateSquare(terr.getName()));
                         this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
-                                .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
+                                .filter(terr -> terr.getTroops() > 1)
+                                .collect(Collectors.toSet()));
                         if (this.checkGameState()) {
                             break;
                         }
@@ -182,7 +185,8 @@ public class GameEngineImpl implements GameEngine, Cloneable {
                     this.controller.sendMessage(RESET_COMBAT_MESSAGE);
                     this.selectedTerritories.clear();
                     this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
-                            .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
+                            .filter(terr -> terr.getTroops() > 1)
+                            .collect(Collectors.toSet()));
                     this.selectedTerritories.forEach(terr -> this.controller.updateSquare(terr.getName()));
                 }
                 break;
@@ -199,7 +203,8 @@ public class GameEngineImpl implements GameEngine, Cloneable {
                     this.selectedTerritories.forEach(terr -> this.controller.updateSquare(terr.getName()));
                     this.selectedTerritories.clear();
                     this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
-                            .filter(terr -> terr.getTroops() > 1).collect(Collectors.toSet()));
+                            .filter(terr -> terr.getTroops() > 1)
+                            .collect(Collectors.toSet()));
                     this.checkGameState();
                     this.controller.sendMessage(RESET_MOVEMENT_MESSAGE);
                 }
@@ -220,7 +225,8 @@ public class GameEngineImpl implements GameEngine, Cloneable {
             phaseManager.switchToPhase(Phase.COMBAT);
             controller.sendMessage(new StringBuilder("Select one of your territories").toString());
             this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
-                    .filter(t -> t.getTroops() > 1).collect(Collectors.toSet()));
+                    .filter(t -> t.getTroops() > 1)
+                    .collect(Collectors.toSet()));
             this.selectedTerritories.clear();
         }
     }
@@ -233,7 +239,8 @@ public class GameEngineImpl implements GameEngine, Cloneable {
         phaseManager.switchToPhase(Phase.MOVEMENT);
         controller.sendMessage(new StringBuilder("Select one of your territories").toString());
         this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories().stream()
-                .filter(t -> t.getTroops() > 1).collect(Collectors.toSet()));
+                .filter(t -> t.getTroops() > 1)
+                .collect(Collectors.toSet()));
         this.selectedTerritories.clear();
     }
 
@@ -347,7 +354,8 @@ public class GameEngineImpl implements GameEngine, Cloneable {
      * @return {@code true} or {@code false}
      */
     private boolean checkAllInitialTroops() {
-        return this.board.getAllPlayers().stream().filter(p -> p.getTroops() == 0)
+        return this.board.getAllPlayers().stream()
+                .filter(p -> p.getTroops() == 0)
                 .count() == ModelConstants.MAX_PLAYERS;
     }
 

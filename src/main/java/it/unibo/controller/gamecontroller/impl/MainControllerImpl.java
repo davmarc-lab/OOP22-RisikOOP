@@ -146,7 +146,8 @@ public class MainControllerImpl implements MainController, Cloneable {
         return this.engine.getBoard().getAllPlayers().stream()
                 .filter(p -> p.getTerritories()
                         .contains(this.engine.getBoard().getGameTerritories().getTerritory(territory)))
-                .findAny().get();
+                .findAny()
+                .get();
     }
 
     /**
