@@ -82,10 +82,9 @@ public class ButtonPanel extends JPanel implements ButtonZone {
             randJB.setEnabled(false);
         });
 
-        panel.setOpaque(false);
+        panel.setBackground(Color.WHITE);
         this.add(label, BorderLayout.NORTH);
         this.add(panel, BorderLayout.SOUTH);
-        this.setBackground(Color.WHITE);
         this.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
     }
 
