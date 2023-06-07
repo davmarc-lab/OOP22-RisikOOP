@@ -27,8 +27,7 @@ import it.unibo.view.game_screen.api.CardZone;
 
 /**
  * Implementation of {@link CardZone} interface.
- * It provides method to update the view and set the
- * {@link PlayerHandController}.
+ * Provides methods to set the {@link PlayerHandController} to update the view.
  */
 public class CardPanel extends JPanel implements CardZone, Cloneable {
 

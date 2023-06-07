@@ -8,6 +8,8 @@ import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
  * Implementation of {@link Movement}.
+ * Provides methods to instance troops movements between the territories of a
+ * player and checks the validity of the movement.
  */
 public class MovementImpl implements Movement {
 

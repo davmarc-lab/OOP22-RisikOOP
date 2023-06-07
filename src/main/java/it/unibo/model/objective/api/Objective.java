@@ -5,7 +5,7 @@ import java.util.List;
 import it.unibo.common.Pair;
 
 /**
- * Implementation of the {@link Objective} interface.
+ * Represents an objective of the game.
  */
 public interface Objective {
 
@@ -17,10 +17,12 @@ public interface Objective {
          * Objective to conquer a territories.
          */
         CONQUER,
+
         /**
          * Objective to destroy another player.
          */
         DESTROY,
+
         /**
          * No objective.
          */
@@ -47,14 +49,14 @@ public interface Objective {
     void setComplete();
 
     /**
-     * Gets a description of the objective.
+     * Retrieves a description of the objective.
      *
      * @return the description of the objective
      */
     String getDescription();
 
     /**
-     * Gets the check objectives which are used to check if the objective is
+     * Retrieves the check objectives which are used to check if the objective is
      * complete.
      * 
      * @return a pair containing the type of the objective and a list of strings
@@ -62,7 +64,7 @@ public interface Objective {
     Pair<ObjectiveType, List<String>> getCheckObjectives();
 
     /**
-     * Gets the type of the objective.
+     * Retrieves the type of the objective.
      *
      * @return the type of the objective
      */

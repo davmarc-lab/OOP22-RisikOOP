@@ -1,32 +1,34 @@
 package it.unibo.controller.playerhand.api;
- 
+
 import java.util.List;
- 
+
 import it.unibo.model.army.api.Army;
 import it.unibo.model.army.api.Army.ArmyType;
- 
+
 /**
  * Models a controller used for the player's hand.
  */
 public interface PlayerHandController {
- 
+
     /**
-     * @return the list of the cards' types in player's hand
+     * Retrieves the list of the cards' types in player's hand.
+     * 
+     * @return the list of the cards' types
      */
     List<Army> getInputCards();
- 
+
     /**
      * Adds a card to the list of selected cards.
      * 
      * @param card the name of the card's type
      */
     void addInputCard(String card);
- 
+
     /**
      * Clears the list of selected cards.
      */
     void clearInputCards();
- 
+
     /**
      * Checks if the player has already selected 3 cards to play.
      * 
@@ -34,7 +36,7 @@ public interface PlayerHandController {
      *         selected 2 or less cards so far
      */
     boolean isInputFull();
- 
+
     /**
      * Checks if the player can select another card.
      * 
@@ -47,14 +49,14 @@ public interface PlayerHandController {
 
     /**
      * Tries to play cards. Cards can only be played 3 at a time.
-     * Retrives the cards combination result.
+     * Retrieves the cards combination result.
      * 
      * @return the bonus troops
      */
     int attemptPlayCards();
 
     /**
-     * Retrives the card name from {@link ArmyType} enum.
+     * Retrieves the card name from {@link ArmyType} enum.
      * 
      * @param index the value index
      * @return the card name
@@ -62,13 +64,13 @@ public interface PlayerHandController {
     String getCardName(int index);
 
     /**
-     * Retrives the number of cards inserted by the user.
+     * Retrieves the number of cards inserted by the user.
      * 
      * @param name the card name
      * @return the number of cards
      */
     int getInputCards(String name);
- 
+
     /**
      * Counts how many cards of a certain type the player has selected.
      * 
@@ -76,12 +78,14 @@ public interface PlayerHandController {
      * @return the number of selected cards whose type is the specified type
      */
     int getNumberOfCards(String cardType);
- 
+
     /**
-     * @return the message that contains the result of an attempt to play cards
+     * Retrieves the message that contains the result of an attempt to play cards.
+     * 
+     * @return the message of the result
      */
     String getMessage();
- 
+
     /**
      * Updates the view of the hand of the player.
      */

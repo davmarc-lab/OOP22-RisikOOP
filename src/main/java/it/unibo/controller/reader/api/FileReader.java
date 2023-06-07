@@ -17,14 +17,14 @@ public interface FileReader<T> {
     T readFromFile();
 
     /**
-     * Gets the logger of the reader which implements this interface.
+     *Retrieves the logger of the reader which implements this interface.
      * 
      * @return the logger of the reader.
      */
     Logger getLogger();
 
     /**
-     * Gets the path to the file from which it reads.
+     *Retrieves the path to the file from which it reads.
      * 
      * @return the file path.
      */

@@ -55,20 +55,23 @@ public interface Combat {
         private final int stableTroops;
 
         /**
-         * @param stableTroops the number of troops that have to remain in the
-         *                     territory
+         * Contructs the role with the number of troops that have to remain in the
+         * territory.
+         * 
+         * @param stableTroops the number of troops that have to remain in the territory
          */
         Role(final int stableTroops) {
             this.stableTroops = stableTroops;
         }
 
         /**
+         * Retrieves the number of troops that have to remain in the territory.
+         * 
          * @return the number of troops that have to remain in the territory
          */
         public int getStableTroops() {
             return this.stableTroops;
         }
-
     }
 
     /**

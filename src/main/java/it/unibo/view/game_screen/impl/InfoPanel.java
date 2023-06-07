@@ -18,7 +18,8 @@ import it.unibo.view.game_screen.api.InfoZone;
 
 /**
  * Implementation of {@link InfoZone} interface.
- * It provides a method to update the view.
+ * Defines the area inside the side zone where player
+ * information is shown.
  */
 public class InfoPanel extends JPanel implements InfoZone {
 

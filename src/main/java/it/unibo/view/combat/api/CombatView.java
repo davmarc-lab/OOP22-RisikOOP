@@ -3,7 +3,7 @@ package it.unibo.view.combat.api;
 import it.unibo.controller.combat.api.CombatController;
 
 /**
- * Represents the gui for the combat phase.
+ * Represents the frame for the combat phase.
  */
 public interface CombatView {
 

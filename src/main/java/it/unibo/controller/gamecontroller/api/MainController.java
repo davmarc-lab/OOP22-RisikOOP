@@ -123,12 +123,12 @@ public interface MainController {
     void setSquares();
 
     /**
-     * It updates the Info at the top of sidebar.
+     * Updates the Info at the top of sidebar.
      */
     void updateInfo();
 
     /**
-     * It updates the cards of the current player at the centrer of sidebar.
+     * Updates the cards of the current player at the centrer of sidebar.
      */
     void updateCards();
 
@@ -138,6 +138,8 @@ public interface MainController {
     void setCardController();
 
     /**
+     * Retrieves a copy of MainController.
+     * 
      * @return a copy of MainController
      */
     MainController getCopy();

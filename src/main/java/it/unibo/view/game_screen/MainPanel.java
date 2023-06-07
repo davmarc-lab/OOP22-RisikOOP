@@ -203,7 +203,7 @@ public class MainPanel extends JPanel {
     }
 
     /**
-     * Gets the dimension of the button.
+     *Retrieves the dimension of the button.
      * 
      * @return the dimension of the button
      */
@@ -214,7 +214,7 @@ public class MainPanel extends JPanel {
     }
 
     /**
-     * Gets the dimension of the inner panel.
+     *Retrieves the dimension of the inner panel.
      * 
      * @return the dimension of the inner panel
      */

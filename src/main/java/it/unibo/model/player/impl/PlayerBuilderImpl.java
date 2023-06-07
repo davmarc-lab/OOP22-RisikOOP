@@ -25,7 +25,7 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
     private int bonusTroops;
 
     /**
-     * Retrives a new {@code PlayerBuilderImpl} object.
+     * Retrieves a new {@code PlayerBuilderImpl} object.
      * 
      * @return player builder
      */

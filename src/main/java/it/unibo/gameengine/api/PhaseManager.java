@@ -27,6 +27,8 @@ public interface PhaseManager {
     }
 
     /**
+     * Retrieves the current phase of the turn.
+     * 
      * @return the current phase of the turn
      */
     Phase getCurrentPhase();

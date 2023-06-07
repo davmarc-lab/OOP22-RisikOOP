@@ -117,7 +117,7 @@ public class MovementPanel extends JPanel {
     }
 
     /**
-     * Gets the current status of the movement.
+     * Retrieves the current status of the movement.
      * 
      * @param mc the MovementController associated with this panel.
      * @return the current status of the movement.

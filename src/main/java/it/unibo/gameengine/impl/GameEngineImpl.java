@@ -313,7 +313,7 @@ public class GameEngineImpl implements GameEngine, Cloneable {
 
     /**
      * Adds a territory to the list of selected territories.
-     * Places the troops if there are [PREPARATION_TROOPS] territories in it.
+     * Places the troops if there are {@code PREPARATION_TROOPS} territories in it.
      * 
      * @param t the selected territory
      */
@@ -366,8 +366,8 @@ public class GameEngineImpl implements GameEngine, Cloneable {
     /**
      * Checks if the game is over.
      * 
-     * @return {@code true} if any player completed his objective, {@code false}
-     *         otherwise
+     * @return {@code true} if any player completed his objective,
+     *         {@code false} otherwise
      */
     private boolean checkGameState() {
         if (this.gameState.isGameOver()) {
@@ -387,5 +387,4 @@ public class GameEngineImpl implements GameEngine, Cloneable {
         this.controller = controller.getCopy();
         this.gameState.setController(this.controller);
     }
-
 }

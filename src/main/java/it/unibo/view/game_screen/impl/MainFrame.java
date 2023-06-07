@@ -12,7 +12,7 @@ import it.unibo.view.game_screen.api.MainView;
 
 /**
  * Implementation of {@link MainView} interface.
- * Defines the main frame of the game.
+ * Provides methods to start and close views.
  */
 public class MainFrame extends JFrame implements MainView, Cloneable {
 

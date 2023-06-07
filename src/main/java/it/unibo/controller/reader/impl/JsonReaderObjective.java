@@ -41,7 +41,8 @@ public final class JsonReaderObjective extends AbstractFileReader<Pair<Objective
     }
 
     /**
-     * Read objectives from json file and creates a set of objectives and the default objective.
+     * Read objectives from json file and creates a set of objectives and the
+     * default objective.
      * 
      * @return a pair containing the default objective and the set of objectives.
      */

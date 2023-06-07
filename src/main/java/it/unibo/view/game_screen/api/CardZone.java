@@ -18,6 +18,8 @@ public interface CardZone {
     void updateView();
 
     /**
+     * Retrieves a copy of CardZone.
+     * 
      * @return a copy of CardZone
      */
     CardZone getCopy();

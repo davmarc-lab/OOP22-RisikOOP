@@ -13,6 +13,7 @@ import it.unibo.view.game_screen.api.CardZone;
 
 /**
  * Implementation of {@link PlayerHandController} for the player's hand.
+ * Models a controller used for the player's hand.
  */
 public class PlayerHandControllerImpl implements PlayerHandController {
 
@@ -105,7 +106,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
         return (int) this.model.getPlayerHand().getHand().stream()
                 .filter(c -> c.getArmyType().getName().equals(cardType)).count();
     }
- 
+
     /**
      * {@inheritDoc}
      */
@@ -132,7 +133,7 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     }
 
     /**
-     * Retrievesd the {@link ArmyType} from a String.
+     * Retrieves the {@link ArmyType} from a String.
      * 
      * @param name the name of the card's type
      * @return the card type

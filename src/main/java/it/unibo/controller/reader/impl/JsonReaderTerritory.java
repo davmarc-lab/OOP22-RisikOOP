@@ -91,10 +91,21 @@ public final class JsonReaderTerritory extends AbstractFileReader<Set<Pair<Strin
         return Set.copyOf(this.territories);
     }
 
+    /**
+     * Retrieves the territory with the given name.
+     * 
+     * @param name the name of the territory
+     * @return the territory with the given name
+     */
     private Territory getTerritory(final String name) {
         return this.getTerritories().stream().filter(t -> t.getName().equalsIgnoreCase(name)).findAny().get();
     }
 
+    /**
+     * Retrieves the set of all territories.
+     * 
+     * @return the set of all territories
+     */
     private Set<Territory> getTerritories() {
         final Set<Territory> set = new HashSet<>();
         this.territories.stream().forEach(p -> set.addAll(p.getY()));

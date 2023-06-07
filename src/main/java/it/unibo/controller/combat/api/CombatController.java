@@ -35,21 +35,21 @@ public interface CombatController {
     void setCombatOutcome();
 
     /**
-     * Gets the final result of the combat.
+     *Retrieves the final result of the combat.
      *
      * @return the final result
      */
     int getCombatOutcome();
 
     /**
-     * Gets the player involved in the combat.
+     *Retrieves the player involved in the combat.
      *
      * @return the player
      */
     Player getCombatPlayer();
 
     /**
-     * Gets the territory involved in the combat.
+     *Retrieves the territory involved in the combat.
      *
      * @return the territory
      */

@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 
 /**
  * Implementation of {@link SideZone} interface
- * It provides methods to get all of its components.
+ * Defines the side zone where the player's information and cards are displayed.
  */
 public class SideBar extends JPanel implements SideZone, Cloneable {
 

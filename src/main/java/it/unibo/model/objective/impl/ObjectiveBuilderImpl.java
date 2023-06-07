@@ -6,6 +6,7 @@ import it.unibo.model.objective.api.ObjectiveBuilder;
 
 /**
  * Implementation of the {@link ObjectiveBuilder} interface.
+ * Builds several types of objectives.
  */
 public class ObjectiveBuilderImpl implements ObjectiveBuilder {
 

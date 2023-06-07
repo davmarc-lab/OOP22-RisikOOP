@@ -106,6 +106,15 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetTurns() {
+        this.playerIterator = this.playersIDs.iterator();
+        this.currentPlayerID = playerIterator.next();
+    }
+
+    /**
      * Randomizes the order of playersIDs based on the dice throw.
      */
     private void setRandomOrder() {
@@ -116,14 +125,5 @@ public class TurnManagerImpl implements TurnManager {
         for (int i = 0; i < playersIDs.size(); i++) {
             playersIDs.set(i, list.get(i).getX());
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void resetTurns() {
-        this.playerIterator = this.playersIDs.iterator();
-        this.currentPlayerID = playerIterator.next();
     }
 }

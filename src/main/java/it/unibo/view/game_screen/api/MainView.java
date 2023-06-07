@@ -31,6 +31,8 @@ public interface MainView {
     void reveal();
 
     /**
+     * Retrieves a copy of the MainView.
+     * 
      * @return a copy of the MainView
      */
     MainView getCopy();

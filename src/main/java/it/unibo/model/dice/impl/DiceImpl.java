@@ -9,6 +9,7 @@ import it.unibo.model.dice.api.Dice;
 
 /**
  * Implementation of the {@link Dice} interface.
+ * Interface representing a dice.
  */
 public class DiceImpl implements Dice {
     private final int numFaces;

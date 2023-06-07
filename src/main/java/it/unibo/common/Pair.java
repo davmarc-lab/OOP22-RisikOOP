@@ -13,7 +13,14 @@ public final class Pair<X, Y> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The first value.
+     */
     private final X x;
+
+    /**
+     * The second value.
+     */
     private final Y y;
 
     /**
@@ -29,6 +36,8 @@ public final class Pair<X, Y> implements Serializable {
     }
 
     /**
+     *Retrieves the first value.
+     * 
      * @return the first value
      */
     public X getX() {
@@ -36,6 +45,8 @@ public final class Pair<X, Y> implements Serializable {
     }
 
     /**
+     *Retrieves the second value.
+     * 
      * @return the second value
      */
     public Y getY() {

@@ -29,7 +29,7 @@ import it.unibo.view.viewconstants.ViewConstants;
 
 /**
  * Implementation of {@link BoardPanel} interface.
- * The player will be able to click on the territories.
+ * Models a basic view containing the game map and the buttons.
  */
 public class BoardPanel extends JPanel implements BoardZone, Cloneable {
 

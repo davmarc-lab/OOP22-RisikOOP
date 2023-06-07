@@ -10,7 +10,8 @@ import it.unibo.view.game_screen.api.SideZone;
 
 /**
  * Implemetation of {@link GameZone} interface.
- * This class provides methods to interact with the views in the game UI.
+ * Models the zone {@code JPanel} that contains the board
+ * and the sidebar.
  */
 public final class GamePanel extends JPanel implements GameZone {
 

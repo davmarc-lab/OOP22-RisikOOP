@@ -8,14 +8,14 @@ import java.util.Set;
 public interface Territory {
 
     /**
-     * Gets territory's name.
+     * Retrieves territory's name.
      * 
      * @return territory's name
      */
     String getName();
 
     /**
-     * Gets the set of all territory's adjacent territories.
+     * Retrieves the set of all territory's adjacent territories.
      * 
      * @return adjacent territories' set
      */
@@ -29,7 +29,7 @@ public interface Territory {
     void addAdjTerritory(Territory t);
 
     /**
-     * Gets the number of troops in the territory.
+     * Retrieves the number of troops in the territory.
      * 
      * @return the number of troops in the territory
      */

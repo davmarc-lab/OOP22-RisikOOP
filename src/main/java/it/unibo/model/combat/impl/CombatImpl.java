@@ -12,6 +12,9 @@ import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
  * Implementation of {@link Combat} interface.
+ * Provides methods to instance a combat
+ * between two players and enums to check the results and
+ * roles of each player.
  */
 public class CombatImpl implements Combat {
 
