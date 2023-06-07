@@ -158,7 +158,10 @@ public class PlayerImpl implements Player, Cloneable {
     @Override
     public String toString() {
         return new String(
-                new StringBuilder("ID -> ").append(this.getId()).append(", TROOPS -> ").append(this.bonusTroops));
+                new StringBuilder("ID -> ")
+                        .append(this.getId())
+                        .append(", TROOPS -> ")
+                        .append(this.bonusTroops));
     }
 
     /**
@@ -177,7 +180,8 @@ public class PlayerImpl implements Player, Cloneable {
         try {
             return (Player) this.clone();
         } catch (CloneNotSupportedException e) {
-            Logger.getLogger(PlayerImpl.class.getName()).log(Level.SEVERE, "Cannot create the copy of the object.");
+            Logger.getLogger(PlayerImpl.class.getName())
+                    .log(Level.SEVERE, "Cannot create the copy of the object.");
         }
         throw new IllegalCallerException("Cannot create a copy.");
     }

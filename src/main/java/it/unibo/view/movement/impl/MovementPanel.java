@@ -63,7 +63,9 @@ public class MovementPanel extends JPanel {
         cnst.insets = new Insets(TOP_BOTTOM_BORDER, LEFT_RIGHT_BORDER, TOP_BOTTOM_BORDER, LEFT_RIGHT_BORDER);
 
         final JLabel labelText = new JLabel(new StringBuilder("How many troops do you want send to ")
-                .append(mc.getSecondTerritory().getName()).append(':').toString());
+                .append(mc.getSecondTerritory().getName())
+                .append(':')
+                .toString());
         currentTerritoryStatus.setText(getCurrentStatus(mc));
 
         buttonUp.addActionListener(e -> {
@@ -124,6 +126,8 @@ public class MovementPanel extends JPanel {
      */
     private String getCurrentStatus(final MovementController mc) {
         return new StringBuilder(mc.getFirstTerritory().getName())
-                .append(" troops remaining: ").append(this.source - Integer.parseInt(this.number.getText())).toString();
+                .append(" troops remaining: ")
+                .append(this.source - Integer.parseInt(this.number.getText()))
+                .toString();
     }
 }

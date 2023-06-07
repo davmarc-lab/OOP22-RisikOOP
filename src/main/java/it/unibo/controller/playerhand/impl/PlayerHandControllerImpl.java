@@ -80,7 +80,10 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     public int attemptPlayCards() {
         final int bonusTroops = this.model.playCards(this.inputCards);
         if (bonusTroops > 0) {
-            this.message = new StringBuilder("Cards valid, added ").append(bonusTroops).append(" troops.").toString();
+            this.message = new StringBuilder("Cards valid, added ")
+                    .append(bonusTroops)
+                    .append(" troops.")
+                    .toString();
             this.model.addTroops(bonusTroops);
         } else {
             this.message = new StringBuilder("Cards invalid, operation aborted.").toString();
@@ -104,7 +107,8 @@ public class PlayerHandControllerImpl implements PlayerHandController {
     @Override
     public int getNumberOfCards(final String cardType) {
         return (int) this.model.getPlayerHand().getHand().stream()
-                .filter(c -> c.getArmyType().getName().equals(cardType)).count();
+                .filter(c -> c.getArmyType().getName().equals(cardType))
+                .count();
     }
 
     /**
@@ -112,7 +116,9 @@ public class PlayerHandControllerImpl implements PlayerHandController {
      */
     @Override
     public int getInputCards(final String name) {
-        return (int) this.inputCards.stream().filter(c -> c.getArmyType().getName().equals(name)).count();
+        return (int) this.inputCards.stream()
+                .filter(c -> c.getArmyType().getName().equals(name))
+                .count();
     }
 
     /**
@@ -139,6 +145,9 @@ public class PlayerHandControllerImpl implements PlayerHandController {
      * @return the card type
      */
     private ArmyType getArmyTypeFromString(final String name) {
-        return Arrays.stream(ArmyType.values()).filter(t -> t.getName().equals(name)).findAny().get();
+        return Arrays.stream(ArmyType.values())
+                .filter(t -> t.getName().equals(name))
+                .findAny()
+                .get();
     }
 }

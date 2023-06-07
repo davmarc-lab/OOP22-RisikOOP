@@ -60,10 +60,12 @@ public class GameBoardImpl implements GameBoard {
         createObjectiveDeck();
         final Pair<Deck<Objective>, Objective> pairObjective = new Pair<>(this.objectiveDeck,
                 this.gameObjective.getDefaultObjective());
-        new GamePrepImpl().preparePlayers(this.players, new DeckImpl<>(this.gameTerritory.getTerritories()),
-                pairObjective);
+        new GamePrepImpl().preparePlayers(this.players,
+                new DeckImpl<>(this.gameTerritory.getTerritories()), pairObjective);
         this.objectiveDeck.setDeck(pairObjective.getX().getDeck());
-        this.turnManager = new TurnManagerImpl(this.players.stream().map(Player::getId).toList());
+        this.turnManager = new TurnManagerImpl(this.players.stream()
+                .map(Player::getId)
+                .toList());
     }
 
     /**
@@ -71,7 +73,10 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public Player getPlayerFromId(final int id) {
-        return this.players.stream().filter(p -> p.getId() == id).findFirst().get();
+        return this.players.stream()
+                .filter(p -> p.getId() == id)
+                .findFirst()
+                .get();
     }
 
     /**
@@ -91,7 +96,8 @@ public class GameBoardImpl implements GameBoard {
             return CANCEL_COMBAT;
         }
         final Combat combat = new CombatImpl(attacker.getY(), defender.getY());
-        final Pair<Integer, Integer> results = combat.attack(ccAttacker.getCombatOutcome(), ccDefender.getCombatOutcome());
+        final Pair<Integer, Integer> results = combat.attack(ccAttacker.getCombatOutcome(),
+                ccDefender.getCombatOutcome());
         attacker.getY().addTroops(-results.getX());
         defender.getY().addTroops(-results.getY());
         return new Pair<>(results, combat.isTerritoryConquered(defender.getY()));
@@ -148,8 +154,9 @@ public class GameBoardImpl implements GameBoard {
      */
     @Override
     public void defineBonusArmies(final Player player) {
-        final int conquestsTroops = Long.valueOf(player.getTerritories().stream().count()).intValue()
-                / ModelConstants.BONUS_TROOPS_DIVIDER;
+        final int conquestsTroops = Long.valueOf(player.getTerritories().stream()
+                .count())
+                .intValue() / ModelConstants.BONUS_TROOPS_DIVIDER;
         final Set<BonusTroops> continentsTroops = Set.of(BonusTroops.values());
         continentsTroops.forEach(
                 t -> player.addTroops(player.getTerritories()
@@ -165,7 +172,12 @@ public class GameBoardImpl implements GameBoard {
     @Override
     public void placeTroops(final Territory territory, final int troops) {
         territory.addTroops(troops);
-        this.players.stream().filter(p -> p.getTerritories().contains(territory)).findAny().get().addTroops(-troops);
+        this.players.stream()
+                .filter(p -> p.getTerritories()
+                        .contains(territory))
+                .findAny()
+                .get()
+                .addTroops(-troops);
     }
 
     /**
@@ -176,9 +188,12 @@ public class GameBoardImpl implements GameBoard {
         Collections.shuffle(colors);
         IntStream.range(0, ModelConstants.MAX_PLAYERS)
                 .mapToObj(i -> PlayerBuilderImpl.newBuilder().id(i + 1).territoryDeck(new DeckImpl<>())
-                        .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build())
+                        .playerHand(new HandImpl())
+                        .objective(ObjectiveBuilderImpl.newBuilder()
+                                .build())
                         .color(colors.get(i))
-                        .bonusTroops(0).build())
+                        .bonusTroops(0)
+                        .build())
                 .forEach(this.players::add);
     }
 

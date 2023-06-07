@@ -92,7 +92,7 @@ public final class PlayerBuilderImpl implements PlayerBuilder {
      */
     @Override
     public Player build() {
-        return new PlayerImpl(this.id, this.territoryDeck, this.playerHand, this.objective, this.color,
-                this.bonusTroops);
+        return new PlayerImpl(this.id, this.territoryDeck, this.playerHand,
+                this.objective, this.color, this.bonusTroops);
     }
 }
