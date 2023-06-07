@@ -25,7 +25,9 @@ public final class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pa
     private static final String SQUARES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
             .append("config")
             .append(ControllerConstants.PATH_SEPARATOR)
-            .append("territory").append(ControllerConstants.PATH_SEPARATOR).append("SquareCoordinates.json").toString();
+            .append("territory").append(ControllerConstants.PATH_SEPARATOR)
+            .append("SquareCoordinates.json")
+            .toString();
 
     private final Set<Pair<String, Pair<Double, Double>>> squares;
 

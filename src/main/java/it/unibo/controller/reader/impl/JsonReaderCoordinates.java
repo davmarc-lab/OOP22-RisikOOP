@@ -26,7 +26,8 @@ public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<Str
     private static final String COORDINATES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
             .append("config")
             .append(ControllerConstants.PATH_SEPARATOR).append("territory").append(ControllerConstants.PATH_SEPARATOR)
-            .append("Coordinates.json").toString();
+            .append("Coordinates.json")
+            .toString();
 
     private final Set<Pair<String, List<Double>>> territories;
 

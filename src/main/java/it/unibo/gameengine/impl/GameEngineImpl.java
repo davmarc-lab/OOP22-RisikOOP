@@ -33,17 +33,22 @@ public class GameEngineImpl implements GameEngine, Cloneable {
     private static final int PREPARATION_TROOPS = 3;
     private static final String COMBAT_START_MESSAGE = new StringBuilder("You can now attack other territories.")
             .append("\nSelect one of your territory you want to attack from.")
-            .append("\nIf you want to undo your attack and start another, press ATTACK.").toString();
+            .append("\nIf you want to undo your attack and start another, press ATTACK.")
+            .toString();
     private static final String COMBAT_MESSAGE = new StringBuilder("Select an adjacent enemy territory.")
-            .append("\nIf you want to undo your attack and start another, press ATTACK.").toString();
+            .append("\nIf you want to undo your attack and start another, press ATTACK.")
+            .toString();
     private static final String RESET_COMBAT_MESSAGE = new StringBuilder(
             "You can attack again by selecting one of your territories.")
-            .append("\nIf you don't want to attack press MOVE or END TURN").toString();
+            .append("\nIf you don't want to attack press MOVE or END TURN")
+            .toString();
     private static final String MOVEMENT_MESSAGE = new StringBuilder("Select an adjacent territory.")
-            .append("\nIf you want to undo the movement and start another, press MOVE").toString();
+            .append("\nIf you want to undo the movement and start another, press MOVE")
+            .toString();
     private static final String RESET_MOVEMENT_MESSAGE = new StringBuilder(
             "You can move again by selecting one of your territories.")
-            .append("\nIf you don't want to move press END TURN").toString();
+            .append("\nIf you don't want to move press END TURN")
+            .toString();
     private static final int FIRST = 0;
     private static final int SECOND = 1;
 
@@ -77,7 +82,9 @@ public class GameEngineImpl implements GameEngine, Cloneable {
     @Override
     public void start() {
         this.controller.sendMessage(new StringBuilder("Game started, Player")
-                .append(this.controller.getCurrentPlayer().getId()).append(" start placing your troops").toString());
+                .append(this.controller.getCurrentPlayer().getId())
+                .append(" start placing your troops")
+                .toString());
         this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories());
         this.controller.setSquares();
         this.controller.updateInfo();
@@ -105,9 +112,11 @@ public class GameEngineImpl implements GameEngine, Cloneable {
         this.controller.updateCards();
         this.controller.updateInfo();
         this.board.defineBonusArmies(this.controller.getCurrentPlayer());
-        this.controller.sendMessage(new StringBuilder("It's Player").append(this.controller.getCurrentPlayer().getId())
+        this.controller.sendMessage(new StringBuilder("It's Player")
+                .append(this.controller.getCurrentPlayer().getId())
                 .append("'s turn.\nYou can now assign your bonus troops to your territories.\nBonus troops: ")
-                .append(this.board.getPlayerFromId(this.turnManager.getCurrentPlayerID()).getTroops()).toString());
+                .append(this.board.getPlayerFromId(this.turnManager.getCurrentPlayerID()).getTroops())
+                .toString());
         this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories());
         this.board.getGameTerritories().getTerritories().forEach(t -> this.controller.updateSquare(t.getName()));
     }
@@ -151,8 +160,8 @@ public class GameEngineImpl implements GameEngine, Cloneable {
                                     .get(), 
                                     this.selectedTerritories.get(SECOND)));
                     if (result.equals(GameBoard.CANCEL_COMBAT)) {
-                        this.controller
-                                .sendMessage(new StringBuilder("Canceled Combat, no modification applied.").toString());
+                        this.controller.sendMessage(
+                                new StringBuilder("Canceled Combat, no modification applied.").toString());
                     } else {
                         this.controller.sendMessage(new StringBuilder("The attacker lost ")
                                 .append(result.getX().getX())
@@ -250,10 +259,9 @@ public class GameEngineImpl implements GameEngine, Cloneable {
     @Override
     public void endPlayerTurn() {
         if (this.prepare) {
-            this.controller
-                    .sendMessage(new StringBuilder(
-                            "Can't end your turn now, you have to finish placing 3 troops on your territories")
-                            .toString());
+            this.controller.sendMessage(new StringBuilder(
+                                    "Can't end your turn now, you have to finish placing 3 troops on your territories")
+                                    .toString());
             return;
         }
         this.phaseManager.switchToPhase(Phase.REINFORCEMENTS);
@@ -261,9 +269,11 @@ public class GameEngineImpl implements GameEngine, Cloneable {
         this.controller.updateInfo();
         this.board.defineBonusArmies(this.controller.getCurrentPlayer());
         this.selectedTerritories.clear();
-        this.controller.sendMessage(new StringBuilder("It's Player").append(this.controller.getCurrentPlayer().getId())
+        this.controller.sendMessage(new StringBuilder("It's Player")
+                .append(this.controller.getCurrentPlayer().getId())
                 .append("'s turn.\nYou can now assign your bonus troops to your territories.\nBonus troops: ")
-                .append(this.board.getPlayerFromId(this.turnManager.getCurrentPlayerID()).getTroops()).toString());
+                .append(this.board.getPlayerFromId(this.turnManager.getCurrentPlayerID()).getTroops())
+                .toString());
         this.controller.setCardController();
         this.controller.updateCards();
         this.setAvailableTerritories(this.controller.getCurrentPlayer().getTerritories());
@@ -337,13 +347,15 @@ public class GameEngineImpl implements GameEngine, Cloneable {
                 this.phaseManager.switchToNextPhase();
                 this.controller.sendMessage(new StringBuilder("Player ")
                         .append(this.controller.getCurrentPlayer().getId())
-                        .append(", you can now play your cards to gain bonus troops").toString());
+                        .append(", you can now play your cards to gain bonus troops")
+                        .toString());
                 this.controller.setCardController();
                 this.controller.updateCards();
             } else {
                 this.controller.sendMessage(new StringBuilder("Player ")
                         .append(this.controller.getCurrentPlayer().getId())
-                        .append(", it's your turn to place 3 troops on your territories").toString());
+                        .append(", it's your turn to place 3 troops on your territories")
+                        .toString());
             }
         }
     }
@@ -379,8 +391,10 @@ public class GameEngineImpl implements GameEngine, Cloneable {
      */
     private boolean checkGameState() {
         if (this.gameState.isGameOver()) {
-            this.controller.sendMessage(new StringBuilder("Player").append(this.gameState.getWinner().getId())
-                    .append(" has won!").toString());
+            this.controller.sendMessage(new StringBuilder("Player")
+                    .append(this.gameState.getWinner().getId())
+                    .append(" has won!")
+                    .toString());
             this.controller.restartApp();
             return true;
         }

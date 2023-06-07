@@ -98,8 +98,12 @@ public class TurnManagerImpl implements TurnManager {
         final String separator = "----------------------\n";
         int i = 1;
         while (it.hasNext()) {
-            msg.append(separator).append("TURN ").append(String.valueOf(i)).append("\n\tPlayer")
-                    .append(it.next().toString()).append('\n');
+            msg.append(separator)
+                .append("TURN ")
+                .append(String.valueOf(i))
+                .append("\n\tPlayer")
+                .append(it.next().toString())
+                .append('\n');
             i++;
         }
         return msg.toString();
