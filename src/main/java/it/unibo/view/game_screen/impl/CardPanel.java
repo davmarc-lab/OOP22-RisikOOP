@@ -92,6 +92,7 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
         resetCards.setEnabled(false);
 
         map.forEach((k, v) -> {
+            k.getY().setEnabled(false);
             k.getY().addActionListener(e -> {
                 if (this.phc.isAddPossible(Integer.parseInt(k.getX().getText()), Integer.parseInt(v.getText()))) {
                     this.phc.addInputCard(k.getY().getText());
