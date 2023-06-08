@@ -13,7 +13,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import it.unibo.common.Pair;
-import it.unibo.controller.controllerconstants.ControllerConstants;
 
 /**
  * This class is used to read the coordinates for the squares that contain the
@@ -21,12 +20,7 @@ import it.unibo.controller.controllerconstants.ControllerConstants;
  */
 public final class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pair<String, Pair<Double, Double>>>> {
 
-    private static final String SQUARES_PATH = new StringBuilder("/config")
-            .append(ControllerConstants.PATH_SEPARATOR)
-            .append("territory")
-            .append(ControllerConstants.PATH_SEPARATOR)
-            .append("SquareCoordinates.json")
-            .toString();
+    private static final String SQUARES_PATH = "/config/territory/SquareCoordinates.json";
 
     private final Set<Pair<String, Pair<Double, Double>>> squares;
 
