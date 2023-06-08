@@ -4,14 +4,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,11 +35,10 @@ import it.unibo.view.viewconstants.ViewConstants;
  * Implementation of {@link BoardPanel} interface.
  * Models a basic view containing the game map and the buttons.
  */
-public class BoardPanel extends JPanel implements BoardZone, Cloneable {
+public final class BoardPanel extends JPanel implements BoardZone, Cloneable {
 
     private static final long serialVersionUID = 1L;
-    private static final String MAP_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH)
-            .append("images")
+    private static final String MAP_PATH = new StringBuilder("/images")
             .append(ViewConstants.PATH_SEPARATOR)
             .append("RisikoMap.jpg")
             .toString();
@@ -71,20 +74,30 @@ public class BoardPanel extends JPanel implements BoardZone, Cloneable {
     public BoardPanel(final MainController controller) {
         this.controller = controller.getCopy();
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final ImageIcon map = new ImageIcon(adjustImageSize(new ImageIcon(MAP_PATH), (int) screenSize.getWidth(),
-                (int) screenSize.getHeight()));
-
-        final JLabel label = new JLabel(map);
-        label.setBounds(0, 0, map.getIconWidth(), map.getIconHeight());
-
-        loadButtons(map.getIconWidth(), map.getIconHeight());
-        loadLabels(map.getIconWidth(), map.getIconHeight());
-        // Puts all buttons and labels on layer 1 (above the map)
-        this.territories.keySet().forEach(b -> this.pane.add((JButton) b, Integer.valueOf(1)));
-        this.squares.values().forEach(t -> this.pane.add(t, Integer.valueOf(1)));
-
-        this.pane.add(label, Integer.valueOf(0)); // Puts the map on the lowest layer (0)
-        this.pane.setPreferredSize(new Dimension(map.getIconWidth(), map.getIconHeight()));
+        Optional<BufferedImage> bi = Optional.empty();
+        Optional<ImageIcon> map = Optional.empty();
+        try {
+            bi = Optional.of(ImageIO.read(this.getClass().getResourceAsStream(MAP_PATH)));
+        } catch (IOException e) {
+            Logger.getLogger(BoardPanel.class.getName()).log(Level.SEVERE, "File not found in the path given", e);
+        }
+        if (bi.isPresent()) {
+            map = Optional.of(new ImageIcon(adjustImageSize(new ImageIcon(bi.get()), 
+                    (int) screenSize.getWidth(),
+                    (int) screenSize.getHeight())));
+        }
+        if (map.isPresent()) {
+            final JLabel label = new JLabel(map.get());
+            label.setBounds(0, 0, map.get().getIconWidth(), map.get().getIconHeight());
+            loadButtons(map.get().getIconWidth(), map.get().getIconHeight());
+            loadLabels(map.get().getIconWidth(), map.get().getIconHeight());
+            // Puts all buttons and labels on layer 1 (above the map)
+            this.territories.keySet().forEach(b -> this.pane.add((JButton) b, Integer.valueOf(1)));
+            this.squares.values().forEach(t -> this.pane.add(t, Integer.valueOf(1)));
+            // Puts the map on the lowest layer (0)
+            this.pane.add(label, Integer.valueOf(0));
+            this.pane.setPreferredSize(new Dimension(map.get().getIconWidth(), map.get().getIconHeight()));
+        }
         this.add(this.pane);
     }
 

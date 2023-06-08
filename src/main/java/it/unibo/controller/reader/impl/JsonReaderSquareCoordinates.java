@@ -1,6 +1,5 @@
 package it.unibo.controller.reader.impl;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -22,10 +21,10 @@ import it.unibo.controller.controllerconstants.ControllerConstants;
  */
 public final class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pair<String, Pair<Double, Double>>>> {
 
-    private static final String SQUARES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
-            .append("config")
+    private static final String SQUARES_PATH = new StringBuilder("/config")
             .append(ControllerConstants.PATH_SEPARATOR)
-            .append("territory").append(ControllerConstants.PATH_SEPARATOR)
+            .append("territory")
+            .append(ControllerConstants.PATH_SEPARATOR)
             .append("SquareCoordinates.json")
             .toString();
 
@@ -51,8 +50,9 @@ public final class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pa
         final JSONParser parser = new JSONParser();
         JSONObject obj;
         try {
-            final FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
-            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+            final InputStreamReader inputStreamReader = new InputStreamReader(
+                    this.getClass().getResourceAsStream(SQUARES_PATH), 
+                    StandardCharsets.UTF_8);
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
             for (final Object elem : array) {
                 obj = (JSONObject) elem;
@@ -61,7 +61,6 @@ public final class JsonReaderSquareCoordinates extends AbstractFileReader<Set<Pa
                 final double y = Double.parseDouble(obj.get("y").toString());
                 this.squares.add(new Pair<>(name, new Pair<>(x, y)));
             }
-            fileInputStream.close();
             inputStreamReader.close();
         } catch (IOException e) {
             this.getLogger().log(Level.SEVERE, "File not found in the path given", e);
