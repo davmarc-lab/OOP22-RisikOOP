@@ -29,7 +29,6 @@ import it.unibo.controller.reader.impl.JsonReaderCoordinates;
 import it.unibo.controller.reader.impl.JsonReaderSquareCoordinates;
 import it.unibo.view.gamescreen.CustomButton;
 import it.unibo.view.gamescreen.api.BoardZone;
-import it.unibo.view.viewconstants.ViewConstants;
 
 /**
  * Implementation of {@link BoardPanel} interface.
@@ -38,10 +37,7 @@ import it.unibo.view.viewconstants.ViewConstants;
 public final class BoardPanel extends JPanel implements BoardZone, Cloneable {
 
     private static final long serialVersionUID = 1L;
-    private static final String MAP_PATH = new StringBuilder("/images")
-            .append(ViewConstants.PATH_SEPARATOR)
-            .append("RisikoMap.jpg")
-            .toString();
+    private static final String MAP_PATH = "/images/RisikoMap.jpg";
     private static final double WIDTH_SCALING = 0.9;
     private static final double HEIGHT_SCALING = 0.8;
     private static final int BUTTON_BORDER_SIZE = 2;
