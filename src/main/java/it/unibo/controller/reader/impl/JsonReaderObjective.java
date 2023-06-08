@@ -1,6 +1,5 @@
 package it.unibo.controller.reader.impl;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +13,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import it.unibo.common.Pair;
-import it.unibo.controller.controllerconstants.ControllerConstants;
 import it.unibo.model.objective.api.Objective;
 import it.unibo.model.objective.api.Objective.ObjectiveType;
 import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
@@ -24,10 +22,7 @@ import it.unibo.model.objective.impl.ObjectiveBuilderImpl;
  */
 public final class JsonReaderObjective extends AbstractFileReader<Pair<Objective, Set<Objective>>> {
 
-    private static final String OBJECTIVES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
-            .append("config")
-            .append(ControllerConstants.PATH_SEPARATOR)
-            .append("objective").append(ControllerConstants.PATH_SEPARATOR).append("Objectives.json").toString();
+    private static final String OBJECTIVES_PATH = "/config/objective/Objectives.json";
 
     private final Set<Objective> objectives;
 
@@ -53,8 +48,9 @@ public final class JsonReaderObjective extends AbstractFileReader<Pair<Objective
         JSONObject obj;
 
         try {
-            final FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
-            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+            final InputStreamReader inputStreamReader = new InputStreamReader(
+                    this.getClass().getResourceAsStream(OBJECTIVES_PATH), 
+                    StandardCharsets.UTF_8);
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
             for (final Object elem : array) {
                 obj = (JSONObject) elem;
@@ -62,8 +58,10 @@ public final class JsonReaderObjective extends AbstractFileReader<Pair<Objective
                 final JSONArray conquerArray = (JSONArray) obj.get("conquerObj");
                 final JSONArray defaultObj = (JSONArray) obj.get("defaultObj");
                 for (final Object destroyElem : destroyArray) {
-                    final Objective objective = ObjectiveBuilderImpl.newBuilder().armyColor(destroyElem.toString())
-                            .objectiveType(Objective.ObjectiveType.DESTROY).build();
+                    final Objective objective = ObjectiveBuilderImpl.newBuilder()
+                            .armyColor(destroyElem.toString())
+                            .objectiveType(Objective.ObjectiveType.DESTROY)
+                            .build();
                     this.objectives.add(objective);
                 }
                 for (final Object conquerElem : conquerArray) {
@@ -77,9 +75,11 @@ public final class JsonReaderObjective extends AbstractFileReader<Pair<Objective
                         this.objectives.add(objective);
                     } else {
                         final Objective objective = ObjectiveBuilderImpl.newBuilder()
-                                .firstContinent(cArray.get(0).toString()).secondContinent(cArray.get(1).toString())
+                                .firstContinent(cArray.get(0).toString())
+                                .secondContinent(cArray.get(1).toString())
                                 .thirdContinent(Boolean.valueOf(cArray.get(2).toString()))
-                                .objectiveType(Objective.ObjectiveType.CONQUER).build();
+                                .objectiveType(Objective.ObjectiveType.CONQUER)
+                                .build();
                         this.objectives.add(objective);
                     }
                 }
@@ -89,13 +89,13 @@ public final class JsonReaderObjective extends AbstractFileReader<Pair<Objective
                     defaultObjective = ObjectiveBuilderImpl.newBuilder()
                             .numTerritoriesToConquer(Integer.parseInt(dArray.get(0).toString()))
                             .minNumArmies(Integer.parseInt(dArray.get(1).toString()))
-                            .objectiveType(Objective.ObjectiveType.CONQUER).build();
+                            .objectiveType(Objective.ObjectiveType.CONQUER)
+                            .build();
                     this.objectives.add(defaultObjective);
 
                 }
             }
             inputStreamReader.close();
-            fileInputStream.close();
         } catch (ParseException | IOException e) {
             this.getLogger().log(Level.SEVERE, "Error parsing Objectives.json", e);
         }
