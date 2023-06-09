@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.api;
+package it.unibo.view.gamescreen.api;
 
 /**
  * Provides methods to start and close views.
@@ -31,6 +31,8 @@ public interface MainView {
     void reveal();
 
     /**
+     * Retrieves a copy of the MainView.
+     * 
      * @return a copy of the MainView
      */
     MainView getCopy();

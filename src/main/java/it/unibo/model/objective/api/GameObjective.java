@@ -8,14 +8,14 @@ import java.util.Set;
 public interface GameObjective {
 
     /**
-     * Gets the set of objectives created by the factory.
+     * Retrieves the set of objectives created by the factory.
      *
      * @return the set of objectives
      */
     Set<Objective> getSetObjectives();
 
     /**
-     * Gets the default objective.
+     * Retrieves the default objective.
      * 
      * @return the default objective
      */

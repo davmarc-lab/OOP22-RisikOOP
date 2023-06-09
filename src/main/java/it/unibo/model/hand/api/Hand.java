@@ -16,7 +16,7 @@ public interface Hand {
     void addCard(Army card);
 
     /**
-     * Gets the hand.
+     * Retrieves the hand.
      * 
      * @return the hand
      */

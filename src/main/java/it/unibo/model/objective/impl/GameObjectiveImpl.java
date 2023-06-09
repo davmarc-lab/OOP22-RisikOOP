@@ -8,6 +8,7 @@ import it.unibo.model.objective.api.Objective;
 
 /**
  * Implementation of the {@link GameObjective} interface.
+ * Represents the set of objectives of the game.
  */
 public class GameObjectiveImpl implements GameObjective {
 

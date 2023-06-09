@@ -9,12 +9,16 @@ import java.util.List;
 public interface TurnManager {
 
     /**
+     * Retrieves the list of the players' IDs.
+     * 
      * @return the list of the players' IDs
      */
     List<Integer> getPlayersId();
 
     /**
-     * @return the player that is playing.
+     * Retrieves the current player ID.
+     * 
+     * @return the current player ID
      */
     int getCurrentPlayerID();
 
@@ -24,6 +28,8 @@ public interface TurnManager {
     void switchToNextPlayer();
 
     /**
+     * Retrieves the iterator that cycles the list of players' IDs.
+     * 
      * @return the iterator that cycles the list of players' IDs
      */
     Iterator<Integer> getIterator();

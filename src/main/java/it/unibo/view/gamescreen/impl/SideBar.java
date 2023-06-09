@@ -1,12 +1,12 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import javax.swing.JPanel;
 
 import it.unibo.controller.gamecontroller.api.MainController;
-import it.unibo.view.game_screen.api.ButtonZone;
-import it.unibo.view.game_screen.api.CardZone;
-import it.unibo.view.game_screen.api.InfoZone;
-import it.unibo.view.game_screen.api.SideZone;
+import it.unibo.view.gamescreen.ButtonPanel;
+import it.unibo.view.gamescreen.api.CardZone;
+import it.unibo.view.gamescreen.api.InfoZone;
+import it.unibo.view.gamescreen.api.SideZone;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 
 /**
  * Implementation of {@link SideZone} interface
- * It provides methods to get all of its components.
+ * Defines the side zone where the player's information and cards are displayed.
  */
 public class SideBar extends JPanel implements SideZone, Cloneable {
 
@@ -50,10 +50,10 @@ public class SideBar extends JPanel implements SideZone, Cloneable {
         this.setLayout(layout);
         this.ip = new InfoPanel(dim, controller);
         this.cp = new CardPanel(dim, controller);
-        final ButtonZone bp = new ButtonPanel(dim, controller);
+        final ButtonPanel bp = new ButtonPanel(dim, controller);
         this.add((InfoPanel) this.ip, BorderLayout.NORTH);
         this.add((CardPanel) this.cp, BorderLayout.CENTER);
-        this.add((ButtonPanel) bp, BorderLayout.SOUTH);
+        this.add(bp, BorderLayout.SOUTH);
     }
 
     /**

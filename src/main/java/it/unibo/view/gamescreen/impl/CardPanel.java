@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,12 +23,11 @@ import it.unibo.common.Pair;
 import it.unibo.controller.gamecontroller.api.MainController;
 import it.unibo.controller.playerhand.api.PlayerHandController;
 import it.unibo.controller.playerhand.impl.PlayerHandControllerImpl;
-import it.unibo.view.game_screen.api.CardZone;
+import it.unibo.view.gamescreen.api.CardZone;
 
 /**
  * Implementation of {@link CardZone} interface.
- * It provides method to update the view and set the
- * {@link PlayerHandController}.
+ * Provides methods to set the {@link PlayerHandController} to update the view.
  */
 public class CardPanel extends JPanel implements CardZone, Cloneable {
 
@@ -137,7 +136,11 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
     @Override
     public void updateView() {
         IntStream.range(0, 3).boxed().forEach(i -> {
-            final JButton b = this.map.entrySet().stream().collect(Collectors.toList()).get(i).getKey().getY();
+            final JButton b = this.map.entrySet().stream()
+                    .collect(Collectors.toList())
+                    .get(i)
+                    .getKey()
+                    .getY();
             if (DEFAUL_STRING.equals(b.getText())) {
                 b.setText(this.phc.getCardName(i));
             }
@@ -162,7 +165,8 @@ public class CardPanel extends JPanel implements CardZone, Cloneable {
         try {
             return (CardZone) this.clone();
         } catch (CloneNotSupportedException e) {
-            Logger.getLogger(CardPanel.class.getName()).log(Level.SEVERE, "Cannot create a copy of the object");
+            Logger.getLogger(CardPanel.class.getName())
+                    .log(Level.SEVERE, "Cannot create a copy of the object");
         }
         throw new IllegalCallerException("Cannot create a copy");
     }

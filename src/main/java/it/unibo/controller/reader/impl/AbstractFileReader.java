@@ -23,14 +23,12 @@ public abstract class AbstractFileReader<T> implements FileReader<T> {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
     public abstract T readFromFile();
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -39,7 +37,6 @@ public abstract class AbstractFileReader<T> implements FileReader<T> {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override

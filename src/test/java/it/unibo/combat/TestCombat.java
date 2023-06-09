@@ -37,10 +37,24 @@ class TestCombat {
     private static final String VENEZUELA_NAME = "Venezuela";
     private static final String SCANDINAVIA_NAME = "Scandinavia";
 
-    private final Player p1 = PlayerBuilderImpl.newBuilder().id(1).territoryDeck(new DeckImpl<>())
-            .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build()).build();
-    private final Player p2 = PlayerBuilderImpl.newBuilder().id(2).territoryDeck(new DeckImpl<>())
-            .playerHand(new HandImpl()).objective(ObjectiveBuilderImpl.newBuilder().build()).build();
+    private final Player p1 = PlayerBuilderImpl
+            .newBuilder()
+            .id(1)
+            .territoryDeck(new DeckImpl<>())
+            .playerHand(new HandImpl())
+            .objective(ObjectiveBuilderImpl
+                    .newBuilder()
+                    .build())
+            .build();
+    private final Player p2 = PlayerBuilderImpl
+            .newBuilder()
+            .id(2)
+            .territoryDeck(new DeckImpl<>())
+            .playerHand(new HandImpl())
+            .objective(ObjectiveBuilderImpl
+                    .newBuilder()
+                    .build())
+            .build();
 
     private GameTerritory territories;
 
@@ -74,7 +88,8 @@ class TestCombat {
                 .forEach(t -> p1.removeTerritory(t));
         assertEquals(Set.of(territories.getTerritory(SOUTHERN_EUROPE_NAME), territories.getTerritory(VENEZUELA_NAME)),
                 p1.getTerritories());
-        Stream.of(territories.getTerritory(UKRAINE_NAME)).forEach(t -> p2.removeTerritory(t));
+        Stream.of(territories.getTerritory(UKRAINE_NAME))
+                .forEach(t -> p2.removeTerritory(t));
         assertEquals(Set.of(territories.getTerritory(BRAZIL_NAME)), p2.getTerritories());
         Stream.of(territories.getTerritory(EGYPT_NAME), territories.getTerritory(UKRAINE_NAME))
                 .forEach(t -> p2.addTerritory(t));
@@ -88,11 +103,13 @@ class TestCombat {
         s.addTroops(2);
         final var d = territories.getTerritory(UKRAINE_NAME);
         d.addTroops(3);
-        final Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS), new ArrayList<>(DEFENDERS_INTEGERS),
+        final Combat c1 = new CombatImpl(s, 2, d, 3, new ArrayList<>(ATTACKERS_INTEGERS),
+                new ArrayList<>(DEFENDERS_INTEGERS),
                 true);
         assertEquals(new Pair<>(0, 2), c1.attack(2, 3));
         d.addTroops(-(int) List.of(Combat.Result.WIN, Combat.Result.WIN).stream()
-                .filter(r -> r.equals(Combat.Result.WIN)).count());
+                .filter(r -> r.equals(Combat.Result.WIN))
+                .count());
         assertEquals(List.of(2, 1), List.of(s.getTroops(), d.getTroops()));
     }
 

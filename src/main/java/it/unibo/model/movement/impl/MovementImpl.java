@@ -8,6 +8,8 @@ import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
  * Implementation of {@link Movement}.
+ * Provides methods to instance troops movements between the territories of a
+ * player and checks the validity of the movement.
  */
 public class MovementImpl implements Movement {
 
@@ -35,6 +37,8 @@ public class MovementImpl implements Movement {
     @Override
     public boolean isMovementValid() {
         return this.source.getTroops() - this.troops >= 1 && this.source.getAdjTerritories().stream()
-                .map(t -> t.getName()).collect(Collectors.toSet()).contains(this.destination.getName());
+                .map(t -> t.getName())
+                .collect(Collectors.toSet())
+                .contains(this.destination.getName());
     }
 }

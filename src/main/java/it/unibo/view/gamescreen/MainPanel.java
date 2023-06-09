@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen;
+package it.unibo.view.gamescreen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,15 +8,16 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,20 +27,16 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.reader.impl.AbstractFileReader;
-import it.unibo.view.game_screen.impl.MainFrame;
-import it.unibo.view.viewconstants.ViewConstants;
+import it.unibo.view.gamescreen.impl.MainFrame;
 
 /**
  * Defines the main panel of the game with the start menu.
  */
-public class MainPanel extends JPanel {
+public final class MainPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-
-    private static final String RULES_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("instructions")
-            .append(ViewConstants.PATH_SEPARATOR).append("rules.txt").toString();
-    private static final String WALLPAPER_PATH = new StringBuilder(ViewConstants.RESOURCES_PATH).append("images")
-            .append(ViewConstants.PATH_SEPARATOR).append("MenuWallpaper.jpg").toString();
+    private static final String RULES_PATH = "/instructions/rules.txt";
+    private static final String WALLPAPER_PATH = "/images/MenuWallpaper.jpg";
 
     private static final String PLAY_LABEL = "Play";
     private static final String QUIT_LABEL = "Quit";
@@ -71,7 +68,8 @@ public class MainPanel extends JPanel {
         final JLabel label;
         final JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         final JPanel northPanel = new JPanel(new FlowLayout());
-        final ImageIcon wallpaper;
+        Optional<ImageIcon> wallpaper = Optional.empty();
+        Optional<BufferedImage> bufferedImage = Optional.empty();
 
         pane = new JLayeredPane();
 
@@ -79,15 +77,22 @@ public class MainPanel extends JPanel {
         panel.setLayout(new BorderLayout());
 
         this.dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(
-                new Dimension(Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
-                        Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue()));
+        this.setPreferredSize(new Dimension(Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
+                Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue()));
 
-        wallpaper = new ImageIcon(adjustImageSize(new ImageIcon(WALLPAPER_PATH),
-                dimension.getWidth(), this.dimension.getHeight()));
+        try {
+            bufferedImage = Optional.of(ImageIO.read(this.getClass().getResourceAsStream(WALLPAPER_PATH)));
+        } catch (IOException e) {
+            Logger.getLogger(MainPanel.class.getName())
+                    .log(Level.SEVERE, "File not found in the path given.", e);
+        }
 
-        label = new JLabel(wallpaper);
-        label.setBounds(0, 0, wallpaper.getIconWidth(), wallpaper.getIconHeight());
+        if (bufferedImage.isPresent()) {
+            wallpaper = Optional.of(new ImageIcon(adjustImageSize(new ImageIcon(bufferedImage.get()),
+                    dimension.getWidth(), this.dimension.getHeight())));
+        }
+        label = new JLabel(wallpaper.get());
+        label.setBounds(0, 0, wallpaper.get().getIconWidth(), wallpaper.get().getIconHeight());
 
         jbPlay = this.createButton(PLAY_LABEL, this.getButtonDimension());
         jbRules = this.createButton(RULES_LABEL, this.getButtonDimension());
@@ -112,40 +117,35 @@ public class MainPanel extends JPanel {
             }
         });
 
-        try {
-            final String message;
-            message = new AbstractFileReader<String>(RULES_PATH) {
-                private InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(RULES_PATH),
-                        StandardCharsets.UTF_8);
-                private BufferedReader reader = new BufferedReader(inputStreamReader);
-
-                @Override
-                public String readFromFile() {
-                    String line;
-                    final StringBuilder sBuilder = new StringBuilder();
-                    try {
+        final String message;
+        message = new AbstractFileReader<String>(RULES_PATH) {
+            private BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(this.getClass().getResourceAsStream(RULES_PATH),
+                    StandardCharsets.UTF_8));
+            @Override
+            public String readFromFile() {
+                String line;
+                final StringBuilder sBuilder = new StringBuilder();
+                try {
+                    line = reader.readLine();
+                    while (line != null) {
+                        sBuilder.append(line)
+                                .append('\n');
                         line = reader.readLine();
-                        while (line != null) {
-                            sBuilder.append(line).append('\n');
-                            line = reader.readLine();
-                        }
-                        reader.close();
-                    } catch (IOException e) {
-                        this.getLogger().log(Level.SEVERE, "Reading from file error", e);
                     }
-                    return sBuilder.toString();
+                    reader.close();
+                } catch (IOException e) {
+                    this.getLogger().log(Level.SEVERE, "Reading from file error", e);
                 }
-
-            }.readFromFile();
-            jbRules.addActionListener(e -> {
-                JOptionPane.showMessageDialog(this, message);
-            });
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, "File not found in the path given", e);
-        }
+                return sBuilder.toString();
+            }
+        }.readFromFile();
+        jbRules.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, message);
+        });
 
         pane.add(label, Integer.valueOf(0));
-        pane.setPreferredSize(new Dimension(wallpaper.getIconWidth(), wallpaper.getIconHeight()));
+        pane.setPreferredSize(new Dimension(wallpaper.get().getIconWidth(), wallpaper.get().getIconHeight()));
 
         northPanel.add(jbPlay);
         northPanel.add(jbQuit);
@@ -158,8 +158,7 @@ public class MainPanel extends JPanel {
         southPanel.setBounds(0, 0, Double.valueOf(this.getInnerPanelDimension().getWidth()).intValue(),
                 Double.valueOf(this.getInnerPanelDimension().getHeight()).intValue());
 
-        panel.setBounds(0, 0,
-                Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
+        panel.setBounds(0, 0, Double.valueOf(this.dimension.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * HEIGHT_PERC).intValue());
         panel.add(northPanel, BorderLayout.NORTH);
         panel.add(southPanel, BorderLayout.SOUTH);
@@ -203,18 +202,17 @@ public class MainPanel extends JPanel {
     }
 
     /**
-     * Gets the dimension of the button.
+     *Retrieves the dimension of the button.
      * 
      * @return the dimension of the button
      */
     private Dimension getButtonDimension() {
-        return new Dimension(
-                Double.valueOf(this.dimension.getWidth() * BUTTON_WIDTH_PERC).intValue(),
+        return new Dimension(Double.valueOf(this.dimension.getWidth() * BUTTON_WIDTH_PERC).intValue(),
                 Double.valueOf(this.dimension.getHeight() * BUTTON_HEIGHT_PERC).intValue());
     }
 
     /**
-     * Gets the dimension of the inner panel.
+     *Retrieves the dimension of the inner panel.
      * 
      * @return the dimension of the inner panel
      */

@@ -12,10 +12,12 @@ public interface Army {
          * Represents the Infantry Army card.
          */
         INFANTRY("Infantry"),
+
         /**
          * Represents the Cavalry Army card.
          */
         CAVALRY("Cavalry"),
+
         /**
          * Represents the Artillery Army card.
          */
@@ -28,6 +30,8 @@ public interface Army {
         }
 
         /**
+         * Retrieves the name of the type.
+         * 
          * @return the name of the type
          */
         public String getName() {
@@ -36,7 +40,7 @@ public interface Army {
     }
 
     /**
-     * Gets the type of the Army card.
+     * Retrieves the type of the Army card.
      * 
      * @return the type of the Army card.
      */

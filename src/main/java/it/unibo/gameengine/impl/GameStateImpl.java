@@ -36,6 +36,14 @@ public class GameStateImpl implements GameState {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setController(final MainController controller) {
+        this.mc = controller.getCopy();
+    }
+
+    /**
      * Checks if any player has won the game.
      *
      * @return {@code true} if a player has won the game, {@code false} otherwise
@@ -137,13 +145,4 @@ public class GameStateImpl implements GameState {
         return player.getTerritories().containsAll(this.mc.getGameEngine().getBoard().getGameTerritories()
                 .getTerritoryMap().get(continent));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setController(final MainController controller) {
-        this.mc = controller.getCopy();
-    }
-
 }

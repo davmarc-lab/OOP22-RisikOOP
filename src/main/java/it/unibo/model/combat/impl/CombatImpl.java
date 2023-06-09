@@ -12,6 +12,9 @@ import it.unibo.model.territory.impl.TerritoryImpl;
 
 /**
  * Implementation of {@link Combat} interface.
+ * Provides methods to instance a combat
+ * between two players and enums to check the results and
+ * roles of each player.
  */
 public class CombatImpl implements Combat {
 
@@ -88,11 +91,11 @@ public class CombatImpl implements Combat {
     public Pair<Integer, Integer> attack(final int numAttacker, final int numDefender) {
         this.numberAttacker = numAttacker;
         this.numberDefender = numDefender;
+        // only for test purpose
         if (testFlag) {
             if (!isNumberTroopsValid()) {
                 throw new IllegalArgumentException("The number of troops cannot be less or equal 0 or more than 3");
             }
-            // only for test purpose
             if (!checkAttackValidity()) {
                 return INVALID_COMBAT;
             }
@@ -151,8 +154,12 @@ public class CombatImpl implements Combat {
             defenders.remove(0);
         }
         return new Pair<>(
-                (int) results.stream().filter(r -> r.equals(Combat.Result.LOSE)).count(),
-                (int) results.stream().filter(r -> r.equals(Combat.Result.WIN)).count());
+                (int) results.stream()
+                        .filter(r -> r.equals(Combat.Result.LOSE))
+                        .count(),
+                (int) results.stream()
+                        .filter(r -> r.equals(Combat.Result.WIN))
+                        .count());
     }
 
     /**
@@ -161,6 +168,9 @@ public class CombatImpl implements Combat {
      * @return {@code true} if the combat is valid
      */
     private boolean checkAttackValidity() {
-        return this.tAttacker.getAdjTerritories().stream().map(t -> t.getName()).toList().contains(tDefender.getName());
+        return this.tAttacker.getAdjTerritories().stream()
+                .map(t -> t.getName())
+                .toList()
+                .contains(this.tDefender.getName());
     }
 }

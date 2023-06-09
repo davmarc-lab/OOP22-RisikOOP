@@ -9,7 +9,7 @@ import java.util.Set;
 public interface GameTerritory {
 
     /**
-     * Gets the name of the continent of the given territory.
+     * Retrieves the name of the continent of the given territory.
      * 
      * @param t the territory
      * @return the name of the continent of the given territory
@@ -17,28 +17,28 @@ public interface GameTerritory {
     String getContinentNameFromTerritory(Territory t);
 
     /**
-     * Gets the map of all territories divided into continents.
+     * Retrieves the map of all territories divided into continents.
      * 
      * @return the map of the continent and his set of territories
      */
     Map<String, Set<Territory>> getTerritoryMap();
 
     /**
-     * Gets the set of all territorry's name.
+     * Retrieves the set of all territorry's name.
      * 
      * @return the set of all territory names
      */
     Set<String> getTerritoryNameSet();
 
     /**
-     * Gets the set of all territories.
+     * Retrieves the set of all territories.
      * 
      * @return the set of all the territories
      */
     Set<Territory> getTerritories();
 
     /**
-     * Gets the territory by his name.
+     * Retrieves the territory by his name.
      * 
      * @param name the territory name
      * @return the territory whose name is the one given
@@ -46,7 +46,7 @@ public interface GameTerritory {
     Territory getTerritory(String name);
 
     /**
-     * Gets the set of all territories of a continent.
+     * Retrieves the set of all territories of a continent.
      * 
      * @param name the name of the continent
      * @return the set of all territories of the given continent.

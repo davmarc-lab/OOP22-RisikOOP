@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.api;
+package it.unibo.view.gamescreen.api;
 
 import java.util.Set;
 
@@ -47,6 +47,8 @@ public interface BoardZone {
     Dimension getDimension();
 
     /**
+     * Retrieves a copy of BoardZone.
+     * 
      * @return a copy of BoardZone
      */
     BoardZone getCopy();

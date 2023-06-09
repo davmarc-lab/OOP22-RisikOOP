@@ -22,22 +22,27 @@ public interface Player {
          * Purple color.
          */
         PURPLE("PURPLE", 166, 77, 255),
+
         /**
          * Blue color.
          */
         BLUE("BLUE", 0, 153, 255),
+
         /**
          * Red color.
          */
         RED("RED", 255, 0, 0),
+
         /**
          * Green color.
          */
         GREEN("GREEN", 0, 255, 0),
+
         /**
          * Orange color.
          */
         ORANGE("ORANGE", 255, 133, 51),
+
         /**
          * White color.
          */

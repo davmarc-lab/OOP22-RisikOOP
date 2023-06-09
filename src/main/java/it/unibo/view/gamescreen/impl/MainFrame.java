@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,17 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import it.unibo.controller.gamecontroller.api.StartController;
-import it.unibo.view.game_screen.MainPanel;
-import it.unibo.view.game_screen.api.MainView;
+import it.unibo.view.gamescreen.MainPanel;
+import it.unibo.view.gamescreen.api.MainView;
 
 /**
  * Implementation of {@link MainView} interface.
- * Defines the main frame of the game.
+ * Provides methods to start and close views.
  */
 public class MainFrame extends JFrame implements MainView, Cloneable {
 
     private static final long serialVersionUID = 1L;
-
     private static final String FRAME_NAME = "RisikOOP";
 
     private final transient StartController controller;
@@ -57,7 +56,7 @@ public class MainFrame extends JFrame implements MainView, Cloneable {
      */
     @Override
     public void changeToGamePanel() {
-        this.changePanel((JPanel) this.controller.getMainController().getGameZone());
+        this.changePanel(this.controller.getMainController().getGamePanel());
     }
 
     /**
@@ -93,7 +92,8 @@ public class MainFrame extends JFrame implements MainView, Cloneable {
         try {
             return (MainView) this.clone();
         } catch (CloneNotSupportedException e) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Cannot create the copy of the object.");
+            Logger.getLogger(MainFrame.class.getName())
+                    .log(Level.SEVERE, "Cannot create the copy of the object.");
         }
         throw new IllegalCallerException("Cannot create a copy");
     }

@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.api;
+package it.unibo.view.gamescreen.api;
 
 import it.unibo.controller.playerhand.api.PlayerHandController;
 
@@ -18,6 +18,8 @@ public interface CardZone {
     void updateView();
 
     /**
+     * Retrieves a copy of CardZone.
+     * 
      * @return a copy of CardZone
      */
     CardZone getCopy();

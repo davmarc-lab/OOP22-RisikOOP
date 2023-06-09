@@ -1,6 +1,5 @@
 package it.unibo.controller.reader.impl;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -16,17 +15,13 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import it.unibo.common.Pair;
-import it.unibo.controller.controllerconstants.ControllerConstants;
 
 /**
  * Json reader for the coordinates of the territories.
  */
 public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<String, List<Double>>>> {
 
-    private static final String COORDINATES_PATH = new StringBuilder(ControllerConstants.RESOURCES_PATH)
-            .append("config")
-            .append(ControllerConstants.PATH_SEPARATOR).append("territory").append(ControllerConstants.PATH_SEPARATOR)
-            .append("Coordinates.json").toString();
+    private static final String COORDINATES_PATH = "/config/territory/Coordinates.json";
 
     private final Set<Pair<String, List<Double>>> territories;
 
@@ -51,8 +46,9 @@ public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<Str
         final JSONParser parser = new JSONParser();
         JSONObject obj;
         try {
-            final FileInputStream fileInputStream = new FileInputStream(this.getFilePath());
-            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+            final InputStreamReader inputStreamReader = new InputStreamReader(
+                    this.getClass().getResourceAsStream(COORDINATES_PATH), 
+                    StandardCharsets.UTF_8);
             final JSONArray array = (JSONArray) parser.parse(inputStreamReader);
             for (final Object elem : array) {
                 obj = (JSONObject) elem;
@@ -64,7 +60,6 @@ public final class JsonReaderCoordinates extends AbstractFileReader<Set<Pair<Str
                 values.add(Double.parseDouble(obj.get("height").toString()));
                 this.territories.add(new Pair<>(name, values));
             }
-            fileInputStream.close();
             inputStreamReader.close();
         } catch (IOException e) {
             this.getLogger().log(Level.SEVERE, "File not found in the path given", e);

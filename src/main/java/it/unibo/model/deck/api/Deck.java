@@ -36,7 +36,7 @@ public interface Deck<T> {
     void shuffle();
 
     /**
-     * Gets the deck.
+     * Retrieves the deck.
      * 
      * @return the deck
      */

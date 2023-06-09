@@ -3,7 +3,8 @@ package it.unibo.view.movement.api;
 import it.unibo.controller.movement.api.MovementController;
 
 /**
- * This interface define the methods for a {@code MovementView}.
+ * Represents a graphical frame displaying the
+ * movement view.
  */
 public interface MovementView {
 

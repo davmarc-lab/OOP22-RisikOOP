@@ -4,7 +4,7 @@ import java.util.Set;
 
 import it.unibo.gameengine.api.GameEngine;
 import it.unibo.model.player.api.Player;
-import it.unibo.view.game_screen.api.GameZone;
+import it.unibo.view.gamescreen.GamePanel;
 
 /**
  * It models the main controller that allows the {@link GameZone} to
@@ -70,7 +70,7 @@ public interface MainController {
      * 
      * @return the area that contains the board and the sidebar
      */
-    GameZone getGameZone();
+    GamePanel getGamePanel();
 
     /**
      * Starts game engine.
@@ -123,12 +123,12 @@ public interface MainController {
     void setSquares();
 
     /**
-     * It updates the Info at the top of sidebar.
+     * Updates the Info at the top of sidebar.
      */
     void updateInfo();
 
     /**
-     * It updates the cards of the current player at the centrer of sidebar.
+     * Updates the cards of the current player at the centrer of sidebar.
      */
     void updateCards();
 
@@ -138,6 +138,8 @@ public interface MainController {
     void setCardController();
 
     /**
+     * Retrieves a copy of MainController.
+     * 
      * @return a copy of MainController
      */
     MainController getCopy();

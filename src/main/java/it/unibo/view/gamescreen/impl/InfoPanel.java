@@ -1,4 +1,4 @@
-package it.unibo.view.game_screen.impl;
+package it.unibo.view.gamescreen.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,11 +14,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.gamecontroller.api.MainController;
-import it.unibo.view.game_screen.api.InfoZone;
+import it.unibo.view.gamescreen.api.InfoZone;
 
 /**
  * Implementation of {@link InfoZone} interface.
- * It provides a method to update the view.
+ * Defines the area inside the side zone where player
+ * information is shown.
  */
 public class InfoPanel extends JPanel implements InfoZone {
 
@@ -97,9 +98,12 @@ public class InfoPanel extends JPanel implements InfoZone {
      */
     @Override
     public void updateView() {
-        this.pLabel
-                .setText(new StringBuilder("Player ").append(Integer.toString(this.getCurrentPlayerId())).toString());
-        this.cLabel.setText(new StringBuilder("Color : ").append(this.getCurrentPlayerColor()).toString());
+        this.pLabel.setText(new StringBuilder("Player ")
+                .append(Integer.toString(this.getCurrentPlayerId()))
+                .toString());
+        this.cLabel.setText(new StringBuilder("Color : ")
+                .append(this.getCurrentPlayerColor())
+                .toString());
         this.objText.setText(this.getCurrentPlayerObjective());
     }
 

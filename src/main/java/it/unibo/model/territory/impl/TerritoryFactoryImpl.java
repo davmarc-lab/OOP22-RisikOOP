@@ -9,6 +9,7 @@ import it.unibo.model.territory.api.Territory;
 import it.unibo.model.territory.api.TerritoryFactory;
 import it.unibo.common.Pair;
 import it.unibo.controller.reader.impl.JsonReaderTerritory;
+
 /**
  * Implementation of {@link TerritoryFactory} interface.
  * Represents a factory that creates territories from a JSON file.
