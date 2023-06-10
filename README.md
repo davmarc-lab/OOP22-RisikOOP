@@ -9,7 +9,7 @@ L'applicazione vuole emulare il gioco da tavolo [Risiko](https://risiko.it/wp-co
   - Pracucci Filippo
   
   ## **Istruzioni**
-  All'avvio dell'applicazione l'utente verrà interfacciato con il menu principale, dove potr\`a scegliere tra i pulsanti:
+  All'avvio dell'applicazione l'utente verrà interfacciato con il menù principale, dove potrà scegliere tra i pulsanti:
   - **PLAY:** avvia una partita.
   - **QUIT:** comparirà un popup di conferma per uscire dall'applicazione.
   - **RULES:** comparirà un popup dove ci saranno scritte le regole del gioco.
